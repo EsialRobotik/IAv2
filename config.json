@@ -1,0 +1,50 @@
+{
+  "desc" : "Configuration du robot 2018",
+  "gpioColorSelector": 5,
+  "gpioTirette": 4,
+  "matchDuration": 99,
+  "tablePath": "table.tbl",
+  "commandFile": "configCollection.json",
+
+  "asserv": {
+    "baud":115200,
+    "serie":"/dev/serial/by-id/usb-mbed_Microcontroller_101000000000000000000002F7F2854A-if01"
+  },
+
+  "action": {
+    "baud":115200,
+    "serie":"/dev/ttyUSB0",
+    "dataDir":"/home/pi/IA/actions/"
+  },
+
+  "detection": {
+    "ultrasound" : {
+      "type":"srf04",
+      "gpioList":[
+        {
+          "desc" : "Avant gauche",
+          "in" : 22,
+          "out": 21
+        },
+        {
+          "desc" : "Avant milieu",
+          "in" : 2,
+          "out": 0
+        },
+        {
+          "desc" : "Avant droit",
+          "in" : 24,
+          "out": 25
+        },
+        {
+          "desc" : "Arrière",
+          "in" : 12,
+          "out": 13
+        }
+      ]
+    },
+    "lidar": {
+      "port": "/dev/ttyUSB1"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+package actions.a2017.minerai;
+
+import actions.a2017.ActionAX12Abstract;
+
+/**
+ * Created by franc on 19/05/2017.
+ * Déploie le ramasse minerai
+ */
+public class MineraiRamasser extends ActionAX12Abstract {
+
+	@Override
+	protected void childExecution() {
+		go(ETAT.MINERAI_RAMASSER);
+	}
+
+}

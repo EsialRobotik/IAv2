@@ -1,0 +1,65 @@
+plugins {
+    id 'java'
+}
+
+plugins {
+    id 'org.hidetake.ssh' version '2.10.1'
+}
+
+version '2.0'
+
+sourceCompatibility = 1.8
+
+remotes {
+    webServer {
+        host = '192.168.1.101'
+        user = 'esialrobotik'
+        identity = file('id_rsa')
+    }
+}
+
+//create a single Jar with all dependencies
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'IA',
+                'Implementation-Version': version,
+                'Main-Class': 'core.Main'
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
+// SSH deploy
+task deployPrincess {
+    doLast {
+        ssh.run {
+            session(remotes.webServer) {
+                put from: 'esialrobotik.ia-all-2.0.jar', into: '/ia'
+                execute 'sudo sync'
+            }
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+
+    // Log4J : https://logging.apache.org/log4j/2.x/
+    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.13.1'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.13.1'
+
+    // Pi4J : https://pi4j.com/1.2/index.html
+    compile 'com.pi4j:pi4j-core:1.2'
+
+    // RPLidar4J : https://github.com/ev3dev-lang-java/RPLidar4J
+    implementation 'com.github.ev3dev-lang-java:RPLidar4J:0.4.0'
+
+    // GSon
+    implementation 'com.google.code.gson:gson:2.8.6'
+}
