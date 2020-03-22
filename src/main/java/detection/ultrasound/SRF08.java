@@ -307,7 +307,7 @@ public class SRF08 implements UltraSoundInterface {
         int hi_byte = buffer[2];
         int lo_byte = buffer[3];
         distance = (int)(((byte)(hi_byte << 8)) + lo_byte);
-        logger.info("SRF08 : Measurement done : " + distance + " mm (low byte:" +
+        logger.info("SRF08 : Measurement done : " + distance + " cm (low byte:" +
                     lo_byte + String.format(" (0x%X)", lo_byte) + " high byte :" +
                     hi_byte + String.format(" (0x%X)", hi_byte));
 
