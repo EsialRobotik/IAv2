@@ -136,27 +136,33 @@ public class UltraSoundManager {
 
     public void startDebug() {
         thread = new Thread(() -> {
+            int sensorCount = detectionInterface.getUltraSoundSensorCount();
             while(!interrupted){
-                boolean[] tempDetection = new boolean[4];
+                boolean[] tempDetection = new boolean[sensorCount];
                 final long[] pull = detectionInterface.ultraSoundDetection();
                 Position position = movementManager.getPosition();
 
-                //First one is front left
-                Position pos = getObstaclePosition(position, posFrontLeft, pull[0]);
-                System.out.println("Ultrasound Avant gauche : " + pull[0] + " = " + pos.getX() + "," + pos.getY());
+                if(sensorCount>0) {
+                    //First one is front left
+                    Position pos = getObstaclePosition(position, posFrontLeft, pull[0]);
+                    System.out.println("Ultrasound Avant gauche : " + pull[0] + " = " + pos.getX() + "," + pos.getY());
 
-                //front middle
-                pos = getObstaclePosition(position, posFront, pull[1]);
-                System.out.println("Ultrasound Avant milieu : " + pull[1] + " = "  + pos.getX() + "," + pos.getY());
-
-                //front right
-                pos = getObstaclePosition(position, posFrontRight, pull[2]);
-                System.out.println("Ultrasound Avant droit : " + pull[2] + " = "  + pos.getX() + "," + pos.getY());
-
-                //back middle
-                pos = getObstaclePosition(position, posBack, pull[3]);
-                System.out.println("Ultrasound Arriere : " + pull[3] + " = "  + pos.getX() + "," + pos.getY());
-
+                    if(sensorCount>1) {
+                        //front middle
+                        pos = getObstaclePosition(position, posFront, pull[1]);
+                        System.out.println("Ultrasound Avant milieu : " + pull[1] + " = " + pos.getX() + "," + pos.getY());
+                    }
+                    if(sensorCount>2) {
+                        //front right
+                        pos = getObstaclePosition(position, posFrontRight, pull[2]);
+                        System.out.println("Ultrasound Avant droit : " + pull[2] + " = " + pos.getX() + "," + pos.getY());
+                    }
+                    if(sensorCount>3) {
+                        //back middle
+                        pos = getObstaclePosition(position, posBack, pull[3]);
+                        System.out.println("Ultrasound Arriere : " + pull[3] + " = " + pos.getX() + "," + pos.getY());
+                    }
+                }
                 detection = tempDetection;
             }
         });

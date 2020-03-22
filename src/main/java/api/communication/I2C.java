@@ -70,11 +70,56 @@ public class I2C {
         }
     }
 
+    public int read(byte register, byte[] buffer, int bufferOffset, int size) {
+        try {
+
+            return i2CDevice.read(register, buffer, bufferOffset,size);
+        } catch (IOException e) {
+            logger.error(String.format("I2C 0x%02X read register 0x%02X fail : " + e.getMessage(), deviceAddress, register));
+            return 0;
+        }
+    }
+
+    public int read(byte[] buffer, int bufferOffset, int size) {
+        try {
+
+            return i2CDevice.read(buffer, bufferOffset,size);
+        } catch (IOException e) {
+            logger.error(String.format("I2C 0x%02X read register fail : " + e.getMessage(), deviceAddress));
+            return 0;
+        }
+    }
+    public int read(int address, byte[] buffer, int bufferOffset, int size) {
+        try {
+
+            return i2CDevice.read(address, buffer, bufferOffset,size);
+        } catch (IOException e) {
+            logger.error(String.format("I2C 0x%02X read register fail : " + e.getMessage(), deviceAddress));
+            return 0;
+        }
+    }
+
     public void write(byte register, byte value) {
         try {
             i2CDevice.write(register, value);
         } catch (IOException e) {
             logger.error(String.format("I2C 0x%02X write register 0x%02X with value 0x%02X fail : " + e.getMessage(), deviceAddress, register , value));
+        }
+    }
+
+    public void write(byte register, byte[] data){
+        try {
+            i2CDevice.write(register, data);
+        } catch (IOException e) {
+            logger.error(String.format("I2C 0x%02X write register 0x%02X with value 0x%02X fail : " + e.getMessage(), deviceAddress, register , data[0]));
+        }
+    }
+
+    public void write(byte[] data, int offset, int size){
+        try {
+            i2CDevice.write(data, offset, size);
+        } catch (IOException e) {
+            logger.error(String.format("I2C 0x%02X write register 0x%02X with value 0x%02X fail : " + e.getMessage(), deviceAddress, data[0], data[1]));
         }
     }
 

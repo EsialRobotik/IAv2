@@ -5,8 +5,6 @@ import api.log.LoggerFactory;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Logger;
 
-import java.util.concurrent.locks.LockSupport;
-
 /**
  * Created by goldensgui on 15/03/2020.
  * Télémètre ultrason SRF08 analogique
@@ -158,7 +156,7 @@ public class SRF08 implements UltraSoundInterface {
         currentConfig.description = config.description;
 
 
-        if(config.i2cAddress > 0xE7 || config.i2cAddress < 0xE0) {
+        if(config.i2cAddress > 0x77 || config.i2cAddress < 0x70) {
             logger.error("Given I2C address is not within given range [0x70 : 0x77] : " + config.range + ". Default value used instead : " + DEFAULT_I2C_ADDRESS);
         }else {
             currentConfig.i2cAddress = config.i2cAddress;
@@ -192,20 +190,16 @@ public class SRF08 implements UltraSoundInterface {
      */
     public void init() {
 
+        logger.info("SRF08 init : try init");
         int res = this.i2cDevice.read((byte) REGISTER_SOFTWARE_REV); //read the
         if (res == 0){
-            logger.error("Error while trying to get Software Rev.");
+            logger.error("SRF08 init : Error while trying to get Software Rev.");
         }
         else {
-            logger.info("Sensor has the Software Rev. : " + res);
-            if( setSensorMaxGain(currentConfig.maxAnalogGain) & setSensorRange(currentConfig.range)){
-
-                    logger.info("Sensor has been initialized with following parameters : MAX_GAIN = " + currentConfig.maxAnalogGain
-                            + " , Range = " + currentConfig.range + " (" + (currentConfig.range*43 +43) + "mm)");
-                }else{
-                logger.error("At least one error occurred while initializing this SRF08 sensor which address is :"
-                            + String.format("0x%X", currentConfig.i2cAddress));
-                }
+            logger.info("SRF08 init : Sensor has the Software Rev. : " + res);
+            setSensorMaxGain(currentConfig.maxAnalogGain);
+            setSensorRange(currentConfig.range);
+            logger.info("SRF08 init : init done");
         }
 
     }
@@ -231,17 +225,12 @@ public class SRF08 implements UltraSoundInterface {
      *     The range is set to maximum every time the SRF08 is powered-up. If you need a different range, change it once as
      *     part of your system initialization code.
      * @param range The Range ID [0x0, 0xFF] to be set.
-     * @return True if the function succeeds.
      */
-    public boolean setSensorRange(int range){
+    public void setSensorRange(int range){
 
         this.i2cDevice.write((byte) REGISTER_RANGE, (byte) range);
+        this.logger.info("SRF08 : Sensor Range was set to " + range + " (" + (range*43+43) + "mm)");
 
-        if (this.i2cDevice.read((byte)REGISTER_RANGE) != range){
-            this.logger.error("Sensor Range could not be set to " + range + " (" + (range*43+43) + "mm)");
-            return false;
-        }
-        return true;
     }
 
     /**
@@ -270,17 +259,12 @@ public class SRF08 implements UltraSoundInterface {
      * their default values when it is powered-up. You can ignore and forget about them, and the SRF08 will work fine,
      * detecting objects up to 6 metres away every 65mS or slower.
      * @param gain The maximum analog gain ID [0x00, 0x1F] to be set.
-     * @return True if the function succeeds.
      */
-    public boolean setSensorMaxGain(int gain){
+    public void setSensorMaxGain(int gain){
 
         this.i2cDevice.write((byte) REGISTER_MAX_GAIN, (byte) gain);
+        this.logger.error("Sensor max analog gain was set to " + gain);
 
-        if (this.i2cDevice.read((byte)REGISTER_MAX_GAIN) != gain){
-            this.logger.error("Sensor max gain could not be set to " + gain);
-            return false;
-        }
-        return true;
     }
 
     /**
@@ -291,7 +275,10 @@ public class SRF08 implements UltraSoundInterface {
 
         logger.info("SRF08 : Asking for sensor measure by sending " + String.format("0x%X",COMMAND_RANGING_CM) +
                     " to register " + String.format("0x%X",REGISTER_COMMAND));
-        this.i2cDevice.write((byte)REGISTER_COMMAND, (byte) COMMAND_RANGING_CM);
+
+        byte buffer[] = {REGISTER_COMMAND,COMMAND_RANGING_CM,0,0};
+
+        this.i2cDevice.write(buffer, 0, 2);
 
         long checkoutTimeout = System.currentTimeMillis();
 
@@ -305,18 +292,26 @@ public class SRF08 implements UltraSoundInterface {
         SRF08 is ranging.
          */
         int distance = 10000;
-        while((System.currentTimeMillis() - checkoutTimeout < TIMEOUT)){
-            if(0x255 != this.i2cDevice.read((byte) REGISTER_SOFTWARE_REV)){
-                logger.info("SRF08 : Measure has been made.");
-                int hi_byte = this.i2cDevice.read((byte)REGISTER_HI_BYTE_01);
-                int lo_byte = this.i2cDevice.read((byte)REGISTER_LO_BYTE_01);
-
-                 distance = (hi_byte << 8) + lo_byte;
-                logger.info("SRF08 : Measurement done : " + distance + " mm (low byte:" + lo_byte + " high byte :" + hi_byte);
-                break;
-            }
-            LockSupport.parkNanos(10000);
+        buffer[0] = 0;
+        try {
+            Thread.sleep(75, 0);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
+
+        this.i2cDevice.write(buffer, 0, 1);
+        logger.info("SRF08 : Getting measure.");
+
+        this.i2cDevice.read(buffer,0,4);
+
+        int hi_byte = buffer[2];
+        int lo_byte = buffer[3];
+        distance = (int)(((byte)(hi_byte << 8)) + lo_byte);
+        logger.info("SRF08 : Measurement done : " + distance + " mm (low byte:" +
+                    lo_byte + String.format(" (0x%X)", lo_byte) + " high byte :" +
+                    hi_byte + String.format(" (0x%X)", hi_byte));
+
+
         return distance;
     }
 
