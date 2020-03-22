@@ -25,7 +25,7 @@ task fatJar(type: Jar) {
                 'Implementation-Version': version,
                 'Main-Class': 'core.Main'
     }
-    baseName = project.name + '-all'
+    baseName = project.name
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
 }
@@ -58,8 +58,8 @@ dependencies {
     compile 'com.pi4j:pi4j-core:1.2'
 
     // RPLidar4J : https://github.com/ev3dev-lang-java/RPLidar4J
-    implementation 'com.github.ev3dev-lang-java:RPLidar4J:0.4.0'
+    compile 'com.github.ev3dev-lang-java:RPLidar4J:0.4.0'
 
     // GSon
-    implementation 'com.google.code.gson:gson:2.8.6'
+    compile 'com.google.code.gson:gson:2.8.6'
 }
