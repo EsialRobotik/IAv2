@@ -5,6 +5,8 @@ import api.log.LoggerFactory;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Logger;
 
+import java.util.concurrent.locks.LockSupport;
+
 /**
  * Created by goldensgui on 15/03/2020.
  * Télémètre ultrason SRF08 analogique
@@ -287,6 +289,8 @@ public class SRF08 implements UltraSoundInterface {
      */
     public long getMeasure() {
 
+        logger.info("SRF08 : Asking for sensor measure by sending " + String.format("0x%X",COMMAND_RANGING_CM) +
+                    " to register " + String.format("0x%X",REGISTER_COMMAND));
         this.i2cDevice.write((byte)REGISTER_COMMAND, (byte) COMMAND_RANGING_CM);
 
         long checkoutTimeout = System.currentTimeMillis();
@@ -303,14 +307,15 @@ public class SRF08 implements UltraSoundInterface {
         int distance = 10000;
         while((System.currentTimeMillis() - checkoutTimeout < TIMEOUT)){
             if(0x255 != this.i2cDevice.read((byte) REGISTER_SOFTWARE_REV)){
-
+                logger.info("SRF08 : Measure has been made.");
                 int hi_byte = this.i2cDevice.read((byte)REGISTER_HI_BYTE_01);
                 int lo_byte = this.i2cDevice.read((byte)REGISTER_LO_BYTE_01);
 
                  distance = (hi_byte << 8) + lo_byte;
-                logger.info("Measurement done : " + distance + " mm (low byte:" + lo_byte + " high byte :" + hi_byte);
+                logger.info("SRF08 : Measurement done : " + distance + " mm (low byte:" + lo_byte + " high byte :" + hi_byte);
                 break;
             }
+            LockSupport.parkNanos(10000);
         }
         return distance;
     }

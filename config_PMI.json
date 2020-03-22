@@ -5,11 +5,6 @@
   "matchDuration": 99,
   "tablePath": "table.json",
   "commandFile": "configCollection.json",
-  "lcd": {
-          "i2cAddress" : 39,
-          "lineCount" : 2,
-          "lineLength" : 16
-  },
 
   "asserv": {
     "baud":115200,
@@ -28,25 +23,25 @@
       "i2cConfigList":[
         {
           "desc" : "Avant gauche (0xE1)",
-          "address" : 224, 
+          "address" : 225, 
           "maxAnalogGain" : 31,
           "range" : 13
         },
         {
           "desc" : "Avant milieu (0xE2)",
-          "address" : 225,
-          "maxAnalogGain" : 31,
-          "range" : 13
-        },
-        {
-          "desc" : "Avant droit (0xE3)",
           "address" : 226,
           "maxAnalogGain" : 31,
           "range" : 13
         },
         {
-          "desc" : "Arrière (0xE4)",
+          "desc" : "Avant droit (0xE3)",
           "address" : 227,
+          "maxAnalogGain" : 31,
+          "range" : 13
+        },
+        {
+          "desc" : "Arrière (0xE4)",
+          "address" : 228,
           "maxAnalogGain" : 31,
           "range" : 13
         }
