@@ -6,6 +6,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import detection.lidar.LidarPoint;
 import detection.ultrasound.SRF04;
+import detection.ultrasound.SRF08;
+import detection.ultrasound.SRF08Config;
 import detection.ultrasound.UltraSoundInterface;
 
 import java.util.ArrayList;
@@ -31,8 +33,25 @@ public class DetectionInterfaceImpl implements DetectionInterface{
             for (GPioPair pair : gPioPairList) {
                 srfList.add(new SRF04(pair.gpio_in, pair.gpio_out));
             }
+
+            System.out.println("Creation done : SRF04");
+
         } else if (ultrasoundObject.get("type").getAsString().equals("srf08")) {
-            // TODO instancier les SRF et les mettre dans srfList
+            System.out.println("SRF08");
+            List<SRF08Config> srf08ConfList = new ArrayList<>();
+            JsonArray srf08ConfArray = ultrasoundObject.getAsJsonArray("i2cConfigList");
+            for (JsonElement e : srf08ConfArray) {
+                JsonObject temp = e.getAsJsonObject();
+                srf08ConfList.add(new SRF08Config(temp.get("address").getAsInt(),temp.get("maxAnalogGain").getAsInt(),temp.get("range").getAsInt(),temp.get("desc").getAsString()));
+            }
+
+            srfList = new ArrayList<UltraSoundInterface>();
+            for (SRF08Config config : srf08ConfList) {
+                srfList.add(new SRF08(config));
+            }
+
+            System.out.println("Creation done : SRF08");
+
         }
     }
 

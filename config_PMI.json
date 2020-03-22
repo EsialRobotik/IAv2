@@ -3,7 +3,7 @@
   "gpioColorSelector": 5,
   "gpioTirette": 4,
   "matchDuration": 99,
-  "tablePath": "table.tbl",
+  "tablePath": "table.json",
   "commandFile": "configCollection.json",
 
   "asserv": {
@@ -23,7 +23,7 @@
 	  "i2cConfigList":[
         {
           "desc" : "Avant gauche (0x71)",
-          "address" : 113,
+          "address" : 113, 
 		  "maxAnalogGain" : 31,
 		  "range" : 13
         },

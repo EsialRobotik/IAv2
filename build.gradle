@@ -25,7 +25,7 @@ task fatJar(type: Jar) {
                 'Implementation-Version': version,
                 'Main-Class': 'core.Main'
     }
-    baseName = project.name
+    baseName = project.name+'-all'
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
 }
