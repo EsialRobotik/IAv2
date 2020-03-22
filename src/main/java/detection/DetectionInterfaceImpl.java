@@ -3,6 +3,8 @@ package detection;
 import api.gpio.GPioPair;
 import detection.lidar.LidarPoint;
 import detection.ultrasound.SRF04;
+import detection.ultrasound.SRF08;
+import detection.ultrasound.SRF08Config;
 import detection.ultrasound.UltraSoundInterface;
 
 import java.util.ArrayList;
@@ -15,12 +17,22 @@ public class DetectionInterfaceImpl implements DetectionInterface{
 
     private List<UltraSoundInterface> srfList;
 
+    public DetectionInterfaceImpl() {
+    }
+
     public DetectionInterfaceImpl(List<GPioPair> gPioPairList, String srfType) {
         srfList = new ArrayList<UltraSoundInterface>();
         for(GPioPair pair : gPioPairList) {
             if (srfType.equals("srf04")) {
                 srfList.add(new SRF04(pair.gpio_in, pair.gpio_out));
             }
+        }
+    }
+
+    public DetectionInterfaceImpl(List<SRF08Config> srf8List) {
+        srfList = new ArrayList<UltraSoundInterface>();
+        for(SRF08Config config : srf8List) {
+                srfList.add(new SRF08(config));
         }
     }
 

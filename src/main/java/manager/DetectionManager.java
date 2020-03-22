@@ -37,7 +37,7 @@ public class DetectionManager {
 
     public void startDetectionDebug() {
         this.ultraSoundManager.startDebug();
-        this.lidarManager.start();
+        //this.lidarManager.start();
     }
 
     public boolean emergencyDetection() {

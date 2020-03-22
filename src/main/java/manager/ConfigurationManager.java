@@ -23,6 +23,7 @@ import detection.DetectionInterface;
 import detection.DetectionInterfaceImpl;
 import detection.lidar.LidarInterface;
 import detection.lidar.RpLidar;
+import detection.ultrasound.SRF08Config;
 import gnu.io.SerialPort;
 import org.apache.logging.log4j.Logger;
 import pathfinding.PathFinding;
@@ -65,6 +66,8 @@ public class ConfigurationManager {
         JsonObject configRootNode = gson.fromJson(reader, JsonObject.class);
 
         JsonObject configObject = configRootNode.get("asserv").getAsJsonObject();
+        System.out.println("Config asserv = " + configObject.toString());
+
         logger.info("AsservAPIConfiguration = " + configObject.toString());
         asserv = new Asserv(
                 configObject.get("serie").getAsString(),
@@ -73,16 +76,40 @@ public class ConfigurationManager {
         movementManager = new MovementManager(asserv);
 
         configObject = configRootNode.get("detection").getAsJsonObject();
-        LidarInterface lidarInterface = new RpLidar(configObject.get("lidar").getAsJsonObject().get("port").getAsString());
-        lidarManager = new LidarManager(lidarInterface, movementManager);
+        System.out.println("Config detect = " + configObject.toString());
+        //LidarInterface lidarInterface = new RpLidar(configObject.get("lidar").getAsJsonObject().get("port").getAsString());
+        //lidarManager = new LidarManager(lidarInterface, movementManager);
 
-        List<GPioPair> gPioPairList = new ArrayList<>();
-        JsonArray gpioPairArray = configObject.getAsJsonArray("gpioList");
-        for(JsonElement e : gpioPairArray) {
-            JsonObject temp = e.getAsJsonObject();
-            gPioPairList.add(new GPioPair(temp.get("in").getAsInt(), temp.get("out").getAsInt()));
+        DetectionInterface detectionInterface;
+
+        System.out.println("DetectAPIConfiguration = " + configObject.toString());
+        System.out.println("Type = " + configObject.getAsJsonObject("type").getAsString());
+
+        if ("srf04".equals(configObject.getAsJsonObject("type").getAsString())) {
+            System.out.println("SRF04");
+            List<GPioPair> gPioPairList = new ArrayList<>();
+            JsonArray gpioPairArray = configObject.getAsJsonArray("gpioList");
+            for (JsonElement e : gpioPairArray) {
+                JsonObject temp = e.getAsJsonObject();
+                gPioPairList.add(new GPioPair(temp.get("in").getAsInt(), temp.get("out").getAsInt()));
+            }
+            detectionInterface = new DetectionInterfaceImpl(gPioPairList, configObject.get("type").getAsString());
+
+        } else if("srf08" == configObject.get("type").getAsString()){
+            System.out.println("SRF08");
+            List<SRF08Config> srf08ConfList = new ArrayList<>();
+            JsonArray srf08ConfArray = configObject.getAsJsonArray("i2cConfigList");
+            for (JsonElement e : srf08ConfArray) {
+                JsonObject temp = e.getAsJsonObject();
+                srf08ConfList.add(new SRF08Config(temp.get("address").getAsInt(),temp.get("maxAnalogGain").getAsInt(),temp.get("range").getAsInt(),temp.get("desc").getAsString()));
+            }
+            detectionInterface = new DetectionInterfaceImpl(srf08ConfList);
+
+        } else {
+            //New sensor ?
+            System.out.println("OUPS");
+            detectionInterface = new DetectionInterfaceImpl(); //shall not happen
         }
-        DetectionInterface detectionInterface = new DetectionInterfaceImpl(gPioPairList, configObject.get("type").getAsString());
         Table table = new Table(configRootNode.get("tablePath").getAsString());
         ultraSoundManager = new UltraSoundManager(detectionInterface, table, movementManager);
         detectionManager = new DetectionManager(detectionInterface, lidarManager, ultraSoundManager);
