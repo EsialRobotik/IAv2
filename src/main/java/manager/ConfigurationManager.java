@@ -76,13 +76,7 @@ public class ConfigurationManager {
         LidarInterface lidarInterface = new RpLidar(configObject.get("lidar").getAsJsonObject().get("port").getAsString());
         lidarManager = new LidarManager(lidarInterface, movementManager);
 
-        List<GPioPair> gPioPairList = new ArrayList<>();
-        JsonArray gpioPairArray = configObject.getAsJsonArray("gpioList");
-        for(JsonElement e : gpioPairArray) {
-            JsonObject temp = e.getAsJsonObject();
-            gPioPairList.add(new GPioPair(temp.get("in").getAsInt(), temp.get("out").getAsInt()));
-        }
-        DetectionInterface detectionInterface = new DetectionInterfaceImpl(gPioPairList, configObject.get("type").getAsString());
+        DetectionInterface detectionInterface = new DetectionInterfaceImpl(configObject.getAsJsonObject("ultrasound"));
         Table table = new Table(configRootNode.get("tablePath").getAsString());
         ultraSoundManager = new UltraSoundManager(detectionInterface, table, movementManager);
         detectionManager = new DetectionManager(detectionInterface, lidarManager, ultraSoundManager);
