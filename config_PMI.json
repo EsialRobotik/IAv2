@@ -1,0 +1,54 @@
+{
+  "desc" : "Configuration du robot PMI 2020",
+  "gpioColorSelector": 5,
+  "gpioTirette": 4,
+  "matchDuration": 99,
+  "tablePath": "table.tbl",
+  "commandFile": "configCollection.json",
+
+  "asserv": {
+    "baud":115200,
+    "serie":"/dev/serial/by-id/usb-mbed_Microcontroller_101000000000000000000002F7F2854A-if01"
+  },
+
+  "action": {
+    "baud":115200,
+    "serie":"/dev/ttyUSB0",
+    "dataDir":"/home/pi/IA/actions/"
+  },
+
+  "detection": {
+    "ultrasound" : {
+      "type":"srf08",
+	  "i2cConfigList":[
+        {
+          "desc" : "Avant gauche (0x71)",
+          "address" : 113,
+		  "maxAnalogGain" : 31,
+		  "range" : 13
+        },
+        {
+          "desc" : "Avant milieu (0x72)",
+          "address" : 114,
+		  "maxAnalogGain" : 31,
+		  "range" : 13
+        },
+        {
+          "desc" : "Avant droit (0x73)",
+          "address" : 115,
+		  "maxAnalogGain" : 31,
+		  "range" : 13
+        },
+        {
+          "desc" : "Arrière (0x74)",
+          "address" : 116,
+		  "maxAnalogGain" : 31,
+		  "range" : 13
+        }
+      ]
+    },
+    "lidar": {
+      "port": "/dev/ttyUSB1"
+    }
+  }
+}
