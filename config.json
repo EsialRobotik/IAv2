@@ -5,6 +5,11 @@
   "matchDuration": 99,
   "tablePath": "table.tbl",
   "commandFile": "configCollection.json",
+  "lcd": {
+          "i2cAddress" : 39,
+          "lineCount" : 2,
+          "lineLength" : 16
+  },
 
   "asserv": {
     "baud":115200,

@@ -26,7 +26,15 @@ task fatJar(type: Jar) {
                 'Main-Class': 'core.Main'
     }
     baseName = project.name+'-all'
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    from { 
+		configurations.compile.collect { 
+			it.isDirectory() ? it : zipTree(it).matching {
+				exclude 'META-INF/**.RSA'
+				exclude 'META-INF/MANIFEST.MF'
+				exclude 'META-INF/log4j-provider.properties'
+			}			
+		}
+	}
     with jar
 }
 

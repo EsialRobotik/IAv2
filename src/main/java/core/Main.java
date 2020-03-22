@@ -122,7 +122,7 @@ public class Main {
     private static void testDetection() throws IOException, InterruptedException, AX12LinkException {
         //Load of the configuration first
         ConfigurationManager configurationManager = new ConfigurationManager();
-        configurationManager.loadConfiguration("config.json");
+        configurationManager.loadConfiguration("config.json", ConfigurationManager.CONFIG_TEST_DETECTION);
 
         DetectionManager detectionManager = configurationManager.getDetectionManager();
         detectionManager.initAPI();
@@ -135,7 +135,7 @@ public class Main {
     private static void testInterrupteurs() throws IOException, InterruptedException, AX12LinkException {
         //Load of the configuration first
         ConfigurationManager configurationManager = new ConfigurationManager();
-        configurationManager.loadConfiguration("config.json");
+        configurationManager.loadConfiguration("config.json", ConfigurationManager.CONFIG_TEST_INTERRUPTEURS);
 
         ColorDetector colorDetector = configurationManager.getColorDetector();
         Tirette tirette = configurationManager.getTirette();
@@ -149,7 +149,7 @@ public class Main {
     private static void coupeOffDance() throws IOException, AX12LinkException {
         //Load of the configuration first
         ConfigurationManager configurationManager = new ConfigurationManager();
-        configurationManager.loadConfiguration("config.json");
+        configurationManager.loadConfiguration("config.json" , ConfigurationManager.CONFIG_COUPEOFF);
 
         // Loading the core
         AsservInterface asserv = configurationManager.getAsserv();

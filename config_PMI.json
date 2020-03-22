@@ -5,6 +5,11 @@
   "matchDuration": 99,
   "tablePath": "table.json",
   "commandFile": "configCollection.json",
+  "lcd": {
+          "i2cAddress" : 39,
+          "lineCount" : 2,
+          "lineLength" : 16
+  },
 
   "asserv": {
     "baud":115200,
@@ -20,35 +25,32 @@
   "detection": {
     "ultrasound" : {
       "type":"srf08",
-	  "i2cConfigList":[
+      "i2cConfigList":[
         {
-          "desc" : "Avant gauche (0x71)",
-          "address" : 113, 
-		  "maxAnalogGain" : 31,
-		  "range" : 13
+          "desc" : "Avant gauche (0xE1)",
+          "address" : 224, 
+          "maxAnalogGain" : 31,
+          "range" : 13
         },
         {
-          "desc" : "Avant milieu (0x72)",
-          "address" : 114,
-		  "maxAnalogGain" : 31,
-		  "range" : 13
+          "desc" : "Avant milieu (0xE2)",
+          "address" : 225,
+          "maxAnalogGain" : 31,
+          "range" : 13
         },
         {
-          "desc" : "Avant droit (0x73)",
-          "address" : 115,
-		  "maxAnalogGain" : 31,
-		  "range" : 13
+          "desc" : "Avant droit (0xE3)",
+          "address" : 226,
+          "maxAnalogGain" : 31,
+          "range" : 13
         },
         {
-          "desc" : "Arrière (0x74)",
-          "address" : 116,
-		  "maxAnalogGain" : 31,
-		  "range" : 13
+          "desc" : "Arrière (0xE4)",
+          "address" : 227,
+          "maxAnalogGain" : 31,
+          "range" : 13
         }
       ]
-    },
-    "lidar": {
-      "port": "/dev/ttyUSB1"
     }
   }
 }

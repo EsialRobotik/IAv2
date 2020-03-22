@@ -156,7 +156,7 @@ public class SRF08 implements UltraSoundInterface {
         currentConfig.description = config.description;
 
 
-        if(config.i2cAddress > 0x77 || config.i2cAddress < 0x70) {
+        if(config.i2cAddress > 0xE7 || config.i2cAddress < 0xE0) {
             logger.error("Given I2C address is not within given range [0x70 : 0x77] : " + config.range + ". Default value used instead : " + DEFAULT_I2C_ADDRESS);
         }else {
             currentConfig.i2cAddress = config.i2cAddress;
