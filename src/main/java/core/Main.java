@@ -12,6 +12,7 @@ import manager.DetectionManager;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Logger;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
@@ -22,10 +23,11 @@ import java.util.Random;
  */
 public class Main {
 
+    private static String configFilePath;
     public Main() throws IOException, InterruptedException, AX12LinkException {
         //Load of the configuration first
         ConfigurationManager configurationManager = new ConfigurationManager();
-        configurationManager.loadConfiguration("config.json");
+        configurationManager.loadConfiguration(configFilePath);
 
         //Loading the core
         MasterLoop masterLoop = new MasterLoop(
@@ -61,17 +63,25 @@ public class Main {
 
 
     public static void main(String[] args) throws Exception {
-        if (args.length == 2) {
+        if (args.length >= 2) {
+
+            if (args.length == 3 ) {
+
+                configFilePath = args[2];
+            } else {
+                configFilePath = "config.son";
+            }
+
+            File tmpFile = new File(configFilePath);
+            if(!tmpFile.exists()){
+                System.out.println("The configuration file does not exist : " + configFilePath);
+                return;
+            }
+
             switch (args[0]) {
                 default:
                 case "help":
-                    System.out.println("Utilisation args 1 :");
-                    System.out.println("  - help : Affiche ce menu");
-                    System.out.println("  - TRACE : Active les logs en mode TRACE");
-                    System.out.println("  - INFO : Active les logs en mode INFO");
-                    System.out.println("  - DEBUG : Active les logs en mode DEBUG");
-                    System.out.println("  - ERROR : Active les logs en mode ERROR");
-                    System.out.println("Par defaut, le niveau de log affiché est TRACE");
+                    printUsage();
                     return;
                 case "TRACE":
                     LoggerFactory.init(Level.TRACE);
@@ -90,11 +100,7 @@ public class Main {
             switch (args[1]) {
                 default:
                 case "help":
-                    System.out.println("Utilisation args 2 :");
-                    System.out.println("  - main : Exécution normal de l'IA");
-                    System.out.println("  - detection : Test de la détection");
-                    System.out.println("  - interrupteur : Test interrupteurs");
-                    System.out.println("  - coupe-off : Danse de la coupe off");
+                    printUsage();
                     return;
                 case "main":
                     // Exécution normal de l'IA
@@ -113,16 +119,37 @@ public class Main {
                     Main.coupeOffDance();
                     return;
             }
+
         } else {
-            System.out.println("L'IA n'attends 2 arguments pour démarrer");
-            throw new Exception();
+            System.out.println("L'IA attends 2 arguments pour demarrer");
+            printUsage();
+            return;
         }
+    }
+
+    private static void printUsage() {
+
+        System.out.println("\nUTILISATION:");
+        System.out.println("java -jar esialrobotik.ia-all-2.0 TRACE_LEVEL EXECUTION_TYPE [configFile]\n");
+        System.out.println("TRACELEVEL : ");
+        System.out.println("\t- TRACE : Active les logs en mode TRACE (defaut)");
+        System.out.println("\t- INFO : Active les logs en mode INFO");
+        System.out.println("\t- DEBUG : Active les logs en mode DEBUG");
+        System.out.println("\t- ERROR : Active les logs en mode ERROR\n");
+
+        System.out.println("EXECUTION_TYPE : ");
+        System.out.println("\t- main : Execution normal de l'IA");
+        System.out.println("\t- detection : Test de la detection");
+        System.out.println("\t- interrupteur : Test interrupteurs");
+        System.out.println("\t- coupe-off : Danse de la coupe off\n");
+
+        System.out.println("configFile : chemin du fichier de configuration à utiliser. Par defaut, './config.json'\n");
     }
 
     private static void testDetection() throws IOException, InterruptedException, AX12LinkException {
         //Load of the configuration first
         ConfigurationManager configurationManager = new ConfigurationManager();
-        configurationManager.loadConfiguration("config.json", ConfigurationManager.CONFIG_TEST_DETECTION);
+        configurationManager.loadConfiguration(configFilePath, ConfigurationManager.CONFIG_TEST_DETECTION);
 
         DetectionManager detectionManager = configurationManager.getDetectionManager();
         detectionManager.initAPI();
@@ -135,7 +162,7 @@ public class Main {
     private static void testInterrupteurs() throws IOException, InterruptedException, AX12LinkException {
         //Load of the configuration first
         ConfigurationManager configurationManager = new ConfigurationManager();
-        configurationManager.loadConfiguration("config.json", ConfigurationManager.CONFIG_TEST_INTERRUPTEURS);
+        configurationManager.loadConfiguration(configFilePath, ConfigurationManager.CONFIG_TEST_INTERRUPTEURS);
 
         ColorDetector colorDetector = configurationManager.getColorDetector();
         Tirette tirette = configurationManager.getTirette();
@@ -149,7 +176,7 @@ public class Main {
     private static void coupeOffDance() throws IOException, AX12LinkException {
         //Load of the configuration first
         ConfigurationManager configurationManager = new ConfigurationManager();
-        configurationManager.loadConfiguration("config.json" , ConfigurationManager.CONFIG_COUPEOFF);
+        configurationManager.loadConfiguration(configFilePath , ConfigurationManager.CONFIG_COUPEOFF);
 
         // Loading the core
         AsservInterface asserv = configurationManager.getAsserv();
