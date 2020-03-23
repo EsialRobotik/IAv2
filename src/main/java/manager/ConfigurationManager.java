@@ -40,7 +40,7 @@ public class ConfigurationManager {
     public static int CONFIG_NOMINAL            = 0;
     public static int CONFIG_TEST_DETECTION     = 1;
     public static int CONFIG_TEST_INTERRUPTEURS = 2;
-    public static int CONFIG_COUPEOFF           = 2;
+    public static int CONFIG_COUPEOFF           = 3;
 
     private MovementManager movementManager;
     private LidarManager lidarManager;
@@ -81,9 +81,11 @@ public class ConfigurationManager {
             config == CONFIG_NOMINAL ||
             config == CONFIG_COUPEOFF) {
 
+            logger.info("LoadConfiguration : Detection HW");
             configObject = configRootNode.get("detection").getAsJsonObject();
 
             if(configObject.has("lidar")) {
+                logger.info("LoadConfiguration : Lidar is present");
                 LidarInterface lidarInterface = new RpLidar(configObject.get("lidar").getAsJsonObject().get("port").getAsString());
                 lidarManager = new LidarManager(lidarInterface, movementManager);
             }
@@ -96,6 +98,8 @@ public class ConfigurationManager {
 
         if( config == CONFIG_NOMINAL ||
             config == CONFIG_COUPEOFF) {
+
+            logger.info("LoadConfiguration : Actions");
 
             configObject = configRootNode.get("action").getAsJsonObject();
             actionCollection = new ActionCollection(configRootNode.get("commandFile").getAsString());
@@ -110,9 +114,10 @@ public class ConfigurationManager {
             pathfinding = new PathFinding(new Astar(table));
         }
 
-        if( config == CONFIG_TEST_DETECTION ||
+        if( config == CONFIG_TEST_INTERRUPTEURS||
                 config == CONFIG_NOMINAL ||
                 config == CONFIG_COUPEOFF) {
+            logger.info("LoadConfiguration : Misc. (tirette, couleur etc.)");
             colorDetector = new ColorDetector(configRootNode.get("gpioColorSelector").getAsInt());
             tirette = new Tirette(configRootNode.get("gpioTirette").getAsInt());
             chrono = new Chrono(configRootNode.get("matchDuration").getAsInt());
