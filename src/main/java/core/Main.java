@@ -4,6 +4,7 @@ import actions.a2019.ActionFileBinder;
 import actions.a2019.ax12.AX12LinkException;
 import api.gpio.ColorDetector;
 import api.gpio.Tirette;
+import api.lcd.LCD;
 import api.log.LoggerFactory;
 import asserv.AsservInterface;
 import asserv.Position;
@@ -114,6 +115,10 @@ public class Main {
                     // Test interrupteurs
                     Main.testInterrupteurs();
                     break;
+                case "lcd":
+                    // Test du LCD
+                    Main.testLcd();
+                    break;
                 case "coupe-off":
                     // Danse de la coupe off
                     Main.coupeOffDance();
@@ -141,6 +146,7 @@ public class Main {
         System.out.println("\t- main : Execution normal de l'IA");
         System.out.println("\t- detection : Test de la detection");
         System.out.println("\t- interrupteur : Test interrupteurs");
+        System.out.println("\t- lcd : Test de l'écran LCD");
         System.out.println("\t- coupe-off : Danse de la coupe off\n");
 
         System.out.println("configFile : chemin du fichier de configuration à utiliser. Par defaut, './config.json'\n");
@@ -170,6 +176,20 @@ public class Main {
             Thread.sleep(500);
             System.out.println("Couleur0 ? " + colorDetector.isColor0());
             System.out.println("Tirette présente ? " + tirette.getTiretteState());
+        }
+    }
+
+    private static void testLcd() throws IOException, InterruptedException, AX12LinkException {
+        //Load of the configuration first
+        ConfigurationManager configurationManager = new ConfigurationManager();
+        configurationManager.loadConfiguration(configFilePath, ConfigurationManager.CONFIG_TEST_DETECTION); // TODO changer ça
+
+        LCD lcd = configurationManager.getLcdDisplay();
+        int i = 0;
+        while (true) {
+            lcd.println("Coucou " + i);
+            i++;
+            Thread.sleep(500);
         }
     }
 
