@@ -24,6 +24,7 @@ import java.util.Random;
 public class Main {
 
     private static String configFilePath;
+
     public Main() throws IOException, InterruptedException, AX12LinkException {
         //Load of the configuration first
         ConfigurationManager configurationManager = new ConfigurationManager();
@@ -66,7 +67,6 @@ public class Main {
         if (args.length >= 2) {
 
             if (args.length == 3 ) {
-
                 configFilePath = args[2];
             } else {
                 configFilePath = "config.son";
@@ -105,19 +105,19 @@ public class Main {
                 case "main":
                     // Exécution normal de l'IA
                     new Main();
-                    return;
+                    break;
                 case "detection":
                     // Test de la détection
                     Main.testDetection();
-                    return;
+                    break;
                 case "interrupteur":
                     // Test interrupteurs
                     Main.testInterrupteurs();
-                    return;
+                    break;
                 case "coupe-off":
                     // Danse de la coupe off
                     Main.coupeOffDance();
-                    return;
+                    break;
             }
 
         } else {
