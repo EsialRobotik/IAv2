@@ -46,6 +46,9 @@ task deployPrincess {
         ssh.run {
             session(remotes.webServer) {
                 put from: 'build/libs/esialrobotik.ia-all-2.0.jar', into: 'IA'
+                put from: 'table.tbl', into: 'IA'
+                put from: 'config.json', into: 'IA'
+                put from: 'configCollection.json', into: 'IA'
                 execute 'sudo sync'
             }
         }
