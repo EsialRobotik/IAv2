@@ -31,7 +31,7 @@ public class Table {
     public Table() {}
 
     public Table(String filePath) throws IOException {
-        this.loadJsonFromFile(filePath);
+        this.loadFromSaveFile(filePath);
     }
 
     public void loadJsonFromFile(String filePath) throws IOException {
@@ -294,25 +294,11 @@ public class Table {
     }
 
     public static void main(String[] args) throws IOException {
-//        File f = new File("l");
-//        System.out.println(f.getAbsoluteFile());
-//        Injector injector = Guice.createInjector(new TableModule());
-//        Table table = injector.getInstance(Table.class);
-//        table.loadJsonFromFile(args[0]);
-//
-//        table.drawTable();
-//        //TODO get the dimension by the robot file
-//        table.computeForbiddenArea(Integer.parseInt(args[1]));
-//        table.saveToFile("test.tbl");
-//
-//        Table saved = injector.getInstance(Table.class);
-//        saved.loadFromSaveFile("test.tbl");
-
+        // A lancer directement depuis l'IDE pour générer la table
         Table table = new Table();
-        table.loadJsonFromFile("pathFinding/table.json");
+        table.loadJsonFromFile("table.json");
 
         table.drawTable();
-//        table.computeForbiddenArea(182);
         table.computeForbiddenArea(195);
 
         File f = new File("table2.tbl");
