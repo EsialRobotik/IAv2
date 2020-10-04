@@ -1,5 +1,5 @@
 {
-  "desc" : "Configuration du robot 2018",
+  "desc" : "Configuration du robot 2020 - Digital Princess",
   "gpioColorSelector": 5,
   "gpioTirette": 4,
   "matchDuration": 99,

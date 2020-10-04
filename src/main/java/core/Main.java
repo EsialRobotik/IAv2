@@ -69,7 +69,7 @@ public class Main {
             if (args.length == 3 ) {
                 configFilePath = args[2];
             } else {
-                configFilePath = "config.son";
+                configFilePath = "config.json";
             }
 
             File tmpFile = new File(configFilePath);
