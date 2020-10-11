@@ -161,7 +161,7 @@ public class Asserv implements AsservInterface {
         synchronized (lock) {
             statusCountdown = 2;
         }
-        serial.write("gf" + position.getX() + "#" + position.getY());
+        serial.write("f" + position.getX() + "#" + position.getY());
     }
 
     /*******************************************************************************************************************
@@ -184,6 +184,12 @@ public class Asserv implements AsservInterface {
     public void setOdometrieTheta(double theta) {
         logger.info("setOdometrieTheta");
         serial.write("Osa" + theta);
+    }
+
+    @Override
+    public void setOdometrie(int x, int y, double theta) {
+        logger.info("setOdometrie");
+        serial.write("S" + x + "#" + y + "#" + theta);
     }
 
     /*******************************************************************************************************************
@@ -347,9 +353,11 @@ public class Asserv implements AsservInterface {
 //        Thread.sleep(2000);
 
         // On effectue le calage grâce à une calle dans le coin côté N, sur le bord de la table
-        setOdometrieX(530 + 150);
-        setOdometrieY(isColor0 ? (40 + 125) : 3000 - (40 + 125));
-        setOdometrieTheta((isColor0 ? 1 : -1) * Math.PI/2);
+        setOdometrie(
+            530 + 150,
+            isColor0 ? (40 + 125) : (3000 - (40 + 125)),
+            (isColor0 ? 1 : -1) * Math.PI/2
+        );
     }
 
     @Override

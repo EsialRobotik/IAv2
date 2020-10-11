@@ -106,6 +106,14 @@ public interface AsservInterface {
      */
     void setOdometrieY(int y);
 
+    /**
+     * Définiela position complète du robot
+     * @param x X en mm
+     * @param y Y en mm
+     * @param theta Angle theta en radian
+     */
+    void setOdometrie(int x, int y, double theta);
+
     /***********************************************************************
      * Commande régulateur
      ************************************************************************/
