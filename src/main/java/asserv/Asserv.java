@@ -131,7 +131,7 @@ public class Asserv implements AsservInterface {
         synchronized (lock) {
             statusCountdown = 2;
         }
-        serial.write("go" + position.getX() + "#" + position.getY());
+        serial.write("g" + position.getX() + "#" + position.getY());
     }
 
     @Override
@@ -141,7 +141,7 @@ public class Asserv implements AsservInterface {
         synchronized (lock) {
             statusCountdown = 2;
         }
-        serial.write("ge" + position.getX() + "#" + position.getY());
+        serial.write("e" + position.getX() + "#" + position.getY());
     }
 
     @Override
@@ -343,12 +343,11 @@ public class Asserv implements AsservInterface {
     @Override
     public void calage(boolean isColor0) throws InterruptedException {
         // On init
-        initialize();
+//        initialize();
+//        Thread.sleep(2000);
 
-        Thread.sleep(2000);
-
-        // On effectue le calage grâce à une calle dans le coin supérieur gauche de la zone de départ rouge
-        setOdometrieX(300 + 40 + 150);
+        // On effectue le calage grâce à une calle dans le coin côté N, sur le bord de la table
+        setOdometrieX(530 + 150);
         setOdometrieY(isColor0 ? (40 + 125) : 3000 - (40 + 125));
         setOdometrieTheta((isColor0 ? 1 : -1) * Math.PI/2);
     }

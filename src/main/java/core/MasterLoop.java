@@ -227,11 +227,11 @@ public class MasterLoop {
         // Calage bordure
         lcdDisplay.println(colorDetector.isColor0() ? TableColor.COLOR_0.toString() : TableColor.COLOR_3000.toString());
         logger.info("Attente mise en place tirette pour init calage");
-        lcdDisplay.println("tirette calage");
+        lcdDisplay.println("Attente tirette");
         tirette.waitForTirette(true);
         logger.info("Attente retrait tirette pour init calage");
         lcdDisplay.println(colorDetector.isColor0() ? TableColor.COLOR_0.toString() : TableColor.COLOR_3000.toString());
-        lcdDisplay.println("tirette calage");
+        lcdDisplay.println("Enlever tirette");
         tirette.waitForTirette(false);
         logger.info("Start calage bordure");
         lcdDisplay.println("Lancement calage bordure");
@@ -240,7 +240,7 @@ public class MasterLoop {
         logger.info("Initialisation des actionneurs");
         lcdDisplay.println("Init actions");
         // TODO faire une vrai méthode d'init d'actions
-        actionSupervisor.executeCommand(2);
+//        actionSupervisor.executeCommand(2);
 
         lcdDisplay.println("Attente tirette");
         logger.info("Attente tirette mise en position de départ");
@@ -256,6 +256,7 @@ public class MasterLoop {
         logger.info("Init ended, wait for tirette");
         tirette.waitForTirette(true);
         logger.info("Tirette inserted. End of initialization.");
+        logger.info("Pret au depart");
         detectionManager.initAPI();
         detectionManager.startDetection();
         lcdDisplay.println("LET'S ROCK !");
