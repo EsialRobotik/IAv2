@@ -151,7 +151,7 @@ public class Asserv implements AsservInterface {
         synchronized (lock) {
             statusCountdown = 2;
         }
-        serial.write("gb" + position.getX() + "#" + position.getY());
+        serial.write("b" + position.getX() + "#" + position.getY());
     }
 
     @Override
