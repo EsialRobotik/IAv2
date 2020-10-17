@@ -22,12 +22,16 @@ public class DetectionManager {
 
     public void startDetection() {
         this.ultraSoundManager.start();
-        this.lidarManager.start();
+        if (this.lidarManager != null) {
+            this.lidarManager.start();
+        }
     }
 
     public void stopDetection() {
         this.ultraSoundManager.stop();
-        this.lidarManager.stop();
+        if (this.lidarManager != null) {
+            this.lidarManager.stop();
+        }
     }
 
     public boolean robotDetectInPath() {
@@ -37,7 +41,9 @@ public class DetectionManager {
 
     public void startDetectionDebug() {
         this.ultraSoundManager.startDebug();
-        //this.lidarManager.start();
+        if (this.lidarManager != null) {
+            this.lidarManager.start();
+        }
     }
 
     public boolean emergencyDetection() {

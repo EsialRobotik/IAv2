@@ -13,7 +13,7 @@
 
   "asserv": {
     "baud":115200,
-    "serie":"/dev/serial/by-id/usb-mbed_Microcontroller_101000000000000000000002F7F2854A-if01"
+    "serie":"/dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_066FFF383133524157185717-if02"
   },
 
   "action": {
@@ -47,9 +47,6 @@
           "out": 13
         }
       ]
-    },
-    "lidar": {
-      "port": "/dev/ttyUSB1"
     }
   }
 }

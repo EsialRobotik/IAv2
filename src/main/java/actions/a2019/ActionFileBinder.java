@@ -58,10 +58,10 @@ public class ActionFileBinder implements ActionInterface {
 		ActionFile[] files = ActionFile.values();
 		actionsList = new ActionExecutor[files.length];
 
-		for (int i = 0; i < files.length; i++) {
-			File f = new File(this.dataDir.getAbsolutePath() + File.separator + files[i].nomFichier);
-			actionsList[i] = new ActionAX12Json(ax12Link, f, files[i].instantReturn);
-		}
+//		for (int i = 0; i < files.length; i++) {
+//			File f = new File(this.dataDir.getAbsolutePath() + File.separator + files[i].nomFichier);
+//			actionsList[i] = new ActionAX12Json(ax12Link, f, files[i].instantReturn);
+//		}
 	}
 	
 	public int getActionExecutorIdForActionFile(ActionFile af) {

@@ -100,6 +100,7 @@ public class ConfigurationManager {
             config == CONFIG_COUPEOFF) {
 
             logger.info("LoadConfiguration : Actions");
+            logger.info("Command file : " + configRootNode.get("commandFile").getAsString());
 
             configObject = configRootNode.get("action").getAsJsonObject();
             actionCollection = new ActionCollection(configRootNode.get("commandFile").getAsString());

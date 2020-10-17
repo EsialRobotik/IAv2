@@ -243,12 +243,12 @@ public class MasterLoop {
 //        actionSupervisor.executeCommand(2);
 
         lcdDisplay.println("Attente tirette");
-        logger.info("Attente tirette mise en position de départ");
+        logger.info("Attente tirette mise en position de depart");
         tirette.waitForTirette(true);
         lcdDisplay.println("tirette gostart");
         tirette.waitForTirette(false);
-        logger.info("Start zone de départ");
-        lcdDisplay.println("position départ");
+        logger.info("Start zone de depart");
+        lcdDisplay.println("position depart");
         movementManager.goStart(colorDetector.isColor0());
 
         // Wait tirette remise

@@ -13,50 +13,49 @@ import java.util.List;
  * Created by Guillaume on 18/05/2017.
  */
 public class ActionCollection {
-  private List<ActionDescriptor> actionList;
-  private int currentIndex;
-  private JsonElement jsonElement;
+    private List<ActionDescriptor> actionList;
+    private int currentIndex;
+    private JsonElement jsonElement;
 
-  public ActionCollection(String filepath) throws FileNotFoundException {
-    JsonParser parser = new JsonParser();
-    jsonElement = parser.parse(new JsonReader(new FileReader(filepath)));
+    public ActionCollection(String filepath) throws FileNotFoundException {
+        JsonParser parser = new JsonParser();
+        jsonElement = parser.parse(new JsonReader(new FileReader(filepath)));
 
-    currentIndex = 0;
-  }
-
-  public void prepareActionList(boolean isColor0) {
-    actionList = new ArrayList<>();
-
-    for(JsonElement element : jsonElement.getAsJsonObject().getAsJsonArray(isColor0 ? "couleur0" : "couleur3000")) {
-      actionList.add(new ActionDescriptor(element.getAsJsonObject()));
+        currentIndex = 0;
     }
-  }
 
-  public String toString() {
-    String res = "";
-    for(ActionDescriptor descriptor : actionList) {
-      res += actionList + "\n";
+    public void prepareActionList(boolean isColor0) {
+        actionList = new ArrayList<>();
+        for (JsonElement element : jsonElement.getAsJsonObject().getAsJsonArray(isColor0 ? "couleur0" : "couleur3000")) {
+            actionList.add(new ActionDescriptor(element.getAsJsonObject()));
+        }
     }
-    return res;
-  }
 
-  public ActionDescriptor getNextActionToPerform() {
-    if (currentIndex >= actionList.size()) {
-      return null;
+    public String toString() {
+        String res = "";
+        for (ActionDescriptor descriptor : actionList) {
+            res += actionList + "\n";
+        }
+        return res;
     }
-    return actionList.get(currentIndex++);
-  }
 
-  public List<ActionDescriptor> getActionList() {
-    return actionList;
-  }
+    public ActionDescriptor getNextActionToPerform() {
+        if (currentIndex >= actionList.size()) {
+            return null;
+        }
+        return actionList.get(currentIndex++);
+    }
 
-  public void setActionList(List<ActionDescriptor> actionList) {
-    this.actionList = actionList;
-  }
+    public List<ActionDescriptor> getActionList() {
+        return actionList;
+    }
 
-  public static void main(String args[]) throws FileNotFoundException {
-    ActionCollection collection = new ActionCollection("actionHandler/configCollection.json");
-    System.out.println(collection);
-  }
+    public void setActionList(List<ActionDescriptor> actionList) {
+        this.actionList = actionList;
+    }
+
+    public static void main(String args[]) throws FileNotFoundException {
+        ActionCollection collection = new ActionCollection("actionHandler/configCollection.json");
+        System.out.println(collection);
+    }
 }

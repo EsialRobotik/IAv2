@@ -31,10 +31,14 @@ task fatJar(type: Jar) {
     from { 
 		configurations.compile.collect { 
 			it.isDirectory() ? it : zipTree(it).matching {
-				exclude 'META-INF/**.RSA'
+				exclude 'META-INF/*.RSA'
+				exclude 'META-INF/*.SF'
+				exclude 'META-INF/*.DSA'
 				exclude 'META-INF/MANIFEST.MF'
 				exclude 'META-INF/log4j-provider.properties'
-			}			
+				exclude 'META-INF/log4j.properties'
+				exclude 'META-INF/*.dat'
+			}
 		}
 	}
     with jar
@@ -71,9 +75,10 @@ dependencies {
     // Pi4J : https://pi4j.com/1.2/index.html
     compile 'com.pi4j:pi4j-core:1.2'
 
-    // RPLidar4J : https://github.com/ev3dev-lang-java/RPLidar4J
-    compile 'com.github.ev3dev-lang-java:RPLidar4J:0.4.0'
-
     // GSon
     compile 'com.google.code.gson:gson:2.8.6'
+
+    // RXTX
+    compile group: 'org.rxtx', name: 'rxtx', version: '2.1.7'
+
 }
