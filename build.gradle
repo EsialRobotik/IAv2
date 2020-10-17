@@ -1,7 +1,16 @@
+buildscript {
+    dependencies {
+        classpath "com.github.jengelman.gradle.plugins:shadow:1.2.4"
+        classpath 'de.sebastianboegl.gradle.plugins:shadow-log4j-transformer:1.0.1'
+    }
+}
+
 plugins {
     id 'java'
     id 'org.hidetake.ssh' version '2.10.1'
 }
+
+apply plugin: 'com.github.johnrengelman.shadow'
 
 ssh.settings {
     dryRun = project.hasProperty('dryRun')
@@ -21,27 +30,14 @@ remotes {
 }
 
 //create a single Jar with all dependencies
-task fatJar(type: Jar) {
+shadowJar {
     manifest {
         attributes 'Implementation-Title': 'IA',
                 'Implementation-Version': version,
                 'Main-Class': 'core.Main'
     }
     baseName = project.name+'-all'
-    from { 
-		configurations.compile.collect { 
-			it.isDirectory() ? it : zipTree(it).matching {
-				exclude 'META-INF/*.RSA'
-				exclude 'META-INF/*.SF'
-				exclude 'META-INF/*.DSA'
-				exclude 'META-INF/MANIFEST.MF'
-				exclude 'META-INF/log4j-provider.properties'
-				exclude 'META-INF/log4j.properties'
-				exclude 'META-INF/*.dat'
-			}
-		}
-	}
-    with jar
+    transform(de.sebastianboegl.gradle.plugins.shadow.transformers.Log4j2PluginsFileTransformer)
 }
 
 // SSH deploy
