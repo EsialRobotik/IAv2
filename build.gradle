@@ -49,6 +49,7 @@ task deployPrincess {
                 put from: 'table.tbl', into: 'IA'
                 put from: 'config.json', into: 'IA'
                 put from: 'configCollection.json', into: 'IA'
+                put from: 'src/main/java/actions/a2020/actions/', into: 'IA'
                 execute 'sudo sync'
             }
         }

@@ -2,7 +2,7 @@ package manager;
 
 import actions.ActionCollection;
 import actions.ActionSupervisor;
-import actions.a2019.ActionFileBinder;
+import actions.a2020.ActionFileBinder;
 import api.ax12.AX12LinkException;
 import api.ax12.AX12LinkSerial;
 import api.chrono.Chrono;
@@ -41,6 +41,7 @@ public class ConfigurationManager {
     public static int CONFIG_TEST_DETECTION     = 1;
     public static int CONFIG_TEST_INTERRUPTEURS = 2;
     public static int CONFIG_COUPEOFF           = 3;
+    public static int CONFIG_TEST_LCD           = 4;
 
     private MovementManager movementManager;
     private LidarManager lidarManager;
@@ -108,7 +109,8 @@ public class ConfigurationManager {
             if(configObject.has("serie")) {
                 SerialPort sp = AX12LinkSerial.getSerialPort(configObject.get("serie").getAsString());
                 AX12LinkSerial ax12Link = new AX12LinkSerial(sp, configObject.get("baud").getAsInt());
-                actionFileBinder = new ActionFileBinder(ax12Link);
+                String dataDir = configObject.get("dataDir").getAsString();
+                actionFileBinder = new ActionFileBinder(ax12Link, dataDir);
                 actionSupervisor = new ActionSupervisor(actionFileBinder);
             }
 
@@ -124,10 +126,14 @@ public class ConfigurationManager {
             chrono = new Chrono(configRootNode.get("matchDuration").getAsInt());
         }
 
-        //Only if LCD configuration is found in the configuration file
-        if( configRootNode.has("lcd")) {
-            configObject = configRootNode.get("lcd").getAsJsonObject();
-            lcdDisplay = new LCD_I2C(configObject.get("i2cAddress").getAsInt(), configObject.get("lineCount").getAsInt(), configObject.get("lineLength").getAsInt());
+        if( config == CONFIG_NOMINAL ||
+                config == CONFIG_COUPEOFF ||
+                config == CONFIG_TEST_LCD) {
+            //Only if LCD configuration is found in the configuration file
+            if (configRootNode.has("lcd")) {
+                configObject = configRootNode.get("lcd").getAsJsonObject();
+                lcdDisplay = new LCD_I2C(configObject.get("i2cAddress").getAsInt(), configObject.get("lineCount").getAsInt(), configObject.get("lineLength").getAsInt());
+            }
         }
     }
 

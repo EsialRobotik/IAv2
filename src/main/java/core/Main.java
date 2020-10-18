@@ -1,6 +1,6 @@
 package core;
 
-import actions.a2019.ActionFileBinder;
+import actions.a2020.ActionFileBinder;
 import api.ax12.AX12LinkException;
 import api.communication.Shell;
 import api.gpio.ColorDetector;
@@ -137,20 +137,6 @@ public class Main {
         }
     }
 
-    private static void testShell() throws IOException, InterruptedException {
-        Shell shell = new Shell("python /home/pi/2020Aruco/testPiCameraArucoShell.py --quiet");
-        shell.start();
-        System.out.println("Start");
-//        System.out.println(shell.read());
-        Thread.sleep(2000);
-        long time = System.currentTimeMillis();
-        System.out.println("Ask");
-        shell.send("a");
-        System.out.println("Read");
-        System.out.println(shell.read());
-        System.out.println("Resultat en " + (System.currentTimeMillis() - time) + "ms");
-    }
-
     private static void printUsage() {
 
         System.out.println("\nUTILISATION:");
@@ -202,7 +188,7 @@ public class Main {
     private static void testLcd() throws IOException, InterruptedException, AX12LinkException {
         //Load of the configuration first
         ConfigurationManager configurationManager = new ConfigurationManager();
-        configurationManager.loadConfiguration(configFilePath, ConfigurationManager.CONFIG_TEST_DETECTION); // TODO changer ça
+        configurationManager.loadConfiguration(configFilePath, ConfigurationManager.CONFIG_TEST_LCD);
 
         LCD lcd = configurationManager.getLcdDisplay();
         int i = 0;
@@ -211,6 +197,19 @@ public class Main {
             i++;
             Thread.sleep(500);
         }
+    }
+
+    private static void testShell() throws IOException, InterruptedException {
+        Shell shell = new Shell("python /home/pi/2020Aruco/testPiCameraArucoShell.py --quiet");
+        shell.start();
+        System.out.println("Start");
+        Thread.sleep(2000);
+        long time = System.currentTimeMillis();
+        System.out.println("Ask");
+        shell.send("a");
+        System.out.println("Read");
+        System.out.println(shell.read());
+        System.out.println("Resultat en " + (System.currentTimeMillis() - time) + "ms");
     }
 
     private static void coupeOffDance() throws IOException, AX12LinkException {

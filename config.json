@@ -16,7 +16,7 @@
     "serie":"/dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_066FFF383133524157185717-if02"
   },
 
-  "action": {
+  "actions": {
     "baud":115200,
     "serie":"/dev/ttyUSB0",
     "dataDir":"/home/pi/IA/actions/"
@@ -47,6 +47,9 @@
           "out": 13
         }
       ]
+    },
+    "lidar": {
+      "port": "/dev/ttyUSB1"
     }
   }
 }
