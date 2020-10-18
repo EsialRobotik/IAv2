@@ -79,11 +79,11 @@ public class MasterLoop {
         logger.info("ActionList size : " + actionCollection.getActionList().size());
 
         // FIRST COMPUTATION HERE
-        // 1/ We pull the first action to do
+        // 1/ We pull the first actions to do
         currentAction = actionCollection.getNextActionToPerform();
         currentStep = currentAction.getNextStep(); //Should not be null
 
-        logger.info("Fetch of first action");
+        logger.info("Fetch of first actions");
         logger.info(currentStep.toString());
 
         logger.info("Trajectory load, let's wait for tirette");
@@ -148,8 +148,8 @@ public class MasterLoop {
                         //Time to fetch the next one
                         if (currentAction.hasNextStep()) {
                             currentStep = currentAction.getNextStep();
-                            logger.info("Suite de l'action, step = " + currentStep.getDesc());
-                        } else { //Previous action has ended, time to fetch a new one
+                            logger.info("Suite de l'actions, step = " + currentStep.getDesc());
+                        } else { //Previous actions has ended, time to fetch a new one
                             logger.info("Action terminé, mise à jour du score");
                             score += currentAction.getPoints();
                             lcdDisplay.clear();
@@ -160,7 +160,7 @@ public class MasterLoop {
                                 break;
                             } else {
                                 currentStep = currentAction.getNextStep();
-                                logger.info("Nouvelle action = " + currentAction.getDesc());
+                                logger.info("Nouvelle actions = " + currentAction.getDesc());
                                 logger.info("Nouvelle step = " + currentStep.getDesc());
                             }
                         }
@@ -269,14 +269,14 @@ public class MasterLoop {
         logger.info("Shutting done asserv");
         movementManager.haltAsserv(false);
 
-        //Don't forget action
+        //Don't forget actions
         logger.info("Shutting done detection");
         detectionManager.stopDetection();
         logger.info("Shutting down actions");
         actionSupervisor.stopActions();
 
         interrupted = true;
-        //Launch the funny action if needed
+        //Launch the funny actions if needed
     }
 
     //Start the computation of the path.

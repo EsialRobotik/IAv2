@@ -3,8 +3,8 @@ package manager;
 import actions.ActionCollection;
 import actions.ActionSupervisor;
 import actions.a2019.ActionFileBinder;
-import actions.a2019.ax12.AX12LinkException;
-import actions.a2019.ax12.AX12LinkSerial;
+import api.ax12.AX12LinkException;
+import api.ax12.AX12LinkSerial;
 import api.chrono.Chrono;
 import api.gpio.ColorDetector;
 import api.gpio.Tirette;
@@ -102,7 +102,7 @@ public class ConfigurationManager {
             logger.info("LoadConfiguration : Actions");
             logger.info("Command file : " + configRootNode.get("commandFile").getAsString());
 
-            configObject = configRootNode.get("action").getAsJsonObject();
+            configObject = configRootNode.get("actions").getAsJsonObject();
             actionCollection = new ActionCollection(configRootNode.get("commandFile").getAsString());
 
             if(configObject.has("serie")) {

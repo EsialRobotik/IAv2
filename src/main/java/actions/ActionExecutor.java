@@ -6,7 +6,7 @@ package actions;
 public interface ActionExecutor {
 
     /**
-     * Execute the action.
+     * Execute the actions.
      */
     void execute();
 
@@ -18,7 +18,7 @@ public interface ActionExecutor {
     boolean finished();
 
     /**
-     * On fait comme si l'action avait pas démarée
+     * On fait comme si l'actions avait pas démarée
      */
     void resetActionState();
 

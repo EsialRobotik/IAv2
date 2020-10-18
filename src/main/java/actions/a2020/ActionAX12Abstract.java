@@ -2,11 +2,12 @@ package actions.a2020;
 
 import java.util.ArrayList;
 
-import actions.a2019.ax12.AX12;
-import actions.a2019.ax12.AX12Exception;
-import actions.a2019.ax12.AX12Link;
-import actions.a2019.ax12.AX12LinkException;
-import actions.a2019.ax12.value.AX12Position;
+import actions.ActionExecutor;
+import api.ax12.AX12;
+import api.ax12.AX12Exception;
+import api.ax12.AX12Link;
+import api.ax12.AX12LinkException;
+import api.ax12.value.AX12Position;
 
 /**
  * 
@@ -15,10 +16,10 @@ import actions.a2019.ax12.value.AX12Position;
  */
 public abstract class ActionAX12Abstract implements ActionExecutor {
     
-    // Utilisé pour la lecture des réponses des ax12
+    // Utilisï¿½ pour la lecture des rï¿½ponses des actions
     protected ArrayList<Byte> lecture;
     
-    // Une seule instance de l'ax12 : on change son adresse pour chaque commande
+    // Une seule instance de l'actions : on change son adresse pour chaque commande
     private AX12 ax12;
     
     protected boolean fini = false;
@@ -49,7 +50,7 @@ public abstract class ActionAX12Abstract implements ActionExecutor {
 		ATTRAPER_GOBELET4(AX12_NAME.GOBELET4, 127.5),
 		ATTRAPER_GOBELET5(AX12_NAME.GOBELET5, 182.0),
 		
-		// Dépose des gobelets
+		// Dï¿½pose des gobelets
 		RELACHER_GOBELET1(AX12_NAME.GOBELET1, 270),
 		RELACHER_GOBELET2(AX12_NAME.GOBELET2, 25.8),
 		RELACHER_GOBELET3(AX12_NAME.GOBELET3, 67.7),
@@ -84,7 +85,7 @@ public abstract class ActionAX12Abstract implements ActionExecutor {
     
     @Override
     public void execute() {
-    	// Ptit hack pour mettre une elasticité sur tous les ax12
+    	// Ptit hack pour mettre une elasticitï¿½ sur tous les actions
     	try {
     		ax12.setAddress(254);
 			ax12.setCwComplianceSlope(128);
@@ -106,8 +107,8 @@ public abstract class ActionAX12Abstract implements ActionExecutor {
     }
 	
 	/**
-	 * Applique l'état demandé
-	 * Cette fonction s'appelle go parce que do est déjà pris :'(
+	 * Applique l'ï¿½tat demandï¿½
+	 * Cette fonction s'appelle go parce que do est dï¿½jï¿½ pris :'(
 	 * @param et
 	 */
 	protected void go(ACTION_AX12 et) {
@@ -136,8 +137,8 @@ public abstract class ActionAX12Abstract implements ActionExecutor {
 	}
 	
 	/**
-	 * Attend une certaine durée en ms
-	 * @param duree tps à attendre en ms
+	 * Attend une certaine durï¿½e en ms
+	 * @param duree tps ï¿½ attendre en ms
 	 */
 	protected void attend(long duree) {
 		try {
@@ -148,7 +149,7 @@ public abstract class ActionAX12Abstract implements ActionExecutor {
 	}
 	
 	/**
-	 * Attend que tous les ax12 de la liste aient fini de bouger
+	 * Attend que tous les actions de la liste aient fini de bouger
 	 * Attention aux blagues avec le mode rotation continue ;)
 	 * @param ax12
 	 */
@@ -158,7 +159,7 @@ public abstract class ActionAX12Abstract implements ActionExecutor {
 		
 		do {
 			if (bouge) {
-				// Pour éviter de spammer la liaison série, on est pas à 50ms près
+				// Pour ï¿½viter de spammer la liaison sï¿½rie, on est pas ï¿½ 50ms prï¿½s
 				attend(50);
 			}
 			bouge = false;

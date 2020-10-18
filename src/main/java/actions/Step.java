@@ -24,9 +24,9 @@ public class Step {
     private String desc;
     private int stepId;
 
-    //THis id is to specify which action to call
+    //THis id is to specify which actions to call
     private int idAction;
-    // Start position of the action
+    // Start position of the actions
     private Position position;
     private Type actionType;
     private SubType subType;

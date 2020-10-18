@@ -1,7 +1,7 @@
 package core;
 
 import actions.a2019.ActionFileBinder;
-import actions.a2019.ax12.AX12LinkException;
+import api.ax12.AX12LinkException;
 import api.communication.Shell;
 import api.gpio.ColorDetector;
 import api.gpio.Tirette;
@@ -50,7 +50,7 @@ public class Main {
 
         //Launch the main loop
         boolean res = masterLoop.mainLoop();
-        if(!res) { //We run out of action, and not of time, let's wait for the end of the match
+        if(!res) { //We run out of actions, and not of time, let's wait for the end of the match
             while(true) {
                 Thread.sleep(1000);
                 if(masterLoop.isMatchFinished()) {
@@ -59,7 +59,7 @@ public class Main {
             }
         }
 
-        //End of the game. Let's wait a few more seconds (for funny action and to be sure) and let's return
+        //End of the game. Let's wait a few more seconds (for funny actions and to be sure) and let's return
         Thread.sleep(9000);
         LoggerFactory.shutdown();
     }

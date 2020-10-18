@@ -1,7 +1,7 @@
 package actions;
 
 /**
- * The purpose of this class is to handle the execution of action
+ * The purpose of this class is to handle the execution of actions
  * Created by icule on 21/05/17.
  */
 public class ActionSupervisor {
