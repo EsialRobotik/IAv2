@@ -2,6 +2,7 @@ package core;
 
 import actions.a2019.ActionFileBinder;
 import actions.a2019.ax12.AX12LinkException;
+import api.communication.Shell;
 import api.gpio.ColorDetector;
 import api.gpio.Tirette;
 import api.lcd.LCD;
@@ -119,6 +120,10 @@ public class Main {
                     // Test du LCD
                     Main.testLcd();
                     break;
+                case "shell":
+                    // Test shell
+                    Main.testShell();
+                    break;
                 case "coupe-off":
                     // Danse de la coupe off
                     Main.coupeOffDance();
@@ -130,6 +135,18 @@ public class Main {
             printUsage();
             return;
         }
+    }
+
+    private static void testShell() throws IOException, InterruptedException {
+        Shell shell = new Shell("python /home/pi/2020Aruco/testPiCameraArucoShell.py");
+        shell.start();
+        System.out.println("Wait 100");
+        Thread.sleep(100);
+//        System.out.println(shell.read());
+        shell.send("a");
+        System.out.println(shell.read());
+//        Thread.sleep(500);
+//        System.out.println(shell.read());
     }
 
     private static void printUsage() {

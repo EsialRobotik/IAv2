@@ -23,7 +23,7 @@ sourceCompatibility = 1.8
 
 remotes {
     webServer {
-        host = '192.168.1.48'
+        host = '192.168.1.60'
         user = 'pi'
         identity = file("${System.properties['user.home']}/.ssh/id_rsa")
     }
