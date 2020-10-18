@@ -164,6 +164,7 @@ public class Main {
         System.out.println("\t- detection : Test de la detection");
         System.out.println("\t- interrupteur : Test interrupteurs");
         System.out.println("\t- lcd : Test de l'écran LCD");
+        System.out.println("\t- shell : Test du shell (lance une capture de la caméra et une analyse Aruco)");
         System.out.println("\t- coupe-off : Danse de la coupe off\n");
 
         System.out.println("configFile : chemin du fichier de configuration à utiliser. Par defaut, './config.json'\n");
