@@ -138,15 +138,17 @@ public class Main {
     }
 
     private static void testShell() throws IOException, InterruptedException {
-        Shell shell = new Shell("python /home/pi/2020Aruco/testPiCameraArucoShell.py");
+        Shell shell = new Shell("python /home/pi/2020Aruco/testPiCameraArucoShell.py --quiet");
         shell.start();
-        System.out.println("Wait 100");
-        Thread.sleep(100);
+        System.out.println("Start");
 //        System.out.println(shell.read());
+        Thread.sleep(2000);
+        long time = System.currentTimeMillis();
+        System.out.println("Ask");
         shell.send("a");
+        System.out.println("Read");
         System.out.println(shell.read());
-//        Thread.sleep(500);
-//        System.out.println(shell.read());
+        System.out.println("Resultat en " + (System.currentTimeMillis() - time) + "ms");
     }
 
     private static void printUsage() {
