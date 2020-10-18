@@ -60,8 +60,8 @@ public class Asserv implements AsservInterface {
         serial.addReaderListeners((SerialDataEventListener) serialDataEvent -> {
             try {
                 String serialBuffer = serialDataEvent.getAsciiString();
-                parseAsservPosition(serialBuffer);
                 logger.trace("Position : " + serialBuffer);
+                parseAsservPosition(serialBuffer);
             } catch (IOException e) {
                 logger.error("Echec du parsing de la position : " + e.getMessage());
             }
@@ -297,6 +297,16 @@ public class Asserv implements AsservInterface {
         return queueSize;
     }
 
+    public void waitForAsserv() {
+        while (!(this.getQueueSize() == 0 && this.getAsservStatus() == AsservInterface.AsservStatus.STATUS_IDLE)) {
+            try {
+                Thread.sleep(5);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public void calage2018(boolean isColor0) throws InterruptedException {
         // On init
         initialize();
@@ -358,26 +368,23 @@ public class Asserv implements AsservInterface {
             isColor0 ? (40 + 125) : (3000 - (40 + 125)),
             (isColor0 ? 1 : -1) * Math.PI/2
         );
+        this.logger.info("Position setted");
     }
 
     @Override
     public void goStart(boolean isColor0) throws InterruptedException {
         // On se positionne dans la zone de départ
         go(100);
-        Position depart = new Position(450, isColor0 ? 250 : 3000 - 250);
+        this.logger.info("Go 100");
+        waitForAsserv();
+        Position depart = new Position(800, isColor0 ? 200 : 3000 - 200);
+        this.logger.info("Goto " + depart.toString());
         goTo(depart);
-        Position alignement = new Position(2000, isColor0 ? 250 : 3000 - 250);
+        waitForAsserv();
+        Position alignement = new Position(800, isColor0 ? 3000 : 0 );
+        this.logger.info("Goto " + alignement.toString());
         face(alignement);
-    }
-
-    public static void main(String... args) throws InterruptedException {
-        LoggerFactory.init(Level.INFO);
-        Asserv asserv = new Asserv("/dev/serial/by-id/usb-mbed_Microcontroller_101000000000000000000002F7F2854A-if01", Baud._230400);
-
-        asserv.calage(false);
-
-        Thread.sleep(2000);
-
-        System.exit(0);
+        waitForAsserv();
+        this.logger.info("goStart finished");
     }
 }
