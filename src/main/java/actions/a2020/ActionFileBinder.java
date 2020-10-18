@@ -70,9 +70,6 @@ public class ActionFileBinder implements ActionInterface {
 		actionsList = new ActionExecutor[files.length + 1];
 
 		for (int i = 0; i < files.length; i++) {
-			System.out.println(this.dataDir.getAbsolutePath());
-			System.out.println(File.separator);
-			System.out.println(files[i].nomFichier);
 			File f = new File(this.dataDir.getAbsolutePath() + File.separator + files[i].nomFichier);
 			actionsList[i] = new ActionAX12Json(ax12Link, f, files[i].instantReturn);
 		}
