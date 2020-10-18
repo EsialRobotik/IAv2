@@ -61,7 +61,7 @@
           "positionY": 170,
           "dist": 0,
           "type": "deplacement",
-          "subtype": "face",
+          "subtype": "goto",
           "actionId": -1,
           "mirror": "MIRRORY",
           "timeout": -1
@@ -127,7 +127,7 @@
           "timeout": -1
         },
         {
-          "desc": "Allumage expérience",
+          "desc": "Allumage phare",
           "id": 11,
           "positionX": 110,
           "positionY": 300,
@@ -189,7 +189,7 @@
           "positionY": 170,
           "dist": 0,
           "type": "deplacement",
-          "subtype": "face",
+          "subtype": "goto",
           "actionId": -1,
           "mirror": "MIRRORY",
           "timeout": -1
@@ -527,7 +527,7 @@
           "positionY": 2830,
           "dist": 0,
           "type": "deplacement",
-          "subtype": "face",
+          "subtype": "goto",
           "actionId": -1,
           "mirror": "MIRRORY",
           "timeout": -1
@@ -593,7 +593,7 @@
           "timeout": -1
         },
         {
-          "desc": "Allumage expérience",
+          "desc": "Allumage phare",
           "id": 11,
           "positionX": 110,
           "positionY": 2700,
@@ -655,7 +655,7 @@
           "positionY": 2830,
           "dist": 0,
           "type": "deplacement",
-          "subtype": "face",
+          "subtype": "goto",
           "actionId": -1,
           "mirror": "MIRRORY",
           "timeout": -1
