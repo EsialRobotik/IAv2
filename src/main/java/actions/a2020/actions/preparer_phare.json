@@ -11,14 +11,14 @@
                 {
                     "actionId": "actionPosition",
                     "ax12Id": 3,
-                    "rawAngle": 589,
-                    "readOnlyAngleDegrees": 172.72727272727275
+                    "rawAngle": 588,
+                    "readOnlyAngleDegrees": 172.43401759530792
                 },
                 {
                     "actionId": "actionPosition",
                     "ax12Id": 2,
-                    "rawAngle": 591,
-                    "readOnlyAngleDegrees": 173.31378299120234
+                    "rawAngle": 590,
+                    "readOnlyAngleDegrees": 173.02052785923755
                 },
                 {
                     "actionId": "actionPosition",
@@ -29,26 +29,14 @@
                 {
                     "actionId": "actionPosition",
                     "ax12Id": 9,
-                    "rawAngle": 597,
-                    "readOnlyAngleDegrees": 175.07331378299122
+                    "rawAngle": 595,
+                    "readOnlyAngleDegrees": 174.4868035190616
                 },
                 {
                     "actionId": "actionPosition",
                     "ax12Id": 5,
-                    "rawAngle": 715,
-                    "readOnlyAngleDegrees": 209.67741935483872
-                },
-                {
-                    "actionId": "actionPosition",
-                    "ax12Id": 4,
-                    "rawAngle": 205,
-                    "readOnlyAngleDegrees": 60.117302052785924
-                },
-                {
-                    "actionId": "actionPosition",
-                    "ax12Id": 7,
-                    "rawAngle": 502,
-                    "readOnlyAngleDegrees": 147.21407624633432
+                    "rawAngle": 805,
+                    "readOnlyAngleDegrees": 236.07038123167155
                 }
             ]
         }

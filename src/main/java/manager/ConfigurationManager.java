@@ -42,6 +42,7 @@ public class ConfigurationManager {
     public static int CONFIG_TEST_INTERRUPTEURS = 2;
     public static int CONFIG_COUPEOFF           = 3;
     public static int CONFIG_TEST_LCD           = 4;
+    public static int CONFIG_ACCTIONNEUR        = 5;
 
     private MovementManager movementManager;
     private LidarManager lidarManager;
@@ -98,6 +99,7 @@ public class ConfigurationManager {
         }
 
         if( config == CONFIG_NOMINAL ||
+            config == CONFIG_ACCTIONNEUR ||
             config == CONFIG_COUPEOFF) {
 
             logger.info("LoadConfiguration : Actions");
@@ -114,7 +116,9 @@ public class ConfigurationManager {
                 actionSupervisor = new ActionSupervisor(actionFileBinder);
             }
 
-            pathfinding = new PathFinding(new Astar(table));
+            if (table != null) {
+                pathfinding = new PathFinding(new Astar(table));
+            }
         }
 
         if( config == CONFIG_TEST_INTERRUPTEURS||

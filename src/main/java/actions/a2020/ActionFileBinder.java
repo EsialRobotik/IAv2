@@ -40,8 +40,13 @@ public class ActionFileBinder implements ActionInterface {
 		 * Largage
 		 */
 		PREPARER_LARGAGE("preparer_largage.json", false), // 8
-		LARGUER_DOIGTS_IMPAIRE("larguer_doigts_impaire.json", false), // 9
-		LARGUER_DOIGTS_PAIRE("larguer_doigts_paire.json", false); // 10
+		LARGUER_DOIGTS_IMPAIRE("largage_impair.json", false), // 9
+		LARGUER_DOIGTS_PAIRE("largage_pair.json", false), // 10
+
+		/**
+		 * Phare
+		 */
+		PREPARER_PHARE("preparer_phare.json", false); // 11
 
 		public final String nomFichier;
 		public final boolean instantReturn;

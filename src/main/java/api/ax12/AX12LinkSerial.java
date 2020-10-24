@@ -2,6 +2,7 @@ package api.ax12;
 
 import gnu.io.*;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -149,12 +150,19 @@ public class AX12LinkSerial implements AX12Link {
 		Enumeration<CommPortIdentifier> p = CommPortIdentifier.getPortIdentifiers();
 		CommPortIdentifier cpi;
 		CommPort cp;
-		
+
+		String realName = null;
+		try {
+			realName = (new File(name)).getCanonicalPath();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 		while(p.hasMoreElements()){
 			try {
 				cpi = p.nextElement();
 				System.out.println(cpi.getName());
-				if(cpi != null && !cpi.isCurrentlyOwned() && (name == null || cpi.getName().equals(name))) {
+				if(cpi != null && !cpi.isCurrentlyOwned() && (realName == null || cpi.getName().equals(realName))) {
 					cp = cpi.open(AX12LinkSerial.class.getName(), 500);
 					if(cp instanceof SerialPort){
 						return (SerialPort) cp;

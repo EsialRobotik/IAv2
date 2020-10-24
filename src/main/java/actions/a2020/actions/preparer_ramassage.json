@@ -1,3 +1,44 @@
 {
-  
+    "actionPools": [
+        {
+            "actions": [
+                {
+                    "actionId": "actionPosition",
+                    "ax12Id": 10,
+                    "rawAngle": 703,
+                    "readOnlyAngleDegrees": 206.15835777126097
+                },
+                {
+                    "actionId": "actionPosition",
+                    "ax12Id": 3,
+                    "rawAngle": 311,
+                    "readOnlyAngleDegrees": 91.20234604105572
+                },
+                {
+                    "actionId": "actionPosition",
+                    "ax12Id": 2,
+                    "rawAngle": 304,
+                    "readOnlyAngleDegrees": 89.14956011730206
+                },
+                {
+                    "actionId": "actionPosition",
+                    "ax12Id": 1,
+                    "rawAngle": 698,
+                    "readOnlyAngleDegrees": 204.69208211143695
+                },
+                {
+                    "actionId": "actionPosition",
+                    "ax12Id": 9,
+                    "rawAngle": 320,
+                    "readOnlyAngleDegrees": 93.841642228739
+                },
+                {
+                    "actionId": "actionPosition",
+                    "ax12Id": 5,
+                    "rawAngle": 930,
+                    "readOnlyAngleDegrees": 272.7272727272727
+                }
+            ]
+        }
+    ]
 }

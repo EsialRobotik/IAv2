@@ -1,0 +1,20 @@
+{
+    "actionPools": [
+        {
+            "actions": [
+                {
+                    "actionId": "actionPosition",
+                    "ax12Id": 3,
+                    "rawAngle": 299,
+                    "readOnlyAngleDegrees": 87.68328445747801
+                },
+                {
+                    "actionId": "actionPosition",
+                    "ax12Id": 1,
+                    "rawAngle": 712,
+                    "readOnlyAngleDegrees": 208.7976539589443
+                }
+            ]
+        }
+    ]
+}

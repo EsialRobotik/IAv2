@@ -124,6 +124,10 @@ public class Main {
                     // Test shell
                     Main.testShell();
                     break;
+                case "actionneur":
+                    // Test actionneurs
+                    Main.testActionneurs();
+                    break;
                 case "coupe-off":
                     // Danse de la coupe off
                     Main.coupeOffDance();
@@ -153,6 +157,7 @@ public class Main {
         System.out.println("\t- interrupteur : Test interrupteurs");
         System.out.println("\t- lcd : Test de l'écran LCD");
         System.out.println("\t- shell : Test du shell (lance une capture de la caméra et une analyse Aruco)");
+        System.out.println("\t- actionneur : Test de l'init des actionneurs");
         System.out.println("\t- coupe-off : Danse de la coupe off\n");
 
         System.out.println("configFile : chemin du fichier de configuration à utiliser. Par defaut, './config.json'\n");
@@ -210,6 +215,14 @@ public class Main {
         System.out.println("Read");
         System.out.println(shell.read());
         System.out.println("Resultat en " + (System.currentTimeMillis() - time) + "ms");
+    }
+
+    private static void testActionneurs() throws IOException, AX12LinkException {
+        //Load of the configuration first
+        ConfigurationManager configurationManager = new ConfigurationManager();
+        configurationManager.loadConfiguration(configFilePath, ConfigurationManager.CONFIG_ACCTIONNEUR);
+
+        configurationManager.getActionFileBinder().getActionExecutor(0).execute();
     }
 
     private static void coupeOffDance() throws IOException, AX12LinkException {
