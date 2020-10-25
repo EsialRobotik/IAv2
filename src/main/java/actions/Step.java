@@ -18,7 +18,8 @@ public class Step {
         FACE,
         GOTO,
         GOTO_BACK,
-        GOTO_ASTAR
+        GOTO_ASTAR,
+        SET_SPEED
     }
 
     private String desc;
@@ -68,6 +69,9 @@ public class Step {
             } else if (temp.equals("goto_astar")) {
                 this.subType = SubType.GOTO_ASTAR;
                 this.position = new Position(configNode.get("positionX").getAsInt(), configNode.get("positionY").getAsInt());
+            } else if (temp.equals("set_speed")) {
+                this.subType = SubType.SET_SPEED;
+                this.distance = configNode.get("dist").getAsInt();
             }
 
             if (configNode.has("yPositiveExclusive")) {

@@ -204,6 +204,12 @@ public class Asserv implements AsservInterface {
     }
 
     @Override
+    public void setSpeed(int pct) {
+        logger.info("setSpeed " + pct + "%");
+        serial.write("S" + pct);
+    }
+
+    @Override
     public void enableRegulatorAngle(boolean enable) {
         logger.info("enableRegulatorAngle : " + enable);
         serial.write(enable ? "Rae" : "Rad");

@@ -1,6 +1,7 @@
 package actions.a2020;
 
 import actions.ActionAX12Json;
+import actions.ActionCollection;
 import actions.ActionExecutor;
 import actions.ActionInterface;
 import api.ax12.AX12LinkSerial;
@@ -14,6 +15,7 @@ public class ActionFileBinder implements ActionInterface {
 	protected ActionExecutor[] actionsList;
 	protected File dataDir;
 	protected AX12LinkSerial ax12Link;
+	protected ActionCollection actionCollection;
 	
 	public enum ActionFile {
 		/**
@@ -62,8 +64,9 @@ public class ActionFileBinder implements ActionInterface {
 		}
 	}
 	
-	public ActionFileBinder(AX12LinkSerial link, String dataDir) {
+	public ActionFileBinder(AX12LinkSerial link, String dataDir, ActionCollection actionCollection) {
 		this.dataDir = new File(dataDir);
+		this.actionCollection = actionCollection;
 		loadFiles(link);
 	}
 	
@@ -82,7 +85,7 @@ public class ActionFileBinder implements ActionInterface {
 		try {
 			Shell shell = new Shell("python /home/pi/2020Aruco/testPiCameraArucoShell.py --quiet");
 			shell.start();
-			actionsList[files.length] = new ArucoCamAction(shell);
+			actionsList[files.length] = new ArucoCamAction(shell, this.actionCollection);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (InterruptedException e) {

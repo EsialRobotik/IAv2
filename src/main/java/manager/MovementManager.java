@@ -117,6 +117,8 @@ public class MovementManager {
             this.asservInterface.goTo(new Position(step.getEndPosition().getX(),step.getEndPosition().getY()));
         } else if (step.getSubType() == Step.SubType.GOTO_BACK) {
             this.asservInterface.goToReverse(new Position(step.getEndPosition().getX(),step.getEndPosition().getY()));
+        } else if (step.getSubType() == Step.SubType.SET_SPEED) {
+            this.asservInterface.setSpeed(step.getDistance());
         }
     }
 

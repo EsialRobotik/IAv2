@@ -125,6 +125,12 @@ public interface AsservInterface {
     void enableLowSpeed(boolean enable);
 
     /**
+     * Définie la vitesse maximum en %
+     * @param pct pourcentage de la vitesse max
+     */
+    void setSpeed(int pct);
+
+    /**
      * Active ou désactive le régulateur d'angle
      * @param enable true pour activer, false pour désactiver
      */

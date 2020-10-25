@@ -19,6 +19,7 @@ public class ActionCollection {
     private JsonElement jsonElement;
     private boolean stepByStep = false;
     private Scanner scanner;
+    private boolean isColor0;
 
     public ActionCollection(String filepath) throws FileNotFoundException {
         JsonParser parser = new JsonParser();
@@ -33,6 +34,7 @@ public class ActionCollection {
 
     public void prepareActionList(boolean isColor0) {
         actionList = new ArrayList<>();
+        this.isColor0 = isColor0;
         for (JsonElement element : jsonElement.getAsJsonObject().getAsJsonArray(isColor0 ? "couleur0" : "couleur3000")) {
             ActionDescriptor action = new ActionDescriptor(element.getAsJsonObject(), this.stepByStep);
             if (this.stepByStep) {
@@ -77,6 +79,14 @@ public class ActionCollection {
 
     public void setScanner(Scanner scanner) {
         this.scanner = scanner;
+    }
+
+    public boolean isColor0() {
+        return isColor0;
+    }
+
+    public void addAction(ActionDescriptor action) {
+        actionList.add(action);
     }
 
     public static void main(String args[]) throws FileNotFoundException {

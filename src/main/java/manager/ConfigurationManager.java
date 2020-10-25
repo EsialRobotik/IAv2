@@ -112,7 +112,7 @@ public class ConfigurationManager {
                 SerialPort sp = AX12LinkSerial.getSerialPort(configObject.get("serie").getAsString());
                 AX12LinkSerial ax12Link = new AX12LinkSerial(sp, configObject.get("baud").getAsInt());
                 String dataDir = configObject.get("dataDir").getAsString();
-                actionFileBinder = new ActionFileBinder(ax12Link, dataDir);
+                actionFileBinder = new ActionFileBinder(ax12Link, dataDir, actionCollection);
                 actionSupervisor = new ActionSupervisor(actionFileBinder);
             }
 
