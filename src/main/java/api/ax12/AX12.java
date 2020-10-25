@@ -183,9 +183,9 @@ public class AX12 {
 	}
 
 	/**
-	 * D�finit la vitesse de l'AX12
-	 * En mode position, accepte une valeur entre 0 et 1023. 1 correspond � environ 0.111 rpm et 1023 ~= 114rpm. 0 = max possible.
-	 * En mode roue, contr�le la puissance en % envoy�e au moteur : 0~1023 : rotation anti horaire, 1024~2047 roation horaire
+	 * Définit la vitesse de l'AX12
+	 * En mode position, accepte une valeur entre 0 et 1023. 1 correspond à environ 0.111 rpm et 1023 ~= 114rpm. 0 = max possible.
+	 * En mode roue, contrôle la puissance en % envoyée au moteur : 0~1023 : rotation anti horaire, 1024~2047 roation horaire
 	 * @param spd
 	 * @throws AX12LinkException 
 	 * @throws AX12Exception 
@@ -195,8 +195,8 @@ public class AX12 {
 	}
 
 	/**
-	 * Asservit l'AX12 � un angle de 0 � 300�
-	 * N�cessite que l'AX12 soit en mode position
+	 * Asservit l'AX12 à un angle de 0 à 300 degrés
+	 * Nécessite que l'AX12 soit en mode position
 	 * @param pos
 	 * @throws AX12LinkException
 	 * @throws AX12Exception
@@ -216,15 +216,15 @@ public class AX12 {
 		return AX12Position.buildFromInt(this.read(AX12_Register.AX12_RAM_PRESENT_POSITION));
 	}
 	
-	/*
-	 * Allume ou �teint la LED de l'AX12
+	/**
+	 * Allume ou éteint la LED de l'AX12
 	 */
 	public void setLed(boolean on) throws AX12LinkException, AX12Exception {
 		this.write(AX12_Register.AX12_RAM_LED, on ? 1 : 0);
 	}
 	
 	/**
-	 * Indique � l'AX12 d'utiliser une nouvelle vitese de communication sur l'UART
+	 * Indique à l'AX12 d'utiliser une nouvelle vitese de communication sur l'UART
 	 * @param speed
 	 * @throws AX12LinkException
 	 * @throws AX12Exception
@@ -234,7 +234,7 @@ public class AX12 {
 	}
 	
 	/**
-	 * Met � jour l'ID de l'AX12 sur sa ROM et bascule sur la nouvelle adresse
+	 * Met à jour l'ID de l'AX12 sur sa ROM et bascule sur la nouvelle adresse
 	 * @param address
 	 * @throws AX12LinkException
 	 * @throws AX12Exception 
@@ -255,7 +255,7 @@ public class AX12 {
 		try {
 			return this.sendRequest(AX12_Instr.AX12_INSTR_PING, new byte[0]).length > 0;
 		} catch (AX12Exception e) {
-			// Si on re�oit une exception de l'AX12 qui n'est pas une non r�ponse, c'est qu'il existe
+			// Si on reçoit une exception de l'AX12 qui n'est pas une non réponse, c'est qu'il existe
 			return !e.contains(AX12_Error.AX12_ERR_NO_RESPONSE);
 		}
 	}
@@ -272,7 +272,7 @@ public class AX12 {
 	}
 	
 	/**
-	 * Retourne la temp�rature interne de l'AX12
+	 * Retourne la température interne de l'AX12
 	 * @return
 	 * @throws AX12Exception 
 	 * @throws AX12LinkException 
@@ -292,7 +292,7 @@ public class AX12 {
 	}
 	
 	/**
-	 * D�finit la vitesse de communication � utiliser pour parler � l'AX12 sans l'inscrire dans ce dernier
+	 * Définit la vitesse de communication à utiliser pour parler à l'AX12 sans l'inscrire dans ce dernier
 	 * @param baudRate
 	 */
 	public void setBaudRateRaw(int baudRate) {
@@ -300,7 +300,7 @@ public class AX12 {
 	}
 	
 	/**
-	 * R�cup�re la temp�rature maximale de fonctionnement en degr�s
+	 * Récupère la température maximale de fonctionnement en degrés celsius
 	 * @param temp
 	 * @throws AX12Exception 
 	 * @throws AX12LinkException 
@@ -310,20 +310,20 @@ public class AX12 {
 	}
 	
 	/**
-	 * R�gle la temp�rature maximale de fonctionnement en degr�s
+	 * Règle la température maximale de fonctionnement en degrés celsius
 	 * @param temp
 	 * @throws AX12Exception 
 	 * @throws AX12LinkException 
 	 */
 	public void setLimitTemp(int temp) throws AX12LinkException, AX12Exception {
 		if (temp < 0 || temp > 255) {
-			throw new RuntimeException("La temp�rature doit �tre comprise entre 0 et 255. Re�u "+temp);
+			throw new RuntimeException("La température doit être comprise entre 0 et 255. Reçu "+temp);
 		}
 		this.write(AX12_Register.AX12_EEPROM_HIGH_TEMP_LIMIT, temp);
 	}
 	
 	/**
-	 * De 0 � 254
+	 * De 0 à 254
 	 * @param compliance
 	 * @throws AX12LinkException
 	 * @throws AX12Exception
@@ -346,7 +346,7 @@ public class AX12 {
 	}
 	
 	/**
-	 * De 0 � 254
+	 * De 0 à 254
 	 * @param value
 	 * @throws AX12LinkException
 	 * @throws AX12Exception
@@ -369,14 +369,14 @@ public class AX12 {
 	}
 	
 	/**
-	 * De 0 � 254
+	 * De 0 à 254
 	 * @param value
 	 * @throws AX12LinkException
 	 * @throws AX12Exception
 	 */
 	public void setCwComplianceSlope(int value) throws AX12LinkException, AX12Exception {
 		if (value < 0 || value > 254) {
-			throw new RuntimeException("La valeur doit �tre comprise entre 0 et 255. Re�u "+value);
+			throw new RuntimeException("La valeur doit être comprise entre 0 et 255. Reçu "+value);
 		}
 		this.write(AX12_Register.AX12_RAM_CW_COMPILANCE_SLOPE, value);
 	}
@@ -391,14 +391,14 @@ public class AX12 {
 	}
 	
 	/**
-	 * De 0 � 254
+	 * De 0 à 254
 	 * @param value
 	 * @throws AX12LinkException
 	 * @throws AX12Exception
 	 */
 	public void setCcwComplianceSlope(int value) throws AX12LinkException, AX12Exception {
 		if (value < 1 || value > 255) {
-			throw new RuntimeException("La valeur doit �tre comprise entre 0 et 255. Re�u "+value);
+			throw new RuntimeException("La valeur doit être comprise entre 0 et 255. Reçu "+value);
 		}
 		this.write(AX12_Register.AX12_RAM_CCW_COMPILANCE_SLOPE, value);
 	}
@@ -422,7 +422,7 @@ public class AX12 {
 	}
 	
 	/**
-	 * D�finit le link � utiliser pour contr�ler l'AX12
+	 * Définit le link à utiliser pour contrôler l'AX12
 	 * @param alink
 	 */
 	public void setAx12Link(AX12Link alink) {
@@ -430,10 +430,10 @@ public class AX12 {
 	}
 	
 	/**
-	 * Ex�cute une routine de reset du baudrate de l'AX12
-	 * @param ax12 l'actions � reset
-	 * @param newSpeed la nouvelle vitesse � lui donner
-	 * @param listener un litener qui suit la progression, null si aucun listener ne doit �tre notifi�
+	 * Exécute une routine de reset du baudrate de l'AX12
+	 * @param ax12 l'actions à reset
+	 * @param newSpeed la nouvelle vitesse à lui donner
+	 * @param listener un litener qui suit la progression, null si aucun listener ne doit être notifié
 	 * @throws AX12LinkException 
 	 */
 	public void resetAx12BaudRate(AX12 ax12, AX12_UART_SPEEDS newSpeed, AX12BaudrateResetListener listener) throws AX12LinkException {
@@ -469,7 +469,7 @@ public class AX12 {
 	}
 	
 	/**
-	 * Indique si l'adresse AX12 est configur�e en broadcast
+	 * Indique si l'adresse AX12 est configurée en broadcast
 	 * @return
 	 */
 	public boolean isBroadcasting() {
@@ -515,7 +515,7 @@ public class AX12 {
 			throw new AX12LinkException("Le registre "+register.toString()+" n'est pas inscriptible");
 		}
 		if (value < 0 || value > 65535) {
-			throw new AX12LinkException("La valeur doit �tre comprise entre 0 et 65535 : "+value);
+			throw new AX12LinkException("La valeur doit être comprise entre 0 et 65535 : "+value);
 		}
 		
 		byte[] params = new byte[register.size+1];
@@ -531,20 +531,20 @@ public class AX12 {
 	}
 	
 	/**
-	 * Envoie une instruction, un registre et �vetentuellement des param�tres � l'AX12
-	 * Si une r�ponse est renvoy�e, son int�grit� est v�rifi�e ainsi que es �ventuelles erreurs remont�es
+	 * Envoie une instruction, un registre et évetentuellement des paramètres à l'AX12
+	 * Si une réponse est renvoyée, son intégrité est vérifiée ainsi que es éventuelles erreurs remontées
 	 * @param instruction
 	 * @param params
 	 * @return
 	 * @throws AX12LinkException
-	 * @throws AX12Exception si une erreur est remont�e par l'AX12 ou que sa r�ponse est erron�e
+	 * @throws AX12Exception si une erreur est remontée par l'AX12 ou que sa réponse est erronée
 	 */
 	protected byte[] sendRequest(AX12_Instr instruction, byte... params) throws AX12LinkException, AX12Exception {
 		if (instruction.minParamCount != -1 && params.length < instruction.minParamCount) {
-			throw new RuntimeException(instruction.toString()+" attend au moins "+instruction.minParamCount+" param�tre(s). "+params.length+" re�u(s)");
+			throw new RuntimeException(instruction.toString()+" attend au moins "+instruction.minParamCount+" paramètre(s). "+params.length+" reçu(s)");
 		}
 		if (instruction.maxParamCount != -1 && params.length > instruction.maxParamCount) {
-			throw new RuntimeException(instruction.toString()+" attend au plus "+instruction.maxParamCount+" param�tre(s). "+params.length+" re�u(s)");
+			throw new RuntimeException(instruction.toString()+" attend au plus "+instruction.maxParamCount+" paramètre(s). "+params.length+" reçu(s)");
 		}
 		
 		// Instruction packet : FF FF <ID> <LEN> <INSTR> <PAR0>..<PARN> <CKSUM>
@@ -582,9 +582,9 @@ public class AX12 {
 	}
 	
 	/**
-	 * V�rifie la validit� du packet brut re�u d'un AX12
+	 * Vérifie la validité du packet brut reçu d'un AX12
 	 * @param packet
-	 * @param ax12Addr l'adresse de l'AX12 solicit�
+	 * @param ax12Addr l'adresse de l'AX12 solicité
 	 * @return
 	 */
 	protected static String validatePacket(byte[] packet, int ax12Addr) {
@@ -603,13 +603,13 @@ public class AX12 {
 			return "Le paquet ne contient pas le bon id de l'actions";
 		}
 		
-		// La longueur doit �tre > 2 et < taille du packet - 2
+		// La longueur doit être > 2 et < taille du packet - 2
 		int l = AX12.unsignedByteToInt(packet[3]);
 		if (l < 2 || l > packet.length - 2) {
-			return "La taille de la charge utile mentionn�e par le paquet ne correspond pas � la taille reelle";
+			return "La taille de la charge utile mentionnée par le paquet ne correspond pas à la taille reelle";
 		}
 		
-		// V�rification du checksum
+		// Vérification du checksum
 		l -= 3;
 		int cc = packet[2]; // ID
 		cc += packet[3];    // Length
@@ -626,7 +626,7 @@ public class AX12 {
 	}
 	
 	/**
-	 * Extrait les �ventuelles erreurs contenues dans le registre ad-hoc de l'AX12
+	 * Extrait les éventuelles erreurs contenues dans le registre ad-hoc de l'AX12
 	 * @param registerValue
 	 * @return
 	 */
@@ -651,7 +651,7 @@ public class AX12 {
 	}
 	
 	/**
-	 * Extrait les parametres d'une r�ponse suppos�e valide
+	 * Extrait les parametres d'une réponse supposée valide
 	 * @param registerValue
 	 * @return
 	 */
@@ -672,11 +672,11 @@ public class AX12 {
 	 * 
 	 * @param val
 	 * @return
-	 * @throws IllegalArgumentException Si la valeur donn�e n'est pas comprise entre 0 et 255
+	 * @throws IllegalArgumentException Si la valeur donnée n'est pas comprise entre 0 et 255
 	 */
 	public static byte intToUnsignedByte(int val) throws IllegalArgumentException {
 		if (val < 0 || val > 255) {
-			throw new IllegalArgumentException("La valeur doit �tre comprise entre 0 et 255 : "+val);
+			throw new IllegalArgumentException("La valeur doit être comprise entre 0 et 255 : "+val);
 		}
 		
 		if(val == 0) {
@@ -701,7 +701,7 @@ public class AX12 {
 	 * 
 	 * @param val
 	 * @return
-	 * @throws IllegalArgumentException Si la valeur donn�e n'est pas comprise entre 0 et 255
+	 * @throws IllegalArgumentException Si la valeur donnée n'est pas comprise entre 0 et 255
 	 */
 	public static int unsignedByteToInt(byte b) throws IllegalArgumentException {
 		BitSet bs = BitSet.valueOf(new byte[]{b});
@@ -719,7 +719,7 @@ public class AX12 {
 	}
 	
 	/**
-	 * Repr�sente un byte sous forme de 0 et de 1, poids fort � gauche
+	 * Représente un byte sous forme de 0 et de 1, poids fort à gauche
 	 * @param b
 	 * @return
 	 */
@@ -732,7 +732,7 @@ public class AX12 {
 	}
 	
 	/**
-	 * L�ve une exception si l'adresse de l'AX12 n'est pas valide
+	 * Lève une exception si l'adresse de l'AX12 n'est pas valide
 	 * @param address
 	 * @throws IllegalArgumentException
 	 */
@@ -741,7 +741,7 @@ public class AX12 {
 			return;
 		}
 		if (address < AX12_ADDRESS_MIN || address > AX12_ADDRESS_MAX) {
-			throw new IllegalArgumentException("L'adresse de l'AX12 doit �tre contenue dans la plage ["+AX12_ADDRESS_MIN+" ~ "+AX12_ADDRESS_MAX+"] Ou correspondre � l'adresse de BroadCast "+AX12_ADDRESS_BROADCAST+". Obtenu : "+address);
+			throw new IllegalArgumentException("L'adresse de l'AX12 doit être contenue dans la plage ["+AX12_ADDRESS_MIN+" ~ "+AX12_ADDRESS_MAX+"] Ou correspondre à l'adresse de BroadCast "+AX12_ADDRESS_BROADCAST+". Obtenu : "+address);
 		}
 	}
 }

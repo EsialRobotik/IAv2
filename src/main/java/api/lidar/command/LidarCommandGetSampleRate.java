@@ -34,7 +34,7 @@ public class LidarCommandGetSampleRate extends LidarCommand {
 	
 	@Override
 	protected void executePreRequest() throws LidarCommandException, IOException {
-		// Rien à faire
+		// Rien Ã  faire
 	}
 	
 	@Override
@@ -54,7 +54,7 @@ public class LidarCommandGetSampleRate extends LidarCommand {
 	}
 
 	/**
-	 * Récupère la réponse de la commande
+	 * RÃ©cupÃ¨re la rÃ©ponse de la commande
 	 * 
 	 * @return
 	 * @throws LidarCommandFailedException
@@ -66,7 +66,7 @@ public class LidarCommandGetSampleRate extends LidarCommand {
 		}
 		
 		if (this.executionException != null || this.sampleRate == null) {
-			throw new LidarCommandFailedException("La commande a échoué", this.executionException);
+			throw new LidarCommandFailedException("La commande a Ã©chouÃ©", this.executionException);
 		}
 		
 		

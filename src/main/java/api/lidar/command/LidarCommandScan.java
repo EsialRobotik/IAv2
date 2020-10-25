@@ -40,7 +40,7 @@ public class LidarCommandScan extends LidarCommand {
 	}
 	
 	/**
-	 * Lit les positions renvoyÈes par le Lidar
+	 * Lit les positions renvoy√©es par le Lidar
 	 * 
 	 * @throws LidarCommandException
 	 */
@@ -53,7 +53,7 @@ public class LidarCommandScan extends LidarCommand {
 		byte[] readBuffer = new byte[50]; // On va lire par paquets de 10 points
 		int qte;
 		try {
-			// On attend un peu la mise en place du flux de donnÈes
+			// On attend un peu la mise en place du flux de donn√©es
 			Thread.sleep(100);
 		} catch (InterruptedException e1) {
 			e1.printStackTrace();
@@ -62,13 +62,13 @@ public class LidarCommandScan extends LidarCommand {
 			try {
 				qte = this.link.tryToReadNByteWith1Retry(readBuffer, readBuffer.length);
 				if (qte %5 != 0) {
-					throw new LidarCommandException("Erreur de consistance des donnÈes cartographiques du Lidar");
+					throw new LidarCommandException("Erreur de consistance des donn√©es cartographiques du Lidar");
 				}
 				
 				if (qte == 0) {
 					retryCount++;
 					if (retryCount > MAX_RETRY_COUNT) {
-						throw new LidarCommandException("Le lidar ne renvoie pas/plus de donnÈes");
+						throw new LidarCommandException("Le lidar ne renvoie pas/plus de donn√©es");
 					}
 					Thread.sleep(RETRY_PERIOD_MS);
 					continue;
@@ -78,19 +78,19 @@ public class LidarCommandScan extends LidarCommand {
 				
 				for (int i=0; i<qte; i+=5) {
 					/*
-					 * D'aprËs la doc :
+					 * D'apr√®s la doc :
 					 * byte[0] => 8-2 quality / 1 !S / 0 S
 					 * byte[1] => 8-1 angle_q6[6:0 / 0 C
 					 * byte[2] => 8-0 angle_q6[14:7]
 					 * byte[3] => 8-0 distance_q2[7:0]
 					 * byte[4] => 8-0 distance_q2[15:8]
 					 * 
-					 * S : indicateur d'une nouvelle rÈvolution (= nouveau scan)
-					 * !S : la nÈgation de l'indicateur prÈcÈdent, utilisÈ pour vÈrifier la consistance des donnÈes
-					 * C : bit toujours ‡ 1, utile pour vÈrifier la consistance des donnÈes
-					 * quality : la qualitÈ de la mesure (= la puissance de rÈflexion du laser)
-					 * angle_q6 : l'angle de la mesure relative  ‡ l'orientation du lidar en degrÈs. A diviser par 64.0 pour avoir la vraie valeur
-					 * distance_q2 : la distance du point rÈflÈchi par rapport au lidar en millimËtres. A diviser par 4.0 pour avoir al vraie valeur. 0 = mesure invalide.
+					 * S : indicateur d'une nouvelle r√©volution (= nouveau scan)
+					 * !S : la n√©gation de l'indicateur pr√©c√©dent, utilis√© pour v√©rifier la consistance des donn√©es
+					 * C : bit toujours √† 1, utile pour v√©rifier la consistance des donn√©es
+					 * quality : la qualit√© de la mesure (= la puissance de r√©flexion du laser)
+					 * angle_q6 : l'angle de la mesure relative √† l'orientation du lidar en degr√©s. A diviser par 64.0 pour avoir la vraie valeur
+					 * distance_q2 : la distance du point r√©fl√©chi par rapport au lidar en millim√®tres. A diviser par 4.0 pour avoir al vraie valeur. 0 = mesure invalide.
 					 */
 					boolean s = (readBuffer[i] & 0x01) == 0x01;
 					if (s != ((readBuffer[i] & 0x02) == 0x0) || (readBuffer[i+1] & 0x01) == 0x0) { // S == !S && C == 1 ?
@@ -103,9 +103,9 @@ public class LidarCommandScan extends LidarCommand {
 					}
 				
 					this.scanHandler.handleLidarScan(
-						((readBuffer[i] >> 2) & 0xFF), // qualitÈ
+						((readBuffer[i] >> 2) & 0xFF), // qualit√©
 						s, // nouvelle rotation
-						(((readBuffer[i+2] & 0xFF) << 7) | ((readBuffer[i+1] & 0xFF) >> 1)) / 64.0, // angle en degrÈs
+						(((readBuffer[i+2] & 0xFF) << 7) | ((readBuffer[i+1] & 0xFF) >> 1)) / 64.0, // angle en degr√©s
 						distance / 4.0 // distance en mm
 					);
 				}

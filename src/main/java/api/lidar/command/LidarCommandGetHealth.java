@@ -34,7 +34,7 @@ public class LidarCommandGetHealth extends LidarCommand {
 	
 	@Override
 	protected void executePreRequest() throws LidarCommandException, IOException {
-		// Rien à faire
+		// Rien Ã  faire
 	}
 	
 	@Override
@@ -62,14 +62,14 @@ public class LidarCommandGetHealth extends LidarCommand {
 				health.health = HEALTH.ERROR;
 			break;
 			default:
-				throw new LidarCommandException("Le Lidar a donné une réponse inattendue");
+				throw new LidarCommandException("Le Lidar a donnÃ© une rÃ©ponse inattendue");
 		}
 		
 		this.health = health;
 	}
 	
 	/**
-	 * Récupère la réponse de la commande
+	 * RÃ©cupÃ¨re la rÃ©ponse de la commande
 	 * 
 	 * @return
 	 * @throws LidarCommandFailedException
@@ -81,7 +81,7 @@ public class LidarCommandGetHealth extends LidarCommand {
 		}
 		
 		if (this.executionException != null || this.health == null) {
-			throw new LidarCommandFailedException("La commande a échoué", this.executionException);
+			throw new LidarCommandFailedException("La commande a Ã©chouÃ©", this.executionException);
 		}
 		
 		return this.health;

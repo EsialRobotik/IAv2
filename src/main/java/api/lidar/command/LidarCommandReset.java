@@ -32,7 +32,7 @@ public class LidarCommandReset extends LidarCommand {
 	
 	@Override
 	protected void executeCustomPostRequest() throws LidarCommandException, IOException {
-		this.stopRotation(); // Pour être sûr
+		this.stopRotation(); // Pour Ãªtre sÃ»r
 		this.link.cleanInput();
 	}
 

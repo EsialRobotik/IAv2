@@ -13,14 +13,14 @@ public class LidarResponseInfo {
 	public int hardwareVersion;
 	
 	/**
-	 * Le n° de série du Lidar
+	 * Le nÂ° de sÃ©rie du Lidar
 	 * serialNumber[0] : byte de poids le plus fort
 	 * serialNumber[serialNumber.length - 1] byte de poids le plus faible
 	 */
 	public byte[] serialNumber;
 	
 	/**
-	 * Convertit le numéro de série en chaîne hexa sans préfixe "0x"
+	 * Convertit le numÃ©ro de sÃ©rie en chaÃ¯ne hexa sans prÃ©fixe "0x"
 	 * 
 	 * @return
 	 */
@@ -33,7 +33,7 @@ public class LidarResponseInfo {
 	}
 	
 	/**
-	 * Renvoie la version du firmware sous forme d'une chaîne "versionMajeure.versionMineure"
+	 * Renvoie la version du firmware sous forme d'une chaÃ¯ne "versionMajeure.versionMineure"
 	 * 
 	 * @return
 	 */

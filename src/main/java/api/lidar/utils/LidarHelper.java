@@ -24,7 +24,7 @@ public class LidarHelper {
 	
 	/**
 	 * Affiche la valeur de b en hexa
-	 * La valeur est affichée en considérant que le byte est codé non signé
+	 * La valeur est affichÃ©e en considÃ©rant que le byte est codÃ© non signÃ©
 	 * 
 	 * @param b
 	 * @return

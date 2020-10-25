@@ -4,9 +4,9 @@ public interface AX12BaudrateResetListener {
 
 	/**
 	 * Indique la progression du reset du baudrate de l'actions
-	 * @param currentStep l'�tape courante
-	 * @param count le nombre total d'�tapes
-	 * @return s'il faut arr�ter la progression ou pas
+	 * @param currentStep l'étape courante
+	 * @param count le nombre total d'étapes
+	 * @return s'il faut arrêter la progression ou pas
 	 */
 	public boolean ax12BaudRateResetProgression(int currentStep, int count);
 	

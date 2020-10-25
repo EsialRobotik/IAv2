@@ -48,7 +48,7 @@ public class AX12Exception extends Exception {
 	}
 	
 	/**
-	 * V�rifie si l'exception contient un motif d'erreur sp�cifique
+	 * Vérifie si l'exception contient un motif d'erreur spécifique
 	 * @param err
 	 * @return
 	 */

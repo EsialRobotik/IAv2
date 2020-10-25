@@ -54,14 +54,14 @@ public class RpLidarMain implements RpLidarScanHandlerInterface {
 		if (this.mesuresRecues % 5000 == 0) {
 			double speed =  5000000. / ((double)(System.currentTimeMillis() - this.lastOutputTime));
 			long time = (System.currentTimeMillis() - this.scanSTartTime) / 1000;
-			System.out.println("Tps exécution "+time+" secondes ; "+this.mesuresRecues+" mesures reçues (env "+Math.round(speed)+" / seconde)");
+			System.out.println("Tps exÃ©cution "+time+" secondes ; "+this.mesuresRecues+" mesures reÃ§ues (env "+Math.round(speed)+" / seconde)");
 			this.lastOutputTime = System.currentTimeMillis();
 		}
 	}
 
 	@Override
 	public void scanStopped(SCAN_STOP_REASON reason) {
-		System.out.println("Scan stoppé :"+reason);
+		System.out.println("Scan stoppÃ© :"+reason);
 	}
 
 	@Override
@@ -72,7 +72,7 @@ public class RpLidarMain implements RpLidarScanHandlerInterface {
 	public void snifSerial() {
 		List<SerialPort> liste = this.getAvailableSerialPortList();
 		if (liste.isEmpty()) {
-			System.out.println("Aucun port série.");
+			System.out.println("Aucun port sÃ©rie.");
 			System.exit(0);
 		}
 		
@@ -90,11 +90,11 @@ public class RpLidarMain implements RpLidarScanHandlerInterface {
 	public void mainProgramm() {
 		List<SerialPort> liste = this.getAvailableSerialPortList();
 		if (liste.isEmpty()) {
-			System.out.println("Aucun port série.");
+			System.out.println("Aucun port sÃ©rie.");
 			System.exit(0);
 		}
 		try {
-			System.out.println("Port utilisé : "+liste.get(0).getName());
+			System.out.println("Port utilisÃ© : "+liste.get(0).getName());
 			RpLidarLink rplink = new RpLidarLink(liste.get(0));
 			RpLidarA2 lidar = new RpLidarA2(rplink);
 			
@@ -116,7 +116,7 @@ public class RpLidarMain implements RpLidarScanHandlerInterface {
 	public void graphicalInterface() {
 		List<SerialPort> liste = this.getAvailableSerialPortList();
 		if (liste.isEmpty()) {
-			System.out.println("Aucun port série.");
+			System.out.println("Aucun port sÃ©rie.");
 			System.exit(0);
 		}
 		

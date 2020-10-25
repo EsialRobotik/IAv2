@@ -33,7 +33,7 @@ public class LidarCommandGetInfo extends LidarCommand {
 	
 	@Override
 	protected void executePreRequest() throws LidarCommandException, IOException {
-		// Rien à faire
+		// Rien Ã  faire
 	}
 	
 	@Override
@@ -58,11 +58,11 @@ public class LidarCommandGetInfo extends LidarCommand {
 	}
 	
 	/**
-	 * Renvoie la réponse de la commande
+	 * Renvoie la rÃ©ponse de la commande
 	 * 
 	 * @return
-	 * @throws LidarCommandNotFinishedException si la commande ne s'est pas encore exécutée ou n'est pas encore temrinée
-	 * @throws LidarCommandFailedException si la commande a échoué
+	 * @throws LidarCommandNotFinishedException si la commande ne s'est pas encore exÃ©cutÃ©e ou n'est pas encore temrinÃ©e
+	 * @throws LidarCommandFailedException si la commande a Ã©chouÃ©
 	 */
 	public LidarResponseInfo getResult() throws LidarCommandNotFinishedException, LidarCommandFailedException {
 		if (this.getCommandState() != COMMAND_STATE.FINISHED) {
@@ -70,7 +70,7 @@ public class LidarCommandGetInfo extends LidarCommand {
 		}
 		
 		if (this.executionException != null || this.infos == null) {
-			throw new LidarCommandFailedException("La commande a échoué", this.executionException);
+			throw new LidarCommandFailedException("La commande a Ã©chouÃ©", this.executionException);
 		}
 		
 		

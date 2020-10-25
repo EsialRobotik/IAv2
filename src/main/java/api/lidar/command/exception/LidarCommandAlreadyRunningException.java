@@ -3,7 +3,7 @@ package api.lidar.command.exception;
 import api.lidar.command.LidarCommandException;
 
 /**
- * Lorsqu'une tentative de commande a été effectuée sur le Lidar alors qu'une autre commande n'était pas terminée
+ * Lorsqu'une tentative de commande a Ã©tÃ© effectuÃ©e sur le Lidar alors qu'une autre commande n'Ã©tait pas terminÃ©e
  * @author gryttix
  *
  */

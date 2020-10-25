@@ -14,6 +14,6 @@ public class LidarResponseSampleRate {
 	
 	@Override
 	public String toString() {
-		return "Standard sample rate : "+this.timeStandard+"µs\nExpress sample rate : "+this.timeExpress+"µs";
+		return "Standard sample rate : "+this.timeStandard+"Âµs\nExpress sample rate : "+this.timeExpress+"Âµs";
 	}
 }

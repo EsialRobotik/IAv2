@@ -23,12 +23,12 @@ public class LidarCommandExpressScan extends LidarCommand {
 	protected final static int CABIN_LENGTH = 5;
 	
 	/**
-	 * Le nombre de tentatives de resynchro autorisées avant de renvoyer une erreur
+	 * Le nombre de tentatives de resynchro autorisÃ©es avant de renvoyer une erreur
 	 */
 	protected final static int RESYNCHRO_THRESHOLD = 10;
 	
 	/**
-	 * Le nombre de mauvais checksum autorisés avant de lancer une erreur
+	 * Le nombre de mauvais checksum autorisÃ©s avant de lancer une erreur
 	 */
 	protected final static int CHECKSUM_ERROR_THRESHOLD = 10;
 	
@@ -72,14 +72,14 @@ public class LidarCommandExpressScan extends LidarCommand {
 			return;
 		}
 		
-		// TODO lancer le Thread de lecture de la réponse
+		// TODO lancer le Thread de lecture de la rÃ©ponse
 		Thread lecture = new Thread(new Runnable() {
 			
 			@Override
 			public void run() {
 				
 				try {
-					LidarCommandExpressScan.this.acquireFrame(); // Il faut 2 frames d'affilé pour pouvoir exploiter des données
+					LidarCommandExpressScan.this.acquireFrame(); // Il faut 2 frames d'affilÃ© pour pouvoir exploiter des donnÃ©es
 					while (LidarCommandExpressScan.this.canContinue()) {
 						LidarCommandExpressScan.this.acquireFrame();	
 						LidarCommandExpressScan.this.processFrame();
@@ -109,7 +109,7 @@ public class LidarCommandExpressScan extends LidarCommand {
 	 */
 	protected void processFrame() {
 		boolean startFlagN = this.frameN[3] >> 7 == 0x1;
-		// L'angle est codé sur 15 bits et il faut le diviser par 64.0 pour avoir la valeur décimale en degrés
+		// L'angle est codÃ© sur 15 bits et il faut le diviser par 64.0 pour avoir la valeur dÃ©cimale en degrÃ©s
 		double startAngleN = ((double) ((0xFF & this.frameN[3] << 7) | this.frameN[2])) / 64.0;
 		double startAngleNplus1 = ((double) ((0xFF & this.frameNplus1[3] << 7) | this.frameNplus1[2])) / 64.0;;
 	
@@ -121,10 +121,10 @@ public class LidarCommandExpressScan extends LidarCommand {
 	}
 	
 	/**
-	 * Lit une frame du Lidar et gère la synchronisation : essaye de se resynchroniser si une désynchro est détectée
-	 * Lance une exception si la synchronisation n'a pas pu être retrouvée
+	 * Lit une frame du Lidar et gÃ¨re la synchronisation : essaye de se resynchroniser si une dÃ©synchro est dÃ©tectÃ©e
+	 * Lance une exception si la synchronisation n'a pas pu Ãªtre retrouvÃ©e
 	 * 
-	 * @param response un tableau de 80 éléments
+	 * @param response un tableau de 80 Ã©lÃ©ments
 	 * @return indique si l'acquisition s'est faite du premier coup ou pas
 	 * @throws LidarCommandException
 	 */
@@ -136,9 +136,9 @@ public class LidarCommandExpressScan extends LidarCommand {
 		while (true) {
 			LidarCommandExpressScan.this.readToFillBufferFully(this.frameWithHeader);
 			
-			// Une frame doit commencer par 0xA 0x5, localisés respectivement dans les deux premier bytes
-			// Si ce n'est pas le cas, on fait défiler le flux jusqu'à retrouver le flag
-			// Par al suite le checksum nous dira si on s'est bien recalé
+			// Une frame doit commencer par 0xA 0x5, localisÃ©s respectivement dans les deux premier bytes
+			// Si ce n'est pas le cas, on fait dÃ©filer le flux jusqu'Ã  retrouver le flag
+			// Par al suite le checksum nous dira si on s'est bien recalÃ©
 			while (!isStartFlag(this.frameWithHeader[0], this.frameWithHeader[1])) {
 				for (int i=2; i<80; i++) {
 					this.frameWithHeader[i-2] = this.frameWithHeader[i];
@@ -149,19 +149,19 @@ public class LidarCommandExpressScan extends LidarCommand {
 				resyncCount++;
 				
 				if (resyncCount > RESYNCHRO_THRESHOLD) {
-					throw new LidarCommandFailedException("Trop de désynchronisation du flux de lecture du Lidar");
+					throw new LidarCommandFailedException("Trop de dÃ©synchronisation du flux de lecture du Lidar");
 				}
 			}
 			
-			// Si checksum valide alors on a la certitude de ne plus être désynchronisé
-			// Et que response contient des données cohérentes
+			// Si checksum valide alors on a la certitude de ne plus Ãªtre dÃ©synchronisÃ©
+			// Et que response contient des donnÃ©es cohÃ©rentes
 			if (this.validateFrameCheckSum(this.frameWithHeader)) {
 				this.shiftFrame(this.frameWithHeader, resyncCount == 0 && checksumErrorCount == 0);
 				break;
 			} else {
 				checksumErrorCount++;
 				if (checksumErrorCount > CHECKSUM_ERROR_THRESHOLD) {
-					throw new LidarCommandFailedException("Le lidar a renvoyé de trop nombreuses frames avec un checksum erroné");
+					throw new LidarCommandFailedException("Le lidar a renvoyÃ© de trop nombreuses frames avec un checksum erronÃ©");
 				}
 			}
 		}
@@ -169,7 +169,7 @@ public class LidarCommandExpressScan extends LidarCommand {
 	}
 	
 	/**
-	 * Indique si les deux bytes donnés correspondent au flag de début de frame
+	 * Indique si les deux bytes donnÃ©s correspondent au flag de dÃ©but de frame
 	 * @param b1
 	 * @param b2
 	 * @return
@@ -181,13 +181,13 @@ public class LidarCommandExpressScan extends LidarCommand {
 	/**
 	 * Valide le checksum d'une frame
 	 * 
-	 * @param response doit être un tableau de 80 éléments
+	 * @param response doit Ãªtre un tableau de 80 Ã©lÃ©ments
 	 */
 	protected boolean validateFrameCheckSum(byte[] response) {
-		// La valeur du checksum est répartie dans les bits de poids faible des index 0 et 1 de la frame
+		// La valeur du checksum est rÃ©partie dans les bits de poids faible des index 0 et 1 de la frame
 		byte theoricalChecksum = (byte) ((response[0] << 4 & 0xF0) | (response[1] & 0xF));
 		
-		// Le cheksum est un XOR de tous les bytes de l'index 2 à 79
+		// Le cheksum est un XOR de tous les bytes de l'index 2 Ã  79
 		byte realCheckSum = response[2];
 		for (int i=3; i<response.length; i++) {
 			realCheckSum |= response[i];
@@ -197,10 +197,10 @@ public class LidarCommandExpressScan extends LidarCommand {
 	}
 	
 	/**
-	 * Décale le FrameNplus1 dans frameN recopie la frame données dans FrameNplus1
+	 * DÃ©cale le FrameNplus1 dans frameN recopie la frame donnÃ©es dans FrameNplus1
 	 * 
 	 * @param frameWithHeader
-	 * @param isFollowing indique si la frame donnée suis immédiatement l'anceinne frameNplus1
+	 * @param isFollowing indique si la frame donnÃ©e suis immÃ©diatement l'anceinne frameNplus1
 	 */
 	protected void shiftFrame(byte[] frameWithHeader, boolean isFollowing) {
 		// recopie de fram n+1 dans n

@@ -9,12 +9,12 @@ public interface RpLidarInterface {
 	public LidarResponseHealth getHealth() throws LidarException;
 	
 	/**
-	 * Démarre un scan dans un nouveau thread
+	 * DÃ©marre un scan dans un nouveau thread
 	 */
 	public void startScan(RpLidarScanHandlerInterface scanHandler) throws LidarException;
 	
 	/**
-	 * Démarre un scan express
+	 * DÃ©marre un scan express
 	 * 
 	 * @param scanHandler
 	 * @throws LidarException
@@ -38,7 +38,7 @@ public interface RpLidarInterface {
 	public boolean scanIsRunning();
 	
 	/**
-	 * Récupère le taux d'échantillonage du Lidar
+	 * RÃ©cupÃ¨re le taux d'Ã©chantillonage du Lidar
 	 * 
 	 * @return
 	 * @throws LidarException
@@ -46,7 +46,7 @@ public interface RpLidarInterface {
 	public LidarResponseSampleRate getSampleRate() throws LidarException;
 	
 	/**
-	 * Récupère des informations sur le Lidar
+	 * RÃ©cupÃ¨re des informations sur le Lidar
 	 * @return
 	 * @throws LidarException
 	 */

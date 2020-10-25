@@ -83,16 +83,16 @@ public class AX12LinkSerial implements AX12Link {
 				os.write(cmd);
 				os.flush();
 			
-				// On retire du flux d'entr�e la commande qu'on vient juste d'envoyer si rx et tx sont combin�s
+				// On retire du flux d'entrée la commande qu'on vient juste d'envoyer si rx et tx sont combinés
 				if (this.combinedRxTx) {
 					for (int i=0; i<cmd.length; i++) {
 						if (is.read() == -1) {
-							throw new AX12LinkException("Erreur de changement d'�chapement de la commande dans le flux d'entr�e");
+							throw new AX12LinkException("Erreur de changement d'échapement de la commande dans le flux d'entrée");
 						}
 					}	
 				}
 				
-				// On lit la r�ponse de l'AX12
+				// On lit la réponse de l'AX12
 				this.lecture.clear();
 				int r;
 				while ((r = is.read()) != -1) {
@@ -141,9 +141,9 @@ public class AX12LinkSerial implements AX12Link {
 	}
 	
 	/**
-	 * Retourne un port s�rie identifi� par son nom
-	 * @param name si null, le premier port s�rie valide est retourn�
-	 * @return null si le port s�rie identifi�e par son nom n'existe ou n'est pas disponible
+	 * Retourne un port série identifié par son nom
+	 * @param name si null, le premier port série valide est retourné
+	 * @return null si le port série identifiée par son nom n'existe ou n'est pas disponible
 	 */
 	public static SerialPort getSerialPort(String name) {
 		@SuppressWarnings("unchecked")

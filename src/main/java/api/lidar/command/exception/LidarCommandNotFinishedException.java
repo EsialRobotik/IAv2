@@ -10,7 +10,7 @@ public class LidarCommandNotFinishedException extends LidarCommandException {
 	private static final long serialVersionUID = 1L;
 
 	public LidarCommandNotFinishedException() {
-		super("La commade n'est pas terminée");
+		super("La commade n'est pas terminÃ©e");
 	}
 
 	

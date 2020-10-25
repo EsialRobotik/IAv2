@@ -111,20 +111,20 @@ public class RpLidarA2 implements RpLidarInterface {
 	/**
 	 * Lance une nouvelle commande
 	 * 
-	 * @param command la commande à lancer
+	 * @param command la commande Ã  lancer
 	 * @param forceLaunch force le stop
-	 * @param waitTermination si true, bloque jusqu'à ce que la command se termine
+	 * @param waitTermination si true, bloque jusqu'Ã  ce que la command se termine
 	 * @throws LidarCommandAlreadyRunningException
 	 */
 	protected void launchCommand(LidarCommand command, boolean forceLaunch, boolean waitTermination) throws LidarCommandAlreadyRunningException {
-		// On s'assure de ne faire qu'un seule lancement de commande à la fois
+		// On s'assure de ne faire qu'un seule lancement de commande Ã  la fois
 		synchronized(this.commandIsRunning) {
-			// Si le flag de commande en train de tourner est à true 
+			// Si le flag de commande en train de tourner est Ã  true
 			if (this.commandIsRunning) {
 				
 				// Si une commande est encore en train de tourner
 				if (this.runningCommand != null && this.runningCommand.getCommandState() != LidarCommand.COMMAND_STATE.FINISHED) {
-					// Si on force le lancement de la nouvelle commande => arrêt de celle en cours
+					// Si on force le lancement de la nouvelle commande => arrÃªt de celle en cours
 					if (forceLaunch) {
 						this.runningCommand.terminate();
 						try {
@@ -133,7 +133,7 @@ public class RpLidarA2 implements RpLidarInterface {
 							e.printStackTrace();
 						}
 					} else {
-						throw new LidarCommandAlreadyRunningException("Une commande est déjà en cours d'exécution : "+runningCommand.getName());
+						throw new LidarCommandAlreadyRunningException("Une commande est dÃ©jÃ  en cours d'exÃ©cution : "+runningCommand.getName());
 					}
 				} else {
 					

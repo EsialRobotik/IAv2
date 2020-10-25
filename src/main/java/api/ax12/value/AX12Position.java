@@ -79,7 +79,7 @@ public class AX12Position extends Ax12Value{
 
 	@Override
 	public String getValueAsString() {
-		return df.format(getAngleAsDegrees()) + "�";
+		return df.format(getAngleAsDegrees()) + "°";
 	}
 	
 }

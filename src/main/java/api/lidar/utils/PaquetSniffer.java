@@ -5,7 +5,7 @@ import java.io.IOException;
 import api.lidar.link.RpLidarLink;
 
 /**
- * Classe utilitaire pour faciliter le débugage de la lisiaon série avec le Lidar
+ * Classe utilitaire pour faciliter le dÃ©bugage de la lisiaon sÃ©rie avec le Lidar
  * @author gryttix
  *
  */
@@ -14,9 +14,9 @@ public class PaquetSniffer {
 	protected RpLidarLink link;
 	
 	/**
-	 * Un tableau dont les contiennent les valeurs hexadecimales des requêtes suivies du nom de la requête
-	 * Les espaces sont ignorés lors de la recherche de correspondance
-	 * Le # marque la séparation hexadécimal / nom de la requête
+	 * Un tableau dont les contiennent les valeurs hexadecimales des requÃªtes suivies du nom de la requÃªte
+	 * Les espaces sont ignorÃ©s lors de la recherche de correspondance
+	 * Le # marque la sÃ©paration hexadÃ©cimal / nom de la requÃªte
 	 */
 	protected static final byte[][] REQUESTS_HEXA = new byte[][] {
 		new byte[] { (byte) 0xA5, (byte) 0x25 },
@@ -41,12 +41,12 @@ public class PaquetSniffer {
 	};
 	
 	/**
-	 * La longueur maximale d'une requête, soit le nombre de byte de la requête la plus longue
+	 * La longueur maximale d'une requÃªte, soit le nombre de byte de la requÃªte la plus longue
 	 */
 	protected static final int MAX_REQUEST_LENGTH = 9;
 	
 	/**
-	 * La valeur indiquant le début d'une requête
+	 * La valeur indiquant le dÃ©but d'une requÃªte
 	 */
 	protected static final byte START_REQUEST_BYTE = (byte) 0xA5;
 	
@@ -59,20 +59,20 @@ public class PaquetSniffer {
 	}
 
 	/**
-	 * Ecoute le flux d'entrée et affiche dans la console les bytes envoyés au Lidar en hexadecimal
-	 * Chaque fois qu'un paquet 0xA5 est reçu, un saut de lign est inséré avant son affichage
-	 * Cette méthode bloque indéfiniment 
+	 * Ecoute le flux d'entrÃ©e et affiche dans la console les bytes envoyÃ©s au Lidar en hexadecimal
+	 * Chaque fois qu'un paquet 0xA5 est reÃ§u, un saut de lign est insÃ©rÃ© avant son affichage
+	 * Cette mÃ©thode bloque indÃ©finiment
 	 */
 	public void sniffRequests() {
-		System.out.println("Sniffer de requêtes lancé");
-		// On détermine la longueur max d'une requête
+		System.out.println("Sniffer de requÃªtes lancÃ©");
+		// On dÃ©termine la longueur max d'une requÃªte
 		try {
 			byte[] b = new byte[1];
 			byte[] bufferRequest = new byte[MAX_REQUEST_LENGTH];
 			int offsetBufferRequest = 0;
 			while (true) {
 				if (this.link.tryToReadNByteWith1Retry(b, 1) > 0) {
-					// Nouvelle commande qui démarre prématurément ?
+					// Nouvelle commande qui dÃ©marre prÃ©maturÃ©ment ?
 					if (b[0] == START_REQUEST_BYTE && offsetBufferRequest > 0) {
 						String request = this.tryToMatchRequest(bufferRequest, 0);
 						System.out.println(request == null ? "#commande inconnue" : request);
@@ -82,7 +82,7 @@ public class PaquetSniffer {
 					System.out.print(LidarHelper.unsignedBytesToHex(b)+" ");
 					bufferRequest[offsetBufferRequest++] = b[0];
 					
-					// Si on a trouvé une requête => on passe à la ligne suivante
+					// Si on a trouvÃ© une requÃªte => on passe Ã  la ligne suivante
 					String request = this.tryToMatchRequest(bufferRequest, 0);
 					if (request != null) {
 						System.out.println(request);
@@ -90,7 +90,7 @@ public class PaquetSniffer {
 						resetBuffer(bufferRequest);
 					}
 					
-					// Nouvelle requête ou taille d'une requête dépassée => on essaye de deviner la précédente, sinon on passe à la ligne
+					// Nouvelle requÃªte ou taille d'une requÃªte dÃ©passÃ©e => on essaye de deviner la prÃ©cÃ©dente, sinon on passe Ã  la ligne
 					if (offsetBufferRequest >= MAX_REQUEST_LENGTH) {
 						System.out.println("#requete inconnue#");
 						offsetBufferRequest = 0;
@@ -104,9 +104,9 @@ public class PaquetSniffer {
 	}
 	
 	/**
-	 * Essaye de retrouver la commande invoquée dans la suite de byte données
+	 * Essaye de retrouver la commande invoquÃ©e dans la suite de byte donnÃ©es
 	 * @param circularBuffer un buffer de bytes circulaire
-	 * @param bufferStartOffset le point de départ du buffer
+	 * @param bufferStartOffset le point de dÃ©part du buffer
 	 * @return
 	 */
 	protected String tryToMatchRequest(byte[] circularBuffer, int bufferStartOffset) {
