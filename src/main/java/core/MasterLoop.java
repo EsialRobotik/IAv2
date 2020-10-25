@@ -18,6 +18,8 @@ import pathfinding.PathFinding;
 import pathfinding.table.Point;
 import pathfinding.table.TableColor;
 
+import java.util.Arrays;
+
 /**
  * Created by Guillaume on 17/05/2017.
  */
@@ -92,9 +94,10 @@ public class MasterLoop {
 
         // 5/ start of the timer start the main loop
         logger.info("Tirette pull, begin of the match");
-        chrono.startMatch(this);
+        if(!actionCollection.isStepByStep()) {
+            chrono.startMatch(this);
+        }
         movementManager.setMatchStarted(true);
-        movementManager.resumeAsserv();
         movementManager.executeStepDeplacement(currentStep);
 
         logger.debug("while " + !interrupted);
@@ -106,6 +109,7 @@ public class MasterLoop {
             if (!somethingDetected) {
                 // 1/ we check if we detect something
                 boolean[] detected = this.detectionManager.getEmergencyDetectionMap();
+                //System.out.println(Arrays.toString(detected));
                 if (detected[0] || detected[1] || detected[2] || detected[3]) {
                     //We detect something, we get the movement direction and we check if we detect it in the right side
                     AsservInterface.MovementDirection direction = this.movementManager.getMovementDirection();
@@ -117,6 +121,7 @@ public class MasterLoop {
                         movementManager.haltAsserv(true);
                         movingForward = true;
                         somethingDetected = true;
+                        continue;
 
                     } else if (direction.equals(AsservInterface.MovementDirection.BACKWARD)
                             && detected[3]) {
@@ -125,7 +130,11 @@ public class MasterLoop {
                         movementManager.haltAsserv(true);
                         movingForward = false;
                         somethingDetected = true;
-                    }
+                        continue;
+                    } /*else {
+                        System.out.println("WTF ??");
+                        System.out.println(direction);
+                    }*/
                 }
 
                 // 2/ Check if the current step Status
@@ -239,8 +248,7 @@ public class MasterLoop {
 
         logger.info("Initialisation des actionneurs");
         lcdDisplay.println("Init actions");
-        // TODO faire une vrai méthode d'init d'actions
-//        actionSupervisor.executeCommand(2);
+        actionSupervisor.executeCommand(0);
 
         lcdDisplay.println("Attente tirette");
         logger.info("Attente tirette mise en position de depart");

@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * Implémentation de l'asservissement pour raspberry
@@ -189,7 +190,7 @@ public class Asserv implements AsservInterface {
     @Override
     public void setOdometrie(int x, int y, double theta) {
         logger.info("setOdometrie");
-        serial.write("S" + x + "#" + y + "#" + theta);
+        serial.write("P" + x + "#" + y + "#" + theta);
     }
 
     /*******************************************************************************************************************
@@ -199,7 +200,7 @@ public class Asserv implements AsservInterface {
     @Override
     public void enableLowSpeed(boolean enable) {
         logger.info("enableLowSpeed : " + enable);
-        serial.write(enable ? "Rle" : "Rld");
+        serial.write(enable ? "S25" : "S100");
     }
 
     @Override
@@ -232,48 +233,52 @@ public class Asserv implements AsservInterface {
      * @param str Position du robot renvoyée par l'asserv
      */
     private void parseAsservPosition(String str) {
-        str = str.trim(); // Un petit trim pour virer la merde
-        if (str.startsWith("#")) {
-            str = str.substring(1);
-            if (str.contains("#")) { // Si par hasard on reçoit deux lignes à la fois, on abandonne
-                return;
-            }
-            String[] data = str.split(";");
+        try {
+            str = str.trim(); // Un petit trim pour virer la merde
+            if (str.startsWith("#")) {
+                str = str.substring(1);
+                if (str.contains("#")) { // Si par hasard on reçoit deux lignes à la fois, on abandonne
+                    return;
+                }
+                String[] data = str.split(";");
 
-            position.setX(Integer.parseInt(data[0]));
-            position.setY(Integer.parseInt(data[1]));
-            position.setTheta(Double.parseDouble(data[2]));
-            int asservStatusInt = Integer.parseInt(data[3]);
-            switch(asservStatusInt) {
-                case 0:
-                    synchronized (lock) {
-                        statusCountdown--;
-                        if (statusCountdown <= 0) {
-                            asservStatus = AsservStatus.STATUS_IDLE;
+                position.setX(Integer.parseInt(data[0]));
+                position.setY(Integer.parseInt(data[1]));
+                position.setTheta(Double.parseDouble(data[2]));
+                int asservStatusInt = Integer.parseInt(data[3]);
+                switch (asservStatusInt) {
+                    case 0:
+                        synchronized (lock) {
+                            statusCountdown--;
+                            if (statusCountdown <= 0) {
+                                asservStatus = AsservStatus.STATUS_IDLE;
+                            }
                         }
-                    }
-                    break;
-                case 1:
-                    asservStatus = AsservStatus.STATUS_RUNNING;
-                    break;
-                case 2:
-                    asservStatus = AsservStatus.STATUS_HALTED;
-                    break;
-                case 3:
-                    asservStatus = AsservStatus.STATUS_BLOCKED;
-                    break;
-            }
-            queueSize = Integer.parseInt(data[4]);
+                        break;
+                    case 1:
+                        asservStatus = AsservStatus.STATUS_RUNNING;
+                        break;
+                    case 2:
+                        asservStatus = AsservStatus.STATUS_HALTED;
+                        break;
+                    case 3:
+                        asservStatus = AsservStatus.STATUS_BLOCKED;
+                        break;
+                }
+                queueSize = Integer.parseInt(data[4]);
 
-            int vitesseG = Integer.parseInt(data[5]);
-            int vitesseD = Integer.parseInt(data[6]);
-            if(vitesseD > 0 && vitesseG > 0) {
-                direction = MovementDirection.FORWARD;
-            } else if(vitesseD < 0 && vitesseG < 0) {
-                direction = MovementDirection.BACKWARD;
-            } else {
-                direction = MovementDirection.NONE;
+                int vitesseG = Integer.parseInt(data[5]);
+                int vitesseD = Integer.parseInt(data[6]);
+                if (vitesseD > 0 && vitesseG > 0) {
+                    direction = MovementDirection.FORWARD;
+                } else if (vitesseD < 0 && vitesseG < 0) {
+                    direction = MovementDirection.BACKWARD;
+                } else {
+                    direction = MovementDirection.NONE;
+                }
             }
+        } catch (Exception e) {
+            logger.debug("Trace asserv non parasble : " + str);
         }
     }
 
@@ -386,5 +391,14 @@ public class Asserv implements AsservInterface {
         face(alignement);
         waitForAsserv();
         this.logger.info("goStart finished");
+    }
+
+    public static void main(String[] args) throws Exception {
+        boolean[] fuu = new boolean[4];
+        fuu[0] = true;
+        fuu[1] = false;
+        fuu[2] = false;
+        fuu[3] = true;
+        System.out.println(Arrays.toString(fuu));
     }
 }

@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * Created by Guillaume on 18/05/2017.
@@ -16,6 +17,8 @@ public class ActionCollection {
     private List<ActionDescriptor> actionList;
     private int currentIndex;
     private JsonElement jsonElement;
+    private boolean stepByStep = false;
+    private Scanner scanner;
 
     public ActionCollection(String filepath) throws FileNotFoundException {
         JsonParser parser = new JsonParser();
@@ -24,10 +27,18 @@ public class ActionCollection {
         currentIndex = 0;
     }
 
+    public void setStepByStepMode(boolean stepByStep) {
+        this.stepByStep = stepByStep;
+    }
+
     public void prepareActionList(boolean isColor0) {
         actionList = new ArrayList<>();
         for (JsonElement element : jsonElement.getAsJsonObject().getAsJsonArray(isColor0 ? "couleur0" : "couleur3000")) {
-            actionList.add(new ActionDescriptor(element.getAsJsonObject()));
+            ActionDescriptor action = new ActionDescriptor(element.getAsJsonObject(), this.stepByStep);
+            if (this.stepByStep) {
+                action.setScanner(this.scanner);
+            }
+            actionList.add(action);
         }
     }
 
@@ -43,6 +54,12 @@ public class ActionCollection {
         if (currentIndex >= actionList.size()) {
             return null;
         }
+
+        if (this.stepByStep) {
+            System.out.println("STEP BY STEP getNextActionToPerform : Enter to continue");
+            scanner.nextLine();
+        }
+
         return actionList.get(currentIndex++);
     }
 
@@ -54,8 +71,24 @@ public class ActionCollection {
         this.actionList = actionList;
     }
 
+    public boolean isStepByStep() {
+        return this.stepByStep;
+    }
+
+    public void setScanner(Scanner scanner) {
+        this.scanner = scanner;
+    }
+
     public static void main(String args[]) throws FileNotFoundException {
-        ActionCollection collection = new ActionCollection("actionHandler/configCollection.json");
-        System.out.println(collection);
+//        ActionCollection collection = new ActionCollection("actionHandler/configCollection.json");
+//        System.out.println(collection);
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("STEP BY STEP getNextActionToPerform : Enter 0 to continue");
+        while (scanner.hasNextLine()) {
+            if (scanner.nextInt() == 0) {
+                scanner.close();
+                break;
+            }
+        }
     }
 }

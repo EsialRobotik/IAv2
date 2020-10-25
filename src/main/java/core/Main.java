@@ -1,5 +1,8 @@
 package core;
 
+import actions.ActionCollection;
+import actions.ActionDescriptor;
+import actions.Step;
 import actions.a2020.ActionFileBinder;
 import api.ax12.AX12LinkException;
 import api.ax12.AX12LinkSerial;
@@ -27,6 +30,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  * The goal of this class if to bootstrap the code, init the robot and launch the match
@@ -36,16 +40,23 @@ public class Main {
 
     private static String configFilePath;
 
-    public Main() throws IOException, InterruptedException, AX12LinkException {
+    public Main(boolean stepByStep) throws IOException, InterruptedException, AX12LinkException {
         //Load of the configuration first
         ConfigurationManager configurationManager = new ConfigurationManager();
         configurationManager.loadConfiguration(configFilePath);
+
+        ActionCollection actionCollection = configurationManager.getActionCollection();
+        actionCollection.setStepByStepMode(stepByStep);
+        if (stepByStep) {
+            Scanner scanner = new Scanner(System.in);
+            actionCollection.setScanner(scanner);
+        }
 
         //Loading the core
         MasterLoop masterLoop = new MasterLoop(
             configurationManager.getMovementManager(),
             configurationManager.getDetectionManager(),
-            configurationManager.getActionCollection(),
+            actionCollection,
             configurationManager.getActionSupervisor(),
             configurationManager.getPathfinding(),
             configurationManager.getColorDetector(),
@@ -115,7 +126,11 @@ public class Main {
                     return;
                 case "main":
                     // Exécution normal de l'IA
-                    new Main();
+                    new Main(false);
+                    break;
+                case "step":
+                    // Exécution normal de l'IA en step by step
+                    new Main(true);
                     break;
                 case "detection":
                     // Test de la détection
@@ -165,6 +180,7 @@ public class Main {
 
         System.out.println("EXECUTION_TYPE : ");
         System.out.println("\t- main : Execution normal de l'IA");
+        System.out.println("\t- step : Execution normal de l'IA en StepByStep");
         System.out.println("\t- detection : Test de la detection");
         System.out.println("\t- interrupteur : Test interrupteurs");
         System.out.println("\t- lcd : Test de l'écran LCD");
@@ -233,9 +249,31 @@ public class Main {
     private static void testActionneurs() throws IOException, AX12LinkException {
         //Load of the configuration first
         ConfigurationManager configurationManager = new ConfigurationManager();
-        configurationManager.loadConfiguration(configFilePath, ConfigurationManager.CONFIG_ACCTIONNEUR);
+        configurationManager.loadConfiguration(configFilePath, ConfigurationManager.CONFIG_ACTIONNEUR);
 
         configurationManager.getActionFileBinder().getActionExecutor(0).execute();
+
+
+        ActionCollection actionCollection = configurationManager.getActionCollection();
+        actionCollection.setStepByStepMode(true);
+        Scanner scanner = new Scanner(System.in);
+        actionCollection.setScanner(scanner);
+        actionCollection.prepareActionList(true);
+        ActionDescriptor action = actionCollection.getNextActionToPerform();
+        Step step = action.getNextStep();
+        boolean stop = false;
+        while (!stop) {
+            if (action == null) {
+                stop = true;
+            } else {
+                System.out.println(step.toString());
+                if (action.hasNextStep()) {
+                    step = action.getNextStep();
+                } else {
+                    action = actionCollection.getNextActionToPerform();
+                }
+            }
+        }
     }
 
     private static void coupeOffDance() throws IOException, AX12LinkException {
