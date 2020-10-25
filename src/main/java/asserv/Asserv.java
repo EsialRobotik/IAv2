@@ -284,7 +284,7 @@ public class Asserv implements AsservInterface {
                 }
             }
         } catch (Exception e) {
-            logger.debug("Trace asserv non parasble : " + str);
+            logger.info("Trace asserv non parsable : " + str);
         }
     }
 
