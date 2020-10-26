@@ -7,12 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonPrimitive;
+import com.google.gson.*;
 import com.google.gson.stream.JsonWriter;
 import com.sun.net.httpserver.HttpExchange;
 
@@ -87,12 +82,20 @@ public class FileHandler extends AbstractHandler {
 		if (!file.exists() || !file.isFile()) {
 			throw new HandlerException("Fichier non trouvé", 404);
 		}
-		
+
+		FileReader fr = new FileReader(file);
 		JsonParser jp = new JsonParser();
-		JsonElement e = jp.parse(new FileReader(file));
-		
+		JsonElement elt;
+		try {
+			elt = jp.parse(fr);
+		} catch (JsonIOException e) {
+			throw e;
+		} finally {
+			fr.close();
+		}
+
 		JsonObject r = new JsonObject();
-		r.add("content", e);
+		r.add("content", elt);
 		
 		this.sendResponse(t, r.toString(), 200);
 	}

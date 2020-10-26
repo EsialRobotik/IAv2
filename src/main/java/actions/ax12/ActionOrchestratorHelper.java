@@ -23,6 +23,7 @@ public class ActionOrchestratorHelper {
 		actionPump,
 		actionWaiting,
 		actionBehaviour,
+		actionSerialFlag,
 		
 		waitingTimeMs,
 		rawAngle,
@@ -33,6 +34,8 @@ public class ActionOrchestratorHelper {
 		speed,
 		acceleration,
 		compliance,
+		serialFlagId,
+		serialFlagEnabled,
 	}
 
 	public static void serializeToJson(ActionOrchestrator ae, File destination) throws IOException {
@@ -54,7 +57,7 @@ public class ActionOrchestratorHelper {
 		JsonReader jr = new JsonReader(new FileReader(origin));
 		JsonParser jp = new JsonParser();
 		try {
-			JsonElement elt = jp.parse(jr);			
+			JsonElement elt = jp.parse(jr);
 			if (elt.isJsonObject()) {
 				return actionOrchestratorFromJson(elt.getAsJsonObject(), ax12Link);
 			}
@@ -130,6 +133,8 @@ public class ActionOrchestratorHelper {
 				jsa.add(behaviourActionToJson((BehaviourAction) a));
 			} else if (a instanceof AX12DisableTorqueAction) {
 				jsa.add(disableTorqueActionToJson((AX12DisableTorqueAction) a));
+			} else if (a instanceof SerialSignalAction) {
+				jsa.add(serialSignalActionToJson((SerialSignalAction) a));
 			}
 		}
 
@@ -184,6 +189,10 @@ public class ActionOrchestratorHelper {
 		
 		if (actionId.equals(JSON_KEYS.actionDisableTorque.name())) {
 			return disableTorqueActionFromJson(o, ax12Link);
+		}
+
+		if (actionId.equals(JSON_KEYS.actionSerialFlag.name())) {
+			return serialSignalActionFromJson(o, ax12Link);
 		}
 		
 		return null;
@@ -243,6 +252,13 @@ public class ActionOrchestratorHelper {
 		o.add(JSON_KEYS.ax12Id.name(), new JsonPrimitive(dta.getAx12().getAddress()));
 		return o;
 	}
+
+	public static JsonObject serialSignalActionToJson(SerialSignalAction ssa) {
+		JsonObject o = createEmtyObjectWithId(JSON_KEYS.actionSerialFlag);
+		o.add(JSON_KEYS.serialFlagId.name(), new JsonPrimitive(ssa.getSignal().name()));
+		o.add(JSON_KEYS.serialFlagEnabled.name(), new JsonPrimitive(ssa.getEnabled()));
+		return o;
+	}
 	
 	public static WaitingAction waitingActionFromJson(JsonObject o) {
 		JsonElement elt = o.get(JSON_KEYS.waitingTimeMs.name());
@@ -277,6 +293,17 @@ public class ActionOrchestratorHelper {
 			int ax12Id = o.get(JSON_KEYS.ax12Id.name()).getAsInt();
 			
 			return new AX12DisableTorqueAction(new AX12(ax12Id, ax12Link));
+		} catch (ClassCastException | IllegalStateException | IllegalArgumentException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public static SerialSignalAction serialSignalActionFromJson(JsonObject o, AX12Link ax12Link) {
+		try {
+			String serialId  = o.get(JSON_KEYS.serialFlagId.name()).getAsString();
+			boolean enabled = o.get(JSON_KEYS.serialFlagEnabled.name()).getAsBoolean();
+			return new SerialSignalAction(ax12Link, SerialSignalAction.SIGNAL.valueOf(serialId), enabled);
 		} catch (ClassCastException | IllegalStateException | IllegalArgumentException e) {
 			e.printStackTrace();
 			return null;
