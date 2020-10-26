@@ -92,6 +92,7 @@ public class Asserv implements AsservInterface {
         logger.info("emergencyStop");
         asservStatus = AsservStatus.STATUS_HALTED;
         serial.write("h");
+        direction = MovementDirection.NONE;
     }
 
     @Override
@@ -108,6 +109,7 @@ public class Asserv implements AsservInterface {
         synchronized (lock) {
             statusCountdown = 2;
         }
+        direction = dist > 0 ? MovementDirection.FORWARD : MovementDirection.BACKWARD;
         serial.write("v" + dist);
     }
 
@@ -118,6 +120,7 @@ public class Asserv implements AsservInterface {
         synchronized (lock) {
             statusCountdown = 2;
         }
+        direction = MovementDirection.NONE;
         serial.write("t" + degree);
     }
 
@@ -132,6 +135,7 @@ public class Asserv implements AsservInterface {
         synchronized (lock) {
             statusCountdown = 2;
         }
+        direction = MovementDirection.FORWARD;
         serial.write("g" + position.getX() + "#" + position.getY());
     }
 
@@ -142,6 +146,7 @@ public class Asserv implements AsservInterface {
         synchronized (lock) {
             statusCountdown = 2;
         }
+        direction = MovementDirection.FORWARD;
         serial.write("e" + position.getX() + "#" + position.getY());
     }
 
@@ -152,6 +157,7 @@ public class Asserv implements AsservInterface {
         synchronized (lock) {
             statusCountdown = 2;
         }
+        direction = MovementDirection.BACKWARD;
         serial.write("b" + position.getX() + "#" + position.getY());
     }
 
@@ -162,6 +168,7 @@ public class Asserv implements AsservInterface {
         synchronized (lock) {
             statusCountdown = 2;
         }
+        direction = MovementDirection.NONE;
         serial.write("f" + position.getX() + "#" + position.getY());
     }
 
@@ -278,16 +285,6 @@ public class Asserv implements AsservInterface {
                         break;
                 }
                 queueSize = Integer.parseInt(data[4]);
-
-                int vitesseG = Integer.parseInt(data[5]);
-                int vitesseD = Integer.parseInt(data[6]);
-                if (vitesseD > 0 && vitesseG > 0) {
-                    direction = MovementDirection.FORWARD;
-                } else if (vitesseD < 0 && vitesseG < 0) {
-                    direction = MovementDirection.BACKWARD;
-                } else {
-                    direction = MovementDirection.NONE;
-                }
             }
         } catch (Exception e) {
             logger.info("Trace asserv non parsable : " + str);

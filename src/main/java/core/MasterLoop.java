@@ -105,6 +105,7 @@ public class MasterLoop {
         lcdDisplay.println("Score : " + score);
 //        String remainingTime = chrono.toString();
         while (!interrupted) {
+            logger.debug("Main loop somethingDetected : " + somethingDetected);
             if (!somethingDetected) {
                 // 1/ we check if we detect something
                 boolean[] detected = this.detectionManager.getEmergencyDetectionMap();
