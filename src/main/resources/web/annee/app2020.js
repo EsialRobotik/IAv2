@@ -307,7 +307,7 @@ $( function() {
                 break;
             case "waiting":
                 elt = $("#templates .action-subitem__delay").clone();
-                elt.find("action-subitem__delay-value").val(params.delay);
+                elt.find("input").val(params.delay);
                 break;
             case "behaviour":
             	elt = $("#templates .action-subitem__behaviour").clone();
