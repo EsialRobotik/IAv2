@@ -17,8 +17,6 @@ public class Chrono {
     public Chrono(int matchDuration) {
         timer = new Timer();
         this.matchDuration = matchDuration;
-        Timestamp t = new Timestamp(System.currentTimeMillis());
-        timestampStart = t.getTime();
     }
 
     public String toString(){
@@ -29,6 +27,8 @@ public class Chrono {
 
     //We should find a way to do other wise, but, well
     public void startMatch(final MasterLoop masterLoop) {
+        Timestamp t = new Timestamp(System.currentTimeMillis());
+        timestampStart = t.getTime();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {

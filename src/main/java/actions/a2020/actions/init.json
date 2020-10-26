@@ -51,6 +51,20 @@
                     "readOnlyAngleDegrees": 139.88269794721407
                 }
             ]
+        },
+        {
+            "actions": [
+                {
+                    "actionId": "actionSerialFlag",
+                    "serialFlagId": "DTR",
+                    "serialFlagEnabled": false
+                },
+                {
+                    "actionId": "actionSerialFlag",
+                    "serialFlagId": "RTS",
+                    "serialFlagEnabled": false
+                }
+            ]
         }
     ]
 }

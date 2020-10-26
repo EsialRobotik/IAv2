@@ -8,4 +8,6 @@ public interface ActionInterface {
     ActionExecutor getActionExecutor(int id);
 
     void stopActions();
+
+    void funnyAction();
 }

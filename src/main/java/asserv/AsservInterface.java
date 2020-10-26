@@ -152,6 +152,12 @@ public interface AsservInterface {
      */
     void resetRegulatorDistance();
 
+    /**
+     * Active ou désactive les moteurs
+     * @param enable true pour activer les moteurs, false pour les couper
+     */
+    void enableMotors(boolean enable);
+
     /***********************************************************************
      * Statut de l'asservissement
      ************************************************************************/

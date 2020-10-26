@@ -1,0 +1,30 @@
+{
+    "actionPools": [
+        {
+            "actions": [
+                {
+                    "actionId": "actionSerialFlag",
+                    "serialFlagId": "DTR",
+                    "serialFlagEnabled": true
+                }
+            ]
+        },
+        {
+            "actions": [
+                {
+                    "actionId": "actionWaiting",
+                    "waitingTimeMs": 500
+                }
+            ]
+        },
+        {
+            "actions": [
+                {
+                    "actionId": "actionSerialFlag",
+                    "serialFlagId": "DTR",
+                    "serialFlagEnabled": false
+                }
+            ]
+        }
+    ]
+}

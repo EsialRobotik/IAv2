@@ -401,6 +401,29 @@
           "actionId": -1,
           "mirror": "MIRRORY",
           "timeout": -1
+        },
+        {
+          "desc": "Alignement boussole",
+          "id": 15,
+          "positionX": 0,
+          "positionY": 1500,
+          "dist": 0,
+          "type": "deplacement",
+          "subtype": "face",
+          "actionId": -1,
+          "mirror": "MIRRORY",
+          "timeout": -1
+        },
+        {
+          "desc": "Photo",
+          "id": 16,
+          "positionX": 0,
+          "positionY": 0,
+          "dist": 0,
+          "type": "manipulation",
+          "actionId": 12,
+          "mirror": "MIRRORY",
+          "timeout": -1
         }
       ]
     },
@@ -413,7 +436,7 @@
         {
           "desc": "Placement recif sud",
           "id": 1,
-          "positionX": 1600,
+          "positionX": 1595,
           "positionY": 230,
           "dist": 0,
           "type": "deplacement",
@@ -425,7 +448,7 @@
         {
           "desc": "Alignement recif sud",
           "id": 2,
-          "positionX": 1600,
+          "positionX": 1595,
           "positionY": 0,
           "dist": 0,
           "type": "deplacement",
@@ -448,7 +471,7 @@
         {
           "desc": "Mise en position rammassage recif sud",
           "id": 4,
-          "positionX": 1600,
+          "positionX": 1595,
           "positionY": 130,
           "dist": 0,
           "type": "deplacement",
@@ -494,7 +517,7 @@
         {
           "desc": "Sortie recif sud",
           "id": 8,
-          "positionX": 1600,
+          "positionX": 1595,
           "positionY": 230,
           "dist": 0,
           "type": "deplacement",
@@ -504,8 +527,20 @@
           "timeout": -1
         },
         {
-          "desc": "Placement largage sud",
+          "desc": "On réduit la vitesse",
           "id": 9,
+          "positionX": 0,
+          "positionY": 0,
+          "dist": 30,
+          "type": "deplacement",
+          "subtype": "set_speed",
+          "actionId": -1,
+          "mirror": "MIRRORY",
+          "timeout": -1
+        },
+        {
+          "desc": "Placement largage sud",
+          "id": 10,
           "positionX": 1250,
           "positionY": 200,
           "dist": 0,
@@ -517,7 +552,7 @@
         },
         {
           "desc": "Alignement largage sud",
-          "id": 10,
+          "id": 11,
           "positionX": 0,
           "positionY": 200,
           "dist": 0,
@@ -529,7 +564,7 @@
         },
         {
           "desc": "Préparer largage recif sud",
-          "id": 11,
+          "id": 12,
           "positionX": 0,
           "positionY": 0,
           "dist": 0,
@@ -540,7 +575,7 @@
         },
         {
           "desc": "Largage impaire recif sud",
-          "id": 12,
+          "id": 13,
           "positionX": 0,
           "positionY": 0,
           "dist": 0,
@@ -550,8 +585,20 @@
           "timeout": -1
         },
         {
+          "desc": "On remet la vitesse",
+          "id": 14,
+          "positionX": 0,
+          "positionY": 0,
+          "dist": 100,
+          "type": "deplacement",
+          "subtype": "set_speed",
+          "actionId": -1,
+          "mirror": "MIRRORY",
+          "timeout": -1
+        },
+        {
           "desc": "Sortie largage sud",
-          "id": 13,
+          "id": 15,
           "positionX": 0,
           "positionY": 0,
           "dist": -200,
@@ -660,49 +707,6 @@
           "type": "deplacement",
           "subtype": "goto",
           "actionId": -1,
-          "mirror": "MIRRORY",
-          "timeout": -1
-        }
-      ]
-    },
-    {
-      "desc": "Boussole",
-      "id": 6,
-      "points": 0,
-      "priorite": 1,
-      "taches": [
-        {
-          "desc": "Placement boussole",
-          "id": 1,
-          "positionX": 800,
-          "positionY": 1000,
-          "dist": 0,
-          "type": "deplacement",
-          "subtype": "goto",
-          "actionId": -1,
-          "mirror": "MIRRORY",
-          "timeout": -1
-        },
-        {
-          "desc": "Alignement boussole",
-          "id": 2,
-          "positionX": 0,
-          "positionY": 1500,
-          "dist": 0,
-          "type": "deplacement",
-          "subtype": "face",
-          "actionId": -1,
-          "mirror": "MIRRORY",
-          "timeout": -1
-        },
-        {
-          "desc": "Photo",
-          "id": 3,
-          "positionX": 0,
-          "positionY": 0,
-          "dist": 0,
-          "type": "manipulation",
-          "actionId": 12,
           "mirror": "MIRRORY",
           "timeout": -1
         }
@@ -1111,6 +1115,29 @@
           "actionId": -1,
           "mirror": "MIRRORY",
           "timeout": -1
+        },
+        {
+          "desc": "Alignement boussole",
+          "id": 15,
+          "positionX": 0,
+          "positionY": 1500,
+          "dist": 0,
+          "type": "deplacement",
+          "subtype": "face",
+          "actionId": -1,
+          "mirror": "MIRRORY",
+          "timeout": -1
+        },
+        {
+          "desc": "Photo",
+          "id": 16,
+          "positionX": 0,
+          "positionY": 3000,
+          "dist": 0,
+          "type": "manipulation",
+          "actionId": 12,
+          "mirror": "MIRRORY",
+          "timeout": -1
         }
       ]
     },
@@ -1123,7 +1150,7 @@
         {
           "desc": "Placement recif sud",
           "id": 1,
-          "positionX": 1600,
+          "positionX": 1595,
           "positionY": 2770,
           "dist": 0,
           "type": "deplacement",
@@ -1135,7 +1162,7 @@
         {
           "desc": "Alignement recif sud",
           "id": 2,
-          "positionX": 1600,
+          "positionX": 1595,
           "positionY": 3000,
           "dist": 0,
           "type": "deplacement",
@@ -1158,7 +1185,7 @@
         {
           "desc": "Mise en position rammassage recif sud",
           "id": 4,
-          "positionX": 1600,
+          "positionX": 1595,
           "positionY": 2870,
           "dist": 0,
           "type": "deplacement",
@@ -1204,7 +1231,7 @@
         {
           "desc": "Sortie recif sud",
           "id": 8,
-          "positionX": 1600,
+          "positionX": 1595,
           "positionY": 2770,
           "dist": 0,
           "type": "deplacement",
@@ -1214,8 +1241,20 @@
           "timeout": -1
         },
         {
-          "desc": "Placement largage sud",
+          "desc": "On réduit la vitesse",
           "id": 9,
+          "positionX": 0,
+          "positionY": 3000,
+          "dist": 30,
+          "type": "deplacement",
+          "subtype": "set_speed",
+          "actionId": -1,
+          "mirror": "MIRRORY",
+          "timeout": -1
+        },
+        {
+          "desc": "Placement largage sud",
+          "id": 10,
           "positionX": 1250,
           "positionY": 2800,
           "dist": 0,
@@ -1227,7 +1266,7 @@
         },
         {
           "desc": "Alignement largage sud",
-          "id": 10,
+          "id": 11,
           "positionX": 0,
           "positionY": 2800,
           "dist": 0,
@@ -1239,7 +1278,7 @@
         },
         {
           "desc": "Préparer largage recif sud",
-          "id": 11,
+          "id": 12,
           "positionX": 0,
           "positionY": 3000,
           "dist": 0,
@@ -1250,7 +1289,7 @@
         },
         {
           "desc": "Largage impaire recif sud",
-          "id": 12,
+          "id": 13,
           "positionX": 0,
           "positionY": 3000,
           "dist": 0,
@@ -1260,8 +1299,20 @@
           "timeout": -1
         },
         {
+          "desc": "On remet la vitesse",
+          "id": 14,
+          "positionX": 0,
+          "positionY": 3000,
+          "dist": 100,
+          "type": "deplacement",
+          "subtype": "set_speed",
+          "actionId": -1,
+          "mirror": "MIRRORY",
+          "timeout": -1
+        },
+        {
           "desc": "Sortie largage sud",
-          "id": 13,
+          "id": 15,
           "positionX": 0,
           "positionY": 3000,
           "dist": -200,
@@ -1370,49 +1421,6 @@
           "type": "deplacement",
           "subtype": "goto",
           "actionId": -1,
-          "mirror": "MIRRORY",
-          "timeout": -1
-        }
-      ]
-    },
-    {
-      "desc": "Boussole",
-      "id": 6,
-      "points": 0,
-      "priorite": 1,
-      "taches": [
-        {
-          "desc": "Placement boussole",
-          "id": 1,
-          "positionX": 800,
-          "positionY": 2000,
-          "dist": 0,
-          "type": "deplacement",
-          "subtype": "goto",
-          "actionId": -1,
-          "mirror": "MIRRORY",
-          "timeout": -1
-        },
-        {
-          "desc": "Alignement boussole",
-          "id": 2,
-          "positionX": 0,
-          "positionY": 1500,
-          "dist": 0,
-          "type": "deplacement",
-          "subtype": "face",
-          "actionId": -1,
-          "mirror": "MIRRORY",
-          "timeout": -1
-        },
-        {
-          "desc": "Photo",
-          "id": 3,
-          "positionX": 0,
-          "positionY": 3000,
-          "dist": 0,
-          "type": "manipulation",
-          "actionId": 12,
           "mirror": "MIRRORY",
           "timeout": -1
         }

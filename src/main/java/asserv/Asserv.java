@@ -84,7 +84,7 @@ public class Asserv implements AsservInterface {
     @Override
     public void stop() {
         logger.info("stop");
-        serial.write("!");
+        serial.write("M0");
     }
 
     @Override
@@ -231,6 +231,12 @@ public class Asserv implements AsservInterface {
     public void resetRegulatorDistance() {
         logger.info("resetRegulatorDistance");
         serial.write("Rdr");
+    }
+
+    @Override
+    public void enableMotors(boolean enable) {
+        logger.info("enable motors " + enable);
+        serial.write("M" + (enable ? 1 : 0));
     }
 
     /**

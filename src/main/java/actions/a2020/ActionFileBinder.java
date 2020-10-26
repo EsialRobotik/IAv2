@@ -48,7 +48,9 @@ public class ActionFileBinder implements ActionInterface {
 		/**
 		 * Phare
 		 */
-		PREPARER_PHARE("preparer_phare.json", false); // 11
+		PREPARER_PHARE("preparer_phare.json", false), // 11
+
+		FUNNY_ACTION("sortir_drapeau.json"); // 12
 
 		public final String nomFichier;
 		public final boolean instantReturn;
@@ -109,4 +111,9 @@ public class ActionFileBinder implements ActionInterface {
 		ax12Link.enableRts(false);
 	}
 
+	@Override
+	public void funnyAction() {
+		ActionExecutor actionExecutor = this.getActionExecutor(ActionFile.FUNNY_ACTION.ordinal());
+		actionExecutor.execute();
+	}
 }

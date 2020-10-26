@@ -81,4 +81,8 @@ public class ActionFileBinder implements ActionInterface {
 		ax12Link.enableRts(false);
 	}
 
+	@Override
+	public void funnyAction() {
+		// Rien du tout
+	}
 }

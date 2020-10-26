@@ -28,6 +28,10 @@ public class ActionSupervisor {
         actionInterface.stopActions();
     }
 
+    public void funnyAction() {
+        actionInterface.funnyAction();
+    }
+
     public boolean isLastExecutionFinished() {
         return this.currentActionExecutor.finished();
     }
