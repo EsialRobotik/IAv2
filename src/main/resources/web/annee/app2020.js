@@ -228,19 +228,21 @@ $( function() {
             };
         }
         
-        if (action.hasClass('action-subitem__flag')) {
+        if (action.hasClass('action-subitem__serialflag')) {
             return {
-                "actionId": "actionFlag"
+                "actionId": "actionSerialFlag",
+                "serialFlagId": action.find('.action-subitem__serialflag-flag').val(),
+                serialFlagEnabled: action.find('.action-subitem__serialflag-enabled').val() === '1',
             };
         }
-        
+
         if (action.hasClass('action-subitem__delay')) {
             return {
                 "actionId": "actionWaiting",
                 "waitingTimeMs": parseInt(action.find(".action-subitem__delay-value").val())
             }
         }
-        
+
         if (action.hasClass('action-subitem__behaviour')) {
             return {
                 actionId: "actionBehaviour",
@@ -250,7 +252,7 @@ $( function() {
             	compliance: parseInt(action.find(".action-subitem__behaviour-compliance").val())
             }
         }
-        
+
         if (action.hasClass('action-subitem__disable-torque')) {
             return {
                 actionId: "actionDisableTorque",
@@ -259,7 +261,7 @@ $( function() {
         }
         // default : undefined
     }
-    
+
     const addPoolItem = function(item, markPlaying, scrollToIt) {
         $("#listeActions").append(item);
         if (markPlaying) {
@@ -270,11 +272,11 @@ $( function() {
             scrollToElement(item);
         }
     }
-    
+
     const getPoolItemCount = function () {
         return $("#listeActions").find('.actions-item').length;
     }
-    
+
     const cloneTemplate = function(template, params) {
         let elt = null;
         if (!params) {
@@ -287,7 +289,7 @@ $( function() {
                 elt.find(".action-item__ax12-id").val(params.ax12Id);
                 elt.find(".action-item__ax12-angle").val(params.readableAngle);
                 elt.find(".action-item__ax12-angle").data('raw-angle', params.rawAngle);
-                
+
                 elt.find(".ui-icon-folder-open").parent().click(() => {
                     doajax('post', '/api/read', {
                         'property': 'ax12Angle',
@@ -298,8 +300,10 @@ $( function() {
                     }).catch(handleAjaxError);
                 });
                 break;
-            case "flag":
-                elt = $("#templates .action-subitem__flag").clone();
+            case "serialflag":
+                elt = $("#templates .action-subitem__serialflag").clone();
+                elt.find(".action-subitem__serialflag-flag").val(params.flag);
+                elt.find(".action-subitem__serialflag-enabled").val(params.enabled ? '1' : '0');
                 break;
             case "waiting":
                 elt = $("#templates .action-subitem__delay").clone();
@@ -320,32 +324,32 @@ $( function() {
                 elt = $('<div class="action-subitem">');
                 break;
         }
-        
+
         elt.find(".ui-icon-trash").parent().click(() => {
             elt.remove();
         });
-        
+
         return elt;
     }
-    
+
     const addToolsElements = function (element) {
         const toolsElt = actionToolsTemplate.clone();
         toolsElt.find(".ui-icon-trash").parent().click(function() {
             element.remove();
         });
-        
+
         toolsElt.find(".ui-icon-play").parent().click(function() {
             playItem(element);
         });
-        
+
         toolsElt.find(".ui-icon-seek-next").parent().click(function() {
             playItemAsync(element).then(playAllFromCurrent).catch(handleAjaxError);
         });
-        
+
         toolsElt.find(".ui-icon-power").parent().click(function() {
             $(element).toggleClass("active");
         });
-        
+
         toolsElt.find(".ui-icon-copy").parent().click(function() {
             const clonedElt = $(element).clone();
             clonedElt.find(".action-item__hidden-actions-container").remove();
@@ -353,26 +357,26 @@ $( function() {
             addToolsElements(clonedElt);
             clonedElt.insertAfter($(element));
         });
-        
+
         $(element).append(toolsElt);
     }
-    
+
     const loadFromJson = function(o) {
         if (!Array.isArray(o.actionPools)) {
             afficherErreur("Pas de actionPools");
             return;
         }
-        
+
         const poolsElts = [];
         o.actionPools.forEach((e) => {
-            
+
             if (!e.actions || !Array.isArray(e.actions)) {
                 return;
             }
-            
+
             let poolNotEmpty = false;
             const poolElt = newActionPool("Pool #" + (poolsElts.length+1), true);
-            
+
             e.actions.forEach((action) => {
                 let actionSubitem = null;
                 switch (action.actionId) {
@@ -383,8 +387,11 @@ $( function() {
                             rawAngle: action.rawAngle
                         });
                     break;
-                    case "actionFlag":
-                        actionSubitem = cloneTemplate("flag");
+                    case "actionSerialFlag":
+                        actionSubitem = cloneTemplate("serialflag", {
+                            enable: action.serialFlagEnabled,
+                            flag: action.serialFlagId
+                        });
                     break;
                     case "actionWaiting":
                         actionSubitem = cloneTemplate("waiting", {
@@ -405,57 +412,57 @@ $( function() {
 	                	});
                 	break;
                 }
-                
+
                 if (actionSubitem) {
                     poolElt.append(actionSubitem);
                     poolNotEmpty = true;
                 }
             });
-            
-            
+
+
             if (poolNotEmpty) {
                 poolsElts.push(poolElt);
             }
-            
+
         });
-        
+
         if (poolsElts.length > 0) {
-            deleteAllItems();   
+            deleteAllItems();
             poolsElts.forEach((pool) => {
                 addPoolItem(pool);
             });
         }
     }
-    
+
     const loadFromRawJson = function(rawJson) {
         let o = null;
         try {
-            o = JSON.parse(rawJson);   
+            o = JSON.parse(rawJson);
         } catch (e) {
             afficherErreur("Json non valide : " + e);
             return;
         }
         loadFromJson(o);
     }
-    
+
     const encodeActionPoolsToModel = function() {
         const model = {
             'actionPools': []
         };
-        
+
         $("#listeActions").find(".actions-item").each((index, pool) => {
             const actions = actionPoolToModel($(pool));
-            
+
             if (actions.length > 0) {
                 model.actionPools.push({
                     'actions': actions
                 });
             }
         });
-        
+
         return model;
     }
-    
+
     const downloadActionPools = function() {
         const filename = $(".actions-records__json .actions-records__json_filename").val() || 'default.json';
         const dataUri = 'data:text/json;charset=utf-8,'+ encodeURIComponent(JSON.stringify(encodeActionPoolsToModel(), null, 4));
@@ -466,23 +473,33 @@ $( function() {
         linkElement.click();
         linkElement.remove();
     }
-    
-    const getAx12IdsToRecord = function() {
+
+    const getAx12IdsToRecord = function(all = false) {
         axs = [];
         binding = [10, 3, 2, 1, 9, 5, 4, 7]; // 5 doigts puis main pui bras gauche et droit
         [0, 1, 2, 3, 4, 5, 6, 7].forEach(function(num) {
-            if ($(".actions-records").find(".actions-records__ax12 input[id=princess_ax12_"+(num+1)+"]").prop('checked')) {
+            if (all || $(".actions-records").find(".actions-records__ax12 input[id=princess_ax12_"+(num+1)+"]").prop('checked')) {
                 axs = axs.concat(binding[num]);
             }
         })
         return axs;
     }
-    
+
+    const getSerialFlagsIdsToRecord = function(all = false) {
+        flags = [];
+        $(".actions-records__serialflag .actions-records__serialflag-flag").each((index, elt) => {
+            if (elt.checked) {
+                flags.push(elt.value);
+            }
+        });
+        return flags;
+    }
+
     const recordPoolAx12New = function() {
         doajax('post', '/api/record', {
             ax12ids: getAx12IdsToRecord()
         }).then((result) => {
-            
+
             const poolElt = newActionPool("Pool #" + (getPoolItemCount() + 1), true);
             result.forEach((position) => {
                 ax12Pos = cloneTemplate("ax12", {
@@ -492,72 +509,82 @@ $( function() {
                 });
                 poolElt.append(ax12Pos);
             });
-            
+
             addPoolItem(poolElt, true, true);
-            
+
         }).catch(handleAjaxError);
     };
-    
+
     const recordPoolAx12Current = function() {
         let currentPool = getCurrentPlayingItem();
         if (!currentPool) {
             return;
         }
         currentPool = $(currentPool);
-        
+
         doajax('post', '/api/record', {
             ax12ids: getAx12IdsToRecord()
         }).then((result) => {
-            
+
             result.forEach((position) => {
                 // Si l'AX12 est déjà présent dans la liste d'actions, on maj sa valeur, sinon on la crée
                 let flagFound = false;
                 currentPool.find('.action-subitem__ax12').each((index, elt) => {
-                    elt = $(elt); 
+                    elt = $(elt);
                     if (elt.find('.action-item__ax12-id').val() == position.ax12id) {
                         elt.find('input').val(position.readableAngle);
                         elt.find('input').data('raw-angle', position.rawAngle);
                         flagFound = true;
                     }
                 });
-                
+
                 if (!flagFound) {
                     ax12Pos = cloneTemplate("ax12", {
                         ax12Id: position.ax12id,
                         readableAngle: position.readableAngle,
                         rawAngle: position.rawAngle
                     });
-                    currentPool.append(ax12Pos);                    
+                    currentPool.append(ax12Pos);
                 }
             });
-            
-        }).then(()=>{}).catch(handleAjaxError);  
+
+        }).then(()=>{}).catch(handleAjaxError);
     };
-    
-    const recordPoolFlag = function () {
+
+    const recordPoolSerialFlag = function (enable) {
+        serialFlags = getSerialFlagsIdsToRecord();
+        if (!serialFlags) {
+            return;
+        }
+
         const poolElt = newActionPool("Pool #" + (getPoolItemCount() + 1), true);
-        poolElt.append(cloneTemplate("flag"));   
-        
+        serialFlags.forEach((flag) => {
+            poolElt.append(cloneTemplate("serialflag", {
+                flag: flag,
+                enabled: enable
+            }));
+        })
+
         addPoolItem(poolElt, true, true);
     }
-    
+
     const recordPoolDelay = function() {
         const delayMs = $(".actions-records .actions-records__delay input").val();
         const poolElt = newActionPool("Pool #" + (getPoolItemCount() + 1), true);
         const delayItem = cloneTemplate("waiting", {
         	delay: delayMs
         });
-        
+
         poolElt.append(delayItem);
         addPoolItem(poolElt, true, true);
     }
-    
+
     const recordBehaviour = function() {
     	const speed = $(".actions-records .actions-records__behaviour .actions-records__behaviour-speed").val();
     	const acceleration = $(".actions-records .actions-records__behaviour .actions-records__behaviour-acceleration").val();
     	const compliance = $(".actions-records .actions-records__behaviour .actions-records__behaviour-compliance").val();
     	const poolElt = newActionPool("Pool #" + (getPoolItemCount() + 1), true);
-    	
+
         getAx12IdsToRecord().forEach((axId) => {
         	const behaviourItem = cloneTemplate("behaviour", {
             	ax12Id: axId,
@@ -567,12 +594,12 @@ $( function() {
         	});
         	poolElt.append(behaviourItem);
         });
-        
+
         if (poolElt.length > 0) {
-        	addPoolItem(poolElt, true, true);	
+        	addPoolItem(poolElt, true, true);
         }
     }
-    
+
     const recordDisableTorque = function() {
     	const poolElt = newActionPool("Pool #" + (getPoolItemCount() + 1), true);
         getAx12IdsToRecord().forEach((axId) => {
@@ -581,12 +608,12 @@ $( function() {
         	});
         	poolElt.append(disableTorqueTemplate);
         });
-        
+
         if (poolElt.length > 0) {
-        	addPoolItem(poolElt, true, true);	
+        	addPoolItem(poolElt, true, true);
         }
     }
-    
+
     const loadFileList = function() {
     	doajax('get', '/api/file/list')
     	.then((files) => {
@@ -597,7 +624,7 @@ $( function() {
     		});
     	}).catch(handleAjaxError);
 	}
-    
+
     const loadSelectedJsonFile = function() {
     	const name = $(".actions-records__json .actions-records__json--file-list").val();
     	if (!name) {
@@ -611,7 +638,7 @@ $( function() {
     		$(".actions-records__json_filename").val(name);
     	}).catch(handleAjaxError);
     }
-    
+
     const uploadJsonFile = function() {
     	const rawFileName = $(".actions-records__json .actions-records__json_filename").val();
     	const json = encodeActionPoolsToModel();
@@ -620,17 +647,17 @@ $( function() {
     		fileName: rawFileName,
     		content: json
     	}).then(() => {
-    		afficherMessage("Upload ok");    		
+    		afficherMessage("Upload ok");
     	}).catch(handleAjaxError);
     }
-    
-    const releaseAx12 = function () {
+
+    const releaseAx12 = function (all) {
         doajax('post', '/api/settings', {
-            ax12ids: getAx12IdsToRecord(),
+            ax12ids: getAx12IdsToRecord(all),
             settings: 'release'
         }).catch(handleAjaxError);
     }
-    
+
     const bindDragNDropArea = function (elt) {
         elt.on('dragenter', function() {
             $(this).css('border', '2px dashed red');
@@ -667,29 +694,31 @@ $( function() {
             return false;
         });
     }
-    
+
     /*
      * Câblage GUI
      */
-    
+
     // Application de jQuery UI
     $( "input[type=checkbox]" ).checkboxradio();
     $( "#listeActions" ).sortable();
     $( "#listeActions" ).enableSelection();
     $( "select[data-select]" ).selectmenu();
     $( "input[data-spinner]" ).spinner();
-    
+
     $("#listeActions .actions-item").each((index, elt)=> addToolsElements(elt));
-    
+
     // Création des actions
     $(".actions-records").find(".actions-records__ax12 .actions-records__ax12_new").click(recordPoolAx12New); // Bouton record nouveau
     $(".actions-records").find(".actions-records__ax12 .actions-records__ax12_current").click(recordPoolAx12Current); // Bouton record nouveau
-    $(".actions-records").find(".actions-records__flag .ui-icon-flag").eq(0).parent().click(() => {recordPoolFlag()}); // Bouton sprtor le drapeau
+    $(".actions-records").find(".actions-records__ax12 .actions-records__ax12-release-selected").click(() => releaseAx12(false)); // Relâcher les AX sélectionnés
+    $(".actions-records").find(".actions-records__ax12 .actions-records__ax12-release-all").click(() => releaseAx12(true)); // Relâcher tous les AX
+    $(".actions-records").find(".actions-records__serialflag .actions-records__serialflag-btn-on").click(() => {recordPoolSerialFlag(true)}); // Bouton record flag liaison série ON
+    $(".actions-records").find(".actions-records__serialflag .actions-records__serialflag-btn-off").click(() => {recordPoolSerialFlag(false)}); // Bouton record flag liaison série OFF
     $(".actions-records").find(".actions-records__delay button").click(recordPoolDelay); // Bouton délais
     $(".actions-records").find(".actions-records__behaviour-record").click(recordBehaviour);// Vitesse / accélération / précision
     $(".actions-records").find(".actions-records__behaviour-disable-torque").click(recordDisableTorque); // Désactivation du torque
-    // Paramètres globaux
-    $(".actions-records").find(".actions-records__factors .actions-records__factors-release").click(releaseAx12); // Relâcher les AX
+    // Gestion des fichiers
     $(".actions-records").find(".actions-records__json .ui-icon-arrowthickstop-1-s").parent().click(downloadActionPools); // Télécharger le Json
     bindDragNDropArea($(".actions-records").find(".actions-records__json .actions-records__json--drop-area")) // Charger un fichier Json par drag'n'drop
     loadFileList(); // Chargement de la liste des fichiers JSon
