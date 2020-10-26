@@ -231,13 +231,13 @@
       ]
     },
     {
-      "desc": "Bouée Sud à virer",
+      "desc": "Manches à air",
       "id": 3,
-      "points": 1,
+      "points": 15,
       "priorite": 1,
       "taches": [
         {
-          "desc": "Placement bouée Sud à virer",
+          "desc": "Placement manche à air",
           "id": 1,
           "positionX": 1500,
           "positionY": 670,
@@ -249,10 +249,10 @@
           "timeout": -1
         },
         {
-          "desc": "Placement bouée Sud à virer",
+          "desc": "Placement manche à air",
           "id": 2,
           "positionX": 1500,
-          "positionY": 300,
+          "positionY": 230,
           "dist": 0,
           "type": "deplacement",
           "subtype": "goto",
@@ -261,64 +261,8 @@
           "timeout": -1
         },
         {
-          "desc": "Placement bouée Sud à virer",
-          "id": 3,
-          "positionX": 0,
-          "positionY": 300,
-          "dist": 0,
-          "type": "deplacement",
-          "subtype": "face",
-          "actionId": -1,
-          "mirror": "MIRRORY",
-          "timeout": -1
-        },
-        {
-          "desc": "Marquage bouée Sud à virer",
-          "id": 4,
-          "positionX": 0,
-          "positionY": 0,
-          "dist": 250,
-          "type": "deplacement",
-          "subtype": "go",
-          "actionId": -1,
-          "mirror": "MIRRORY",
-          "timeout": -1
-        },
-        {
-          "desc": "Marquage bouée Sud à virer",
-          "id": 5,
-          "positionX": 0,
-          "positionY": 0,
-          "dist": 140,
-          "type": "deplacement",
-          "subtype": "go",
-          "actionId": -1,
-          "mirror": "MIRRORY",
-          "timeout": -1
-        },
-        {
-          "desc": "Libération bouée Sud à virer",
-          "id": 6,
-          "positionX": 1400,
-          "positionY": 300,
-          "dist": 0,
-          "type": "deplacement",
-          "subtype": "goto_back",
-          "actionId": -1,
-          "mirror": "MIRRORY",
-          "timeout": -1
-        }
-      ]
-    },
-    {
-      "desc": "Manches à air",
-      "id": 4,
-      "points": 15,
-      "priorite": 1,
-      "taches": [
-        {
           "desc": "Placement manche à air",
-          "id": 1,
+          "id": 3,
           "positionX": 1780,
           "positionY": 210,
           "dist": 0,
@@ -330,7 +274,7 @@
         },
         {
           "desc": "Alignement manche à air",
-          "id": 2,
+          "id": 4,
           "positionX": 1780,
           "positionY": 3000,
           "dist": 0,
@@ -342,7 +286,7 @@
         },
         {
           "desc": "Alignement manche à air",
-          "id": 3,
+          "id": 5,
           "positionX": 0,
           "positionY": 0,
           "dist": -120,
@@ -354,7 +298,7 @@
         },
         {
           "desc": "Sortie bras droit",
-          "id": 4,
+          "id": 6,
           "positionX": 0,
           "positionY": 0,
           "dist": 0,
@@ -365,7 +309,7 @@
         },
         {
           "desc": "Réduction de la vitesse",
-          "id": 5,
+          "id": 7,
           "positionX": 0,
           "positionY": 0,
           "dist": 50,
@@ -377,7 +321,7 @@
         },
         {
           "desc": "Taper les manches",
-          "id": 6,
+          "id": 8,
           "positionX": 0,
           "positionY": 0,
           "dist": 200,
@@ -388,8 +332,20 @@
           "timeout": -1
         },
         {
+          "desc": "Alignement manche à air",
+          "id": 9,
+          "positionX": 1780,
+          "positionY": 3000,
+          "dist": 0,
+          "type": "deplacement",
+          "subtype": "face",
+          "actionId": -1,
+          "mirror": "MIRRORY",
+          "timeout": -1
+        },
+        {
           "desc": "Taper les manches",
-          "id": 7,
+          "id": 10,
           "positionX": 0,
           "positionY": 0,
           "dist": 250,
@@ -401,7 +357,7 @@
         },
         {
           "desc": "Taper les manches",
-          "id": 8,
+          "id": 11,
           "positionX": 0,
           "positionY": 0,
           "dist": 140,
@@ -413,7 +369,7 @@
         },
         {
           "desc": "Vitesse normale",
-          "id": 9,
+          "id": 12,
           "positionX": 0,
           "positionY": 0,
           "dist": 100,
@@ -425,7 +381,7 @@
         },
         {
           "desc": "Rentrer bras droit",
-          "id": 10,
+          "id": 13,
           "positionX": 0,
           "positionY": 0,
           "dist": 0,
@@ -436,7 +392,7 @@
         },
         {
           "desc": "On quitte la zone",
-          "id": 11,
+          "id": 14,
           "positionX": 0,
           "positionY": 0,
           "dist": -50,
@@ -450,8 +406,8 @@
     },
     {
       "desc": "Récif sud",
-      "id": 5,
-      "points": 8,
+      "id": 4,
+      "points": 9,
       "priorite": 1,
       "taches": [
         {
@@ -609,7 +565,7 @@
     },
     {
       "desc": "Récif sud",
-      "id": 6,
+      "id": 5,
       "points": 8,
       "priorite": 1,
       "taches": [
@@ -641,7 +597,7 @@
           "desc": "Placement recif nord",
           "id": 3,
           "positionX": 360,
-          "positionY": 230,
+          "positionY": 280,
           "dist": 0,
           "type": "deplacement",
           "subtype": "goto",
@@ -653,7 +609,7 @@
           "desc": "Alignement recif nord",
           "id": 4,
           "positionX": 2000,
-          "positionY": 230,
+          "positionY": 280,
           "dist": 0,
           "type": "deplacement",
           "subtype": "face",
@@ -677,101 +633,32 @@
           "id": 6,
           "positionX": 0,
           "positionY": 0,
-          "dist": -200,
+          "dist": -150,
           "type": "deplacement",
           "subtype": "go",
           "actionId": -1,
+          "mirror": "MIRRORY",
+          "timeout": -1
+        },
+        {
+          "desc": "On remet tout en place",
+          "id": 7,
+          "positionX": 0,
+          "positionY": 0,
+          "dist": 0,
+          "type": "manipulation",
+          "actionId": 0,
           "mirror": "MIRRORY",
           "timeout": -1
         },
         {
           "desc": "Sortie recif nord",
-          "id": 7,
+          "id": 8,
           "positionX": 360,
-          "positionY": 670,
+          "positionY": 700,
           "dist": 0,
           "type": "deplacement",
           "subtype": "goto",
-          "actionId": -1,
-          "mirror": "MIRRORY",
-          "timeout": -1
-        }
-      ]
-    },
-    {
-      "desc": "Bouée Sud",
-      "id": 7,
-      "points": 2,
-      "priorite": 1,
-      "taches": [
-        {
-          "desc": "Placement bouée Sud",
-          "id": 1,
-          "positionX": 980,
-          "positionY": 670,
-          "dist": 0,
-          "type": "deplacement",
-          "subtype": "goto",
-          "actionId": -1,
-          "mirror": "MIRRORY",
-          "timeout": -1
-        },
-        {
-          "desc": "Alignement bouée Sud",
-          "id": 2,
-          "positionX": 980,
-          "positionY": 0,
-          "dist": 0,
-          "type": "deplacement",
-          "subtype": "face",
-          "actionId": -1,
-          "mirror": "MIRRORY",
-          "timeout": -1
-        },
-        {
-          "desc": "Réduction de la vitesse",
-          "id": 3,
-          "positionX": 0,
-          "positionY": 0,
-          "dist": 50,
-          "type": "deplacement",
-          "subtype": "set_speed",
-          "actionId": -1,
-          "mirror": "MIRRORY",
-          "timeout": -1
-        },
-        {
-          "desc": "Marquage bouée Sud",
-          "id": 4,
-          "positionX": 0,
-          "positionY": 0,
-          "dist": 50,
-          "type": "deplacement",
-          "subtype": "go",
-          "actionId": -1,
-          "mirror": "MIRRORY",
-          "timeout": -1
-        },
-        {
-          "desc": "Remise de la vitesse",
-          "id": 5,
-          "positionX": 0,
-          "positionY": 0,
-          "dist": 100,
-          "type": "deplacement",
-          "subtype": "set_speed",
-          "actionId": -1,
-          "mirror": "MIRRORY",
-          "timeout": -1
-        },
-        {
-          "desc": "Libération bouée Sud",
-          "id": 6,
-          "positionX": 980,
-          "positionY": 770,
-          "dist": 0,
-          "type": "deplacement",
-          "subtype": "goto_back",
           "actionId": -1,
           "mirror": "MIRRORY",
           "timeout": -1
@@ -780,7 +667,7 @@
     },
     {
       "desc": "Boussole",
-      "id": 8,
+      "id": 6,
       "points": 0,
       "priorite": 1,
       "taches": [
@@ -1054,13 +941,13 @@
       ]
     },
     {
-      "desc": "Bouée Sud à virer",
+      "desc": "Manches à air",
       "id": 3,
-      "points": 1,
+      "points": 15,
       "priorite": 1,
       "taches": [
         {
-          "desc": "Placement bouée Sud à virer",
+          "desc": "Placement manche à air",
           "id": 1,
           "positionX": 1500,
           "positionY": 2330,
@@ -1072,10 +959,10 @@
           "timeout": -1
         },
         {
-          "desc": "Placement bouée Sud à virer",
+          "desc": "Placement manche à air",
           "id": 2,
           "positionX": 1500,
-          "positionY": 2700,
+          "positionY": 2770,
           "dist": 0,
           "type": "deplacement",
           "subtype": "goto",
@@ -1084,64 +971,8 @@
           "timeout": -1
         },
         {
-          "desc": "Placement bouée Sud à virer",
-          "id": 3,
-          "positionX": 0,
-          "positionY": 2700,
-          "dist": 0,
-          "type": "deplacement",
-          "subtype": "face",
-          "actionId": -1,
-          "mirror": "MIRRORY",
-          "timeout": -1
-        },
-        {
-          "desc": "Marquage bouée Sud à virer",
-          "id": 4,
-          "positionX": 0,
-          "positionY": 3000,
-          "dist": 250,
-          "type": "deplacement",
-          "subtype": "go",
-          "actionId": -1,
-          "mirror": "MIRRORY",
-          "timeout": -1
-        },
-        {
-          "desc": "Marquage bouée Sud à virer",
-          "id": 5,
-          "positionX": 0,
-          "positionY": 3000,
-          "dist": 140,
-          "type": "deplacement",
-          "subtype": "go",
-          "actionId": -1,
-          "mirror": "MIRRORY",
-          "timeout": -1
-        },
-        {
-          "desc": "Libération bouée Sud à virer",
-          "id": 6,
-          "positionX": 1400,
-          "positionY": 2700,
-          "dist": 0,
-          "type": "deplacement",
-          "subtype": "goto_back",
-          "actionId": -1,
-          "mirror": "MIRRORY",
-          "timeout": -1
-        }
-      ]
-    },
-    {
-      "desc": "Manches à air",
-      "id": 4,
-      "points": 15,
-      "priorite": 1,
-      "taches": [
-        {
           "desc": "Placement manche à air",
-          "id": 1,
+          "id": 3,
           "positionX": 1780,
           "positionY": 2790,
           "dist": 0,
@@ -1153,7 +984,7 @@
         },
         {
           "desc": "Alignement manche à air",
-          "id": 2,
+          "id": 4,
           "positionX": 1780,
           "positionY": 0,
           "dist": 0,
@@ -1165,7 +996,7 @@
         },
         {
           "desc": "Alignement manche à air",
-          "id": 3,
+          "id": 5,
           "positionX": 0,
           "positionY": 3000,
           "dist": -120,
@@ -1177,7 +1008,7 @@
         },
         {
           "desc": "Sortie bras gauche",
-          "id": 4,
+          "id": 6,
           "positionX": 0,
           "positionY": 0,
           "dist": 0,
@@ -1188,7 +1019,7 @@
         },
         {
           "desc": "Réduction de la vitesse",
-          "id": 5,
+          "id": 7,
           "positionX": 0,
           "positionY": 3000,
           "dist": 50,
@@ -1200,7 +1031,7 @@
         },
         {
           "desc": "Taper les manches",
-          "id": 6,
+          "id": 8,
           "positionX": 0,
           "positionY": 3000,
           "dist": 200,
@@ -1211,8 +1042,20 @@
           "timeout": -1
         },
         {
+          "desc": "Alignement manche à air",
+          "id": 9,
+          "positionX": 1780,
+          "positionY": 0,
+          "dist": 0,
+          "type": "deplacement",
+          "subtype": "face",
+          "actionId": -1,
+          "mirror": "MIRRORY",
+          "timeout": -1
+        },
+        {
           "desc": "Taper les manches",
-          "id": 7,
+          "id": 10,
           "positionX": 0,
           "positionY": 3000,
           "dist": 250,
@@ -1224,7 +1067,7 @@
         },
         {
           "desc": "Taper les manches",
-          "id": 8,
+          "id": 11,
           "positionX": 0,
           "positionY": 3000,
           "dist": 140,
@@ -1236,7 +1079,7 @@
         },
         {
           "desc": "Vitesse normale",
-          "id": 9,
+          "id": 12,
           "positionX": 0,
           "positionY": 3000,
           "dist": 100,
@@ -1248,7 +1091,7 @@
         },
         {
           "desc": "Rentrer bras gauche",
-          "id": 10,
+          "id": 13,
           "positionX": 0,
           "positionY": 0,
           "dist": 0,
@@ -1259,7 +1102,7 @@
         },
         {
           "desc": "On quitte la zone",
-          "id": 11,
+          "id": 14,
           "positionX": 0,
           "positionY": 3000,
           "dist": -50,
@@ -1273,8 +1116,8 @@
     },
     {
       "desc": "Récif sud",
-      "id": 5,
-      "points": 8,
+      "id": 4,
+      "points": 9,
       "priorite": 1,
       "taches": [
         {
@@ -1432,7 +1275,7 @@
     },
     {
       "desc": "Récif sud",
-      "id": 6,
+      "id": 5,
       "points": 8,
       "priorite": 1,
       "taches": [
@@ -1464,7 +1307,7 @@
           "desc": "Placement recif nord",
           "id": 3,
           "positionX": 360,
-          "positionY": 2770,
+          "positionY": 2720,
           "dist": 0,
           "type": "deplacement",
           "subtype": "goto",
@@ -1476,7 +1319,7 @@
           "desc": "Alignement recif nord",
           "id": 4,
           "positionX": 2000,
-          "positionY": 2770,
+          "positionY": 2720,
           "dist": 0,
           "type": "deplacement",
           "subtype": "face",
@@ -1500,101 +1343,32 @@
           "id": 6,
           "positionX": 0,
           "positionY": 3000,
-          "dist": -200,
+          "dist": -150,
           "type": "deplacement",
           "subtype": "go",
           "actionId": -1,
+          "mirror": "MIRRORY",
+          "timeout": -1
+        },
+        {
+          "desc": "On remet tout en place",
+          "id": 7,
+          "positionX": 0,
+          "positionY": 3000,
+          "dist": 0,
+          "type": "manipulation",
+          "actionId": 0,
           "mirror": "MIRRORY",
           "timeout": -1
         },
         {
           "desc": "Sortie recif nord",
-          "id": 7,
+          "id": 8,
           "positionX": 360,
-          "positionY": 2330,
+          "positionY": 2300,
           "dist": 0,
           "type": "deplacement",
           "subtype": "goto",
-          "actionId": -1,
-          "mirror": "MIRRORY",
-          "timeout": -1
-        }
-      ]
-    },
-    {
-      "desc": "Bouée Sud",
-      "id": 7,
-      "points": 2,
-      "priorite": 1,
-      "taches": [
-        {
-          "desc": "Placement bouée Sud",
-          "id": 1,
-          "positionX": 980,
-          "positionY": 2330,
-          "dist": 0,
-          "type": "deplacement",
-          "subtype": "goto",
-          "actionId": -1,
-          "mirror": "MIRRORY",
-          "timeout": -1
-        },
-        {
-          "desc": "Alignement bouée Sud",
-          "id": 2,
-          "positionX": 980,
-          "positionY": 3000,
-          "dist": 0,
-          "type": "deplacement",
-          "subtype": "face",
-          "actionId": -1,
-          "mirror": "MIRRORY",
-          "timeout": -1
-        },
-        {
-          "desc": "Réduction de la vitesse",
-          "id": 3,
-          "positionX": 0,
-          "positionY": 3000,
-          "dist": 50,
-          "type": "deplacement",
-          "subtype": "set_speed",
-          "actionId": -1,
-          "mirror": "MIRRORY",
-          "timeout": -1
-        },
-        {
-          "desc": "Marquage bouée Sud",
-          "id": 4,
-          "positionX": 0,
-          "positionY": 3000,
-          "dist": 50,
-          "type": "deplacement",
-          "subtype": "go",
-          "actionId": -1,
-          "mirror": "MIRRORY",
-          "timeout": -1
-        },
-        {
-          "desc": "Remise de la vitesse",
-          "id": 5,
-          "positionX": 0,
-          "positionY": 3000,
-          "dist": 100,
-          "type": "deplacement",
-          "subtype": "set_speed",
-          "actionId": -1,
-          "mirror": "MIRRORY",
-          "timeout": -1
-        },
-        {
-          "desc": "Libération bouée Sud",
-          "id": 6,
-          "positionX": 980,
-          "positionY": 2230,
-          "dist": 0,
-          "type": "deplacement",
-          "subtype": "goto_back",
           "actionId": -1,
           "mirror": "MIRRORY",
           "timeout": -1
@@ -1603,7 +1377,7 @@
     },
     {
       "desc": "Boussole",
-      "id": 8,
+      "id": 6,
       "points": 0,
       "priorite": 1,
       "taches": [
