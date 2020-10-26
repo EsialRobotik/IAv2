@@ -13,7 +13,7 @@
             "actions": [
                 {
                     "actionId": "actionWaiting",
-                    "waitingTimeMs": 1000
+                    "waitingTimeMs": 1800
                 }
             ]
         },

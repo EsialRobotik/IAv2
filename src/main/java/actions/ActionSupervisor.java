@@ -28,8 +28,12 @@ public class ActionSupervisor {
         actionInterface.stopActions();
     }
 
-    public void funnyAction() {
-        actionInterface.funnyAction();
+    /**
+     * Funny action
+     * @return score
+     */
+    public int funnyAction() {
+        return actionInterface.funnyAction();
     }
 
     public boolean isLastExecutionFinished() {

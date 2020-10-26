@@ -583,22 +583,10 @@
           "timeout": -1
         },
         {
-          "desc": "On réduit la vitesse",
-          "id": 9,
-          "positionX": 0,
-          "positionY": 0,
-          "dist": 30,
-          "type": "deplacement",
-          "subtype": "set_speed",
-          "actionId": -1,
-          "mirror": "MIRRORY",
-          "timeout": -1
-        },
-        {
           "desc": "Placement largage sud",
-          "id": 10,
-          "positionX": 1250,
-          "positionY": 200,
+          "id": 9,
+          "positionX": 1220,
+          "positionY": 220,
           "dist": 0,
           "type": "deplacement",
           "subtype": "goto",
@@ -608,9 +596,9 @@
         },
         {
           "desc": "Alignement largage sud",
-          "id": 11,
+          "id": 10,
           "positionX": 0,
-          "positionY": 200,
+          "positionY": 220,
           "dist": 0,
           "type": "deplacement",
           "subtype": "face",
@@ -620,7 +608,7 @@
         },
         {
           "desc": "Préparer largage recif sud",
-          "id": 12,
+          "id": 11,
           "positionX": 0,
           "positionY": 0,
           "dist": 0,
@@ -631,7 +619,7 @@
         },
         {
           "desc": "Largage impaire recif sud",
-          "id": 13,
+          "id": 12,
           "positionX": 0,
           "positionY": 0,
           "dist": 0,
@@ -641,20 +629,8 @@
           "timeout": -1
         },
         {
-          "desc": "On remet la vitesse",
-          "id": 14,
-          "positionX": 0,
-          "positionY": 0,
-          "dist": 100,
-          "type": "deplacement",
-          "subtype": "set_speed",
-          "actionId": -1,
-          "mirror": "MIRRORY",
-          "timeout": -1
-        },
-        {
           "desc": "Sortie largage sud",
-          "id": 15,
+          "id": 13,
           "positionX": 0,
           "positionY": 0,
           "dist": -200,
@@ -1353,22 +1329,10 @@
           "timeout": -1
         },
         {
-          "desc": "On réduit la vitesse",
-          "id": 9,
-          "positionX": 0,
-          "positionY": 3000,
-          "dist": 30,
-          "type": "deplacement",
-          "subtype": "set_speed",
-          "actionId": -1,
-          "mirror": "MIRRORY",
-          "timeout": -1
-        },
-        {
           "desc": "Placement largage sud",
-          "id": 10,
-          "positionX": 1250,
-          "positionY": 2800,
+          "id": 9,
+          "positionX": 1220,
+          "positionY": 2780,
           "dist": 0,
           "type": "deplacement",
           "subtype": "goto",
@@ -1378,9 +1342,9 @@
         },
         {
           "desc": "Alignement largage sud",
-          "id": 11,
+          "id": 10,
           "positionX": 0,
-          "positionY": 2800,
+          "positionY": 2780,
           "dist": 0,
           "type": "deplacement",
           "subtype": "face",
@@ -1390,7 +1354,7 @@
         },
         {
           "desc": "Préparer largage recif sud",
-          "id": 12,
+          "id": 11,
           "positionX": 0,
           "positionY": 3000,
           "dist": 0,
@@ -1401,7 +1365,7 @@
         },
         {
           "desc": "Largage impaire recif sud",
-          "id": 13,
+          "id": 12,
           "positionX": 0,
           "positionY": 3000,
           "dist": 0,
@@ -1411,20 +1375,8 @@
           "timeout": -1
         },
         {
-          "desc": "On remet la vitesse",
-          "id": 14,
-          "positionX": 0,
-          "positionY": 3000,
-          "dist": 100,
-          "type": "deplacement",
-          "subtype": "set_speed",
-          "actionId": -1,
-          "mirror": "MIRRORY",
-          "timeout": -1
-        },
-        {
           "desc": "Sortie largage sud",
-          "id": 15,
+          "id": 13,
           "positionX": 0,
           "positionY": 3000,
           "dist": -200,

@@ -113,8 +113,9 @@ public class ActionFileBinder implements ActionInterface {
 	}
 
 	@Override
-	public void funnyAction() {
+	public int funnyAction() {
 		ActionExecutor actionExecutor = this.getActionExecutor(ActionFile.FUNNY_ACTION.ordinal());
 		actionExecutor.execute();
+		return 10;
 	}
 }

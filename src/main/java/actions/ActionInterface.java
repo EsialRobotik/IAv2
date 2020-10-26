@@ -9,5 +9,5 @@ public interface ActionInterface {
 
     void stopActions();
 
-    void funnyAction();
+    int funnyAction();
 }

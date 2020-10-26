@@ -82,7 +82,7 @@ public class ActionFileBinder implements ActionInterface {
 	}
 
 	@Override
-	public void funnyAction() {
-		// Rien du tout
+	public int funnyAction() {
+		return 0;
 	}
 }

@@ -41,6 +41,7 @@ public class MasterLoop {
 
     private Logger logger;
 
+    private int score = 0;
 
     public MasterLoop(MovementManager movementManager,
                       DetectionManager detectionManager,
@@ -75,7 +76,6 @@ public class MasterLoop {
         boolean astarLaunch = false;
         boolean somethingDetected = false;
         boolean movingForward = false;
-        int score = 0;
 
         actionCollection.prepareActionList(colorDetector.isColor0());
         logger.info("ActionList size : " + actionCollection.getActionList().size());
@@ -287,6 +287,11 @@ public class MasterLoop {
         //Launch the funny actions if needed
         logger.info("Funny action");
         actionSupervisor.funnyAction();
+
+        logger.info("Funny action terminé, mise à jour du score");
+        score += currentAction.getPoints();
+        lcdDisplay.clear();
+        lcdDisplay.println("Score : " + score);
     }
 
     //Start the computation of the path.
