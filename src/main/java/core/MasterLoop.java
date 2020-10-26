@@ -272,7 +272,6 @@ public class MasterLoop {
 
     public void matchEnd() {
         logger.info("End of the match");
-        lcdDisplay.println("End of match");
         //Stop the asserv here
         logger.info("Shutting done asserv");
         movementManager.haltAsserv(false);
@@ -286,12 +285,13 @@ public class MasterLoop {
         interrupted = true;
         //Launch the funny actions if needed
         logger.info("Funny action");
-        actionSupervisor.funnyAction();
+        int funnyScore = actionSupervisor.funnyAction();
 
         logger.info("Funny action terminé, mise à jour du score");
-        score += currentAction.getPoints();
+        score += funnyScore;
         lcdDisplay.clear();
         lcdDisplay.println("Score : " + score);
+        lcdDisplay.println("End of match");
     }
 
     //Start the computation of the path.
