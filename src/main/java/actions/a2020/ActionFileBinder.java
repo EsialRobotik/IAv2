@@ -69,10 +69,11 @@ public class ActionFileBinder implements ActionInterface {
 	public ActionFileBinder(AX12LinkSerial link, String dataDir, ActionCollection actionCollection) {
 		this.dataDir = new File(dataDir);
 		this.actionCollection = actionCollection;
-		loadFiles(link);
+		this.ax12Link = link;
+		loadFiles();
 	}
 	
-	protected void loadFiles(AX12LinkSerial ax12Link) {
+	protected void loadFiles() {
 		ax12Link.enableDtr(false);
 		ax12Link.enableRts(false);
 

@@ -105,7 +105,6 @@ public class MasterLoop {
         lcdDisplay.println("Score : " + score);
 //        String remainingTime = chrono.toString();
         while (!interrupted) {
-            logger.trace("Chrono : " + chrono.toString());
             if (!somethingDetected) {
                 // 1/ we check if we detect something
                 boolean[] detected = this.detectionManager.getEmergencyDetectionMap();
@@ -286,7 +285,8 @@ public class MasterLoop {
 
         interrupted = true;
         //Launch the funny actions if needed
-
+        logger.info("Funny action");
+        actionSupervisor.funnyAction();
     }
 
     //Start the computation of the path.

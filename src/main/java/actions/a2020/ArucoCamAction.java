@@ -71,8 +71,10 @@ public class ArucoCamAction implements ActionExecutor {
             @Override
             public void run() {
                 try {
+                    logger.info("Analyse du tag");
                     shell.send("a");
                     String result = shell.read();
+                    logger.info("Tag = " + result);
 //                    String result = "#NORD#";
                     if (result.contains("#NORD#")) {
                         logger.info("NORD détecté");

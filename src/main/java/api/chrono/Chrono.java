@@ -22,7 +22,7 @@ public class Chrono {
     public String toString(){
         Timestamp t = new Timestamp(System.currentTimeMillis());
         int chrono = matchDuration - (int)((t.getTime() - timestampStart)/1000);
-        return ""+chrono;
+        return ""+chrono + " / " + matchDuration;
     }
 
     //We should find a way to do other wise, but, well
