@@ -2,6 +2,7 @@ package core;
 
 import actions.a2020.ActionFileBinder;
 import api.ax12.AX12LinkException;
+import api.ax12.AX12LinkSerial;
 import api.communication.Shell;
 import api.gpio.ColorDetector;
 import api.gpio.Tirette;
@@ -9,13 +10,21 @@ import api.lcd.LCD;
 import api.log.LoggerFactory;
 import asserv.AsservInterface;
 import asserv.Position;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import gnu.io.SerialPort;
 import manager.ConfigurationManager;
 import manager.DetectionManager;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Logger;
+import utils.web.AX12Http;
+import utils.web.ResourcesManager;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Reader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -132,6 +141,9 @@ public class Main {
                     // Danse de la coupe off
                     Main.coupeOffDance();
                     break;
+                case "config-ax12":
+                    Main.configAX12();
+                    break;
             }
 
         } else {
@@ -159,6 +171,7 @@ public class Main {
         System.out.println("\t- shell : Test du shell (lance une capture de la caméra et une analyse Aruco)");
         System.out.println("\t- actionneur : Test de l'init des actionneurs");
         System.out.println("\t- coupe-off : Danse de la coupe off\n");
+        System.out.println("\t- config-ax12 : Lance l'utilitaire de configuration des AX12\n");
 
         System.out.println("configFile : chemin du fichier de configuration à utiliser. Par defaut, './config.json'\n");
     }
@@ -309,6 +322,33 @@ public class Main {
                     actions.getActionExecutor(18).execute();
                     break;
             }
+        }
+    }
+
+    private static void configAX12() {
+        try {
+            Gson gson = new Gson();
+            Reader reader = Files.newBufferedReader(Paths.get(configFilePath));
+            JsonObject configRootNode = gson.fromJson(reader, JsonObject.class);
+            JsonObject configObject = configRootNode.get("actions").getAsJsonObject();
+
+            if(configObject.has("serie")) {
+                SerialPort sp = AX12LinkSerial.getSerialPort(configObject.get("serie").getAsString());
+
+                if (sp == null) {
+                    throw new RuntimeException("Aucun port série "+" trouvé !");
+                }
+
+                AX12LinkSerial ax12Link = new AX12LinkSerial(sp, configObject.get("baud").getAsInt());
+                File dataDir = new File(configObject.get("dataDir").getAsString()).getCanonicalFile();
+
+                File webRootDir = new File("webRootDir");
+                webRootDir.mkdir();
+                ResourcesManager.mountHtmlDir(webRootDir);
+                new AX12Http(webRootDir, dataDir, ax12Link);
+            }
+        } catch (AX12LinkException |IOException e) {
+            e.printStackTrace();
         }
     }
 

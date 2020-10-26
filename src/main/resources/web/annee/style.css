@@ -1,0 +1,133 @@
+body {
+    width: 800px;
+    background-color: #eeeeee;
+    border: 1px solid black;
+    margin: auto;
+    padding: 10px;
+    padding-bottom: 75px;
+}
+    
+.actions-container {
+    list-style-type: none;
+    padding: 0;
+}
+
+.actions-item {
+    position: relative;
+    margin-bottom: 10px;
+    padding: 20px;
+    color: #999999;
+    border-bottom: 1px solid #666666;
+}
+
+.actions-item__header {
+    display: block;
+    width: 100%;
+    text-align: left;
+}
+
+.actions-item.active{
+    background-color: #ddddff;
+    color: black;
+}
+
+.actions-item.playing{
+    background-color: #77ff77;;
+    color: black;
+}
+
+.actions-item .action-item__hidden-actions-container {
+    display: none;
+    float: right;
+    border: solid 1px grey;
+    padding: 10px;
+    background-color: yellow;
+    transform: translateX(11px) translateY(-11px);
+}
+
+.actions-item:hover .action-item__hidden-actions-container,
+.action-item__hidden-actions-container:hover {
+    display: block;
+}
+
+.actions-item.pause {
+    background-color: orange;
+}
+
+.actions_item__container {
+    display: inline-block;
+}
+
+.css-load-checker {
+    display: none;
+}
+
+.action-subitem {
+    display: inline-block;
+    padding: 10px;
+    border: 1px solid grey;
+    margin-right: 10px;
+}
+
+.action-subitem__ax12 {
+}
+
+.action-subitem__pump {
+}
+
+.actions-controls {
+    position: fixed;
+    display: block;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding: 5px;
+    background-color: pink;
+    border-top: 1px solid black;
+}
+
+.action-subitem__delay {
+}
+
+.actions-records__json--drop-area {
+    width: 100%;
+    background: white;
+    border: 2px dashed #BBBBBB;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    margin-top: 5px;
+    user-select: none;
+    -moz-user-select: none;
+}
+
+#templates {
+    display: none;
+}
+
+.actions-records {
+    position: fixed;
+    left: 40px;
+    top: 40px;
+    border: 1px solid grey;
+    padding: 10px;
+    z-index: 100;
+    background-color: pink;
+}
+
+.u-no-margin-top {
+    margin-top: 0;
+}
+
+.ui-button-icon-only--max {
+    min-height: 34px;
+    margin-top: 5px;
+}
+
+/* SHAME rules, because hacks exist */
+
+button:disabled,
+button:disabled:hover {
+    color: gray;
+}
