@@ -162,7 +162,7 @@ public class AX12LinkSerial implements AX12Link {
 			try {
 				cpi = p.nextElement();
 				System.out.println(cpi.getName());
-				if(cpi != null && !cpi.isCurrentlyOwned() && (realName == null || cpi.getName().equals(realName))) {
+				if(cpi != null && !cpi.isCurrentlyOwned() && (realName == null || cpi.getName().equals(realName) || cpi.getName().equals(name))) {
 					cp = cpi.open(AX12LinkSerial.class.getName(), 500);
 					if(cp instanceof SerialPort){
 						return (SerialPort) cp;
