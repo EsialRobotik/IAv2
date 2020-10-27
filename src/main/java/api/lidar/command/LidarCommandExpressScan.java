@@ -105,7 +105,6 @@ public class LidarCommandExpressScan extends LidarCommand {
 	/**
 	 * Traite une Frame valide
 	 * 
-	 * @param frame
 	 */
 	protected void processFrame() {
 		boolean startFlagN = this.frameN[3] >> 7 == 0x1;
@@ -124,7 +123,6 @@ public class LidarCommandExpressScan extends LidarCommand {
 	 * Lit une frame du Lidar et gère la synchronisation : essaye de se resynchroniser si une désynchro est détectée
 	 * Lance une exception si la synchronisation n'a pas pu être retrouvée
 	 * 
-	 * @param response un tableau de 80 éléments
 	 * @return indique si l'acquisition s'est faite du premier coup ou pas
 	 * @throws LidarCommandException
 	 */

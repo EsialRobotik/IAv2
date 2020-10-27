@@ -147,7 +147,7 @@ public class RpLidarA2 implements RpLidarInterface {
 				command.start();
 				this.waitCommandToFinish(command);
 			} else {
-				new TerminationThread(command).start();;	
+				new TerminationThread(command).start();
 			}
 		}
 	}

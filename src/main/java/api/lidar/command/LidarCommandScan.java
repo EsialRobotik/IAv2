@@ -116,7 +116,7 @@ public class LidarCommandScan extends LidarCommand {
 			}
 		}
 		try {
-			this.link.write(new byte[]{REQUEST_START_BYTE, (byte) 0x25}, 0, 2);
+			this.link.write(new byte[]{REQUEST_START_BYTE, (byte) 0x25});
 			this.link.cleanInput();
 		} catch (IOException e) {
 			e.printStackTrace();

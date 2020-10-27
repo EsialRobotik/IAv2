@@ -77,7 +77,7 @@ public class RpLidarMain implements RpLidarScanHandlerInterface {
 		}
 		
 		try {
-			RpLidarLink link = new RpLidarLink(liste.get(0));
+			RpLidarLink link = new RpLidarLink(liste.get(0).getName());
 			System.out.println("Utilisation du port "+liste.get(0).getName());
 			PaquetSniffer sniffer = new PaquetSniffer(link);
 			sniffer.sniffRequests();
@@ -95,7 +95,7 @@ public class RpLidarMain implements RpLidarScanHandlerInterface {
 		}
 		try {
 			System.out.println("Port utilisé : "+liste.get(0).getName());
-			RpLidarLink rplink = new RpLidarLink(liste.get(0));
+			RpLidarLink rplink = new RpLidarLink(liste.get(0).getName());
 			RpLidarA2 lidar = new RpLidarA2(rplink);
 			
 			rplink.enableRotation(false);
@@ -122,7 +122,7 @@ public class RpLidarMain implements RpLidarScanHandlerInterface {
 		
 		try {
 			System.out.println("Utilisation du port "+liste.get(0).getName());
-			RpLidarLink link = new RpLidarLink(liste.get(0));
+			RpLidarLink link = new RpLidarLink(liste.get(0).getName());
 			DrawFrame df = new DrawFrame(new RpLidarA2(link));	
 			df.setVisible(true);
 		} catch (IOException e) {

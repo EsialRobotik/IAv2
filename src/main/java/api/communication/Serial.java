@@ -90,7 +90,7 @@ public class Serial {
 
     /**
      * Envoie une string sur la liaison série
-     * @param string String à envoyer
+     * @param bytes bytes à envoyer
      */
     public void write(byte[] bytes) {
         try {

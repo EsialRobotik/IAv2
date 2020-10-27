@@ -125,9 +125,6 @@ public abstract class LidarCommand extends Thread {
 	/**
 	 * Exécute la requête associée à la commande
 	 * 
-	 * @param req
-	 * @param payload ne doit jamais être null, peut causer un null pointer exception. Utiliée seulement si la requête le permet, sinon elle est simplement ignorée.
-	 * @return
 	 * @throws LidarException
 	 */
 	protected void executeRequest() throws LidarCommandException {
@@ -164,8 +161,7 @@ public abstract class LidarCommand extends Thread {
 				System.out.print(" "+LidarHelper.unsignedBytesToHex(requestBuffer[i]));
 			}
 			System.out.println();
-			this.link.write(requestBuffer, 0, checksumoffset+1);
-			this.link.flush();
+			this.link.write(requestBuffer);
 		} catch (IOException e) {
 			throw new LidarCommandException("Erreur d'envoi d'une commande", e);
 		}

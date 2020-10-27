@@ -118,8 +118,4 @@ public class DrawFrame extends JFrame implements RpLidarScanHandlerInterface {
 	public void lidarRecoverableErrorOccured(RECOVERRABLE_ERROR error) {
 		System.out.println("Recoverable error : "+error);
 	}
-	
-	
-	
-	
 }
