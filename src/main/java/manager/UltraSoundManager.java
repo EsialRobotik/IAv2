@@ -48,10 +48,10 @@ public class UltraSoundManager {
         this.posBack = new Position(-125, 0, Math.PI);
 
         this.thresholdMap = new HashMap<>();
-        this.thresholdMap.put("FrontLeft", 300);
-        this.thresholdMap.put("Front", 300);
-        this.thresholdMap.put("FrontRight", 320);
-        this.thresholdMap.put("Back", 150);
+        this.thresholdMap.put("FrontLeft", 350);
+        this.thresholdMap.put("Front", 350);
+        this.thresholdMap.put("FrontRight", 350);
+        this.thresholdMap.put("Back", 200);
     }
 
     private static Position getObstaclePosition(Position posRobot, Position posDetector, long distance) {

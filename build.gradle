@@ -27,6 +27,11 @@ remotes {
         user = 'pi'
         identity = file("${System.properties['user.home']}/.ssh/id_rsa")
     }
+    webServerEthernet {
+        host = '192.168.137.34'
+        user = 'pi'
+        identity = file("${System.properties['user.home']}/.ssh/id_rsa")
+    }
 }
 
 //create a single Jar with all dependencies
@@ -45,6 +50,21 @@ task deployPrincess {
     doLast {
         ssh.run {
             session(remotes.webServer) {
+                put from: 'build/libs/esialrobotik.ia-2.0-all.jar', into: 'IA'
+                put from: 'table.tbl', into: 'IA'
+                put from: 'config.json', into: 'IA'
+                put from: 'configCollection.json', into: 'IA'
+                put from: 'src/main/java/actions/a2020/actions/', into: 'IA'
+                execute 'sudo sync'
+            }
+        }
+    }
+}
+
+task deployPrincessEthernet {
+    doLast {
+        ssh.run {
+            session(remotes.webServerEthernet) {
                 put from: 'build/libs/esialrobotik.ia-2.0-all.jar', into: 'IA'
                 put from: 'table.tbl', into: 'IA'
                 put from: 'config.json', into: 'IA'
