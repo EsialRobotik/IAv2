@@ -34,7 +34,7 @@ public class ActionFileBinder implements ActionInterface {
 		/**
 		 * Rammassage des bouées
 		 */
-		PREPARER_RAMASSAGE("preparer_ramassage.json", false), // 5
+		PREPARER_RAMASSAGE("preparer_ramassage.json", true), // 5
 		TOUT_RAMASSER("tout_ramasser.json", false), // 6
 		LEVER_GOBELETS("lever_gobelets.json", false), // 7
 
