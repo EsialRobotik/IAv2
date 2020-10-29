@@ -84,7 +84,7 @@ public class MovementManager {
         for (Point point : trajectory) {
             gotoQueue.add(point);
             if (isMatchStarted) {
-                this.asservInterface.goTo(new Position(point.x, point.y));
+                this.asservInterface.goToChain(new Position(point.x, point.y));
                 try {
                     Thread.sleep(10);
                 } catch (InterruptedException e) {
@@ -116,7 +116,9 @@ public class MovementManager {
         } else if (step.getSubType() == Step.SubType.GOTO) {
             this.asservInterface.goTo(new Position(step.getEndPosition().getX(),step.getEndPosition().getY()));
         } else if (step.getSubType() == Step.SubType.GOTO_BACK) {
-            this.asservInterface.goToReverse(new Position(step.getEndPosition().getX(),step.getEndPosition().getY()));
+            this.asservInterface.goToReverse(new Position(step.getEndPosition().getX(), step.getEndPosition().getY()));
+        } else if (step.getSubType() == Step.SubType.GOTO_CHAIN) {
+            this.asservInterface.goToChain(new Position(step.getEndPosition().getX(), step.getEndPosition().getY()));
         } else if (step.getSubType() == Step.SubType.SET_SPEED) {
             this.asservInterface.setSpeed(step.getDistance());
         }
@@ -133,10 +135,6 @@ public class MovementManager {
             this.currentStep = null;
         }
         return isFinished;
-    }
-
-    public void setCap(Position position) {
-        this.asservInterface.face(position);
     }
 
     public AsservInterface.MovementDirection getMovementDirection() {

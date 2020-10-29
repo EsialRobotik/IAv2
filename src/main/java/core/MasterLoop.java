@@ -18,7 +18,9 @@ import pathfinding.PathFinding;
 import pathfinding.table.Point;
 import pathfinding.table.TableColor;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by Guillaume on 17/05/2017.
@@ -100,12 +102,10 @@ public class MasterLoop {
         movementManager.setMatchStarted(true);
         movementManager.executeStepDeplacement(currentStep);
 
-        logger.debug("while " + !interrupted);
         lcdDisplay.clear();
         lcdDisplay.println("Score : " + score);
 //        String remainingTime = chrono.toString();
         while (!interrupted) {
-            logger.debug("Main loop somethingDetected : " + somethingDetected);
             if (!somethingDetected) {
                 // 1/ we check if we detect something
                 boolean[] detected = this.detectionManager.getEmergencyDetectionMap();
@@ -178,11 +178,25 @@ public class MasterLoop {
                             logger.info("Manip id : " + currentStep.getActionId());
                             actionSupervisor.executeCommand(currentStep.getActionId());
                         } else if (currentStep.getActionType() == Step.Type.DEPLACEMENT) {
-                            logger.info("Déplacement");
+                            logger.info("Déplacement " + currentStep.getSubType());
                             if (currentStep.getSubType() == Step.SubType.GOTO_ASTAR) {
                                 // We need to launch the astar
                                 launchAstar(positionToPoint(currentStep.getEndPosition()));
                                 astarLaunch = true;
+                            } else if (currentStep.getSubType() == Step.SubType.GOTO_CHAIN) {
+                                logger.info("Goto chain");
+                                List<Point> path = new ArrayList<>();
+                                Position endPos = currentStep.getEndPosition();
+                                path.add(new Point(endPos.getX(), endPos.getY()));
+                                while (currentAction.getNextStepReal() != null
+                                    && currentAction.getNextStepReal().getSubType() == Step.SubType.GOTO_CHAIN) {
+                                    currentStep = currentAction.getNextStep();
+                                    logger.info("Compute enchain, step = " + currentStep.getDesc());
+                                    endPos = currentStep.getEndPosition();
+                                    path.add(new Point(endPos.getX(), endPos.getY()));
+                                }
+                                logger.info("Enchain " + path.size() + " actions");
+                                movementManager.executeMovement(path);
                             } else {
                                 movementManager.executeStepDeplacement(currentStep);
                             }

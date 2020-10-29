@@ -64,6 +64,14 @@ public class ActionDescriptor {
         return this.stepList.get(stepIndex);
     }
 
+    public Step getNextStepReal() {
+        if (stepIndex + 1 < this.stepList.size()) {
+            return this.stepList.get(stepIndex + 1);
+        } else {
+            return null;
+        }
+    }
+
     public Step getCurrentStep() {
         return stepList.get(stepIndex);
     }

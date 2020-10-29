@@ -7,7 +7,7 @@
       "priorite": 1,
       "taches": [
         {
-          "desc": "haaaaack",
+          "desc": "Bug de depart ?",
           "id": 1,
           "positionX": 0,
           "positionY": 0,
@@ -25,7 +25,7 @@
           "positionY": 670,
           "dist": 0,
           "type": "deplacement",
-          "subtype": "goto",
+          "subtype": "goto_chain",
           "actionId": -1,
           "mirror": "MIRRORY",
           "timeout": -1
@@ -37,7 +37,7 @@
           "positionY": 670,
           "dist": 0,
           "type": "deplacement",
-          "subtype": "goto",
+          "subtype": "goto_chain",
           "actionId": -1,
           "mirror": "MIRRORY",
           "timeout": -1
@@ -85,7 +85,7 @@
           "positionY": 542,
           "dist": 0,
           "type": "deplacement",
-          "subtype": "goto",
+          "subtype": "goto_chain",
           "actionId": -1,
           "mirror": "MIRRORY",
           "timeout": -1
@@ -97,7 +97,7 @@
           "positionY": 415,
           "dist": 0,
           "type": "deplacement",
-          "subtype": "goto",
+          "subtype": "goto_chain",
           "actionId": -1,
           "mirror": "MIRRORY",
           "timeout": -1
@@ -215,18 +215,6 @@
           "actionId": 0,
           "mirror": "MIRRORY",
           "timeout": 1500
-        },
-        {
-          "desc": "Sortie zone N",
-          "id": 7,
-          "positionX": 610,
-          "positionY": 670,
-          "dist": 0,
-          "type": "deplacement",
-          "subtype": "goto",
-          "actionId": -1,
-          "mirror": "MIRRORY",
-          "timeout": -1
         }
       ]
     },
@@ -237,9 +225,9 @@
       "priorite": 1,
       "taches": [
         {
-          "desc": "Placement bouée Sud à virer",
+          "desc": "Sortie zone N",
           "id": 1,
-          "positionX": 1500,
+          "positionX": 610,
           "positionY": 670,
           "dist": 0,
           "type": "deplacement",
@@ -252,7 +240,7 @@
           "desc": "Placement bouée Sud à virer",
           "id": 2,
           "positionX": 1500,
-          "positionY": 230,
+          "positionY": 670,
           "dist": 0,
           "type": "deplacement",
           "subtype": "goto",
@@ -263,6 +251,18 @@
         {
           "desc": "Placement bouée Sud à virer",
           "id": 3,
+          "positionX": 1500,
+          "positionY": 230,
+          "dist": 0,
+          "type": "deplacement",
+          "subtype": "goto",
+          "actionId": -1,
+          "mirror": "MIRRORY",
+          "timeout": -1
+        },
+        {
+          "desc": "Placement bouée Sud à virer",
+          "id": 4,
           "positionX": 0,
           "positionY": 230,
           "dist": 0,
@@ -274,7 +274,7 @@
         },
         {
           "desc": "Marquage bouée Sud à virer",
-          "id": 4,
+          "id": 5,
           "positionX": 0,
           "positionY": 0,
           "dist": 250,
@@ -286,7 +286,7 @@
         },
         {
           "desc": "Marquage bouée Sud à virer",
-          "id": 5,
+          "id": 6,
           "positionX": 0,
           "positionY": 0,
           "dist": 140,
@@ -298,7 +298,7 @@
         },
         {
           "desc": "Libération bouée Sud à virer",
-          "id": 6,
+          "id": 7,
           "positionX": 1400,
           "positionY": 230,
           "dist": 0,
@@ -753,7 +753,7 @@
       "priorite": 1,
       "taches": [
         {
-          "desc": "haaaaack",
+          "desc": "Bug de depart ?",
           "id": 1,
           "positionX": 0,
           "positionY": 3000,
@@ -771,7 +771,7 @@
           "positionY": 2330,
           "dist": 0,
           "type": "deplacement",
-          "subtype": "goto",
+          "subtype": "goto_chain",
           "actionId": -1,
           "mirror": "MIRRORY",
           "timeout": -1
@@ -783,7 +783,7 @@
           "positionY": 2330,
           "dist": 0,
           "type": "deplacement",
-          "subtype": "goto",
+          "subtype": "goto_chain",
           "actionId": -1,
           "mirror": "MIRRORY",
           "timeout": -1
@@ -831,7 +831,7 @@
           "positionY": 2458,
           "dist": 0,
           "type": "deplacement",
-          "subtype": "goto",
+          "subtype": "goto_chain",
           "actionId": -1,
           "mirror": "MIRRORY",
           "timeout": -1
@@ -843,7 +843,7 @@
           "positionY": 2585,
           "dist": 0,
           "type": "deplacement",
-          "subtype": "goto",
+          "subtype": "goto_chain",
           "actionId": -1,
           "mirror": "MIRRORY",
           "timeout": -1
@@ -961,18 +961,6 @@
           "actionId": 0,
           "mirror": "MIRRORY",
           "timeout": 1500
-        },
-        {
-          "desc": "Sortie zone N",
-          "id": 7,
-          "positionX": 610,
-          "positionY": 2330,
-          "dist": 0,
-          "type": "deplacement",
-          "subtype": "goto",
-          "actionId": -1,
-          "mirror": "MIRRORY",
-          "timeout": -1
         }
       ]
     },
@@ -983,9 +971,9 @@
       "priorite": 1,
       "taches": [
         {
-          "desc": "Placement bouée Sud à virer",
+          "desc": "Sortie zone N",
           "id": 1,
-          "positionX": 1500,
+          "positionX": 610,
           "positionY": 2330,
           "dist": 0,
           "type": "deplacement",
@@ -998,7 +986,7 @@
           "desc": "Placement bouée Sud à virer",
           "id": 2,
           "positionX": 1500,
-          "positionY": 2770,
+          "positionY": 2330,
           "dist": 0,
           "type": "deplacement",
           "subtype": "goto",
@@ -1009,6 +997,18 @@
         {
           "desc": "Placement bouée Sud à virer",
           "id": 3,
+          "positionX": 1500,
+          "positionY": 2770,
+          "dist": 0,
+          "type": "deplacement",
+          "subtype": "goto",
+          "actionId": -1,
+          "mirror": "MIRRORY",
+          "timeout": -1
+        },
+        {
+          "desc": "Placement bouée Sud à virer",
+          "id": 4,
           "positionX": 0,
           "positionY": 2770,
           "dist": 0,
@@ -1020,7 +1020,7 @@
         },
         {
           "desc": "Marquage bouée Sud à virer",
-          "id": 4,
+          "id": 5,
           "positionX": 0,
           "positionY": 3000,
           "dist": 250,
@@ -1032,7 +1032,7 @@
         },
         {
           "desc": "Marquage bouée Sud à virer",
-          "id": 5,
+          "id": 6,
           "positionX": 0,
           "positionY": 3000,
           "dist": 140,
@@ -1044,7 +1044,7 @@
         },
         {
           "desc": "Libération bouée Sud à virer",
-          "id": 6,
+          "id": 7,
           "positionX": 1400,
           "positionY": 2770,
           "dist": 0,

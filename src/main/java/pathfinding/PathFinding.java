@@ -22,6 +22,8 @@ public class PathFinding {
 
     public PathFinding(Astar astar) {
         this.astar = astar;
+        computationEnded = true;
+        computationStart = false;
     }
 
     public void computePath(final Point start, final Point end) {
@@ -57,5 +59,9 @@ public class PathFinding {
 
     public List<Point> getLastComputedPath() {
         return this.computedPath;
+    }
+
+    public void setComputedPath(List<Point> list) {
+        this.computedPath = list;
     }
 }
