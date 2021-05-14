@@ -38,10 +38,10 @@ public class Polygon extends Shape {
 
         //We draw the shape edges segment by segment
         for(int i =0; i < vertexList.size() - 1 ; ++i) {
-            drawSegment(board, vertexList.get(i), vertexList.get(i+1), length, width);
+            drawSegment(board, vertexList.get(i), vertexList.get(i+1), length, width, fill);
         }
         //Only the last segment is left
-        drawSegment(board, vertexList.get(0), vertexList.get(vertexList.size() - 1), length, width);
+        drawSegment(board, vertexList.get(0), vertexList.get(vertexList.size() - 1), length, width, fill);
 
         if (fill) {
             ShapeFiller shapeFiller = new ShapeFiller(board);
@@ -51,7 +51,7 @@ public class Polygon extends Shape {
         return board;
     }
 
-    private void drawSegment(boolean[][] board, final Point a, final Point b, int length, int width) {
+    private void drawSegment(boolean[][] board, final Point a, final Point b, int length, int width, boolean fill) {
         board[a.getX()/10 + length][a.getY()/10 + width] = true;
         board[b.getX()/10 + length][b.getY()/10 + width] = true;
         //We divide the segment in a 1k point.
@@ -66,7 +66,10 @@ public class Polygon extends Shape {
             x += deltaX;
             y += deltaY;
         }
-        ShapeFiller shapeFiller = new ShapeFiller(board);
-        shapeFiller.fillBoard();
+
+        if (fill) {
+            ShapeFiller shapeFiller = new ShapeFiller(board);
+            shapeFiller.fillBoard();
+        }
     }
 }
