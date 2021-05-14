@@ -1,6 +1,9 @@
 package pathfinding;
 
+import api.log.LoggerFactory;
+import org.apache.logging.log4j.Level;
 import pathfinding.table.Point;
+import pathfinding.table.Table;
 import pathfinding.table.astar.Astar;
 import pathfinding.table.astar.LineSimplificator;
 
@@ -33,10 +36,10 @@ public class PathFinding {
                 Point rectifiedStart = new Point(start.getX() / 10, start.getY() / 10);
                 Point rectifiedEnd = new Point(end.getX() / 10, end.getY() / 10);
                 Stack<Point> path = astar.getChemin(rectifiedStart, rectifiedEnd);
-                List<Point> temp = LineSimplificator.getSimpleLines(path);
-                Collections.reverse(temp);
+                List<Point> simplePath = LineSimplificator.getSimpleLines(path);
+                Collections.reverse(simplePath);
                 computedPath = new ArrayList<>();
-                for(Point p : temp) {
+                for(Point p : simplePath) {
                     computedPath.add(new Point(p.getX() * 10, p.getY() * 10));
                 }
                 computationEnded = true;
@@ -63,5 +66,67 @@ public class PathFinding {
 
     public void setComputedPath(List<Point> list) {
         this.computedPath = list;
+    }
+
+    public static void main(String[] args) throws Exception {
+        LoggerFactory.init(Level.INFO);
+        Table table = new Table();
+        ArrayList<String> zoneToSkip = new ArrayList<>();
+        zoneToSkip.add("start0");
+        table.loadJsonFromFile("table.json", zoneToSkip);
+
+        Astar astar = new Astar(table);
+        for (List<Point> points : table.getElementsList().values()) {
+            for (Point p : points) {
+                astar.setTemporaryAccessible(p.x, p.y, false);
+            }
+        }
+        PathFinding pathFinding = new PathFinding(astar);
+
+        pathFinding.computePath(
+            new Point(800, 200),
+            new Point(540, 700)
+        );
+        while (!pathFinding.isComputationEnded()) {
+            Thread.sleep(500);
+        }
+        System.out.println("Path");
+        System.out.print("[");
+        for (Point p : pathFinding.getLastComputedPath()) {
+            System.out.print("["+p.x+","+p.y+"],");
+        }
+        System.out.println("]");
+
+        pathFinding.computePath(
+                new Point(540, 700),
+                new Point(250, 450)
+        );
+        while (!pathFinding.isComputationEnded()) {
+            Thread.sleep(500);
+        }
+        System.out.println("Path");
+        System.out.print("[");
+        for (Point p : pathFinding.getLastComputedPath()) {
+            System.out.print("["+p.x+","+p.y+"],");
+        }
+        System.out.println("]");
+
+        for (Point p : table.getElementsList().get("0_bouee3")) {
+            astar.setTemporaryAccessible(p.x, p.y, true);
+        }
+
+        pathFinding.computePath(
+                new Point(250, 450),
+                new Point(800, 500)
+        );
+        while (!pathFinding.isComputationEnded()) {
+            Thread.sleep(500);
+        }
+        System.out.println("Path");
+        System.out.print("[");
+        for (Point p : pathFinding.getLastComputedPath()) {
+            System.out.print("["+p.x+","+p.y+"],");
+        }
+        System.out.println("]");
     }
 }

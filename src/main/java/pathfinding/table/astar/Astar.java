@@ -197,6 +197,10 @@ public class Astar {
             logger.error("Objectif is in forbiden area.");
         }
 
+        if (grille[startX][startY] == null) {
+            logger.error("Start is in forbiden area.");
+        }
+
         // ON VIDE TOUT !!!
         for (int x = 0; x < dimX; x++) {
             final int distX = Math.abs(objectifX - x);

@@ -20,6 +20,7 @@ public class Polygon extends Shape {
         for(JsonElement jsonElement : vertexArray){
             vertexList.add(new Point(jsonElement.getAsJsonObject()));
         }
+        this.id = jsonObject.get("id").getAsString();
     }
 
     public List<Point> getVertexList(){

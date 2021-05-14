@@ -51,7 +51,6 @@ task deployPrincess {
         ssh.run {
             session(remotes.webServer) {
                 put from: 'build/libs/esialrobotik.ia-2.0-all.jar', into: 'IA'
-                put from: 'table.tbl', into: 'IA'
                 put from: 'config.json', into: 'IA'
                 put from: 'configCollection.json', into: 'IA'
                 put from: 'src/main/java/actions/a2020/actions/', into: 'IA'
@@ -66,7 +65,6 @@ task deployPrincessEthernet {
         ssh.run {
             session(remotes.webServerEthernet) {
                 put from: 'build/libs/esialrobotik.ia-2.0-all.jar', into: 'IA'
-                put from: 'table.tbl', into: 'IA'
                 put from: 'config.json', into: 'IA'
                 put from: 'configCollection.json', into: 'IA'
                 put from: 'src/main/java/actions/a2020/actions/', into: 'IA'

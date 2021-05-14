@@ -14,6 +14,7 @@ public class Circle extends Shape{
     public Circle(JsonObject jsonObject){
       this.center = new Point(jsonObject.get("centre").getAsJsonObject());
       this.radius = jsonObject.get("rayon").getAsInt();
+      this.id = jsonObject.get("id").getAsString();
     }
 
     public Circle(int x, int y, int radius){

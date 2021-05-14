@@ -5,6 +5,8 @@ package pathfinding.table.shape;
  */
 public abstract class Shape {
 
+    protected String id;
+
     //Board is a centimetrique grid off the table. (don't need more)
     public abstract boolean[][] drawShapeEdges(int length, int width);
 
@@ -16,5 +18,9 @@ public abstract class Shape {
             }
         }
         return res;
+    }
+
+    public String getId() {
+        return id;
     }
 }

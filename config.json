@@ -3,7 +3,7 @@
   "gpioColorSelector": 5,
   "gpioTirette": 4,
   "matchDuration": 98,
-  "tablePath": "table.tbl",
+  "tablePath": "table.json",
   "commandFile": "configCollection.json",
   "lcd": {
           "i2cAddress" : 39,
