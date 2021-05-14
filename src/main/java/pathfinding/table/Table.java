@@ -7,10 +7,7 @@ import pathfinding.table.shape.Circle;
 import pathfinding.table.shape.Shape;
 import pathfinding.table.shape.ShapeFactory;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Reader;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -37,13 +34,15 @@ public class Table {
 
     public Table() {}
 
+    public Table(String filePath) throws IOException {
+        this.loadFromSaveFile(filePath);
+    }
+
     public void loadJsonFromFile(String filePath) throws IOException {
         Gson gson = new Gson();
         Reader reader = Files.newBufferedReader(Paths.get(filePath));
         JsonObject configRootNode = gson.fromJson(reader, JsonObject.class);
         loadConfig(configRootNode);
-        drawTable();
-        computeForbiddenArea();
     }
 
     public void loadJsonFromFile(String filePath, List<String> zoneToSkip) throws IOException {
@@ -61,6 +60,39 @@ public class Table {
         loadConfig(configRootNode);
     }
 
+    public void loadFromSaveFile(String filename) throws IOException {
+        BufferedReader br = null;
+        try {
+            br = new BufferedReader(new FileReader(filename));
+            String line;
+            line = br.readLine();
+            String[] temp = line.split(" ");
+            this.xSize = Integer.parseInt(temp[0]);
+            this.rectifiedXSize = xSize / 10;
+            this.ySize = Integer.parseInt(temp[1]);
+            this.rectifiedYSize = ySize / 10;
+
+            this.forbiddenArea = new boolean[rectifiedXSize][rectifiedYSize];
+            int acc = 0;
+            while ((line = br.readLine()) != null) {
+                for(int j = 0; j < forbiddenArea[0].length ; ++j) {
+                    if(line.charAt(j) == 'x') {
+                        forbiddenArea[acc][j] = true;
+                    }
+                    else {
+                        forbiddenArea[acc][j] = false;
+                    }
+                }
+                ++acc;
+            }
+        }
+        finally {
+            if(br != null) {
+                br.close();
+            }
+        }
+    }
+
     private void loadConfig(JsonObject rootElement){
         loadConfig(rootElement, new ArrayList<>());
     }
@@ -75,19 +107,21 @@ public class Table {
         color3000 = rootElement.get("couleur3000").getAsString();
         margin = rootElement.get("marge").getAsInt();
 
-        for(JsonElement jsonElement : rootElement.getAsJsonArray("zonesInterdites")){
-            Shape shape = ShapeFactory.getShape(jsonElement.getAsJsonObject());
-            if (zoneToSkip.contains(shape.getId())) {
-                continue;
+        if (zoneToSkip.size() > 0) {
+            for (JsonElement jsonElement : rootElement.getAsJsonArray("zonesInterdites")) {
+                Shape shape = ShapeFactory.getShape(jsonElement.getAsJsonObject());
+                if (zoneToSkip.contains(shape.getId())) {
+                    continue;
+                }
+                shapeList.add(shape);
             }
-            shapeList.add(shape);
         }
 
         elementsList = new HashMap<>();
         for (JsonElement jsonElement : rootElement.getAsJsonArray("elementsJeu")) {
             Shape shape = ShapeFactory.getShape(jsonElement.getAsJsonObject());
             List<Point> points = new ArrayList<>();
-            boolean[][] temp = shape.drawShapeEdges(rectifiedXSize, rectifiedYSize);
+            boolean[][] temp = shape.drawShapeEdges(rectifiedXSize, rectifiedYSize, false);
             temp = computeForbiddenAreaForElement(temp);
             for (int i = rectifiedXSize; i <= rectifiedXSize * 2; i++) {
                 for (int j = rectifiedYSize; j <= rectifiedYSize * 2; j++) {
@@ -251,7 +285,7 @@ public class Table {
 
         Circle circle = new Circle(rectifiedMargin * 10, rectifiedMargin * 10, rectifiedMargin * 10);
         int bufferSize = (rectifiedMargin + 1) * 2;
-        boolean[][] shapeBuffer = circle.drawShapeEdges((rectifiedMargin + 1) * 2, (rectifiedMargin + 1) * 2);
+        boolean[][] shapeBuffer = circle.drawShapeEdges((rectifiedMargin + 1) * 2, (rectifiedMargin + 1) * 2, false);
 
         for(int i = 0; i < boardLength; ++i) {
             for(int j = 0; j < boardWidth; ++j) {
@@ -431,5 +465,33 @@ public class Table {
             return true;
         }
         return forbiddenArea[x][y];
+    }
+
+    public static void main(String[] args) throws IOException {
+        // A lancer directement depuis l'IDE pour générer la table
+        Table table = new Table();
+        ArrayList<String> zoneToSkip = new ArrayList<>();
+        zoneToSkip.add("start0");
+        table.loadJsonFromFile("table.json", zoneToSkip);
+
+        table.drawTable();
+        table.computeForbiddenArea();
+
+        File f = new File("table0.tbl");
+
+        table.saveToFile(f.getName());
+
+        table = new Table();
+        zoneToSkip = new ArrayList<>();
+        zoneToSkip.add("start3000");
+        table.loadJsonFromFile("table.json", zoneToSkip);
+
+        table.drawTable();
+        table.computeForbiddenArea();
+
+        f = new File("table3000.tbl");
+
+        table.saveToFile(f.getName());
+        System.out.println("Generation of the table succesfull.");
     }
 }

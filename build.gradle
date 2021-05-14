@@ -23,12 +23,12 @@ sourceCompatibility = 1.8
 
 remotes {
     webServer {
-        host = '192.168.1.60'
+        host = '192.168.0.127'
         user = 'pi'
         identity = file("${System.properties['user.home']}/.ssh/id_rsa")
     }
     webServerEthernet {
-        host = '169.244.42.42'
+        host = '169.254.42.42'
         user = 'pi'
         identity = file("${System.properties['user.home']}/.ssh/id_rsa")
     }
@@ -53,6 +53,9 @@ task deployPrincess {
                 put from: 'build/libs/esialrobotik.ia-2.0-all.jar', into: 'IA'
                 put from: 'config.json', into: 'IA'
                 put from: 'configCollection.json', into: 'IA'
+                put from: 'table.json', into: 'IA'
+                put from: 'table0.tbl', into: 'IA'
+                put from: 'table3000.tbl', into: 'IA'
                 put from: 'src/main/java/actions/a2020/actions/', into: 'IA'
                 execute 'sudo sync'
             }
@@ -67,6 +70,9 @@ task deployPrincessEthernet {
                 put from: 'build/libs/esialrobotik.ia-2.0-all.jar', into: 'IA'
                 put from: 'config.json', into: 'IA'
                 put from: 'configCollection.json', into: 'IA'
+                put from: 'table.json', into: 'IA'
+                put from: 'table0.tbl', into: 'IA'
+                put from: 'table3000.tbl', into: 'IA'
                 put from: 'src/main/java/actions/a2020/actions/', into: 'IA'
                 execute 'sudo sync'
             }

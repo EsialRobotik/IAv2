@@ -9,7 +9,11 @@ public abstract class Shape {
     protected boolean active;
 
     //Board is a centimetrique grid off the table. (don't need more)
-    public abstract boolean[][] drawShapeEdges(int length, int width);
+    public abstract boolean[][] drawShapeEdges(int length, int width, boolean fill);
+
+    public boolean[][] drawShapeEdges(int length, int width) {
+        return this.drawShapeEdges(length, width, true);
+    }
 
     protected boolean[][] getEmptyBoard(int length, int width) {
         boolean[][] res = new boolean[length][width];

@@ -7,8 +7,20 @@
       "priorite": 1,
       "taches": [
         {
-          "desc": "Placement bouée Nord",
+          "desc": "Step de départ bizarre",
           "id": 1,
+          "positionX": 0,
+          "positionY": 0,
+          "dist": 1,
+          "type": "deplacement",
+          "subtype": "go",
+          "actionId": -1,
+          "mirror": "MIRRORY",
+          "timeout": -1
+        },
+        {
+          "desc": "Placement bouée Nord",
+          "id": 2,
           "positionX": 610,
           "positionY": 670,
           "dist": 0,
@@ -20,7 +32,7 @@
         },
         {
           "desc": "Alignement bouée Nord",
-          "id": 2,
+          "id": 3,
           "positionX": 610,
           "positionY": 0,
           "dist": 0,
@@ -32,7 +44,7 @@
         },
         {
           "desc": "Marquage bouée Nord",
-          "id": 3,
+          "id": 4,
           "positionX": 610,
           "positionY": 200,
           "dist": 0,
@@ -44,7 +56,7 @@
         },
         {
           "desc": "Libération bouée Nord",
-          "id": 4,
+          "id": 5,
           "positionX": 610,
           "positionY": 670,
           "dist": 0,
@@ -55,8 +67,8 @@
           "timeout": -1
         },
         {
-          "desc": "Suppression bouée Nord",
-          "id": 5,
+          "desc": "Suppression bouée 3",
+          "id": 6,
           "positionX": 0,
           "positionY": 0,
           "dist": 0,
@@ -69,7 +81,7 @@
         },
         {
           "desc": "Placement bouée Nord à virer",
-          "id": 6,
+          "id": 7,
           "positionX": 180,
           "positionY": 415,
           "dist": 0,
@@ -81,7 +93,7 @@
         },
         {
           "desc": "Placement bouée Nord à virer",
-          "id": 7,
+          "id": 8,
           "positionX": 0,
           "positionY": 415,
           "dist": 0,
@@ -93,7 +105,7 @@
         },
         {
           "desc": "Marquage bouée Nord à virer",
-          "id": 8,
+          "id": 9,
           "positionX": 0,
           "positionY": 0,
           "dist": -270,
@@ -105,7 +117,7 @@
         },
         {
           "desc": "Libération bouée Nord à virer",
-          "id": 9,
+          "id": 10,
           "positionX": 0,
           "positionY": 0,
           "dist": 170,
@@ -116,14 +128,27 @@
           "timeout": -1
         },
         {
-          "desc": "Suppression bouée Nord à virer",
-          "id": 10,
+          "desc": "Suppression bouée 1",
+          "id": 11,
           "positionX": 0,
           "positionY": 0,
           "dist": 0,
           "type": "element",
           "subtype": "suppression",
           "itemId": "0_bouee1",
+          "actionId": 0,
+          "mirror": "MIRRORY",
+          "timeout": -1
+        },
+        {
+          "desc": "Blocage du chenal Nord",
+          "id": 12,
+          "positionX": 0,
+          "positionY": 0,
+          "dist": 0,
+          "type": "element",
+          "subtype": "ajout",
+          "itemId": "0_chenal_depart_n",
           "actionId": 0,
           "mirror": "MIRRORY",
           "timeout": -1
@@ -271,6 +296,19 @@
           "type": "deplacement",
           "subtype": "goto_back",
           "actionId": -1,
+          "mirror": "MIRRORY",
+          "timeout": -1
+        },
+        {
+          "desc": "Suppression bouée 2",
+          "id": 6,
+          "positionX": 0,
+          "positionY": 0,
+          "dist": 0,
+          "type": "element",
+          "subtype": "suppression",
+          "itemId": "0_bouee2",
+          "actionId": 0,
           "mirror": "MIRRORY",
           "timeout": -1
         }
@@ -285,8 +323,20 @@
       "priorite": 1,
       "taches": [
         {
-          "desc": "Placement bouée Nord",
+          "desc": "Step de départ bizarre",
           "id": 1,
+          "positionX": 0,
+          "positionY": 3000,
+          "dist": 1,
+          "type": "deplacement",
+          "subtype": "go",
+          "actionId": -1,
+          "mirror": "MIRRORY",
+          "timeout": -1
+        },
+        {
+          "desc": "Placement bouée Nord",
+          "id": 2,
           "positionX": 610,
           "positionY": 2330,
           "dist": 0,
@@ -298,7 +348,7 @@
         },
         {
           "desc": "Alignement bouée Nord",
-          "id": 2,
+          "id": 3,
           "positionX": 610,
           "positionY": 3000,
           "dist": 0,
@@ -310,7 +360,7 @@
         },
         {
           "desc": "Marquage bouée Nord",
-          "id": 3,
+          "id": 4,
           "positionX": 610,
           "positionY": 2800,
           "dist": 0,
@@ -322,7 +372,7 @@
         },
         {
           "desc": "Libération bouée Nord",
-          "id": 4,
+          "id": 5,
           "positionX": 610,
           "positionY": 2330,
           "dist": 0,
@@ -333,8 +383,8 @@
           "timeout": -1
         },
         {
-          "desc": "Suppression bouée Nord",
-          "id": 5,
+          "desc": "Suppression bouée 3",
+          "id": 6,
           "positionX": 0,
           "positionY": 3000,
           "dist": 0,
@@ -346,7 +396,7 @@
         },
         {
           "desc": "Placement bouée Nord à virer",
-          "id": 6,
+          "id": 7,
           "positionX": 180,
           "positionY": 2585,
           "dist": 0,
@@ -358,7 +408,7 @@
         },
         {
           "desc": "Placement bouée Nord à virer",
-          "id": 7,
+          "id": 8,
           "positionX": 0,
           "positionY": 2585,
           "dist": 0,
@@ -370,7 +420,7 @@
         },
         {
           "desc": "Marquage bouée Nord à virer",
-          "id": 8,
+          "id": 9,
           "positionX": 0,
           "positionY": 3000,
           "dist": -270,
@@ -382,7 +432,7 @@
         },
         {
           "desc": "Libération bouée Nord à virer",
-          "id": 9,
+          "id": 10,
           "positionX": 0,
           "positionY": 3000,
           "dist": 170,
@@ -393,13 +443,25 @@
           "timeout": -1
         },
         {
-          "desc": "Suppression bouée Nord à virer",
-          "id": 10,
+          "desc": "Suppression bouée 1",
+          "id": 11,
           "positionX": 0,
           "positionY": 3000,
           "dist": 0,
           "type": "element",
           "subtype": "suppression",
+          "actionId": 0,
+          "mirror": "MIRRORY",
+          "timeout": -1
+        },
+        {
+          "desc": "Blocage du chenal Nord",
+          "id": 12,
+          "positionX": 0,
+          "positionY": 3000,
+          "dist": 0,
+          "type": "element",
+          "subtype": "ajout",
           "actionId": 0,
           "mirror": "MIRRORY",
           "timeout": -1
@@ -547,6 +609,18 @@
           "type": "deplacement",
           "subtype": "goto_back",
           "actionId": -1,
+          "mirror": "MIRRORY",
+          "timeout": -1
+        },
+        {
+          "desc": "Suppression bouée 2",
+          "id": 6,
+          "positionX": 0,
+          "positionY": 3000,
+          "dist": 0,
+          "type": "element",
+          "subtype": "suppression",
+          "actionId": 0,
           "mirror": "MIRRORY",
           "timeout": -1
         }

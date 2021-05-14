@@ -35,7 +35,7 @@ public class Circle extends Shape{
         return this.center;
     }
 
-    public boolean[][] drawShapeEdges(int length, int width) {
+    public boolean[][] drawShapeEdges(int length, int width, boolean fill) {
         boolean[][] board = this.getEmptyBoard(length * 3, width * 3);
 
         //We divide the circle in 1k part and compute point each time.
@@ -55,8 +55,10 @@ public class Circle extends Shape{
             }
             currentValue += radSplit;
         }
-        ShapeFiller shapeFiller = new ShapeFiller(board);
-        shapeFiller.fillBoard();
+        if (fill) {
+            ShapeFiller shapeFiller = new ShapeFiller(board);
+            shapeFiller.fillBoard();
+        }
 
         return board;
     }

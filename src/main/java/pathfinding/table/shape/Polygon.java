@@ -32,7 +32,7 @@ public class Polygon extends Shape {
         return this.vertexList;
     }
 
-    public boolean[][] drawShapeEdges(int length, int width) {
+    public boolean[][] drawShapeEdges(int length, int width, boolean fill) {
         //We double the buffer to be large
         boolean[][] board = this.getEmptyBoard(length * 3, width * 3);
 
@@ -43,8 +43,10 @@ public class Polygon extends Shape {
         //Only the last segment is left
         drawSegment(board, vertexList.get(0), vertexList.get(vertexList.size() - 1), length, width);
 
-        ShapeFiller shapeFiller = new ShapeFiller(board);
-        shapeFiller.fillBoard();
+        if (fill) {
+            ShapeFiller shapeFiller = new ShapeFiller(board);
+            shapeFiller.fillBoard();
+        }
 
         return board;
     }

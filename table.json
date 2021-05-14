@@ -3,7 +3,7 @@
   "tailleY": 3000,
   "couleur0": "Bleu",
   "couleur3000": "Jaune",
-  "marge": 150,
+  "marge": 160,
   "zonesInterdites": [
     {
       "id": "start0",
@@ -409,6 +409,98 @@
         "y" : 1605
       },
       "rayon": 36
+    },
+    {
+      "id": "0_chenal_depart_n",
+      "forme": "polygone",
+      "desc": "Depart Bleu",
+      "points": [
+        {
+          "x": 500,
+          "y": 0
+        },
+        {
+          "x": 500,
+          "y": 400
+        },
+        {
+          "x": 530,
+          "y": 400
+        },
+        {
+          "x": 530,
+          "y": 0
+        }
+      ]
+    },
+    {
+      "id": "0_chenal_depart_s",
+      "forme": "polygone",
+      "desc": "Depart Bleu",
+      "points": [
+        {
+          "x": 1070,
+          "y": 0
+        },
+        {
+          "x": 1070,
+          "y": 400
+        },
+        {
+          "x": 1100,
+          "y": 400
+        },
+        {
+          "x": 1100,
+          "y": 0
+        }
+      ]
+    },
+    {
+      "id": "3000_chenal_depart_n",
+      "forme": "polygone",
+      "desc": "Depart Bleu",
+      "points": [
+        {
+          "x": 500,
+          "y": 3000
+        },
+        {
+          "x": 500,
+          "y": 2600
+        },
+        {
+          "x": 530,
+          "y": 2600
+        },
+        {
+          "x": 530,
+          "y": 3000
+        }
+      ]
+    },
+    {
+      "id": "3000_chenal_depart_s",
+      "forme": "polygone",
+      "desc": "Depart Bleu",
+      "points": [
+        {
+          "x": 1070,
+          "y": 3000
+        },
+        {
+          "x": 1070,
+          "y": 2600
+        },
+        {
+          "x": 1100,
+          "y": 2600
+        },
+        {
+          "x": 1100,
+          "y": 3000
+        }
+      ]
     }
   ]
 }
