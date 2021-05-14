@@ -27,6 +27,12 @@ public class PathFinding {
         this.astar = astar;
         computationEnded = true;
         computationStart = false;
+
+        for (List<Point> points : this.astar.getTable().getElementsList().values()) {
+            for (Point p : points) {
+                this.astar.setTemporaryAccessible(p.x, p.y, false);
+            }
+        }
     }
 
     public void computePath(final Point start, final Point end) {
@@ -68,6 +74,12 @@ public class PathFinding {
         this.computedPath = list;
     }
 
+    public void liberateElementById(String elementId) {
+        for (Point p : astar.getTable().getElementsList().get(elementId)) {
+            astar.setTemporaryAccessible(p.x, p.y, true);
+        }
+    }
+
     public static void main(String[] args) throws Exception {
         LoggerFactory.init(Level.INFO);
         Table table = new Table();
@@ -75,13 +87,7 @@ public class PathFinding {
         zoneToSkip.add("start0");
         table.loadJsonFromFile("table.json", zoneToSkip);
 
-        Astar astar = new Astar(table);
-        for (List<Point> points : table.getElementsList().values()) {
-            for (Point p : points) {
-                astar.setTemporaryAccessible(p.x, p.y, false);
-            }
-        }
-        PathFinding pathFinding = new PathFinding(astar);
+        PathFinding pathFinding = new PathFinding(new Astar(table));
 
         pathFinding.computePath(
             new Point(800, 200),
@@ -111,9 +117,7 @@ public class PathFinding {
         }
         System.out.println("]");
 
-        for (Point p : table.getElementsList().get("0_bouee3")) {
-            astar.setTemporaryAccessible(p.x, p.y, true);
-        }
+        pathFinding.liberateElementById("0_bouee3");
 
         pathFinding.computePath(
                 new Point(250, 450),

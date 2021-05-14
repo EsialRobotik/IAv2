@@ -22,6 +22,11 @@ public class Astar {
     private Logger logger;
 
     /**
+     * La table
+     */
+    private Table table;
+
+    /**
      * La dimension de la grille
      */
     private int dimX;
@@ -43,20 +48,22 @@ public class Astar {
     public Astar(Table table) {
         this.logger = LoggerFactory.getLogger(Astar.class);
 
+        this.table = table;
+
         // Pour une taille N, on stocke les points de coordonnées 0 à N.
         // Cela fait donc N+1 points
-        this.dimX = table.getRectifiedXSize() + 1;
-        this.dimY = table.getRectifiedYSize() + 1;
+        this.dimX = this.table.getRectifiedXSize() + 1;
+        this.dimY = this.table.getRectifiedYSize() + 1;
         this.logger.info("Initialize the algorithm with a dimension: " + dimX + " x " + dimY);
 
         grille = new Node[this.dimX][this.dimY];
         for (int x = 0; x < this.dimX; x++) {
             for (int y = 0; y < this.dimY; y++) {
                 //If we can reach a case adjacent to a node, we declare it unreachable
-                if (table.isAreaForbiddenSafe(x, y)
-                        || table.isAreaForbiddenSafe(x - 1, y)
-                        || table.isAreaForbiddenSafe(x - 1, y - 1)
-                        || table.isAreaForbiddenSafe(x, y - 1)) {
+                if (this.table.isAreaForbiddenSafe(x, y)
+                        || this.table.isAreaForbiddenSafe(x - 1, y)
+                        || this.table.isAreaForbiddenSafe(x - 1, y - 1)
+                        || this.table.isAreaForbiddenSafe(x, y - 1)) {
                     grille[x][y] = null;
                 } else {
                     grille[x][y] = new Node(x, y);
@@ -66,6 +73,10 @@ public class Astar {
 
         ouverts = new PriorityQueue<Node>(this.dimX * this.dimY);
         updateVoisinageInfo();
+    }
+
+    public Table getTable() {
+        return table;
     }
 
     /**
@@ -282,6 +293,7 @@ public class Astar {
     public Stack<Point> getChemin(Point start, Point objectif) {
         logger.info("Start astar to compute path between " + start + " and " + objectif);
         long startTime = System.currentTimeMillis();
+
         // Le chemin calculé
         Stack<Point> leChemin = new Stack<Point>();
 
@@ -313,7 +325,7 @@ public class Astar {
             leChemin.add(new Point(courant.x, courant.y));
             courant = courant.parent;
         }
-        logger.info("Astar end computation in " + (System.currentTimeMillis() - startTime));
+        logger.info("Astar end computation in " + (System.currentTimeMillis() - startTime) + "ms");
         return leChemin;
     }
 
