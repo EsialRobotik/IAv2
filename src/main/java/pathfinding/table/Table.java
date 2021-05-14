@@ -33,7 +33,7 @@ public class Table {
     private boolean[][] forbiddenArea;
 
     private List<Shape> shapeList;
-    private Map<String, List<Point>> elementsList;
+    private Map<Shape, List<Point>> elementsList;
 
     public Table() {}
 
@@ -96,7 +96,7 @@ public class Table {
                     }
                 }
             }
-            elementsList.put(shape.getId(), points);
+            elementsList.put(shape, points);
         }
     }
 
@@ -128,8 +128,17 @@ public class Table {
         return shapeList;
     }
 
-    public Map<String, List<Point>> getElementsList() {
+    public Map<Shape, List<Point>> getElementsList() {
         return elementsList;
+    }
+
+    public List<Point> findElementById(String itemId) {
+        for (Shape shape : this.elementsList.keySet()) {
+            if (shape.getId().equals(itemId)) {
+                return this.elementsList.get(shape);
+            }
+        }
+        return new ArrayList<>();
     }
 
     public void drawTable() {

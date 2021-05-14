@@ -15,6 +15,11 @@ public class Circle extends Shape{
       this.center = new Point(jsonObject.get("centre").getAsJsonObject());
       this.radius = jsonObject.get("rayon").getAsInt();
       this.id = jsonObject.get("id").getAsString();
+      if (jsonObject.get("active") != null) {
+          this.active = jsonObject.get("active").getAsBoolean();
+      } else {
+          this.active = false;
+      }
     }
 
     public Circle(int x, int y, int radius){

@@ -10,11 +10,9 @@ public class ShapeFactory {
         String shapeName = jsonObject.get("forme").getAsString();
         if(shapeName.equals("cercle")){
             return new Circle(jsonObject);
-        }
-        else if(shapeName.equals("polygone")){
+        } else if(shapeName.equals("polygone")){
             return new Polygon(jsonObject);
-        }
-        else {
+        } else {
             throw new RuntimeException("Shape " + shapeName + " cannot be load");
         }
     }

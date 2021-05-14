@@ -21,6 +21,11 @@ public class Polygon extends Shape {
             vertexList.add(new Point(jsonElement.getAsJsonObject()));
         }
         this.id = jsonObject.get("id").getAsString();
+        if (jsonObject.get("active") != null) {
+            this.active = jsonObject.get("active").getAsBoolean();
+        } else {
+            this.active = false;
+        }
     }
 
     public List<Point> getVertexList(){

@@ -9,7 +9,8 @@ import com.google.gson.JsonObject;
 public class Step {
     public enum Type {
         DEPLACEMENT,
-        MANIPULATION
+        MANIPULATION,
+        ELEMENT
     }
 
     public enum SubType {
@@ -20,7 +21,9 @@ public class Step {
         GOTO_BACK,
         GOTO_CHAIN,
         GOTO_ASTAR,
-        SET_SPEED
+        SET_SPEED,
+        SUPPRESSION,
+        AJOUT
     }
 
     private String desc;
@@ -34,6 +37,7 @@ public class Step {
     private SubType subType;
     private int distance;
     private int timeout;
+    private String itemId;
 
     private boolean yPositiveExclusive = false;
     private boolean yNegativeExclusive = false;
@@ -50,6 +54,8 @@ public class Step {
             actionType = Type.DEPLACEMENT;
         } else if (type.equals("manipulation")) {
             actionType = Type.MANIPULATION;
+        } else if (type.equals("element")) {
+            actionType = Type.ELEMENT;
         }
 
         if (configNode.has("subtype")) {
@@ -76,6 +82,12 @@ public class Step {
             } else if (temp.equals("goto_chain")) {
                 this.subType = SubType.GOTO_CHAIN;
                 this.position = new Position(configNode.get("positionX").getAsInt(), configNode.get("positionY").getAsInt());
+            } else if (temp.equals("suppression")) {
+                this.subType = SubType.SUPPRESSION;
+                this.itemId = configNode.get("itemId").getAsString();
+            } else if (temp.equals("ajout")) {
+                this.subType = SubType.AJOUT;
+                this.itemId = configNode.get("itemId").getAsString();
             }
 
             if (configNode.has("yPositiveExclusive")) {
@@ -122,6 +134,10 @@ public class Step {
 
     public int getTimeout() {
         return timeout;
+    }
+
+    public String getItemId() {
+        return itemId;
     }
 
     @Override

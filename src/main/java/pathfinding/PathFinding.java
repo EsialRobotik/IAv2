@@ -6,6 +6,7 @@ import pathfinding.table.Point;
 import pathfinding.table.Table;
 import pathfinding.table.astar.Astar;
 import pathfinding.table.astar.LineSimplificator;
+import pathfinding.table.shape.Shape;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,9 +29,11 @@ public class PathFinding {
         computationEnded = true;
         computationStart = false;
 
-        for (List<Point> points : this.astar.getTable().getElementsList().values()) {
-            for (Point p : points) {
-                this.astar.setTemporaryAccessible(p.x, p.y, false);
+        for (Shape shape : this.astar.getTable().getElementsList().keySet()) {
+            if (shape.isActive()) {
+                for (Point p : this.astar.getTable().getElementsList().get(shape)) {
+                    this.astar.setTemporaryAccessible(p.x, p.y, false);
+                }
             }
         }
     }
@@ -75,8 +78,14 @@ public class PathFinding {
     }
 
     public void liberateElementById(String elementId) {
-        for (Point p : astar.getTable().getElementsList().get(elementId)) {
+        for (Point p : astar.getTable().findElementById(elementId)) {
             astar.setTemporaryAccessible(p.x, p.y, true);
+        }
+    }
+
+    public void lockElementById(String elementId) {
+        for (Point p : astar.getTable().findElementById(elementId)) {
+            astar.setTemporaryAccessible(p.x, p.y, false);
         }
     }
 

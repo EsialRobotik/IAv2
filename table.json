@@ -126,6 +126,7 @@
       "id": "0_bouee1",
       "forme" : "cercle",
       "desc": "Bouée 1",
+      "active": true,
       "centre" :
       {
         "x" : 400,
@@ -137,6 +138,7 @@
       "id": "0_bouee2",
       "forme" : "cercle",
       "desc": "Bouée 2",
+      "active": true,
       "centre" :
       {
         "x" : 1200,
@@ -148,6 +150,7 @@
       "id": "0_bouee3",
       "forme" : "cercle",
       "desc": "Bouée 3",
+      "active": true,
       "centre" :
       {
         "x" : 510,
@@ -159,6 +162,7 @@
       "id": "0_bouee4",
       "forme" : "cercle",
       "desc": "Bouée 4",
+      "active": true,
       "centre" :
       {
         "x" : 1080,
@@ -170,6 +174,7 @@
       "id": "0_bouee5",
       "forme" : "cercle",
       "desc": "Bouée 5",
+      "active": true,
       "centre" :
       {
         "x" : 100,
@@ -181,6 +186,7 @@
       "id": "0_bouee6",
       "forme" : "cercle",
       "desc": "Bouée 6",
+      "active": true,
       "centre" :
       {
         "x" : 400,
@@ -192,6 +198,7 @@
       "id": "0_bouee7",
       "forme" : "cercle",
       "desc": "Bouée 7",
+      "active": true,
       "centre" :
       {
         "x" : 1955,
@@ -203,6 +210,7 @@
       "id": "0_bouee8",
       "forme" : "cercle",
       "desc": "Bouée 8",
+      "active": true,
       "centre" :
       {
         "x" : 1650,
@@ -214,6 +222,7 @@
       "id": "0_bouee9",
       "forme" : "cercle",
       "desc": "Bouée 9",
+      "active": true,
       "centre" :
       {
         "x" : 800,
@@ -225,6 +234,7 @@
       "id": "0_bouee10",
       "forme" : "cercle",
       "desc": "Bouée 10",
+      "active": true,
       "centre" :
       {
         "x" : 1200,
@@ -236,6 +246,7 @@
       "id": "0_bouee11",
       "forme" : "cercle",
       "desc": "Bouée 11",
+      "active": true,
       "centre" :
       {
         "x" : 1650,
@@ -247,6 +258,7 @@
       "id": "0_bouee12",
       "forme" : "cercle",
       "desc": "Bouée 12",
+      "active": true,
       "centre" :
       {
         "x" : 1955,
@@ -258,6 +270,7 @@
       "id": "3000_bouee1",
       "forme" : "cercle",
       "desc": "Bouée 1",
+      "active": true,
       "centre" :
       {
         "x" : 400,
@@ -269,6 +282,7 @@
       "id": "3000_bouee2",
       "forme" : "cercle",
       "desc": "Bouée 2",
+      "active": true,
       "centre" :
       {
         "x" : 1200,
@@ -280,6 +294,7 @@
       "id": "3000_bouee3",
       "forme" : "cercle",
       "desc": "Bouée 3",
+      "active": true,
       "centre" :
       {
         "x" : 510,
@@ -291,6 +306,7 @@
       "id": "3000_bouee4",
       "forme" : "cercle",
       "desc": "Bouée 4",
+      "active": true,
       "centre" :
       {
         "x" : 1080,
@@ -302,6 +318,7 @@
       "id": "3000_bouee5",
       "forme" : "cercle",
       "desc": "Bouée 5",
+      "active": true,
       "centre" :
       {
         "x" : 100,
@@ -313,6 +330,7 @@
       "id": "3000_bouee6",
       "forme" : "cercle",
       "desc": "Bouée 6",
+      "active": true,
       "centre" :
       {
         "x" : 400,
@@ -324,6 +342,7 @@
       "id": "3000_bouee7",
       "forme" : "cercle",
       "desc": "Bouée 7",
+      "active": true,
       "centre" :
       {
         "x" : 1955,
@@ -335,6 +354,7 @@
       "id": "3000_bouee8",
       "forme" : "cercle",
       "desc": "Bouée 8",
+      "active": true,
       "centre" :
       {
         "x" : 1650,
@@ -346,6 +366,7 @@
       "id": "3000_bouee9",
       "forme" : "cercle",
       "desc": "Bouée 9",
+      "active": true,
       "centre" :
       {
         "x" : 800,
@@ -357,6 +378,7 @@
       "id": "3000_bouee10",
       "forme" : "cercle",
       "desc": "Bouée 10",
+      "active": true,
       "centre" :
       {
         "x" : 1200,
@@ -368,6 +390,7 @@
       "id": "3000_bouee11",
       "forme" : "cercle",
       "desc": "Bouée 11",
+      "active": true,
       "centre" :
       {
         "x" : 1650,
@@ -379,6 +402,7 @@
       "id": "3000_bouee12",
       "forme" : "cercle",
       "desc": "Bouée 12",
+      "active": true,
       "centre" :
       {
         "x" : 1955,
