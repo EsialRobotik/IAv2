@@ -80,17 +80,23 @@ public class MovementManager {
         logger.info("executeMovement = " + trajectory);
         logger.info("isMatchStarted = " + isMatchStarted);
         gotoQueue.clear();
-        //trajectory = trajectory.subList(1, trajectory.size()); // GaG parie un café qu'un jour on cherchera pourquoi la première commande disparait
-        for (Point point : trajectory) {
-            gotoQueue.add(point);
-            if (isMatchStarted) {
-                this.asservInterface.goToChain(new Position(point.x, point.y));
-                try {
-                    Thread.sleep(10);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+        if (trajectory.size() > 1) {
+            for (Point point : trajectory.subList(0, trajectory.size() - 2)) {
+                gotoQueue.add(point);
+                if (isMatchStarted) {
+                    this.asservInterface.goToChain(new Position(point.x, point.y));
+                    try {
+                        Thread.sleep(10);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
+        }
+        Point lastPoint = trajectory.get(trajectory.size() - 1);
+        gotoQueue.add(lastPoint);
+        if (isMatchStarted) {
+            this.asservInterface.goTo(new Position(lastPoint.x, lastPoint.y));
         }
         logger.info("executeMovement gotoQueue = " + gotoQueue);
     }

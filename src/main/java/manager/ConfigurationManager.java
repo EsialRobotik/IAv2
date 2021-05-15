@@ -83,6 +83,7 @@ public class ConfigurationManager {
         }
 
         if( config == CONFIG_TEST_INTERRUPTEURS||
+                config == CONFIG_TEST_DETECTION ||
                 config == CONFIG_NOMINAL ||
                 config == CONFIG_PATHFINDING ||
                 config == CONFIG_COUPEOFF) {

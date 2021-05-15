@@ -98,25 +98,25 @@ public class PathFinding {
 
         PathFinding pathFinding = new PathFinding(new Astar(table));
 
-        pathFinding.computePath(
-            new Point(800, 200),
-            new Point(610, 670)
-        );
-        while (!pathFinding.isComputationEnded()) {
-            Thread.sleep(500);
-        }
-        System.out.println("Path");
-        System.out.print("[");
-        for (Point p : pathFinding.getLastComputedPath()) {
-            System.out.print("["+p.x+","+p.y+"],");
-        }
-        System.out.println("]");
+//        pathFinding.computePath(
+//            new Point(800, 560),
+//            new Point(610, 670)
+//        );
+//        while (!pathFinding.isComputationEnded()) {
+//            Thread.sleep(500);
+//        }
+//        System.out.println("Path");
+//        System.out.print("[");
+//        for (Point p : pathFinding.getLastComputedPath()) {
+//            System.out.print("["+p.x+","+p.y+"],");
+//        }
+//        System.out.println("]");
 
         pathFinding.liberateElementById("0_bouee3");
 
         pathFinding.computePath(
-                new Point(610, 670),
-                new Point(180, 415)
+                new Point(610, 700),
+                new Point(190, 415)
         );
         while (!pathFinding.isComputationEnded()) {
             Thread.sleep(500);
@@ -131,9 +131,26 @@ public class PathFinding {
         pathFinding.liberateElementById("0_bouee1");
         pathFinding.lockElementById("0_chenal_depart_n");
 
+//        pathFinding.computePath(
+//                new Point(230,225),
+//                new Point(1500, 230)
+//        );
+//        while (!pathFinding.isComputationEnded()) {
+//            Thread.sleep(500);
+//        }
+//        System.out.println("Path");
+//        System.out.print("[");
+//        for (Point p : pathFinding.getLastComputedPath()) {
+//            System.out.print("["+p.x+","+p.y+"],");
+//        }
+//        System.out.println("]");
+
+        pathFinding.liberateElementById("0_bouee2");
+        pathFinding.lockElementById("0_chenal_depart_s");
+
         pathFinding.computePath(
-                new Point(230,225),
-                new Point(1500, 230)
+                new Point(210, 280),
+                new Point(1410,210)
         );
         while (!pathFinding.isComputationEnded()) {
             Thread.sleep(500);

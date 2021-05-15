@@ -28,7 +28,7 @@ remotes {
         identity = file("${System.properties['user.home']}/.ssh/id_rsa")
     }
     webServerEthernet {
-        host = '169.254.42.42'
+        host = 'princesspi'
         user = 'pi'
         identity = file("${System.properties['user.home']}/.ssh/id_rsa")
     }

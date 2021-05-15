@@ -16,10 +16,10 @@ import java.util.HashMap;
 public class UltraSoundManager {
     private DetectionInterface detectionInterface;
     private Logger logger;
-    private int threshold = 300;
+    private int windowSize = 2; // TODO mettre ça dans la config....
 
     private Thread thread;
-    private boolean[] detection;
+    private boolean[][] detection;
 
     private MovementManager movementManager;
     private Table table;
@@ -34,7 +34,7 @@ public class UltraSoundManager {
     private HashMap<String, Integer> thresholdMap;
 
     public UltraSoundManager(DetectionInterface detectionInterface, Table table, MovementManager movementManager) {
-        detection = new boolean[4];
+        detection = new boolean[4][windowSize];
         LoggerFactory.init(Level.TRACE);
         logger = LoggerFactory.getLogger(UltraSoundManager.class);
 
@@ -42,11 +42,13 @@ public class UltraSoundManager {
         this.detectionInterface = detectionInterface;
         this.table = table;
 
+        // TODO mettre les orientations et positions dans la config
         this.posFrontLeft = new Position(120, 105, Math.toRadians(20));
         this.posFront = new Position(125, 0, 0);
-        this.posFrontRight = new Position(120, -105,Math.toRadians(-20));
+        this.posFrontRight = new Position(120, -105, Math.toRadians(-20));
         this.posBack = new Position(-125, 0, Math.PI);
 
+        // TODO mettre les threshold dans la config
         this.thresholdMap = new HashMap<>();
         this.thresholdMap.put("FrontLeft", 350);
         this.thresholdMap.put("Front", 350);
@@ -82,52 +84,63 @@ public class UltraSoundManager {
                 //First one is front left
                 if(pull[0] < thresholdMap.get("FrontLeft")) {
                     Position pos = getObstaclePosition(position, posFrontLeft, pull[0]);
-                    logger.debug("Ultrasound Avant gauche : " + pos.getX() + "," + pos.getY());
+                    logger.debug("Ultrasound Avant gauche : " + pull[0]);
                     if(!table.isAreaForbiddenSafe(pos.getX() / 10, pos.getY() / 10)) {
                        tempDetection[0] = true;
-                        logger.debug("Ultrasound Avant gauche : STOP");
+                        logger.info("Ultrasound Avant gauche : STOP (" + pos.getX() + "," + pos.getY() + ")");
                     } else {
-                        logger.debug("Ultrasound Avant gauche : IGNORER");
+                        logger.info("Ultrasound Avant gauche : IGNORER (" + pos.getX() + "," + pos.getY() + ")");
                     }
                 }
 
                 //front middle
                 if(pull[1] < thresholdMap.get("Front")) {
                     Position pos = getObstaclePosition(position, posFront, pull[1]);
-                    logger.debug("Ultrasound Avant milieu : " + pos.getX() + "," + pos.getY());
+                    logger.debug("Ultrasound Avant milieu : " + pull[1]);
                     if(!table.isAreaForbiddenSafe(pos.getX() / 10, pos.getY() / 10)) {
                         tempDetection[1] = true;
-                        logger.debug("Ultrasound Avant milieu : STOP");
+                        logger.info("Ultrasound Avant milieu : STOP (" + pos.getX() + "," + pos.getY() + ")");
                     } else {
-                        logger.debug("Ultrasound Avant milieu : IGNORER");
+                        logger.info("Ultrasound Avant milieu : IGNORER (" + pos.getX() + "," + pos.getY() + ")");
                     }
                 }
 
                 //front right
                 if(pull[2] < thresholdMap.get("FrontRight")) {
                     Position pos = getObstaclePosition(position, posFrontRight, pull[2]);
-                    logger.debug("Ultrasound Avant droit : " + pos.getX() + "," + pos.getY());
+                    logger.debug("Ultrasound Avant droit : " + pull[2]);
                     if(!table.isAreaForbiddenSafe(pos.getX() / 10, pos.getY() / 10)) {
                         tempDetection[2] = true;
-                        logger.debug("Ultrasound Avant droit : STOP");
+                        logger.info("Ultrasound Avant droit : STOP (" + pos.getX() + "," + pos.getY() + ")");
                     } else {
-                        logger.debug("Ultrasound Avant droit : IGNORER");
+                        logger.info("Ultrasound Avant droit : IGNORER (" + pos.getX() + "," + pos.getY() + ")");
                     }
                 }
 
                 //back middle
                 if(pull[3] < thresholdMap.get("Back")) {
                     Position pos = getObstaclePosition(position, posBack, pull[3]);
-                    logger.debug("Ultrasound Arriere : " + pos.getX() + "," + pos.getY());
+                    logger.debug("Ultrasound Arriere : " + pull[3]);
                     if(!table.isAreaForbiddenSafe(pos.getX() / 10, pos.getY() / 10)) {
                         tempDetection[3] = true;
-                        logger.debug("Ultrasound Arriere : STOP");
+                        logger.info("Ultrasound Arriere : STOP (" + pos.getX() + "," + pos.getY() + ")");
                     } else {
-                        logger.debug("Ultrasound Arriere : IGNORER");
+                        logger.info("Ultrasound Arriere : IGNORER (" + pos.getX() + "," + pos.getY() + ")");
                     }
                 }
 
-                detection = tempDetection;
+                for (int i = 0; i < tempDetection.length; i++) {
+                    if (!tempDetection[i]) {
+                        detection[i] = new boolean[windowSize];
+                    } else {
+                        for (int j = 0; j < detection[i].length; j++) {
+                            if (!detection[i][j]) {
+                                detection[i][j] = true;
+                                break;
+                            }
+                        }
+                    }
+                }
             }
         });
         thread.setDaemon(true);
@@ -163,7 +176,18 @@ public class UltraSoundManager {
                         System.out.println("Ultrasound Arriere : " + pull[3] + " = " + pos.getX() + "," + pos.getY());
                     }
                 }
-                detection = tempDetection;
+                for (int i = 0; i < tempDetection.length; i++) {
+                    if (!tempDetection[i]) {
+                        detection[i] = new boolean[windowSize];
+                    } else {
+                        for (int j = 0; j < detection[i].length; j++) {
+                            if (!detection[i][j]) {
+                                detection[i][j] = true;
+                                break;
+                            }
+                        }
+                    }
+                }
             }
         });
         thread.setDaemon(true);
@@ -175,10 +199,38 @@ public class UltraSoundManager {
     }
 
     public boolean hasBeenDetected() {
-        return detection[0] || detection[1] || detection[2] || detection[3];
+        for (int i = 0; i < detection.length; i++) {
+            boolean res = true;
+            for (int j = 0; j < detection[i].length; j++) {
+                res &= detection[i][j];
+            }
+            if (res) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean[] getDetectionResult() {
-        return this.detection;
+        boolean[] result = new boolean[4];
+        for (int i = 0; i < detection.length; i++) {
+            boolean res = true;
+            for (int j = 0; j < detection[i].length; j++) {
+                res &= detection[i][j];
+            }
+            result[i] = res;
+        }
+        return result;
+    }
+
+    public static void main(String[] args) throws Exception {
+        boolean[][] detection = new boolean[4][2];
+        detection[0][0] = true;
+        detection[0][1] = true;
+        System.out.println(detection[0][0]);
+        System.out.println(detection[0][1]);
+        detection[0] = new boolean[2];
+        System.out.println(detection[0][0]);
+        System.out.println(detection[0][1]);
     }
 }

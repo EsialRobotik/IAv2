@@ -3,7 +3,7 @@
   "tailleY": 3000,
   "couleur0": "Bleu",
   "couleur3000": "Jaune",
-  "marge": 160,
+  "marge": 180,
   "zonesInterdites": [
     {
       "id": "start0",
