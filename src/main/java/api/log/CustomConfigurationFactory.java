@@ -14,6 +14,7 @@ import org.apache.logging.log4j.core.config.builder.api.ConfigurationBuilder;
 import org.apache.logging.log4j.core.config.builder.api.LayoutComponentBuilder;
 import org.apache.logging.log4j.core.config.builder.impl.BuiltConfiguration;
 import org.apache.logging.log4j.core.config.plugins.Plugin;
+import org.apache.logging.log4j.core.net.Protocol;
 
 import java.net.URI;
 
@@ -42,8 +43,10 @@ public class CustomConfigurationFactory extends ConfigurationFactory {
         }
         builder.setConfigurationName(name);
         builder.setStatusLevel(Level.ERROR);
+
         builder.add(builder.newFilter("ThresholdFilter", Filter.Result.ACCEPT, Filter.Result.NEUTRAL).
                 addAttribute("level", level));
+
         AppenderComponentBuilder appenderBuilder = builder.newAppender("Stdout", "CONSOLE").
                 addAttribute("target", ConsoleAppender.Target.SYSTEM_OUT);
         appenderBuilder.add(builder.newLayout("PatternLayout").
@@ -51,27 +54,44 @@ public class CustomConfigurationFactory extends ConfigurationFactory {
         appenderBuilder.add(builder.newFilter("MarkerFilter", Filter.Result.DENY,
                 Filter.Result.NEUTRAL).addAttribute("marker", "FLOW"));
         builder.add(appenderBuilder);
+
         builder.add(builder.newLogger("org.apache.logging.log4j", level).
                 add(builder.newAppenderRef("Stdout")).
                 addAttribute("additivity", false));
 
+        appenderBuilder = builder.newAppender("Socket", "Socket")
+                .addAttribute("host", "localhost") // TODO config ?
+                .addAttribute("protocol", Protocol.TCP)
+                .addAttribute("port", 4269) // TODO config ?
+                .addAttribute("reconnectDelayMillis", -1)
+                .addAttribute("immediateFail", false);
+        appenderBuilder.add(builder.newLayout("PatternLayout").
+                addAttribute("pattern", "%d [princesspi][%t][%c{1}] %-5level: %msg%n%throwable")); // TODO config ?
+        appenderBuilder.add(builder.newFilter("MarkerFilter", Filter.Result.DENY,
+                Filter.Result.NEUTRAL).addAttribute("marker", "FLOW"));
+        builder.add(appenderBuilder);
+
         LayoutComponentBuilder layoutBuilder;
         layoutBuilder = builder.newLayout("PatternLayout")
                 .addAttribute("pattern", "%d [%t][%c{1}] %-5level: %msg%n");
+
         ComponentBuilder triggeringPolicy = builder.newComponent("Policies")
                 .addComponent(builder.newComponent("SizeBasedTriggeringPolicy").addAttribute("size", "100M"));
+
         appenderBuilder = builder.newAppender("rolling", "RollingFile")
                 .addAttribute("fileName", rollingFilename)
                 .addAttribute("filePattern", "archive/" + rollingFilenameArchive)
                 .add(layoutBuilder)
                 .addComponent(triggeringPolicy);
         builder.add(appenderBuilder);
+
         builder.add( builder.newLogger( "rolling", level )
                 .add( builder.newAppenderRef( "rolling" ) )
                 .addAttribute( "additivity", false ) );
 
         builder.add(builder.newRootLogger(level)
                 .add(builder.newAppenderRef("Stdout"))
+                .add(builder.newAppenderRef("Socket"))
                 .add(builder.newAppenderRef("rolling")));
         return builder.build();
     }

@@ -2,6 +2,7 @@ package pathfinding;
 
 import api.log.LoggerFactory;
 import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.Logger;
 import pathfinding.table.Point;
 import pathfinding.table.Table;
 import pathfinding.table.astar.Astar;
@@ -90,7 +91,10 @@ public class PathFinding {
     }
 
     public static void main(String[] args) throws Exception {
-        LoggerFactory.init(Level.INFO);
+        LoggerFactory.init(Level.TRACE);
+        Logger logger = LoggerFactory.getLogger(PathFinding.class);
+        logger.info("init logger");
+
         long start = System.currentTimeMillis();
         Table table = new Table("table0.tbl");
         table.loadJsonFromFile("table.json");
@@ -161,5 +165,41 @@ public class PathFinding {
             System.out.print("["+p.x+","+p.y+"],");
         }
         System.out.println("]");
+
+        pathFinding.computePath(
+                new Point(210, 280),
+                new Point(1410,210)
+        );
+        while (!pathFinding.isComputationEnded()) {
+            Thread.sleep(500);
+        }
+        pathFinding.computePath(
+                new Point(210, 280),
+                new Point(1410,210)
+        );
+        while (!pathFinding.isComputationEnded()) {
+            Thread.sleep(500);
+        }
+        pathFinding.computePath(
+                new Point(210, 280),
+                new Point(1410,210)
+        );
+        while (!pathFinding.isComputationEnded()) {
+            Thread.sleep(500);
+        }
+        pathFinding.computePath(
+                new Point(210, 280),
+                new Point(1410,210)
+        );
+        while (!pathFinding.isComputationEnded()) {
+            Thread.sleep(500);
+        }
+        pathFinding.computePath(
+                new Point(210, 280),
+                new Point(1410,210)
+        );
+        while (!pathFinding.isComputationEnded()) {
+            Thread.sleep(500);
+        }
     }
 }

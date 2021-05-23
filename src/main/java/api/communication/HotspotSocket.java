@@ -6,26 +6,28 @@ import java.net.UnknownHostException;
 
 public class HotspotSocket {
 
-    public static void main(String[] args) throws Exception {
-        String hostname = "localhost";
-        int port = 4269;
-        try (Socket socket = new java.net.Socket(hostname, port)) {
+    private String hostname;
+    private int port;
+    private String who;
+
+    private Socket socket;
+    private BufferedReader reader;
+    private PrintWriter writer;
+
+
+    public HotspotSocket(String hostname, int port, String who) throws InterruptedException {
+        this.hostname = hostname;
+        this.port = port;
+        this.who = who;
+
+        try {
+            socket = new java.net.Socket(this.hostname, this.port);
             InputStream input = socket.getInputStream();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+            reader = new BufferedReader(new InputStreamReader(input));
 
             OutputStream output = socket.getOutputStream();
-            PrintWriter writer = new PrintWriter(output, true);
-
-            System.out.println("Socket start");
-
-            while (true) {
-                writer.println("Coucou");
-
-                String data = reader.readLine();
-                System.out.println(data);
-
-                Thread.sleep(1000);
-            }
+            writer = new PrintWriter(output, true);
+            writer.println(this.who);
         } catch (UnknownHostException ex) {
             System.out.println("Server not found: " + ex.getMessage());
         } catch (IOException ex) {
@@ -33,4 +35,28 @@ public class HotspotSocket {
         }
     }
 
+    public void write(String message) {
+        this.writer.println(message);
+    }
+
+    public BufferedReader getReader() {
+        return reader;
+    }
+
+    public PrintWriter getWriter() {
+        return writer;
+    }
+
+    public static void main(String[] args) throws Exception {
+        String hostname = "localhost";
+        int port = 4269;
+//        String who = "princesspi";
+        String who = "loggerListener";
+        HotspotSocket socket = new HotspotSocket(hostname, port, who);
+        while (true) {
+//            socket.write("Coucou");
+            String data = socket.getReader().readLine();
+            System.out.println(data);
+        }
+    }
 }

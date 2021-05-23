@@ -118,6 +118,8 @@ public class Main {
                     LoggerFactory.init(Level.ERROR);
                     break;
             }
+            Logger logger = LoggerFactory.getLogger(PathFinding.class);
+            logger.info("init logger");
 
             switch (args[1]) {
                 default:
