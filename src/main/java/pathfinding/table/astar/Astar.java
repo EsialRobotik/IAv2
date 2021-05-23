@@ -17,7 +17,7 @@ public class Astar {
      * La distance des points. On utilise des entiers, donc pour la distance des diagonales,
      * on arrondit sqrt(2) à 1.4 et on multiplie tout par 10
      */
-    private static final int DIST_DIAGONALE = 14;
+    private static final int DIST_DIAGONALE = 18;//14;
     private static final int DIST_H_V = 10;
     private Logger logger;
 
