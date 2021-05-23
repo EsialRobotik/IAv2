@@ -54,7 +54,7 @@ public class PathFinding {
                 computationEnded = true;
                 computationStart = false;
             }
-        });
+        }, "PathfindingThread");
         computationStart = true;
         computationEnded = false;
         computedPath = null;

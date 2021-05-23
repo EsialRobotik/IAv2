@@ -47,7 +47,7 @@ public class CustomConfigurationFactory extends ConfigurationFactory {
         AppenderComponentBuilder appenderBuilder = builder.newAppender("Stdout", "CONSOLE").
                 addAttribute("target", ConsoleAppender.Target.SYSTEM_OUT);
         appenderBuilder.add(builder.newLayout("PatternLayout").
-                addAttribute("pattern", "%d [%t] %-5level: %msg%n%throwable"));
+                addAttribute("pattern", "%d [%t][%c{1}] %-5level: %msg%n%throwable"));
         appenderBuilder.add(builder.newFilter("MarkerFilter", Filter.Result.DENY,
                 Filter.Result.NEUTRAL).addAttribute("marker", "FLOW"));
         builder.add(appenderBuilder);
@@ -57,7 +57,7 @@ public class CustomConfigurationFactory extends ConfigurationFactory {
 
         LayoutComponentBuilder layoutBuilder;
         layoutBuilder = builder.newLayout("PatternLayout")
-                .addAttribute("pattern", "%d [%t] %-5level: %msg%n");
+                .addAttribute("pattern", "%d [%t][%c{1}] %-5level: %msg%n");
         ComponentBuilder triggeringPolicy = builder.newComponent("Policies")
                 .addComponent(builder.newComponent("SizeBasedTriggeringPolicy").addAttribute("size", "100M"));
         appenderBuilder = builder.newAppender("rolling", "RollingFile")
@@ -69,8 +69,6 @@ public class CustomConfigurationFactory extends ConfigurationFactory {
         builder.add( builder.newLogger( "rolling", level )
                 .add( builder.newAppenderRef( "rolling" ) )
                 .addAttribute( "additivity", false ) );
-
-
 
         builder.add(builder.newRootLogger(level)
                 .add(builder.newAppenderRef("Stdout"))
