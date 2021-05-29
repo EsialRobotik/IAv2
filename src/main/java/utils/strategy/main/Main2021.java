@@ -1,7 +1,13 @@
 package utils.strategy.main;
 
+import api.log.LoggerFactory;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import org.apache.logging.log4j.Level;
+import pathfinding.PathFinding;
+import pathfinding.table.Point;
+import pathfinding.table.Table;
+import pathfinding.table.astar.Astar;
 import utils.strategy.Objectif;
 import utils.strategy.Strategie;
 import utils.strategy.Tache;
@@ -9,6 +15,7 @@ import utils.strategy.TaskList;
 import utils.strategy.task.*;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +31,7 @@ public class Main2021 {
         List<Objectif> objectifsCouleur0 = new ArrayList<>();
         List<Objectif> objectifsCouleur3000 = new ArrayList<>();
 
-        /**
+        /*
          * On va vider le distributeur Sud
          * Score = 0
          */
@@ -49,7 +56,7 @@ public class Main2021 {
         objectifsCouleur0.add(objectifRecuperationRecifSud0);
         objectifsCouleur3000.add(objectifRecuperationRecifSud3000);
 
-        /**
+        /*
          * On va taper les manches à air
          * Score = 15 pour les 2
          */
@@ -81,7 +88,7 @@ public class Main2021 {
         objectifsCouleur0.add(objectifManches0);
         objectifsCouleur3000.add(objectifManches3000);
 
-        /**
+        /*
          * On prend la boussole en photo
          * Score = 0
          */
@@ -99,7 +106,7 @@ public class Main2021 {
         objectifsCouleur0.add(objectifPhoto0);
         objectifsCouleur3000.add(objectifPhoto3000);
 
-        /**
+        /*
          * On place les bouées du petit port
          * Score = 6
          *  - 1 point par bouée dans le port => 2
@@ -124,7 +131,7 @@ public class Main2021 {
         objectifsCouleur0.add(objectifPetitPort0);
         objectifsCouleur3000.add(objectifPetitPort3000);
 
-        /**
+        /*
          * Largage des bouées sud
          * Score = 6
          *  - 1 point par bouée dans le port => 3
@@ -132,12 +139,14 @@ public class Main2021 {
          */
         score = 6;
         TaskList largageSud = new TaskList();
-        largageSud.add(new GoToAstar("Placement largage sud", 1220, 220));
+        largageSud.add(new GoToAstar("Déplacement largage sud", 1500, 220));
+        largageSud.add(new Go("Placement largage sud", 200));
         largageSud.add(new Face("Alignement largage sud", 0, 220));
         largageSud.add(new Manipulation("Préparer largage recif sud", 8));
         largageSud.add(new Manipulation("Largage impaire recif sud", 9));
         largageSud.add(new Go("Sortie largage sud", -200));
         largageSud.add(new AddZone("Blocage du chenal Sud", "chenal_depart_s"));
+        largageSud.add(new DeleteZone("Suppression bouée 2", "bouee2"));
         Objectif objectifLargageSud0 = new Objectif("Manches à air", objectifsCouleur0.size()+1, score, 1, largageSud);
         Objectif objectifLargageSud3000 = new Objectif("Manches à air", objectifsCouleur3000.size()+1, score, 1, null);
         try {
@@ -148,7 +157,7 @@ public class Main2021 {
         objectifsCouleur0.add(objectifLargageSud0);
         objectifsCouleur3000.add(objectifLargageSud3000);
 
-        /**
+        /*
          * Largage des bouées nord
          * Score = 8
          *  - 1 point par bouée dans le port => 2
@@ -157,11 +166,13 @@ public class Main2021 {
          */
         score = 8;
         TaskList largageNord = new TaskList();
-        largageNord.add(new GoToAstar("Placement recif nord", 310, 280));
+        largageNord.add(new GoToAstar("Placement recif nord", 210, 280));
         largageNord.add(new Face("Alignement recif nord", 2000, 280));
         largageNord.add(new GoTo("Placement recif nord", 360, 280));
-        largageNord.add(new Manipulation("Largage impaire recif sud", 10));
+        largageNord.add(new Manipulation("Largage impaire recif nord", 10));
         largageNord.add(new Go("Sortie largage nord", -150));
+        largageNord.add(new DeleteZone("Suppression bouée 1", "bouee1"));
+        largageNord.add(new AddZone("Blocage du chenal Nord", "chenal_depart_n"));
         largageNord.add(new Manipulation("On remet tout en place", 0));
         Objectif objectifRecifLargageN0 = new Objectif("Récif nord", objectifsCouleur0.size()+1, score, 1, largageNord);
         Objectif objectifRecifLargageN3000 = new Objectif("Récif nord", objectifsCouleur3000.size()+1, score, 1, null);
@@ -173,7 +184,7 @@ public class Main2021 {
         objectifsCouleur0.add(objectifRecifLargageN0);
         objectifsCouleur3000.add(objectifRecifLargageN3000);
 
-        /**
+        /*
          * On va vider le distributeur Nord
          * Score = 0
          */
@@ -196,7 +207,7 @@ public class Main2021 {
         objectifsCouleur0.add(objectifRecuperationRecifNord0);
         objectifsCouleur3000.add(objectifRecuperationRecifNord3000);
 
-        /**
+        /*
          * Largage distributeur Nord
          * Score = 5
          *  - 1 point par bouée dans le port => 5
@@ -223,17 +234,38 @@ public class Main2021 {
         strat.couleur0 = objectifsCouleur0;
         strat.couleur3000 = objectifsCouleur3000;
 
-        System.out.println(strat.toString());
-
         final GsonBuilder builder = new GsonBuilder();
         final Gson gson = builder.create();
 
         System.out.println("#########################");
         System.out.println(gson.toJson(strat));
+        System.out.println("#########################");
 
         try (PrintWriter jsonFile = new PrintWriter("configCollection.json")) {
             jsonFile.println(gson.toJson(strat));
         } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("Test de la strat");
+        try {
+            LoggerFactory.init(Level.OFF);
+            Table table = new Table("table0.tbl");
+            table.loadJsonFromFile("table.json");
+            PathFinding pathFinding = new PathFinding(new Astar(table));
+            Point startPoint = new Point(800, 200);
+            for (Objectif objectif : strat.couleur0) {
+                for (Tache task: objectif.taches) {
+                    task.pathFinding = pathFinding;
+                    System.out.println("#" + task.desc);
+                    task.execute(startPoint);
+                    Point endPoint = task.getEndPoint();
+                    if (endPoint.x > 0 && endPoint.x < 2000 && endPoint.y > 0 && endPoint.y < 3000) {
+                        startPoint = task.getEndPoint();
+                    }
+                }
+            }
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

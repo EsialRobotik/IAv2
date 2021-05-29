@@ -1,6 +1,8 @@
 package utils.strategy;
 
 import com.google.gson.annotations.SerializedName;
+import pathfinding.PathFinding;
+import pathfinding.table.Point;
 
 /**
  * Created by franc on 27/04/2018.
@@ -90,6 +92,8 @@ public class Tache {
     public int actionId;
     public Mirror mirror;
     public int timeout = -1;
+
+    public PathFinding pathFinding;
 
     public Tache(String desc, int id, int positionX, int positionY, Type type, SubType subtype, int actionId, Mirror mirror) {
         this.desc = desc;
@@ -234,6 +238,12 @@ public class Tache {
 
     public void setTimeout(int timeout) {
         this.timeout = timeout;
+    }
+
+    public void execute(Point startPoint) {}
+
+    public Point getEndPoint() {
+        return new Point(this.positionX, this.positionY);
     }
 
     @Override
