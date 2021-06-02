@@ -318,7 +318,7 @@ public class Astar {
 
         // Si l'objectif n'a pas de parent, c'est qu'il n'y a pas de chemin !
         if (courant.parent == null) {
-            return null;
+            throw new IndexOutOfBoundsException("Aucun chemin trouvé !");
         }
 
         while (courant != null) {

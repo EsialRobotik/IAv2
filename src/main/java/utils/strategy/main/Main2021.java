@@ -121,8 +121,19 @@ public class Main2021 {
         petitPort.add(new DeleteZone("Suppression zone bouée 8", "bouee8"));
         petitPort.add(new DeleteZone("Suppression zone bouée 11", "bouee11"));
         petitPort.add(new GoTo("Sortie petit port", 1425, 1800));
-        Objectif objectifPetitPort0 = new Objectif("Manches à air", objectifsCouleur0.size()+1, score, 1, petitPort);
-        Objectif objectifPetitPort3000 = new Objectif("Manches à air", objectifsCouleur3000.size()+1, score, 1, null);
+
+        // TODO Taff de picrate
+        petitPort.add(new DeleteZone("Suppression zone bouée 11", "bouee1"));
+        petitPort.add(new DeleteZone("Suppression zone bouée 11", "bouee2"));
+        petitPort.add(new DeleteZone("Suppression zone bouée 11", "bouee3"));
+        petitPort.add(new DeleteZone("Suppression zone bouée 11", "bouee4"));
+        petitPort.add(new DeleteZone("Suppression zone bouée 11", "bouee5"));
+        petitPort.add(new DeleteZone("Suppression zone bouée 11", "bouee6"));
+        petitPort.add(new AddZone("Blocage du chenal Sud", "chenal_depart_s"));
+        petitPort.add(new AddZone("Blocage du chenal Sud", "chenal_depart_n"));
+
+        Objectif objectifPetitPort0 = new Objectif("Petit port", objectifsCouleur0.size()+1, score, 1, petitPort);
+        Objectif objectifPetitPort3000 = new Objectif("Petit port", objectifsCouleur3000.size()+1, score, 1, null);
         try {
             objectifPetitPort3000.generateMirror(objectifPetitPort0.taches);
         } catch (Exception e) {
@@ -145,10 +156,8 @@ public class Main2021 {
         largageSud.add(new Manipulation("Préparer largage recif sud", 8));
         largageSud.add(new Manipulation("Largage impaire recif sud", 9));
         largageSud.add(new Go("Sortie largage sud", -200));
-        largageSud.add(new AddZone("Blocage du chenal Sud", "chenal_depart_s"));
-        largageSud.add(new DeleteZone("Suppression bouée 2", "bouee2"));
-        Objectif objectifLargageSud0 = new Objectif("Manches à air", objectifsCouleur0.size()+1, score, 1, largageSud);
-        Objectif objectifLargageSud3000 = new Objectif("Manches à air", objectifsCouleur3000.size()+1, score, 1, null);
+        Objectif objectifLargageSud0 = new Objectif("Largage sud", objectifsCouleur0.size()+1, score, 1, largageSud);
+        Objectif objectifLargageSud3000 = new Objectif("Largage sud", objectifsCouleur3000.size()+1, score, 1, null);
         try {
             objectifLargageSud3000.generateMirror(objectifLargageSud0.taches);
         } catch (Exception e) {
@@ -166,16 +175,14 @@ public class Main2021 {
          */
         score = 8;
         TaskList largageNord = new TaskList();
-        largageNord.add(new GoToAstar("Placement recif nord", 210, 280));
-        largageNord.add(new Face("Alignement recif nord", 2000, 280));
-        largageNord.add(new GoTo("Placement recif nord", 360, 280));
-        largageNord.add(new Manipulation("Largage impaire recif nord", 10));
-        largageNord.add(new Go("Sortie largage nord", -150));
-        largageNord.add(new DeleteZone("Suppression bouée 1", "bouee1"));
-        largageNord.add(new AddZone("Blocage du chenal Nord", "chenal_depart_n"));
+        largageNord.add(new GoToAstar("Placement largage nord", 210, 280));
+        largageNord.add(new Face("Alignement largage nord", 2000, 280));
+        largageNord.add(new GoTo("Placement largage nord", 360, 280));
+        largageNord.add(new Manipulation("Largage impaire nord", 10));
+        largageNord.add(new GoToBack("Sortie largage nord", 210, 280));
         largageNord.add(new Manipulation("On remet tout en place", 0));
-        Objectif objectifRecifLargageN0 = new Objectif("Récif nord", objectifsCouleur0.size()+1, score, 1, largageNord);
-        Objectif objectifRecifLargageN3000 = new Objectif("Récif nord", objectifsCouleur3000.size()+1, score, 1, null);
+        Objectif objectifRecifLargageN0 = new Objectif("Largage nord", objectifsCouleur0.size()+1, score, 1, largageNord);
+        Objectif objectifRecifLargageN3000 = new Objectif("Largage nord", objectifsCouleur3000.size()+1, score, 1, null);
         try {
             objectifRecifLargageN3000.generateMirror(objectifRecifLargageN0.taches);
         } catch (Exception e) {
