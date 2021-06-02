@@ -1,8 +1,13 @@
 package pathfinding;
 
+import api.log.LoggerFactory;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.Logger;
 import pathfinding.table.Point;
+import pathfinding.table.Table;
 import pathfinding.table.astar.Astar;
 import pathfinding.table.astar.LineSimplificator;
+import pathfinding.table.shape.Shape;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,6 +29,14 @@ public class PathFinding {
         this.astar = astar;
         computationEnded = true;
         computationStart = false;
+
+        for (Shape shape : this.astar.getTable().getElementsList().keySet()) {
+            if (shape.isActive()) {
+                for (Point p : this.astar.getTable().getElementsList().get(shape)) {
+                    this.astar.setTemporaryAccessible(p.x, p.y, false);
+                }
+            }
+        }
     }
 
     public void computePath(final Point start, final Point end) {
@@ -33,16 +46,16 @@ public class PathFinding {
                 Point rectifiedStart = new Point(start.getX() / 10, start.getY() / 10);
                 Point rectifiedEnd = new Point(end.getX() / 10, end.getY() / 10);
                 Stack<Point> path = astar.getChemin(rectifiedStart, rectifiedEnd);
-                List<Point> temp = LineSimplificator.getSimpleLines(path);
-                Collections.reverse(temp);
+                List<Point> simplePath = LineSimplificator.getSimpleLines(path);
+                Collections.reverse(simplePath);
                 computedPath = new ArrayList<>();
-                for(Point p : temp) {
+                for(Point p : simplePath) {
                     computedPath.add(new Point(p.getX() * 10, p.getY() * 10));
                 }
                 computationEnded = true;
                 computationStart = false;
             }
-        });
+        }, "PathfindingThread");
         computationStart = true;
         computationEnded = false;
         computedPath = null;
@@ -63,5 +76,130 @@ public class PathFinding {
 
     public void setComputedPath(List<Point> list) {
         this.computedPath = list;
+    }
+
+    public void liberateElementById(String elementId) {
+        for (Point p : astar.getTable().findElementById(elementId)) {
+            astar.setTemporaryAccessible(p.x, p.y, true);
+        }
+    }
+
+    public void lockElementById(String elementId) {
+        for (Point p : astar.getTable().findElementById(elementId)) {
+            astar.setTemporaryAccessible(p.x, p.y, false);
+        }
+    }
+
+    public static void main(String[] args) throws Exception {
+        LoggerFactory.init(Level.TRACE);
+        Logger logger = LoggerFactory.getLogger(PathFinding.class);
+        logger.info("init logger");
+
+        long start = System.currentTimeMillis();
+        Table table = new Table("table0.tbl");
+        table.loadJsonFromFile("table.json");
+        System.out.println("table load in " + (System.currentTimeMillis() - start) + "ms");
+
+        PathFinding pathFinding = new PathFinding(new Astar(table));
+
+//        pathFinding.computePath(
+//            new Point(800, 560),
+//            new Point(610, 670)
+//        );
+//        while (!pathFinding.isComputationEnded()) {
+//            Thread.sleep(500);
+//        }
+//        System.out.println("Path");
+//        System.out.print("[");
+//        for (Point p : pathFinding.getLastComputedPath()) {
+//            System.out.print("["+p.x+","+p.y+"],");
+//        }
+//        System.out.println("]");
+
+        pathFinding.liberateElementById("0_bouee3");
+
+        pathFinding.computePath(
+                new Point(610, 700),
+                new Point(190, 415)
+        );
+        while (!pathFinding.isComputationEnded()) {
+            Thread.sleep(500);
+        }
+        System.out.println("Path");
+        System.out.print("[");
+        for (Point p : pathFinding.getLastComputedPath()) {
+            System.out.print("["+p.x+","+p.y+"],");
+        }
+        System.out.println("]");
+
+        pathFinding.liberateElementById("0_bouee1");
+        pathFinding.lockElementById("0_chenal_depart_n");
+
+//        pathFinding.computePath(
+//                new Point(230,225),
+//                new Point(1500, 230)
+//        );
+//        while (!pathFinding.isComputationEnded()) {
+//            Thread.sleep(500);
+//        }
+//        System.out.println("Path");
+//        System.out.print("[");
+//        for (Point p : pathFinding.getLastComputedPath()) {
+//            System.out.print("["+p.x+","+p.y+"],");
+//        }
+//        System.out.println("]");
+
+        pathFinding.liberateElementById("0_bouee2");
+        pathFinding.lockElementById("0_chenal_depart_s");
+
+        pathFinding.computePath(
+                new Point(210, 280),
+                new Point(1410,210)
+        );
+        while (!pathFinding.isComputationEnded()) {
+            Thread.sleep(500);
+        }
+        System.out.println("Path");
+        System.out.print("[");
+        for (Point p : pathFinding.getLastComputedPath()) {
+            System.out.print("["+p.x+","+p.y+"],");
+        }
+        System.out.println("]");
+
+        pathFinding.computePath(
+                new Point(210, 280),
+                new Point(1410,210)
+        );
+        while (!pathFinding.isComputationEnded()) {
+            Thread.sleep(500);
+        }
+        pathFinding.computePath(
+                new Point(210, 280),
+                new Point(1410,210)
+        );
+        while (!pathFinding.isComputationEnded()) {
+            Thread.sleep(500);
+        }
+        pathFinding.computePath(
+                new Point(210, 280),
+                new Point(1410,210)
+        );
+        while (!pathFinding.isComputationEnded()) {
+            Thread.sleep(500);
+        }
+        pathFinding.computePath(
+                new Point(210, 280),
+                new Point(1410,210)
+        );
+        while (!pathFinding.isComputationEnded()) {
+            Thread.sleep(500);
+        }
+        pathFinding.computePath(
+                new Point(210, 280),
+                new Point(1410,210)
+        );
+        while (!pathFinding.isComputationEnded()) {
+            Thread.sleep(500);
+        }
     }
 }

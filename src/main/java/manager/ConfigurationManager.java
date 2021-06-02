@@ -42,7 +42,8 @@ public class ConfigurationManager {
     public static int CONFIG_TEST_INTERRUPTEURS = 2;
     public static int CONFIG_COUPEOFF           = 3;
     public static int CONFIG_TEST_LCD           = 4;
-    public static int CONFIG_ACTIONNEUR = 5;
+    public static int CONFIG_ACTIONNEUR         = 5;
+    public static int CONFIG_PATHFINDING        = 6;
 
     private MovementManager movementManager;
     private LidarManager lidarManager;
@@ -72,17 +73,38 @@ public class ConfigurationManager {
         JsonObject configRootNode = gson.fromJson(reader, JsonObject.class);
 
         JsonObject configObject = configRootNode.get("asserv").getAsJsonObject();
-        logger.info("AsservAPIConfiguration = " + configObject.toString());
-        asserv = new Asserv(
-                configObject.get("serie").getAsString(),
-                Baud.getInstance(configObject.get("baud").getAsInt())
-        );
-        movementManager = new MovementManager(asserv);
+        if (config != CONFIG_PATHFINDING) {
+            logger.info("AsservAPIConfiguration = " + configObject.toString());
+            asserv = new Asserv(
+                    configObject.get("serie").getAsString(),
+                    Baud.getInstance(configObject.get("baud").getAsInt())
+            );
+            movementManager = new MovementManager(asserv);
+        }
+
+        if( config == CONFIG_TEST_INTERRUPTEURS||
+                config == CONFIG_TEST_DETECTION ||
+                config == CONFIG_NOMINAL ||
+                config == CONFIG_PATHFINDING ||
+                config == CONFIG_COUPEOFF) {
+            logger.info("LoadConfiguration : Misc. (tirette, couleur etc.)");
+            colorDetector = new ColorDetector(configRootNode.get("gpioColorSelector").getAsInt());
+            tirette = new Tirette(configRootNode.get("gpioTirette").getAsInt());
+            chrono = new Chrono(configRootNode.get("matchDuration").getAsInt());
+        }
+
+        if( config == CONFIG_TEST_DETECTION ||
+                config == CONFIG_NOMINAL ||
+                config == CONFIG_PATHFINDING ||
+                config == CONFIG_COUPEOFF) {
+            logger.info("Load Table");
+            table = new Table(colorDetector.isColor0() ? configRootNode.get("table0Path").getAsString() : configRootNode.get("table3000Path").getAsString());
+            table.loadJsonFromFile(configRootNode.get("tableJsonPath").getAsString());
+        }
 
         if( config == CONFIG_TEST_DETECTION ||
             config == CONFIG_NOMINAL ||
             config == CONFIG_COUPEOFF) {
-
             logger.info("LoadConfiguration : Detection HW");
             configObject = configRootNode.get("detection").getAsJsonObject();
 
@@ -93,7 +115,6 @@ public class ConfigurationManager {
             }
 
             DetectionInterface detectionInterface = new DetectionInterfaceImpl(configObject.getAsJsonObject("ultrasound"));
-            table = new Table(configRootNode.get("tablePath").getAsString());
             ultraSoundManager = new UltraSoundManager(detectionInterface, table, movementManager);
             detectionManager = new DetectionManager(detectionInterface, lidarManager, ultraSoundManager);
         }
@@ -101,7 +122,6 @@ public class ConfigurationManager {
         if( config == CONFIG_NOMINAL ||
             config == CONFIG_ACTIONNEUR ||
             config == CONFIG_COUPEOFF) {
-
             logger.info("LoadConfiguration : Actions");
             logger.info("Command file : " + configRootNode.get("commandFile").getAsString());
 
@@ -115,19 +135,16 @@ public class ConfigurationManager {
                 actionFileBinder = new ActionFileBinder(ax12Link, dataDir, actionCollection);
                 actionSupervisor = new ActionSupervisor(actionFileBinder);
             }
-
-            if (table != null) {
-                pathfinding = new PathFinding(new Astar(table));
-            }
         }
 
-        if( config == CONFIG_TEST_INTERRUPTEURS||
-                config == CONFIG_NOMINAL ||
+        if( config == CONFIG_NOMINAL ||
+                config == CONFIG_ACTIONNEUR ||
+                config == CONFIG_PATHFINDING ||
                 config == CONFIG_COUPEOFF) {
-            logger.info("LoadConfiguration : Misc. (tirette, couleur etc.)");
-            colorDetector = new ColorDetector(configRootNode.get("gpioColorSelector").getAsInt());
-            tirette = new Tirette(configRootNode.get("gpioTirette").getAsInt());
-            chrono = new Chrono(configRootNode.get("matchDuration").getAsInt());
+            if (table != null) {
+                logger.info("Load pathfinding");
+                pathfinding = new PathFinding(new Astar(table));
+            }
         }
 
         if( config == CONFIG_NOMINAL ||
@@ -135,6 +152,7 @@ public class ConfigurationManager {
                 config == CONFIG_TEST_LCD) {
             //Only if LCD configuration is found in the configuration file
             if (configRootNode.has("lcd")) {
+                logger.info("Load LCD");
                 configObject = configRootNode.get("lcd").getAsJsonObject();
                 lcdDisplay = new LCD_I2C(configObject.get("i2cAddress").getAsInt(), configObject.get("lineCount").getAsInt(), configObject.get("lineLength").getAsInt());
             }

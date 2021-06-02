@@ -5,8 +5,15 @@ package pathfinding.table.shape;
  */
 public abstract class Shape {
 
+    protected String id;
+    protected boolean active;
+
     //Board is a centimetrique grid off the table. (don't need more)
-    public abstract boolean[][] drawShapeEdges(int length, int width);
+    public abstract boolean[][] drawShapeEdges(int length, int width, boolean fill);
+
+    public boolean[][] drawShapeEdges(int length, int width) {
+        return this.drawShapeEdges(length, width, true);
+    }
 
     protected boolean[][] getEmptyBoard(int length, int width) {
         boolean[][] res = new boolean[length][width];
@@ -16,5 +23,17 @@ public abstract class Shape {
             }
         }
         return res;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
 }

@@ -10,7 +10,7 @@ public class ForbiddenAreaChecker {
 
     public ForbiddenAreaChecker() throws IOException {
         table = new Table();
-        table.loadFromSaveFile("pathFinding/table.tbl");
+        table.loadJsonFromFile("table.json");
 
         response = new JTextField(10);
         response.setEnabled(false);

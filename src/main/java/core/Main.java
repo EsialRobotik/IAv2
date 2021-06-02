@@ -1,8 +1,6 @@
 package core;
 
 import actions.ActionCollection;
-import actions.ActionDescriptor;
-import actions.Step;
 import actions.a2020.ActionFileBinder;
 import api.ax12.AX12LinkException;
 import api.ax12.AX12LinkSerial;
@@ -20,6 +18,8 @@ import manager.ConfigurationManager;
 import manager.DetectionManager;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Logger;
+import pathfinding.PathFinding;
+import pathfinding.table.Point;
 import utils.web.AX12Http;
 import utils.web.ResourcesManager;
 
@@ -118,6 +118,8 @@ public class Main {
                     LoggerFactory.init(Level.ERROR);
                     break;
             }
+            Logger logger = LoggerFactory.getLogger(PathFinding.class);
+            logger.info("init logger");
 
             switch (args[1]) {
                 default:
@@ -151,6 +153,9 @@ public class Main {
                 case "actionneur":
                     // Test actionneurs
                     Main.testActionneurs();
+                    break;
+                case "pathfinding":
+                    Main.testPathfinding();
                     break;
                 case "coupe-off":
                     // Danse de la coupe off
@@ -186,6 +191,7 @@ public class Main {
         System.out.println("\t- lcd : Test de l'écran LCD");
         System.out.println("\t- shell : Test du shell (lance une capture de la caméra et une analyse Aruco)");
         System.out.println("\t- actionneur : Test de l'init des actionneurs");
+        System.out.println("\t- pathfinding : Test le calcul de pathfinding\n");
         System.out.println("\t- coupe-off : Danse de la coupe off\n");
         System.out.println("\t- config-ax12 : Lance l'utilitaire de configuration des AX12\n");
 
@@ -246,34 +252,64 @@ public class Main {
         System.out.println("Resultat en " + (System.currentTimeMillis() - time) + "ms");
     }
 
-    private static void testActionneurs() throws IOException, AX12LinkException {
+    private static void testPathfinding() throws InterruptedException, IOException, AX12LinkException {
+        System.out.println("testPathfinding");
         //Load of the configuration first
         ConfigurationManager configurationManager = new ConfigurationManager();
-        configurationManager.loadConfiguration(configFilePath, ConfigurationManager.CONFIG_ACTIONNEUR);
+        configurationManager.loadConfiguration(configFilePath, ConfigurationManager.CONFIG_PATHFINDING);
 
-        configurationManager.getActionFileBinder().getActionExecutor(0).execute();
-
-
-        ActionCollection actionCollection = configurationManager.getActionCollection();
-        actionCollection.setStepByStepMode(true);
-        Scanner scanner = new Scanner(System.in);
-        actionCollection.setScanner(scanner);
-        actionCollection.prepareActionList(true);
-        ActionDescriptor action = actionCollection.getNextActionToPerform();
-        Step step = action.getNextStep();
-        boolean stop = false;
-        while (!stop) {
-            if (action == null) {
-                stop = true;
-            } else {
-                System.out.println(step.toString());
-                if (action.hasNextStep()) {
-                    step = action.getNextStep();
-                } else {
-                    action = actionCollection.getNextActionToPerform();
-                }
-            }
+        System.out.println("Path 1");
+        PathFinding pathFinding = configurationManager.getPathfinding();
+        pathFinding.computePath(
+                new Point(800, 200),
+                new Point(540, 700)
+        );
+        while (!pathFinding.isComputationEnded()) {
+            Thread.sleep(500);
         }
+        System.out.println("Path");
+        System.out.print("[");
+        for (Point p : pathFinding.getLastComputedPath()) {
+            System.out.print("["+p.x+","+p.y+"],");
+        }
+        System.out.println("]");
+
+        System.out.println("Path 2");
+        pathFinding.computePath(
+                new Point(540, 700),
+                new Point(250, 450)
+        );
+        while (!pathFinding.isComputationEnded()) {
+            Thread.sleep(500);
+        }
+        System.out.println("Path");
+        System.out.print("[");
+        for (Point p : pathFinding.getLastComputedPath()) {
+            System.out.print("["+p.x+","+p.y+"],");
+        }
+        System.out.println("]");
+
+        System.out.println("Free zone");
+        pathFinding.liberateElementById("0_bouee3");
+
+        System.out.println("Path 3");
+        pathFinding.computePath(
+                new Point(250, 450),
+                new Point(800, 500)
+        );
+        while (!pathFinding.isComputationEnded()) {
+            Thread.sleep(500);
+        }
+        System.out.println("Path");
+        System.out.print("[");
+        for (Point p : pathFinding.getLastComputedPath()) {
+            System.out.print("["+p.x+","+p.y+"],");
+        }
+        System.out.println("]");
+    }
+
+    private static void testActionneurs() throws IOException, AX12LinkException {
+
     }
 
     private static void coupeOffDance() throws IOException, AX12LinkException {

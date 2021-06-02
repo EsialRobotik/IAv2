@@ -19,7 +19,6 @@ import pathfinding.table.Point;
 import pathfinding.table.TableColor;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -131,15 +130,11 @@ public class MasterLoop {
                         movingForward = false;
                         somethingDetected = true;
                         continue;
-                    } /*else {
-                        System.out.println("WTF ??");
-                        System.out.println(direction);
-                    }*/
+                    }
                 }
 
                 // 2/ Check if the current step Status
                 if (astarLaunch) { //We are computing a path let's check if it's ok now
-                    logger.debug("astarLaunch");
                     if (pathFinding.isComputationEnded()) {
                         movementManager.executeMovement(pathFinding.getLastComputedPath());
                         astarLaunch = false;
@@ -200,6 +195,14 @@ public class MasterLoop {
                             } else {
                                 movementManager.executeStepDeplacement(currentStep);
                             }
+                        } else if (currentStep.getActionType() == Step.Type.ELEMENT) {
+                            if (currentStep.getSubType() == Step.SubType.SUPPRESSION) {
+                                logger.info("Libération de la zone interdite " + currentStep.getItemId());
+                                pathFinding.liberateElementById(currentStep.getItemId());
+                            } else if (currentStep.getSubType() == Step.SubType.AJOUT) {
+                                logger.info("Ajout de la zone interdite " + currentStep.getItemId());
+                                pathFinding.lockElementById(currentStep.getItemId());
+                            }
                         }
                     }
                     // todo faut vérifier si la voie est libre, sinon on s'arrête et on recalcul
@@ -240,6 +243,8 @@ public class MasterLoop {
             return true;
         } else if (type == Step.Type.MANIPULATION && actionSupervisor.isLastExecutionFinished()) {
             return true;
+        } else if (type == Step.Type.ELEMENT) {
+            return  true;
         }
         return false;
     }

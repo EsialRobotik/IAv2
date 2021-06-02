@@ -4,11 +4,9 @@ import api.communication.Serial;
 import api.log.LoggerFactory;
 import com.pi4j.io.serial.Baud;
 import com.pi4j.io.serial.SerialDataEventListener;
-import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 /**
  * Implémentation de l'asservissement pour raspberry
@@ -400,14 +398,5 @@ public class Asserv implements AsservInterface {
         face(alignement);
         waitForAsserv();
         this.logger.info("goStart finished");
-    }
-
-    public static void main(String[] args) throws Exception {
-        boolean[] fuu = new boolean[4];
-        fuu[0] = true;
-        fuu[1] = false;
-        fuu[2] = false;
-        fuu[3] = true;
-        System.out.println(Arrays.toString(fuu));
     }
 }
