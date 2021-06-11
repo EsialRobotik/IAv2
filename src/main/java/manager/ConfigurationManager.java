@@ -9,7 +9,8 @@ import api.chrono.Chrono;
 import api.gpio.ColorDetector;
 import api.gpio.Tirette;
 import api.lcd.LCD;
-import api.lcd.LCD_I2C;
+import api.lcd.LcdI2cSegment;
+import api.lcd.seed.LcdI2c;
 import api.log.LoggerFactory;
 import asserv.Asserv;
 import asserv.AsservInterface;
@@ -152,9 +153,16 @@ public class ConfigurationManager {
                 config == CONFIG_TEST_LCD) {
             //Only if LCD configuration is found in the configuration file
             if (configRootNode.has("lcd")) {
-                logger.info("Load LCD");
                 configObject = configRootNode.get("lcd").getAsJsonObject();
-                lcdDisplay = new LCD_I2C(configObject.get("i2cAddress").getAsInt(), configObject.get("lineCount").getAsInt(), configObject.get("lineLength").getAsInt());
+                if (configObject.get("type").getAsString().equals("segment")) {
+                    logger.info("Load LCD Segment");
+                    lcdDisplay = new LcdI2cSegment(configObject.get("i2cAddress").getAsInt(), configObject.get("lineCount").getAsInt(), configObject.get("lineLength").getAsInt());
+                } else if (configObject.get("type").getAsString().equals("full")) {
+                    logger.info("Load LCD Full");
+                    lcdDisplay = new LcdI2c(configObject.get("i2cAddress").getAsInt());
+                } else {
+                    logger.error("Missing LCD type");
+                }
             }
         }
     }

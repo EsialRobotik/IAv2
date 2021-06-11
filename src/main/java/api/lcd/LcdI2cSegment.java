@@ -10,7 +10,7 @@ import org.apache.logging.log4j.Logger;
  * @see <a href="https://www.gotronic.fr/pj2-sbc-lcd16x2-fr-1441.pdf">Documentation</a>
  * @see <a href="https://github.com/CaptainStouf/raspberry_lcd4x20_I2C">Librairie Python d'origine</a>
  */
-public class LCD_I2C implements LCD {
+public class LcdI2cSegment implements LCD {
 
     private I2C i2cDevice;
     private Logger logger;
@@ -71,17 +71,17 @@ public class LCD_I2C implements LCD {
     private String[] lines;
     private int lineLength;
 
-    public LCD_I2C() {
+    public LcdI2cSegment() {
         this(DEFAULT_I2C_ADDRESS, DEFAULT_LINE_COUNT, DEFAULT_LINE_LENGTH);
     }
 
-    public LCD_I2C(int i2cAddress, int lineCount, int lineLength) {
+    public LcdI2cSegment(int i2cAddress, int lineCount, int lineLength) {
 
         if (lineCount < 1 || lineCount > 4) {
             throw new ArrayIndexOutOfBoundsException();
         }
 
-        this.logger = LoggerFactory.getLogger(LCD_I2C.class);
+        this.logger = LoggerFactory.getLogger(LcdI2cSegment.class);
         logger.info("Initializing " + lineLength + "x" + lineCount + " LCD "
                 + "on I2C address " + String.format("0x%X", i2cAddress));
         this.lines = new String[lineCount];

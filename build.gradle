@@ -22,13 +22,13 @@ version '2.0'
 sourceCompatibility = 1.8
 
 remotes {
-    webServer {
-        host = '192.168.0.127'
+    princessPi {
+        host = '192.168.0.101'
         user = 'pi'
         identity = file("${System.properties['user.home']}/.ssh/id_rsa")
     }
-    webServerEthernet {
-        host = 'princesspi'
+    princessPicrate {
+        host = '192.168.0.103'
         user = 'pi'
         identity = file("${System.properties['user.home']}/.ssh/id_rsa")
     }
@@ -49,7 +49,7 @@ shadowJar {
 task deployPrincess {
     doLast {
         ssh.run {
-            session(remotes.webServer) {
+            session(remotes.princessPi) {
                 put from: 'build/libs/esialrobotik.ia-2.0-all.jar', into: 'IA'
                 put from: 'config.json', into: 'IA'
                 put from: 'configCollection.json', into: 'IA'
@@ -63,12 +63,12 @@ task deployPrincess {
     }
 }
 
-task deployPrincessEthernet {
+task deployPrincessPicrate {
     doLast {
         ssh.run {
-            session(remotes.webServerEthernet) {
+            session(remotes.princessPicrate) {
                 put from: 'build/libs/esialrobotik.ia-2.0-all.jar', into: 'IA'
-                put from: 'config.json', into: 'IA'
+                put from: 'config_PMI.json', into: 'IA/config.json'
                 put from: 'configCollection.json', into: 'IA'
                 put from: 'table.json', into: 'IA'
                 put from: 'table0.tbl', into: 'IA'
