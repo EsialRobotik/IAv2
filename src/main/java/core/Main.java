@@ -38,7 +38,7 @@ import java.util.Scanner;
  */
 public class Main {
 
-    private static String configFilePath;
+    public static String configFilePath;
 
     public Main(boolean stepByStep) throws IOException, InterruptedException, AX12LinkException {
         //Load of the configuration first

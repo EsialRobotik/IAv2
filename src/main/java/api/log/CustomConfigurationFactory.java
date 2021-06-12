@@ -1,5 +1,8 @@
 package api.log;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import core.Main;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.core.Filter;
 import org.apache.logging.log4j.core.LoggerContext;
@@ -8,14 +11,16 @@ import org.apache.logging.log4j.core.config.Configuration;
 import org.apache.logging.log4j.core.config.ConfigurationFactory;
 import org.apache.logging.log4j.core.config.ConfigurationSource;
 import org.apache.logging.log4j.core.config.Order;
-import org.apache.logging.log4j.core.config.builder.api.AppenderComponentBuilder;
-import org.apache.logging.log4j.core.config.builder.api.ComponentBuilder;
-import org.apache.logging.log4j.core.config.builder.api.ConfigurationBuilder;
-import org.apache.logging.log4j.core.config.builder.api.LayoutComponentBuilder;
+import org.apache.logging.log4j.core.config.builder.api.*;
 import org.apache.logging.log4j.core.config.builder.impl.BuiltConfiguration;
 import org.apache.logging.log4j.core.config.plugins.Plugin;
+import org.apache.logging.log4j.core.net.Protocol;
 
+import java.io.IOException;
+import java.io.Reader;
 import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 @Plugin(name = "DebugConfigurationFactory", category = ConfigurationFactory.CATEGORY)
 @Order(50)
@@ -35,7 +40,7 @@ public class CustomConfigurationFactory extends ConfigurationFactory {
         this.level = level;
     }
 
-    private Configuration createConfiguration(final String name, ConfigurationBuilder<BuiltConfiguration> builder) {
+    private Configuration createConfiguration(final String name, ConfigurationBuilder<BuiltConfiguration> builder) throws IOException {
         if (this.level == null) { //The first call to this thing is issue by this motherfucker of log4j and so if this things is null, it crash.
             // but if the factory is redeclare after with a different log level it works O.o
             this.level = Level.DEBUG;
@@ -58,18 +63,23 @@ public class CustomConfigurationFactory extends ConfigurationFactory {
                 add(builder.newAppenderRef("Stdout")).
                 addAttribute("additivity", false));
 
-        // TODO gérer tout ça dans une config !!
-//        appenderBuilder = builder.newAppender("Socket", "Socket")
-//                .addAttribute("host", "localhost") // TODO config ?
-//                .addAttribute("protocol", Protocol.TCP)
-//                .addAttribute("port", 4269) // TODO config ?
-//                .addAttribute("reconnectDelayMillis", -1)
-//                .addAttribute("immediateFail", false);
-//        appenderBuilder.add(builder.newLayout("PatternLayout").
-//                addAttribute("pattern", "%d [princesspi][%t][%c{1}] %-5level: %msg%n%throwable")); // TODO config ?
-//        appenderBuilder.add(builder.newFilter("MarkerFilter", Filter.Result.DENY,
-//                Filter.Result.NEUTRAL).addAttribute("marker", "FLOW"));
-//        builder.add(appenderBuilder);
+        Gson gson = new Gson();
+        Reader reader = Files.newBufferedReader(Paths.get(Main.configFilePath));
+        JsonObject configRootNode = gson.fromJson(reader, JsonObject.class);
+        JsonObject loggerSocketConfig = configRootNode.getAsJsonObject("loggerSocket");
+        if (loggerSocketConfig != null && loggerSocketConfig.get("active").getAsBoolean()) {
+            appenderBuilder = builder.newAppender("Socket", "Socket")
+                .addAttribute("host", loggerSocketConfig.get("host").getAsString())
+                .addAttribute("protocol", Protocol.TCP)
+                .addAttribute("port", loggerSocketConfig.get("port").getAsInt())
+                .addAttribute("reconnectDelayMillis", -1)
+                .addAttribute("immediateFail", false);
+            appenderBuilder.add(builder.newLayout("PatternLayout").
+                addAttribute("pattern", "%d ["+loggerSocketConfig.get("who").getAsString()+"][%t][%c{1}] %-5level: %msg%n%throwable"));
+            appenderBuilder.add(builder.newFilter("MarkerFilter", Filter.Result.DENY,
+                Filter.Result.NEUTRAL).addAttribute("marker", "FLOW"));
+            builder.add(appenderBuilder);
+        }
 
         LayoutComponentBuilder layoutBuilder;
         layoutBuilder = builder.newLayout("PatternLayout")
@@ -89,10 +99,13 @@ public class CustomConfigurationFactory extends ConfigurationFactory {
                 .add( builder.newAppenderRef( "rolling" ) )
                 .addAttribute( "additivity", false ) );
 
-        builder.add(builder.newRootLogger(level)
+        RootLoggerComponentBuilder rootLogger = builder.newRootLogger(level)
                 .add(builder.newAppenderRef("Stdout"))
-//                .add(builder.newAppenderRef("Socket"))
-                .add(builder.newAppenderRef("rolling")));
+                .add(builder.newAppenderRef("rolling"));
+        if (loggerSocketConfig != null && loggerSocketConfig.get("active").getAsBoolean()) {
+            rootLogger.add(builder.newAppenderRef("Socket"));
+        }
+        builder.add(rootLogger);
         return builder.build();
     }
 
@@ -109,6 +122,11 @@ public class CustomConfigurationFactory extends ConfigurationFactory {
     @Override
     public Configuration getConfiguration(final LoggerContext loggerContext, final String name, final URI configLocation) {
         ConfigurationBuilder<BuiltConfiguration> builder = newConfigurationBuilder();
-        return createConfiguration(name, builder);
+        try {
+            return createConfiguration(name, builder);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
