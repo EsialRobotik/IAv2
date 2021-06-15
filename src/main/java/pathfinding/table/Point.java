@@ -1,5 +1,6 @@
 package pathfinding.table;
 
+import asserv.Position;
 import com.google.gson.JsonObject;
 
 /**
@@ -29,6 +30,11 @@ public class Point {
     public Point(JsonObject jsonObject){
         this.x = jsonObject.get("x").getAsInt();
         this.y = jsonObject.get("y").getAsInt();
+    }
+
+    public Point(Position position) {
+        this.x = position.getX();
+        this.y = position.getY();
     }
 
     public int getX(){

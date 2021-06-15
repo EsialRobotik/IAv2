@@ -38,7 +38,7 @@ import java.util.Scanner;
  */
 public class Main {
 
-    public static String configFilePath;
+    public static String configFilePath = "config.json";
 
     public Main(boolean stepByStep) throws IOException, InterruptedException, AX12LinkException {
         //Load of the configuration first
@@ -84,14 +84,11 @@ public class Main {
         LoggerFactory.shutdown();
     }
 
-
     public static void main(String[] args) throws Exception {
         if (args.length >= 2) {
 
             if (args.length == 3 ) {
                 configFilePath = args[2];
-            } else {
-                configFilePath = "config.json";
             }
 
             File tmpFile = new File(configFilePath);

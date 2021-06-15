@@ -14,7 +14,7 @@
     "lineLength": 16
   },
   "loggerSocket": {
-    "active": true,
+    "active": false,
     "host": "localhost",
     "port": 4269,
     "who": "princesspi"

@@ -1,5 +1,6 @@
 package utils.strategy.task;
 
+import asserv.Position;
 import pathfinding.table.Point;
 import utils.strategy.Tache;
 
@@ -14,8 +15,8 @@ public class GoTo extends Tache {
     }
 
     @Override
-    public void execute(Point startPoint) {
-        System.out.println("goto-from#" + startPoint.x + ";" + startPoint.y);
+    public void execute(Position startPoint) {
         System.out.println("goto#" + this.positionX + ";" + this.positionY);
+        this.endPoint = new Position(this.positionX, this.positionY, this.calculateTheta(startPoint, this.positionX, this.positionY));
     }
 }

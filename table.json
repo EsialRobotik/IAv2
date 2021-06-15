@@ -9,6 +9,7 @@
       "id": "start0",
       "forme": "polygone",
       "desc": "Depart Bleu",
+      "active": true,
       "points": [
         {
           "x": 500,
@@ -32,6 +33,7 @@
       "id": "start3000",
       "forme": "polygone",
       "desc": "Depart Jaune",
+      "active": true,
       "points": [
         {
           "x": 500,
@@ -55,6 +57,7 @@
       "id": "blueRock",
       "forme" : "polygone",
       "desc": "Rocher bleu",
+      "active": true,
       "points": [
         {
           "x": 2000,
@@ -78,6 +81,7 @@
       "id": "yellowRock",
       "forme" : "polygone",
       "desc": "Rocher Jaune",
+      "active": true,
       "points": [
         {
           "x": 2000,
@@ -101,6 +105,7 @@
       "id": "middleRock",
       "forme" : "polygone",
       "desc": "Rocher milieu",
+      "active": true,
       "points": [
         {
           "x": 2000,
@@ -195,7 +200,7 @@
       "rayon": 36
     },
     {
-      "id": "0_bouee7",
+      "id": "3000_bouee7",
       "forme" : "cercle",
       "desc": "Bouée 7",
       "active": true,
@@ -207,7 +212,7 @@
       "rayon": 36
     },
     {
-      "id": "0_bouee8",
+      "id": "3000_bouee8",
       "forme" : "cercle",
       "desc": "Bouée 8",
       "active": true,
@@ -243,7 +248,7 @@
       "rayon": 36
     },
     {
-      "id": "0_bouee11",
+      "id": "3000_bouee11",
       "forme" : "cercle",
       "desc": "Bouée 11",
       "active": true,
@@ -255,7 +260,7 @@
       "rayon": 36
     },
     {
-      "id": "0_bouee12",
+      "id": "3000_bouee12",
       "forme" : "cercle",
       "desc": "Bouée 12",
       "active": true,
@@ -339,7 +344,7 @@
       "rayon": 36
     },
     {
-      "id": "3000_bouee7",
+      "id": "0_bouee7",
       "forme" : "cercle",
       "desc": "Bouée 7",
       "active": true,
@@ -351,7 +356,7 @@
       "rayon": 36
     },
     {
-      "id": "3000_bouee8",
+      "id": "0_bouee8",
       "forme" : "cercle",
       "desc": "Bouée 8",
       "active": true,
@@ -387,7 +392,7 @@
       "rayon": 36
     },
     {
-      "id": "3000_bouee11",
+      "id": "0_bouee11",
       "forme" : "cercle",
       "desc": "Bouée 11",
       "active": true,
@@ -399,7 +404,7 @@
       "rayon": 36
     },
     {
-      "id": "3000_bouee12",
+      "id": "0_bouee12",
       "forme" : "cercle",
       "desc": "Bouée 12",
       "active": true,

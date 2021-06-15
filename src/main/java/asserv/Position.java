@@ -1,5 +1,7 @@
 package asserv;
 
+import pathfinding.table.Point;
+
 /**
  * Position et cap sur le repère de la table
  */
@@ -40,6 +42,11 @@ public class Position {
         this.x = x;
         this.y = y;
         this.theta = theta;
+    }
+
+    public Position(Point point) {
+        this.x = point.x;
+        this.y = point.y;
     }
 
     public int getX() {

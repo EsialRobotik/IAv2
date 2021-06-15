@@ -1,5 +1,6 @@
 package utils.strategy;
 
+import asserv.Position;
 import com.google.gson.annotations.SerializedName;
 import pathfinding.PathFinding;
 import pathfinding.table.Point;
@@ -94,6 +95,7 @@ public class Tache {
     public int timeout = -1;
 
     public PathFinding pathFinding;
+    public Position endPoint;
 
     public Tache(String desc, int id, int positionX, int positionY, Type type, SubType subtype, int actionId, Mirror mirror) {
         this.desc = desc;
@@ -240,10 +242,20 @@ public class Tache {
         this.timeout = timeout;
     }
 
-    public void execute(Point startPoint) {}
+    public void execute(Position startPoint) {}
 
-    public Point getEndPoint() {
-        return new Point(this.positionX, this.positionY);
+    public Position getEndPoint() {
+        return this.endPoint;
+    }
+
+    public double calculateTheta(Position currentPosition, int finalX, int finalY) {
+        if (finalY == currentPosition.getY()) {
+            return finalX > currentPosition.getX() ? 0 : Math.PI;
+        } else if (finalX == currentPosition.getX()) {
+            return finalY > currentPosition.getY() ? Math.PI / 2 : -Math.PI / 2;
+        } else {
+            return Math.atan(((double)(finalY - currentPosition.getY()) / (double)(finalX - currentPosition.getX())));
+        }
     }
 
     @Override

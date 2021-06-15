@@ -1,6 +1,7 @@
 package utils.strategy.main;
 
 import api.log.LoggerFactory;
+import asserv.Position;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.apache.logging.log4j.Level;
@@ -123,14 +124,14 @@ public class Main2021 {
         petitPort.add(new GoTo("Sortie petit port", 1425, 1800));
 
         // TODO Taff de picrate
-        petitPort.add(new DeleteZone("Suppression zone bouée 11", "bouee1"));
-        petitPort.add(new DeleteZone("Suppression zone bouée 11", "bouee2"));
-        petitPort.add(new DeleteZone("Suppression zone bouée 11", "bouee3"));
-        petitPort.add(new DeleteZone("Suppression zone bouée 11", "bouee4"));
-        petitPort.add(new DeleteZone("Suppression zone bouée 11", "bouee5"));
-        petitPort.add(new DeleteZone("Suppression zone bouée 11", "bouee6"));
+        petitPort.add(new DeleteZone("Suppression zone bouée 1", "bouee1"));
+        petitPort.add(new DeleteZone("Suppression zone bouée 2", "bouee2"));
+        petitPort.add(new DeleteZone("Suppression zone bouée 3", "bouee3"));
+        petitPort.add(new DeleteZone("Suppression zone bouée 4", "bouee4"));
+        petitPort.add(new DeleteZone("Suppression zone bouée 5", "bouee5"));
+        petitPort.add(new DeleteZone("Suppression zone bouée 6", "bouee6"));
         petitPort.add(new AddZone("Blocage du chenal Sud", "chenal_depart_s"));
-        petitPort.add(new AddZone("Blocage du chenal Sud", "chenal_depart_n"));
+        petitPort.add(new AddZone("Blocage du chenal Nord", "chenal_depart_n"));
 
         Objectif objectifPetitPort0 = new Objectif("Petit port", objectifsCouleur0.size()+1, score, 1, petitPort);
         Objectif objectifPetitPort3000 = new Objectif("Petit port", objectifsCouleur3000.size()+1, score, 1, null);
@@ -260,16 +261,15 @@ public class Main2021 {
             Table table = new Table("table0.tbl");
             table.loadJsonFromFile("table.json");
             PathFinding pathFinding = new PathFinding(new Astar(table));
-            Point startPoint = new Point(800, 200);
+            Position startPoint = new Position(800, 200, Math.PI / 2);
+            System.out.println(startPoint);
             for (Objectif objectif : strat.couleur0) {
                 for (Tache task: objectif.taches) {
                     task.pathFinding = pathFinding;
                     System.out.println("#" + task.desc);
                     task.execute(startPoint);
-                    Point endPoint = task.getEndPoint();
-                    if (endPoint.x > 0 && endPoint.x < 2000 && endPoint.y > 0 && endPoint.y < 3000) {
-                        startPoint = task.getEndPoint();
-                    }
+                    startPoint = task.getEndPoint();
+                    System.out.println(startPoint);
                 }
             }
         } catch (IOException e) {

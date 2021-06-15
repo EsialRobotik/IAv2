@@ -1,5 +1,6 @@
 package utils.strategy.task;
 
+import asserv.Position;
 import pathfinding.table.Point;
 import utils.strategy.Tache;
 
@@ -14,7 +15,8 @@ public class AddZone extends Tache {
     }
 
     @Override
-    public void execute(Point startPoint) {
+    public void execute(Position startPoint) {
+        this.endPoint = startPoint;
         this.pathFinding.lockElementById(this.itemId);
         System.out.println("add-zone#" + this.itemId);
     }

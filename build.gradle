@@ -102,4 +102,7 @@ dependencies {
     // RXTX
     compile group: 'org.rxtx', name: 'rxtx', version: '2.1.7'
 
+    // https://mvnrepository.com/artifact/com.kitfox.svg/svg-salamander
+    compile group: 'com.kitfox.svg', name: 'svg-salamander', version: '1.0'
+
 }

@@ -1,5 +1,6 @@
 package utils.strategy.task;
 
+import asserv.Position;
 import pathfinding.table.Point;
 import utils.strategy.Tache;
 
@@ -14,7 +15,9 @@ public class Face extends Tache {
     }
 
     @Override
-    public void execute(Point startPoint) {
+    public void execute(Position startPoint) {
         System.out.println("face#" + this.positionX + ";" + this.positionY);
+        this.endPoint = startPoint;
+        this.endPoint.setTheta(this.calculateTheta(startPoint, positionX, positionY));
     }
 }

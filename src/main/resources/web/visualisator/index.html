@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PrincessVisu</title>
+
+    <style type="text/css">
+  			.outsideWrapper{
+			    width:3000px; height:2000px;
+			    margin:0px 0px;
+			}
+			.insideWrapper{
+			    width:100%; height:100%;
+			    position:relative;
+			}
+			.coveredImage{
+			    width:100%; height:100%;
+			    position:absolute; top:0px; left:0px;
+			}
+			.coveringCanvas{
+			    width:100%; height:100%;
+			    position:absolute; top:0px; left:0px;
+			    background-color: rgba(0,0,0,.1);
+			}
+			.coveringButton{
+				position:absolute; top:50px; left:50px;
+			}
+			.formBlock {
+			    display: inline-block;
+			    width: 300px;
+			}
+			.dataBlock {
+			    display: inline-block;
+			    width: 500px;
+			    overflow: auto;
+			    border: solid 1px;
+			    height: 100px;
+			}
+    </style>
+
+    <script src="./createjs.min.js"></script>
+    <script src="./tweenjs.min.js"></script>
+</head>
+<body onload="init();">
+
+<div style="margin-bottom: 20px;">
+    <form id="formTable" name="formTable" class="formBlock" onsubmit="event.preventDefault(); loadTable();">
+        <fieldset>
+            <legend>Configuration de la table</legend>
+            <input type="file"
+                   id="table" name="table"
+                   accept="application/json"/>
+            <button type="submit">Submit</button>
+        </fieldset>
+    </form>
+    <form id="formStrat" name="formStrat" class="formBlock" onsubmit="event.preventDefault(); loadStrat();">
+        <fieldset>
+            <legend>Strat du générateur</legend>
+            <input type="file"
+                   id="strat" name="strat"
+                   accept="text/plain"/>
+            <button type="submit">Submit</button>
+        </fieldset>
+    </form>
+    <div class="dataBlock" style="width: 100px;">
+        Instructions : <br>
+        <button onclick="nextInstruction();">Next</button>
+    </div>
+    <div class="dataBlock" id="data"></div>
+</div>
+
+<div class="outsideWrapper">
+    <div class="insideWrapper">
+        <img src="2021/table.svg" class="coveredImage">
+        <canvas id="canvas" class="coveringCanvas" width="3000" height="2000"></canvas>
+    </div>
+</div>
+
+<script>
+  var stage;
+  var bigPrincess;
+  var strat;
+  var stratIndex = 0;
+
+  function init() {
+    stage = new createjs.Stage("canvas");
+
+    bigPrincess = new createjs.Bitmap('./bigPrincess.png');
+    bigPrincess.x = 800;
+    bigPrincess.y = 800;
+    bigPrincess.regX = 150;
+    bigPrincess.regY = 100;
+    bigPrincess.alpha = 0.7;
+    stage.addChild(bigPrincess);
+    stage.update();
+
+    createjs.Ticker.setFPS(60);
+    createjs.Ticker.addEventListener("tick", stage);
+    initRobot();
+  }
+
+  function initRobot() {
+    createjs.Tween.get(bigPrincess)
+        .to({ rotation: radiansToDegrees(Math.PI - Math.PI / 2) }, 200, createjs.Ease.getPowInOut(4))
+        .to({ x: 200, y: 800 }, 1000, createjs.Ease.getPowInOut(4));
+  }
+
+  function moveRobot(x, y, rotation) {
+    var shape = new createjs.Shape();
+    shape.graphics
+        .setStrokeStyle(3)
+        .beginStroke('rgba(255,20,147 ,1)')
+        .moveTo(bigPrincess.x, bigPrincess.y)
+        .lineTo(x,y);
+    stage.addChild(shape);
+    stage.update();
+
+    createjs.Tween.get(bigPrincess)
+        .to({ x, y, rotation: radiansToDegrees(Math.PI - rotation) }, 1000, createjs.Ease.getPowInOut(4));
+  }
+
+  function loadTable() {
+    var file = document.getElementById('table');
+    if (file.files.length) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            var jsonTable = JSON.parse(e.target.result);
+
+            // Zones interdites fixes
+            jsonTable.zonesInterdites.forEach(zone => {
+                displayZone(zone, jsonTable, 'rgba(255,0,0,0.6)', 'rgba(200,0,0,0.4)');
+            });
+
+            // Bordure haut
+            var shape = new createjs.Shape();
+            shape.graphics
+                .beginFill('rgba(200,0,0,0.4)')
+                .drawRect(0, 0, 3000, jsonTable.marge);
+            stage.addChild(shape);
+
+            // Bordure bas
+            shape = new createjs.Shape();
+            shape.graphics
+                .beginFill('rgba(200,0,0,0.4)')
+                .drawRect(0, 2000 - jsonTable.marge, 3000, 2000);
+            stage.addChild(shape);
+
+            // Bordure gauche
+            shape = new createjs.Shape();
+            shape.graphics
+                .beginFill('rgba(200,0,0,0.4)')
+                .drawRect(0, 0, jsonTable.marge, 2000);
+            stage.addChild(shape);
+
+            // Bordure droite
+            shape = new createjs.Shape();
+            shape.graphics
+                .beginFill('rgba(200,0,0,0.4)')
+                .drawRect(3000 - jsonTable.marge, 0, 3000, 2000);
+            stage.addChild(shape);
+
+            // Zones interdites mobiles
+            jsonTable.elementsJeu.forEach(zone => {
+                displayZone(zone, jsonTable, 'rgba(255,255,0,0.6)', 'rgba(255,165,0,0.4)');
+            });
+            stage.update();
+
+            deleteZone('start0');
+        };
+        reader.readAsBinaryString(file.files[0]);
+
+        return true;
+    }
+  }
+
+  function displayZone(zone, jsonTable, colorPrimary, colorSecondary) {
+    if (zone.forme == 'polygone') {
+        if (zone.points.length === 4) {
+            var topLeftCorner = zone.points[0];
+            var bottomRightCorner = zone.points[0];
+            zone.points.forEach(point => {
+                if (topLeftCorner.x >= point.x && topLeftCorner.y >= point.y) {
+                    topLeftCorner = point;
+                }
+                if (bottomRightCorner.x <= point.x && bottomRightCorner.y <= point.y) {
+                    bottomRightCorner = point;
+                }
+            });
+
+            var shape = new createjs.Shape();
+            shape.name = zone.id;
+            shape.visible = zone.active;
+            shape.graphics
+                .beginFill(colorPrimary)
+                .drawRect(
+                    topLeftCorner.y,
+                    topLeftCorner.x,
+                    bottomRightCorner.y - topLeftCorner.y,
+                    bottomRightCorner.x - topLeftCorner.x
+                );
+            stage.addChild(shape);
+
+            shape = new createjs.Shape();
+            shape.name = zone.id + '_margin';
+            shape.visible = zone.active;
+            shape.graphics
+                .beginFill(colorSecondary)
+                .drawRect(
+                    topLeftCorner.y - jsonTable.marge,
+                    topLeftCorner.x - jsonTable.marge,
+                    (bottomRightCorner.y - topLeftCorner.y) + jsonTable.marge * 2,
+                    (bottomRightCorner.x - topLeftCorner.x) + jsonTable.marge * 2
+                );
+            stage.addChild(shape);
+        } else {
+            alert('Je gère pas encore ce cas, have fun : ' + zone.id + '-' + zone.forme + '-' + zone.active);
+        }
+    } else if (zone.forme == 'cercle') {
+        var shape = new createjs.Shape();
+        shape.name = zone.id;
+        shape.visible = zone.active;
+        shape.graphics
+            .beginFill(colorPrimary)
+            .drawCircle(zone.centre.y, zone.centre.x, zone.rayon);
+        stage.addChild(shape);
+
+        shape = new createjs.Shape();
+        shape.name = zone.id + '_margin';
+        shape.visible = zone.active;
+        shape.graphics
+            .beginFill(colorSecondary)
+            .drawCircle(zone.centre.y, zone.centre.x, zone.rayon + jsonTable.marge);
+        stage.addChild(shape);
+    }
+  }
+
+  function deleteZone(zoneName) {
+    stage.getChildByName(zoneName).visible = false;
+    stage.getChildByName(zoneName + '_margin').visible = false;
+    stage.update();
+  }
+
+  function addZone(zoneName) {
+    stage.getChildByName(zoneName).visible = true;
+    stage.getChildByName(zoneName + '_margin').visible = true;
+    stage.update();
+  }
+
+  function radiansToDegrees(radians) {
+    var pi = Math.PI;
+    return radians * (180/pi);
+  }
+
+  function loadStrat() {
+    var file = document.getElementById('strat');
+    if (file.files.length) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            strat = e.target.result.split('\n');
+            stratIndex = 0;
+        };
+        reader.readAsBinaryString(file.files[0]);
+        return true;
+    }
+  }
+
+  function nextInstruction() {
+    if (stratIndex >= strat.length) {
+        alert('Fini !!');
+        return;
+    }
+    var instruction = strat[stratIndex];
+    stratIndex++;
+    var regexpPosition = /Position{x=(\d+), y=(\d+), theta=(-?\d+\.?\d*)}/;
+    var regexpZone = /(delete|add)-zone#(.+)/;
+    var parsePosition = regexpPosition.exec(instruction);
+    var parseZone = regexpZone.exec(instruction);
+    var dataDiv = document.getElementById('data');
+    dataDiv.insertAdjacentHTML('beforeend', instruction + '<br>');
+    dataDiv.scrollTop = dataDiv.scrollHeight;
+    if (parsePosition !== null) {
+        moveRobot(parseInt(parsePosition[2]), parseInt(parsePosition[1]), parseFloat(parsePosition[3]));
+    }
+    if (parseZone !== null) {
+        if (parseZone[1] === 'delete') {
+            deleteZone(parseZone[2]);
+        } else {
+            addZone(parseZone[2]);
+        }
+    }
+  }
+</script>
+
+</body>
+</html>

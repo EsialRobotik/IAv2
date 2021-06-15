@@ -1,6 +1,6 @@
 package utils.strategy.task;
 
-import pathfinding.table.Point;
+import asserv.Position;
 import utils.strategy.Tache;
 
 public class DeleteZone extends Tache {
@@ -14,7 +14,8 @@ public class DeleteZone extends Tache {
     }
 
     @Override
-    public void execute(Point startPoint) {
+    public void execute(Position startPoint) {
+        this.endPoint = startPoint;
         this.pathFinding.liberateElementById(this.itemId);
         System.out.println("delete-zone#" + this.itemId);
     }

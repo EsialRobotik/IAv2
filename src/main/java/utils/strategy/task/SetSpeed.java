@@ -1,5 +1,6 @@
 package utils.strategy.task;
 
+import asserv.Position;
 import pathfinding.table.Point;
 import utils.strategy.Tache;
 
@@ -14,7 +15,8 @@ public class SetSpeed extends Tache {
     }
 
     @Override
-    public void execute(Point startPoint) {
+    public void execute(Position startPoint) {
         System.out.println("speed#" + this.dist);
+        this.endPoint = startPoint;
     }
 }

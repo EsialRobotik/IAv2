@@ -1,5 +1,6 @@
 package utils.strategy.task;
 
+import asserv.Position;
 import pathfinding.table.Point;
 import utils.strategy.Tache;
 
@@ -14,10 +15,9 @@ public class GoToAstar extends Tache {
     }
 
     @Override
-    public void execute(Point startPoint) {
-        System.out.println("goto-astar-from#" + startPoint.x + ";" + startPoint.y);
+    public void execute(Position startPoint) {
         pathFinding.computePath(
-                startPoint,
+                new Point(startPoint),
                 new Point(this.positionX, this.positionY)
         );
         while (!pathFinding.isComputationEnded()) {
@@ -27,8 +27,11 @@ public class GoToAstar extends Tache {
                 e.printStackTrace();
             }
         }
+        this.endPoint = startPoint;
         for (Point p : pathFinding.getLastComputedPath()) {
+            this.endPoint = new Position(p.x, p.y, this.calculateTheta(this.endPoint, p.x, p.y));
             System.out.println("goto-astar#" + p.x + ";" + p.y);
+            System.out.println(this.endPoint);
         }
     }
 }
