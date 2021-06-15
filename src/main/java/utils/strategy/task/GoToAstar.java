@@ -29,9 +29,14 @@ public class GoToAstar extends Tache {
         }
         this.endPoint = startPoint;
         for (Point p : pathFinding.getLastComputedPath()) {
-            this.endPoint = new Position(p.x, p.y, this.calculateTheta(this.endPoint, p.x, p.y));
-            System.out.println("goto-astar#" + p.x + ";" + p.y);
-            System.out.println(this.endPoint);
+            if (this.endPoint.getX() != p.x || this.endPoint.getY() != p.y) {
+                this.endPoint = new Position(p.x, p.y, this.calculateTheta(this.endPoint, p.x, p.y));
+            }
+            System.out.println("{ " +
+                "\"task\":\""+this.desc+"\"," +
+                "\"command\":\"goto-astar#" + + p.x + ";" + p.y + "\"," +
+                "\"position\":" + this.endPoint.toJson() +
+            "},");
         }
     }
 }

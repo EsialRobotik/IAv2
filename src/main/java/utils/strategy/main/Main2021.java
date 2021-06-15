@@ -40,9 +40,9 @@ public class Main2021 {
         recuperationRecifSud.add(new Go("Step de départ bizarre", 1));
         recuperationRecifSud.add(new GoTo("Sortie départ", 800, 730));
         recuperationRecifSud.add(new Manipulation("Preparer ramassage recif sud", 5));
-        recuperationRecifSud.add(new GoToAstar("Placement recif sud", 1595, 230));
-        recuperationRecifSud.add(new Face("Alignement recif sud", 595, 0));
+        recuperationRecifSud.add(new GoToAstar("Placement recif sud", 1590, 230));
         recuperationRecifSud.add(new GoTo("Mise en position rammassage recif sud", 1595, 130));
+        recuperationRecifSud.add(new Face("Alignement recif sud", 1595, 0));
         recuperationRecifSud.add(new Go("Plaquage rammassage recif sud", 130, 500));
         recuperationRecifSud.add(new Manipulation("Ramassage recif sud", 6));
         recuperationRecifSud.add(new Manipulation("Libération ramassage recif sud", 7));
@@ -152,8 +152,8 @@ public class Main2021 {
         score = 6;
         TaskList largageSud = new TaskList();
         largageSud.add(new GoToAstar("Déplacement largage sud", 1500, 220));
-        largageSud.add(new Go("Placement largage sud", 200));
         largageSud.add(new Face("Alignement largage sud", 0, 220));
+        largageSud.add(new Go("Placement largage sud", 200));
         largageSud.add(new Manipulation("Préparer largage recif sud", 8));
         largageSud.add(new Manipulation("Largage impaire recif sud", 9));
         largageSud.add(new Go("Sortie largage sud", -200));
@@ -262,16 +262,16 @@ public class Main2021 {
             table.loadJsonFromFile("table.json");
             PathFinding pathFinding = new PathFinding(new Astar(table));
             Position startPoint = new Position(800, 200, Math.PI / 2);
-            System.out.println(startPoint);
+            System.out.println("[");
+            System.out.println("{ \"task\":\"Position de départ\",\"command\":\"start\",\"position\":" + startPoint.toJson() + "},");
             for (Objectif objectif : strat.couleur0) {
                 for (Tache task: objectif.taches) {
                     task.pathFinding = pathFinding;
-                    System.out.println("#" + task.desc);
                     task.execute(startPoint);
                     startPoint = task.getEndPoint();
-                    System.out.println(startPoint);
                 }
             }
+            System.out.println("]");
         } catch (IOException e) {
             e.printStackTrace();
         }

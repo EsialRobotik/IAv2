@@ -24,9 +24,13 @@ public class Go extends Tache {
 
     @Override
     public void execute(Position startPoint) {
-        System.out.println("go#" + this.dist);
         int newX = startPoint.getX() + (int) (this.dist * Math.cos(startPoint.getTheta()));
         int newY = startPoint.getY() + (int) (this.dist * Math.sin(startPoint.getTheta()));
         this.endPoint = new Position(newX, newY, startPoint.getTheta());
+        System.out.println("{ " +
+            "\"task\":\""+this.desc+"\"," +
+            "\"command\":\"go#" + this.dist + "\"," +
+            "\"position\":" + this.endPoint.toJson() +
+        "},");
     }
 }

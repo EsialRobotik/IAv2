@@ -16,7 +16,11 @@ public class SetSpeed extends Tache {
 
     @Override
     public void execute(Position startPoint) {
-        System.out.println("speed#" + this.dist);
         this.endPoint = startPoint;
+        System.out.println("{ " +
+            "\"task\":\""+this.desc+"\"," +
+            "\"command\":\"speed#" + + this.dist + "\"," +
+            "\"position\":" + this.endPoint.toJson() +
+        "},");
     }
 }

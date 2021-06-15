@@ -18,6 +18,10 @@ public class AddZone extends Tache {
     public void execute(Position startPoint) {
         this.endPoint = startPoint;
         this.pathFinding.lockElementById(this.itemId);
-        System.out.println("add-zone#" + this.itemId);
+        System.out.println("{ " +
+            "\"task\":\""+this.desc+"\"," +
+            "\"command\":\"add-zone#" + this.itemId + "\"," +
+            "\"position\":" + this.endPoint.toJson() +
+        "},");
     }
 }

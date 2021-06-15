@@ -16,7 +16,11 @@ public class Manipulation extends Tache {
 
     @Override
     public void execute(Position startPoint) {
-        System.out.println("action#" + this.actionId);
         this.endPoint = startPoint;
+        System.out.println("{ " +
+            "\"task\":\""+this.desc+"\"," +
+            "\"command\":\"action#" + + this.actionId + "\"," +
+            "\"position\":" + this.endPoint.toJson() +
+        "},");
     }
 }

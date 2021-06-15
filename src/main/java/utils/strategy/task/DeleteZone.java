@@ -17,6 +17,10 @@ public class DeleteZone extends Tache {
     public void execute(Position startPoint) {
         this.endPoint = startPoint;
         this.pathFinding.liberateElementById(this.itemId);
-        System.out.println("delete-zone#" + this.itemId);
+        System.out.println("{ " +
+            "\"task\":\""+this.desc+"\"," +
+            "\"command\":\"delete-zone#" + this.itemId + "\"," +
+            "\"position\":" + this.endPoint.toJson() +
+        "},");
     }
 }

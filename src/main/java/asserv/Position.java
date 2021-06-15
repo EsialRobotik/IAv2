@@ -82,4 +82,11 @@ public class Position {
                 '}';
     }
 
+    public String toJson() {
+        return "{" +
+            "\"x\": " + x + "," +
+            "\"y\": " + y + "," +
+            "\"theta\": " + theta +
+        "}";
+    }
 }

@@ -16,7 +16,11 @@ public class GoToChain extends Tache {
 
     @Override
     public void execute(Position startPoint) {
-        System.out.println("goto-chain#" + this.positionX + ";" + this.positionY);
         this.endPoint = new Position(this.positionX, this.positionY, this.calculateTheta(startPoint, this.positionX, this.positionY));
+        System.out.println("{ " +
+            "\"task\":\""+this.desc+"\"," +
+            "\"command\":\"goto-chain#" + + this.positionX + ";" + this.positionY + "\"," +
+            "\"position\":" + this.endPoint.toJson() +
+        "},");
     }
 }
