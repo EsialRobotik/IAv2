@@ -46,7 +46,7 @@ public class Main2021 {
         recuperationRecifSud.add(new Go("Plaquage rammassage recif sud", 130, 500));
         recuperationRecifSud.add(new Manipulation("Ramassage recif sud", 6));
         recuperationRecifSud.add(new Manipulation("Libération ramassage recif sud", 7));
-        recuperationRecifSud.add(new GoToBack("Sortie recif sud", 1595, 230));
+        recuperationRecifSud.add(new Go("Sortie recif sud", -230));
         Objectif objectifRecuperationRecifSud0 = new Objectif("Recif Sud", objectifsCouleur0.size()+1, 0, 1, recuperationRecifSud);
         Objectif objectifRecuperationRecifSud3000 = new Objectif("Recif Sud", objectifsCouleur3000.size()+1, 0, 1, null);
         try {
@@ -151,9 +151,9 @@ public class Main2021 {
          */
         score = 6;
         TaskList largageSud = new TaskList();
-        largageSud.add(new GoToAstar("Déplacement largage sud", 1500, 220));
+        largageSud.add(new GoToAstar("Déplacement largage sud", 1420, 220));
         largageSud.add(new Face("Alignement largage sud", 0, 220));
-        largageSud.add(new Go("Placement largage sud", 200));
+        largageSud.add(new Go("Placement largage sud", 120));
         largageSud.add(new Manipulation("Préparer largage recif sud", 8));
         largageSud.add(new Manipulation("Largage impaire recif sud", 9));
         largageSud.add(new Go("Sortie largage sud", -200));

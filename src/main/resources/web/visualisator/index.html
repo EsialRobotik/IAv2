@@ -93,7 +93,8 @@
     <div class="instructionsBlock">
         <fieldset>
             <legend>Instructions</legend>
-            <button onclick="nextInstruction();">Next</button>
+            <button onclick="nextInstruction();">Suivant</button>
+            <button onclick="autoPlay();">Automatique</button>
         </fieldset>
     </div>
     <div class="dataBlock">
@@ -108,6 +109,8 @@
   var bigPrincess;
   var strat;
   var stratIndex = 0;
+  var rotationTime = 200;
+  var moveTime = 800;
 
   function init() {
     stage = new createjs.Stage("canvas");
@@ -128,12 +131,11 @@
 
   function initRobot() {
     createjs.Tween.get(bigPrincess)
-        .to({ rotation: radiansToDegrees(Math.PI - Math.PI / 2) }, 200, createjs.Ease.getPowInOut(4))
-        .to({ x: 200, y: 800 }, 1000, createjs.Ease.getPowInOut(4));
+        .to({ rotation: radiansToDegrees(Math.PI - Math.PI / 2) }, rotationTime, createjs.Ease.getPowInOut(4))
+        .to({ x: 200, y: 800 }, moveTime, createjs.Ease.getPowInOut(4));
   }
 
   function moveRobot(x, y, rotation) {
-    console.log('moveRobot('+x+','+y+','+rotation+')');
     var shape = new createjs.Shape();
     shape.graphics
         .setStrokeStyle(3)
@@ -144,7 +146,8 @@
     stage.update();
 
     createjs.Tween.get(bigPrincess)
-        .to({ x, y, rotation: radiansToDegrees(Math.PI - rotation) }, 1000, createjs.Ease.getPowInOut(4));
+        .to({ rotation: radiansToDegrees(Math.PI - rotation) }, rotationTime, createjs.Ease.getPowInOut(4))
+        .to({ x, y }, moveTime, createjs.Ease.getPowInOut(4));
   }
 
   function loadTable() {
@@ -295,7 +298,7 @@
   function nextInstruction() {
     if (stratIndex >= strat.length) {
         alert('Fini !!');
-        return;
+        return true;
     }
     var instruction = strat[stratIndex];
     stratIndex++;
@@ -314,6 +317,18 @@
             addZone(parseZone[2]);
         }
     }
+    return false;
+  }
+
+  async function autoPlay() {
+    if (!nextInstruction()) {
+        await sleep(rotationTime + moveTime + 1);
+        autoPlay();
+    }
+  }
+
+  function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 </script>
 
