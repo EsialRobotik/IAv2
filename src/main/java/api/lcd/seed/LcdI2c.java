@@ -2,8 +2,7 @@ package api.lcd.seed;
 
 import api.communication.I2C;
 import api.lcd.LCD;
-import api.lcd.seed.constants.LcdColorSort;
-import api.lcd.seed.constants.LcdRegAddress;
+import api.lcd.seed.constants.*;
 import api.log.LoggerFactory;
 import org.apache.logging.log4j.Logger;
 
@@ -31,23 +30,38 @@ public class LcdI2c implements LCD {
 
     public LcdI2c(int i2cAddress) {
         this.logger = LoggerFactory.getLogger(LcdI2c.class);
-        logger.info("Initializing 128x64px LCD on I2C address 0x" + i2cAddress);
+        logger.info(String.format("Initializing 128x64px LCD on I2C address 0x%02X", i2cAddress));
         this.i2cDevice = new I2C(i2cAddress);
 
         try {
-            Thread.sleep(200);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
         }
+        this.clear();
+        this.fontModeConf((byte) LcdFontSort.Font_6x8.value, (byte) LcdFontMode.FM_ANL_AAA.value, (byte) LcdCharMode.BLACK_BAC.value);
+        this.charGotoXY(0, 0);
     }
 
     @Override
     public void println(String str) {
-
+        logger.info("Print : " + str);
+        int Y_Present = i2cDevice.read(LcdRegAddress.CharYPosRegAddr.address);
+        int fontIndex = i2cDevice.read(LcdRegAddress.FontModeRegAddr.address) & 0x0f;
+        if (Y_Present + 2 * fontYsizeTab[fontIndex] <= I2C_LCD_Y_SIZE_MAX) {
+            this.dispStringAt(str,0, fontYsizeTab[fontIndex] + Y_Present);
+        } else {
+            this.dispStringAt(str,0, 0);
+        }
     }
 
     @Override
     public void clear() {
-
+        logger.info("Clear screen");
+        this.cleanAll((byte) LcdColorSort.WHITE.value);
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+        }
     }
 
     private void charGotoXY(int x, int y)
@@ -95,7 +109,6 @@ public class LcdI2c implements LCD {
             i2cDevice.write(LcdRegAddress.DisRAMAddr.address, data);
         }
     }
-
 
     private void fontModeConf(byte font, byte mode, byte cMode)
     {
@@ -234,7 +247,6 @@ public class LcdI2c implements LCD {
         }
     }*/
 
-
     private void drawFullScreen(byte[] buf)
     {
         int i;
@@ -251,7 +263,7 @@ public class LcdI2c implements LCD {
         return i2cDevice.read(LcdRegAddress.DisRAMAddr.address);
     }
 
-    private int ReadSeriesDispRAM(byte[] buf, int length, int x, int y)
+    private int readSeriesDispRAM(byte[] buf, int length, int x, int y)
     {
         readRAMGotoXY(x, y);
         return i2cDevice.read(LcdRegAddress.DisRAMAddr.address, buf, 0, length);
