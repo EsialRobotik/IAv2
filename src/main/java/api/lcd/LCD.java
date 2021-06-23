@@ -6,11 +6,16 @@ public interface LCD {
      * Affiche un texte sur l'écran LCD sur une nouvelle ligne
      * @param str Le texte à afficher
      */
-    public void println(String str);
+    void println(String str);
 
     /**
      * Efface l'écran LCD
      */
-    public void clear();
+    void clear();
+
+    /**
+     * Affichage du score sur le LCD
+     */
+    void score(int score);
 
 }

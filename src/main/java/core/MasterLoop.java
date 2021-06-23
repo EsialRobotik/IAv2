@@ -101,8 +101,7 @@ public class MasterLoop {
         movementManager.setMatchStarted(true);
         movementManager.executeStepDeplacement(currentStep);
 
-        lcdDisplay.clear();
-        lcdDisplay.println("Score : " + score);
+        lcdDisplay.score(score);
 //        String remainingTime = chrono.toString();
         while (!interrupted) {
             if (!somethingDetected) {
@@ -156,8 +155,7 @@ public class MasterLoop {
                         } else { //Previous actions has ended, time to fetch a new one
                             logger.info("Action terminé, mise à jour du score");
                             score += currentAction.getPoints();
-                            lcdDisplay.clear();
-                            lcdDisplay.println("Score : " + score);
+                            lcdDisplay.score(score);
                             currentAction = actionCollection.getNextActionToPerform();
                             if (currentAction == null) {//Nothing more to do. #sadness
                                 logger.info("Plus rien à faire :'(");
@@ -309,8 +307,7 @@ public class MasterLoop {
 
         logger.info("Funny action terminé, mise à jour du score");
         score += funnyScore;
-        lcdDisplay.clear();
-        lcdDisplay.println("Score : " + score);
+        lcdDisplay.score(score);
         lcdDisplay.println("End of match");
     }
 

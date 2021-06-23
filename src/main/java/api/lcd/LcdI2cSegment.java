@@ -177,4 +177,10 @@ public class LcdI2cSegment implements LCD {
         lines = new String[lines.length];
         refresh();
     }
+
+    @Override
+    public void score(int score) {
+        this.clear();
+        this.println("Score : " + score);
+    }
 }

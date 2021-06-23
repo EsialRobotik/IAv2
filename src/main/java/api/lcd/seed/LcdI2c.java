@@ -64,6 +64,13 @@ public class LcdI2c implements LCD {
         }
     }
 
+    @Override
+    public void score(int score) {
+        this.clear();
+        this.fontModeConf((byte) LcdFontSort.Font_16x32.value, (byte) LcdFontMode.FM_ANL_AAA.value, (byte) LcdCharMode.BLACK_BAC.value);
+        this.dispStringAt("" + score,0, 0);
+    }
+
     private void charGotoXY(int x, int y)
     {
         byte[] buf = new byte[2];
