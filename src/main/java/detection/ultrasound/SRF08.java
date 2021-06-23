@@ -2,6 +2,7 @@ package detection.ultrasound;
 
 import api.communication.I2C;
 import api.log.LoggerFactory;
+import asserv.Position;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Logger;
 
@@ -105,8 +106,6 @@ public class SRF08 implements UltraSoundInterface {
     //...
     private static final int RANGE_VALUE_11008MM = 255 ;
 
-
-
     //Gain Register values
     private static final int MAX_ANALOG_GAIN_94     = 0 ; //0x00 	Set Maximum Analogue Gain to 94
     private static final int MAX_ANALOG_GAIN_97     = 1 ; //0x01 	Set Maximum Analogue Gain to 97
@@ -141,17 +140,17 @@ public class SRF08 implements UltraSoundInterface {
     private static final int MAX_ANALOG_GAIN_777    = 30; //0x1E 	Set Maximum Analogue Gain to 777
     private static final int MAX_ANALOG_GAIN_1025   = 31; //0x1F 	Set Maximum Analogue Gain to 1025
 
-    public SRF08(){
+    public SRF08() {
         //use default value for default object
-        this(new SRF08Config(DEFAULT_I2C_ADDRESS, MAX_ANALOG_GAIN_1025, RANGE_VALUE_11008MM, "dummy"));
+        this(new SRF08Config(DEFAULT_I2C_ADDRESS, MAX_ANALOG_GAIN_1025, RANGE_VALUE_11008MM, "dummy", 0, 0, 0, 0));
     }
 
-    public SRF08(SRF08Config config){
+    public SRF08(SRF08Config config) {
 
         this.logger = LoggerFactory.getLogger(SRF08.class);
 
         //init with default values
-        currentConfig = new SRF08Config(DEFAULT_I2C_ADDRESS, MAX_ANALOG_GAIN_1025, RANGE_VALUE_11008MM, "default");
+        currentConfig = new SRF08Config(DEFAULT_I2C_ADDRESS, MAX_ANALOG_GAIN_1025, RANGE_VALUE_11008MM, "default", config.x, config.y, config.angle, config.threshold);
 
         currentConfig.description = config.description;
 
@@ -183,6 +182,15 @@ public class SRF08 implements UltraSoundInterface {
         this.init();
     }
 
+    @Override
+    public Position getPosition() {
+        return new Position(currentConfig.x, currentConfig.y, Math.toRadians(currentConfig.angle));
+    }
+
+    @Override
+    public int getThreshold() {
+        return currentConfig.threshold;
+    }
 
     /**
      * Initialize the sensor to selected value.
@@ -318,10 +326,10 @@ public class SRF08 implements UltraSoundInterface {
     public static void main(String args[]) throws InterruptedException {
         LoggerFactory.init(Level.INFO);
         System.out.println("Hello SRF08");
-        SRF08 srf08FrontRight   = new SRF08(new SRF08Config(0x71, MAX_ANALOG_GAIN_1025, RANGE_VALUE_602MM,"FRight")); // Avant droit
-        SRF08 srf08FrontMiddle  = new SRF08(new SRF08Config(0x72, MAX_ANALOG_GAIN_1025, RANGE_VALUE_602MM,"FMid")); // Avant milieu
-        SRF08 srf08FrontLeft    = new SRF08(new SRF08Config(0x73, MAX_ANALOG_GAIN_1025, RANGE_VALUE_602MM,"FLeft")); // Avant gauche
-        SRF08 srf08Rear         = new SRF08(new SRF08Config(0x74, MAX_ANALOG_GAIN_1025, RANGE_VALUE_602MM,"Back")); // Arriere
+        SRF08 srf08FrontRight   = new SRF08(new SRF08Config(0x71, MAX_ANALOG_GAIN_1025, RANGE_VALUE_602MM,"FRight", 0, 0, 0, 0)); // Avant droit
+        SRF08 srf08FrontMiddle  = new SRF08(new SRF08Config(0x72, MAX_ANALOG_GAIN_1025, RANGE_VALUE_602MM,"FMid", 0, 0, 0, 0)); // Avant milieu
+        SRF08 srf08FrontLeft    = new SRF08(new SRF08Config(0x73, MAX_ANALOG_GAIN_1025, RANGE_VALUE_602MM,"FLeft", 0, 0, 0, 0)); // Avant gauche
+        SRF08 srf08Rear         = new SRF08(new SRF08Config(0x74, MAX_ANALOG_GAIN_1025, RANGE_VALUE_602MM,"Back", 0, 0, 0, 0)); // Arriere
 
         long measureFrontRight, measureFrontMiddle, measureFrontLeft, measureRear;
         while (true) {

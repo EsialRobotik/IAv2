@@ -16,7 +16,7 @@ import java.util.HashMap;
 public class UltraSoundManager {
     private DetectionInterface detectionInterface;
     private Logger logger;
-    private int windowSize = 2; // TODO mettre ça dans la config....
+    private int windowSize;
 
     private Thread thread;
     private boolean[][] detection;
@@ -33,27 +33,26 @@ public class UltraSoundManager {
 
     private HashMap<String, Integer> thresholdMap;
 
-    public UltraSoundManager(DetectionInterface detectionInterface, Table table, MovementManager movementManager) {
-        detection = new boolean[4][windowSize];
+    public UltraSoundManager(DetectionInterface detectionInterface, int windowSize, Table table, MovementManager movementManager) {
+        this.windowSize = windowSize;
+        this.detection = new boolean[4][windowSize];
         LoggerFactory.init(Level.TRACE);
-        logger = LoggerFactory.getLogger(UltraSoundManager.class);
+        this.logger = LoggerFactory.getLogger(UltraSoundManager.class);
 
         this.movementManager = movementManager;
         this.detectionInterface = detectionInterface;
         this.table = table;
 
-        // TODO mettre les orientations et positions dans la config
-        this.posFrontLeft = new Position(120, 105, Math.toRadians(20));
-        this.posFront = new Position(125, 0, 0);
-        this.posFrontRight = new Position(120, -105, Math.toRadians(-20));
-        this.posBack = new Position(-125, 0, Math.PI);
+        this.posFrontLeft = this.detectionInterface.getUltrasoundFrontLeft().getPosition();
+        this.posFront = this.detectionInterface.getUltrasoundFront().getPosition();
+        this.posFrontRight = this.detectionInterface.getUltrasoundFrontRight().getPosition();
+        this.posBack = this.detectionInterface.getUltrasoundBack().getPosition();
 
-        // TODO mettre les threshold dans la config
         this.thresholdMap = new HashMap<>();
-        this.thresholdMap.put("FrontLeft", 350);
-        this.thresholdMap.put("Front", 350);
-        this.thresholdMap.put("FrontRight", 350);
-        this.thresholdMap.put("Back", 200);
+        this.thresholdMap.put("FrontLeft", this.detectionInterface.getUltrasoundFrontLeft().getThreshold());
+        this.thresholdMap.put("Front", this.detectionInterface.getUltrasoundFront().getThreshold());
+        this.thresholdMap.put("FrontRight", this.detectionInterface.getUltrasoundFrontRight().getThreshold());
+        this.thresholdMap.put("Back", this.detectionInterface.getUltrasoundBack().getThreshold());
     }
 
     private static Position getObstaclePosition(Position posRobot, Position posDetector, long distance) {

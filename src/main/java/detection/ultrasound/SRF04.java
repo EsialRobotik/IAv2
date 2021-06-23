@@ -1,7 +1,9 @@
 package detection.ultrasound;
 
+import api.gpio.GPioPair;
 import api.gpio.GpioInput;
 import api.gpio.GpioOutput;
+import asserv.Position;
 
 import java.util.concurrent.locks.LockSupport;
 
@@ -16,15 +18,36 @@ public class SRF04 implements UltraSoundInterface {
 
     private GpioInput gpioInput;
     private GpioOutput gpioOutput;
+    private int x, y, angle, threshold;
 
-    public SRF04(int gpioInput, int gpioOutput){
+    public SRF04(int gpioInput, int gpioOutput) {
         this.gpioInput = new GpioInput(gpioInput, false); // Echo
         this.gpioOutput = new GpioOutput(gpioOutput, true); // Trigger
         this.init();
     }
 
+    public SRF04(GPioPair pair, int x, int y, int angle, int threshold) {
+        this.gpioInput = new GpioInput(pair.gpio_in, false); // Echo
+        this.gpioOutput = new GpioOutput(pair.gpio_out, true); // Trigger
+        this.x = x;
+        this.y = y;
+        this.angle = angle;
+        this.threshold = threshold;
+        this.init();
+    }
+
     public void init() {
         this.gpioOutput.setLow();
+    }
+
+    @Override
+    public Position getPosition() {
+        return new Position(this.x, this.y, Math.toRadians(this.angle));
+    }
+
+    @Override
+    public int getThreshold() {
+        return this.threshold;
     }
 
     /**

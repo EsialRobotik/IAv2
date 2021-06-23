@@ -1,6 +1,7 @@
 package detection;
 
 import detection.lidar.LidarPoint;
+import detection.ultrasound.UltraSoundInterface;
 
 import java.util.List;
 
@@ -16,6 +17,11 @@ public interface DetectionInterface {
     int getUltraSoundSensorCount();
 
     long[] ultraSoundDetection();
+
+    UltraSoundInterface getUltrasoundFrontLeft();
+    UltraSoundInterface getUltrasoundFront();
+    UltraSoundInterface getUltrasoundFrontRight();
+    UltraSoundInterface getUltrasoundBack();
 
     List<LidarPoint> getLidarDetection();
 }

@@ -116,7 +116,8 @@ public class ConfigurationManager {
             }
 
             DetectionInterface detectionInterface = new DetectionInterfaceImpl(configObject.getAsJsonObject("ultrasound"));
-            ultraSoundManager = new UltraSoundManager(detectionInterface, table, movementManager);
+            int windowSize = configObject.get("windowSize").getAsInt();
+            ultraSoundManager = new UltraSoundManager(detectionInterface, windowSize, table, movementManager);
             detectionManager = new DetectionManager(detectionInterface, lidarManager, ultraSoundManager);
         }
 

@@ -1,59 +1,79 @@
 {
-  "desc" : "Configuration du robot PMI 2020 - Princess Picrate",
-  "gpioColorSelector": 5,
-  "gpioTirette": 4,
-  "matchDuration": 99,
-  "table0Path": "table0.tbl",
-  "table3000Path": "table3000.tbl",
-  "tableJsonPath": "table.json",
-  "commandFile": "configCollection.json",
-  "lcd": {
-    "type": "full",
-    "i2cAddress" : 81,
-    "lineCount" : 2,
-    "lineLength" : 16
-  },
-
-  "asserv": {
-    "baud":115200,
-    "serie":"/dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_066BFF485151717867202913-if02"
-  },
-
-  "actions": {
-    "baud":115200,
-    "serie":"/dev/serial/by-path/platform-3f980000.usb-usb-0:1.1.2:1.0-port0",
-    "dataDir":"/home/pi/IA/actions/"
-  },
-
-  "detection": {
-    "ultrasound" : {
-      "type":"srf08",
-      "i2cConfigList":[
-        {
-          "desc" : "Avant gauche (0x73)",
-          "address" : 115,
-          "maxAnalogGain" : 31,
-          "range" : 13
-        },
-        {
-          "desc" : "Avant milieu (0x74)",
-          "address" : 116,
-          "maxAnalogGain" : 31,
-          "range" : 13
-        },
-        {
-          "desc" : "Avant droit (0x72)",
-          "address" : 114,
-          "maxAnalogGain" : 31,
-          "range" : 13
-        },
-        {
-          "desc" : "Arrière (0x71)",
-          "address" : 113,
-          "maxAnalogGain" : 31,
-          "range" : 13
+    "desc": "Configuration du robot PMI 2020 - Princess Picrate",
+    "gpioColorSelector": 5,
+    "gpioTirette": 4,
+    "matchDuration": 99,
+    "table0Path": "table0.tbl",
+    "table3000Path": "table3000.tbl",
+    "tableJsonPath": "table.json",
+    "commandFile": "configCollection.json",
+    "lcd": {
+        "type": "full",
+        "i2cAddress": 81,
+        "lineCount": 2,
+        "lineLength": 16
+    },
+    "loggerSocket": {
+        "active": false,
+        "host": "localhost",
+        "port": 4269,
+        "who": "picratepi"
+    },
+    "asserv": {
+        "baud": 115200,
+        "serie": "/dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_066BFF485151717867202913-if02"
+    },
+    "actions": {
+        "baud": 115200,
+        "serie": "/dev/serial/by-path/platform-3f980000.usb-usb-0:1.1.2:1.0-port0",
+        "dataDir": "/home/pi/IA/actions/"
+    },
+    "detection": {
+        "ultrasound": {
+            "type": "srf08",
+            "windowSize": 2,
+            "i2cConfigList": [
+                {
+                    "desc": "Avant gauche (0x73)",
+                    "address": 115,
+                    "maxAnalogGain": 31,
+                    "range": 13,
+                    "x": 0,
+                    "y": 0,
+                    "angle": 0,
+                    "threshold": 350
+                },
+                {
+                    "desc": "Avant milieu (0x74)",
+                    "address": 116,
+                    "maxAnalogGain": 31,
+                    "range": 13,
+                    "x": 0,
+                    "y": 0,
+                    "angle": 0,
+                    "threshold": 350
+                },
+                {
+                    "desc": "Avant droit (0x72)",
+                    "address": 114,
+                    "maxAnalogGain": 31,
+                    "range": 13,
+                    "x": 0,
+                    "y": 0,
+                    "angle": 0,
+                    "threshold": 350
+                },
+                {
+                    "desc": "Arrière (0x71)",
+                    "address": 113,
+                    "maxAnalogGain": 31,
+                    "range": 13,
+                    "x": 0,
+                    "y": 0,
+                    "angle": 0,
+                    "threshold": 200
+                }
+            ]
         }
-      ]
     }
-  }
 }
