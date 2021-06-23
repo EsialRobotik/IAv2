@@ -162,7 +162,7 @@ public class MovementManager {
     public void goStart(boolean isColor0) {
         try {
             this.asservInterface.goStart(isColor0);
-        } catch (InterruptedException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

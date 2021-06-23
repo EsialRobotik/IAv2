@@ -192,5 +192,5 @@ public interface AsservInterface {
      */
     void calage(boolean isColor0) throws InterruptedException;
 
-    void goStart(boolean isColor0) throws InterruptedException;
+    void goStart(boolean isColor0) throws Exception;
 }

@@ -2,6 +2,9 @@ package asserv;
 
 import api.communication.Serial;
 import api.log.LoggerFactory;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.pi4j.io.serial.Baud;
 import com.pi4j.io.serial.SerialDataEventListener;
 import org.apache.logging.log4j.Logger;
@@ -47,6 +50,11 @@ public class Asserv implements AsservInterface {
     protected Logger logger = null;
 
     /**
+     * Config de l'asserv
+     */
+    protected JsonObject config;
+
+    /**
      * Constructeur
      * @param serialPort Port série
      * @param baudRate Baud rate
@@ -67,6 +75,28 @@ public class Asserv implements AsservInterface {
         });
 
         position = new Position(0, 0);
+    }
+
+    public Asserv(JsonObject config) {
+        this.logger = LoggerFactory.getLogger(Asserv.class);
+        this.config = config;
+
+        String serialPort = config.get("serie").getAsString();
+        Baud baudRate = Baud.getInstance(config.get("baud").getAsInt());
+
+        this.logger.info("Initialisation de la liason série de l'asserv, port =  " + serialPort + ", baudRate = " + baudRate.getValue());
+        this.serial = new Serial(serialPort, baudRate);
+        this.serial.addReaderListeners((SerialDataEventListener) serialDataEvent -> {
+            try {
+                String serialBuffer = serialDataEvent.getAsciiString();
+                this.logger.trace("Position : " + serialBuffer);
+                parseAsservPosition(serialBuffer);
+            } catch (IOException e) {
+                this.logger.error("Echec du parsing de la position : " + e.getMessage());
+            }
+        });
+
+        this.position = new Position(0, 0);
     }
 
     /*******************************************************************************************************************
@@ -370,33 +400,42 @@ public class Asserv implements AsservInterface {
 
     @Override
     public void calage(boolean isColor0) throws InterruptedException {
-        // On init
-//        initialize();
-//        Thread.sleep(2000);
+        JsonObject calage = this.config.getAsJsonObject(isColor0 ? "calage0" : "calage3000");
 
         // On effectue le calage grâce à une calle dans le coin côté N, sur le bord de la table
         setOdometrie(
-            530 + 150,
-            isColor0 ? (40 + 125) : (3000 - (40 + 125)),
-            (isColor0 ? 1 : -1) * Math.PI/2
+            calage.get("x").getAsInt(),
+            calage.get("y").getAsInt(),
+            calage.get("theta").getAsDouble()
         );
         this.logger.info("Position setted");
     }
 
     @Override
-    public void goStart(boolean isColor0) throws InterruptedException {
-        // On se positionne dans la zone de départ
-        go(100);
-        this.logger.info("Go 100");
-        waitForAsserv();
-        Position depart = new Position(800, isColor0 ? 200 : 3000 - 200);
-        this.logger.info("Goto " + depart.toString());
-        goTo(depart);
-        waitForAsserv();
-        Position alignement = new Position(800, isColor0 ? 3000 : 0 );
-        this.logger.info("Goto " + alignement.toString());
-        face(alignement);
-        waitForAsserv();
+    public void goStart(boolean isColor0) throws Exception {
+        JsonArray start = this.config.getAsJsonArray(isColor0 ? "start0" : "start3000");
+        for (JsonElement instruction : start) {
+            JsonObject temp = instruction.getAsJsonObject();
+            switch (temp.get("type").getAsString()) {
+                case "go":
+                    go(temp.get("dist").getAsInt());
+                    this.logger.info("Go " + temp.get("dist").getAsInt());
+                    break;
+                case "goto":
+                    Position depart = new Position(temp.get("x").getAsInt(), temp.get("y").getAsInt());
+                    this.logger.info("Goto " + depart.toString());
+                    goTo(depart);
+                    break;
+                case "face":
+                    Position alignement = new Position(temp.get("x").getAsInt(), temp.get("y").getAsInt());
+                    this.logger.info("Goto " + alignement.toString());
+                    face(alignement);
+                    break;
+                default:
+                    throw new Exception("Instruction inconnue " + temp);
+            }
+            waitForAsserv();
+        }
         this.logger.info("goStart finished");
     }
 }

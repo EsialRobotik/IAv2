@@ -76,10 +76,7 @@ public class ConfigurationManager {
         JsonObject configObject = configRootNode.get("asserv").getAsJsonObject();
         if (config != CONFIG_PATHFINDING) {
             logger.info("AsservAPIConfiguration = " + configObject.toString());
-            asserv = new Asserv(
-                    configObject.get("serie").getAsString(),
-                    Baud.getInstance(configObject.get("baud").getAsInt())
-            );
+            asserv = new Asserv(configObject);
             movementManager = new MovementManager(asserv);
         }
 

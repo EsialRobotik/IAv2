@@ -21,7 +21,49 @@
     },
     "asserv": {
         "baud": 115200,
-        "serie": "/dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_066FFF383133524157185717-if02"
+        "serie": "/dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_066FFF383133524157185717-if02",
+        "calage0": {
+            "x": 680,
+            "y": 165,
+            "theta": 1.5707963267948966192313216916398
+        },
+        "calage3000": {
+            "x": 680,
+            "y": 2835,
+            "theta": -1.5707963267948966192313216916398
+        },
+        "start0": [
+            {
+                "type": "go",
+                "dist": 100
+            },
+            {
+                "type": "goto",
+                "x": 800,
+                "y": 200
+            },
+            {
+                "type": "face",
+                "x": 800,
+                "y": 3000
+            }
+        ],
+        "start3000": [
+            {
+                "type": "go",
+                "dist": 100
+            },
+            {
+                "type": "goto",
+                "x": 800,
+                "y": 2800
+            },
+            {
+                "type": "face",
+                "x": 800,
+                "y": 0
+            }
+        ]
     },
     "actions": {
         "baud": 115200,
