@@ -56,6 +56,7 @@ public class Main {
         MasterLoop masterLoop = new MasterLoop(
             configurationManager.getMovementManager(),
             configurationManager.getDetectionManager(),
+            configurationManager.getCommunicationManager(),
             actionCollection,
             configurationManager.getActionSupervisor(),
             configurationManager.getPathfinding(),

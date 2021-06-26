@@ -39,24 +39,25 @@ public class HotspotSocket {
         this.writer.println(message);
     }
 
-    public BufferedReader getReader() {
-        return reader;
-    }
-
-    public PrintWriter getWriter() {
-        return writer;
+    public String read() {
+        try {
+            return this.reader.ready() ? this.reader.readLine() : null;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public static void main(String[] args) throws Exception {
         String hostname = "localhost";
         int port = 4269;
-//        String who = "princesspi";
-        String who = "loggerListener";
+        String who = "robot";
+//        String who = "loggerListener";
         HotspotSocket socket = new HotspotSocket(hostname, port, who);
         while (true) {
-//            socket.write("Coucou");
-            String data = socket.getReader().readLine();
-            System.out.println(data);
+            socket.write("Coucou 2");
+            System.out.println(socket.read());
+            Thread.sleep(200);
         }
     }
 }

@@ -11,6 +11,7 @@ import api.lcd.LCD;
 import api.log.LoggerFactory;
 import asserv.AsservInterface;
 import asserv.Position;
+import manager.CommunicationManager;
 import manager.DetectionManager;
 import manager.MovementManager;
 import org.apache.logging.log4j.Logger;
@@ -27,6 +28,7 @@ import java.util.List;
 public class MasterLoop {
     private MovementManager movementManager;
     private DetectionManager detectionManager;
+    private CommunicationManager communicationManager;
     private ActionCollection actionCollection;
     private PathFinding pathFinding;
     private ColorDetector colorDetector;
@@ -46,6 +48,7 @@ public class MasterLoop {
 
     public MasterLoop(MovementManager movementManager,
                       DetectionManager detectionManager,
+                      CommunicationManager communicationManager,
                       ActionCollection actionCollection,
                       ActionSupervisor actionSupervisor,
                       PathFinding pathFinding,
@@ -55,6 +58,7 @@ public class MasterLoop {
                       LCD lcdDisplay) {
         this.movementManager = movementManager;
         this.detectionManager = detectionManager;
+        this.communicationManager = communicationManager;
         this.actionCollection = actionCollection;
         this.pathFinding = pathFinding;
         this.colorDetector = colorDetector;
@@ -197,9 +201,11 @@ public class MasterLoop {
                             if (currentStep.getSubType() == Step.SubType.SUPPRESSION) {
                                 logger.info("Libération de la zone interdite " + currentStep.getItemId());
                                 pathFinding.liberateElementById(currentStep.getItemId());
+                                communicationManager.sendDeleteZone(currentStep.getItemId());
                             } else if (currentStep.getSubType() == Step.SubType.AJOUT) {
                                 logger.info("Ajout de la zone interdite " + currentStep.getItemId());
                                 pathFinding.lockElementById(currentStep.getItemId());
+                                communicationManager.sendAddZone(currentStep.getItemId());
                             }
                         }
                     }
@@ -220,6 +226,7 @@ public class MasterLoop {
                     logger.debug("Detection NOK");
                 }
             }
+            communicationManager.readFromServer();
             try {
                 Thread.sleep(1);
             } catch (InterruptedException e) {

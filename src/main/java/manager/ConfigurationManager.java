@@ -16,7 +16,6 @@ import asserv.Asserv;
 import asserv.AsservInterface;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.pi4j.io.serial.Baud;
 import detection.DetectionInterface;
 import detection.DetectionInterfaceImpl;
 import detection.lidar.LidarInterface;
@@ -50,6 +49,7 @@ public class ConfigurationManager {
     private LidarManager lidarManager;
     private UltraSoundManager ultraSoundManager;
     private DetectionManager detectionManager;
+    private CommunicationManager communicationManager;
     private ActionCollection actionCollection;
     private ActionSupervisor actionSupervisor;
     private PathFinding pathfinding;
@@ -163,6 +163,11 @@ public class ConfigurationManager {
                 }
             }
         }
+
+        if(config == CONFIG_NOMINAL) {
+            JsonObject socketConfig = configObject.getAsJsonObject("loggerSocket");
+            communicationManager = new CommunicationManager(pathfinding, socketConfig.get("host").getAsString(),socketConfig.get("port").getAsInt());
+        }
     }
 
     public MovementManager getMovementManager() {
@@ -179,6 +184,10 @@ public class ConfigurationManager {
 
     public DetectionManager getDetectionManager() {
         return detectionManager;
+    }
+
+    public CommunicationManager getCommunicationManager() {
+        return communicationManager;
     }
 
     public ActionCollection getActionCollection() {
