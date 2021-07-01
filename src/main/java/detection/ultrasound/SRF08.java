@@ -320,7 +320,7 @@ public class SRF08 implements UltraSoundInterface {
                     hi_byte + String.format(" (0x%X)", hi_byte));
 
 
-        return distance;
+        return distance * 10;
     }
 
     public static void main(String args[]) throws InterruptedException {

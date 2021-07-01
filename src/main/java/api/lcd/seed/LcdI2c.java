@@ -50,6 +50,7 @@ public class LcdI2c implements LCD {
         if (Y_Present + 2 * fontYsizeTab[fontIndex] <= I2C_LCD_Y_SIZE_MAX) {
             this.dispStringAt(str,0, fontYsizeTab[fontIndex] + Y_Present);
         } else {
+            this.clear();
             this.dispStringAt(str,0, 0);
         }
     }

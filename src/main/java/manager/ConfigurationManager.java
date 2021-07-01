@@ -113,7 +113,7 @@ public class ConfigurationManager {
             }
 
             DetectionInterface detectionInterface = new DetectionInterfaceImpl(configObject.getAsJsonObject("ultrasound"));
-            int windowSize = configObject.get("windowSize").getAsInt();
+            int windowSize = configObject.getAsJsonObject("ultrasound").get("windowSize").getAsInt();
             ultraSoundManager = new UltraSoundManager(detectionInterface, windowSize, table, movementManager);
             detectionManager = new DetectionManager(detectionInterface, lidarManager, ultraSoundManager);
         }
@@ -165,7 +165,7 @@ public class ConfigurationManager {
         }
 
         if(config == CONFIG_NOMINAL) {
-            JsonObject socketConfig = configObject.getAsJsonObject("loggerSocket");
+            JsonObject socketConfig = configRootNode.getAsJsonObject("loggerSocket");
             communicationManager = new CommunicationManager(pathfinding, socketConfig.get("host").getAsString(),socketConfig.get("port").getAsInt());
         }
     }
