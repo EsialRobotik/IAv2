@@ -39,6 +39,7 @@ public class LcdI2c implements LCD {
         }
         this.clear();
         this.fontModeConf((byte) LcdFontSort.Font_6x8.value, (byte) LcdFontMode.FM_ANL_AAA.value, (byte) LcdCharMode.BLACK_BAC.value);
+        this.contrastConf((byte) LcdSettingMode.LOAD_TO_RAM.value, 35);
         this.charGotoXY(0, 0);
     }
 
