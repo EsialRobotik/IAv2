@@ -14,7 +14,7 @@
         "lineLength": 16
     },
     "loggerSocket": {
-        "active": false,
+        "active": true,
         "host": "192.168.0.102",
         "port": 4269,
         "who": "picratepi"
@@ -23,29 +23,29 @@
         "baud": 115200,
         "serie": "/dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_066BFF485151717867202913-if02",
         "calage0": {
-            "x": 680,
-            "y": 165,
+            "x": 1250,
+            "y": 115,
             "theta": 1.5707963267948966192313216916398
         },
         "calage3000": {
-            "x": 680,
-            "y": 2835,
+            "x": 1250,
+            "y": 2885,
             "theta": -1.5707963267948966192313216916398
         },
         "start0": [
             {
-                "type": "go",
+                "type": "goto",
                 "dist": 100
             },
             {
                 "type": "goto",
-                "x": 800,
+                "x": 1020,
                 "y": 200
             },
             {
                 "type": "face",
-                "x": 800,
-                "y": 3000
+                "x": 0,
+                "y": 200
             }
         ],
         "start3000": [
@@ -55,13 +55,13 @@
             },
             {
                 "type": "goto",
-                "x": 800,
+                "x": 1020,
                 "y": 2800
             },
             {
                 "type": "face",
-                "x": 800,
-                "y": 0
+                "x": 0,
+                "y": 2800
             }
         ]
     },

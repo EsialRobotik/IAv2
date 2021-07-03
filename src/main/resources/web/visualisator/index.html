@@ -43,14 +43,15 @@
 			}
 			.dataBlock {
 			    width: 700px;
-			    height: 1000px;
+			    height: 550px;
 			    margin: 10px;
 			    padding: 10px;
+			    font-size: 28px;
 			}
 			.dataFieldset {
 			    width: 700px;
 			    overflow: auto;
-			    height: 1000px;
+			    height: 550px;
 			}
 			button,input {
 			    font-size: 25px;
@@ -61,6 +62,7 @@
     <!-- https://createjs.com - Voir EaselJs pour le canvas et TweenJs pour les animations -->
     <script src="./createjs.min.js"></script>
     <script src="./tweenjs.min.js"></script>
+
 </head>
 <body onload="init();">
 
@@ -83,34 +85,64 @@
     </form>
     <form id="formStrat" name="formStrat" class="formBlock" onsubmit="event.preventDefault(); loadStrat();">
         <fieldset>
-            <legend>Strat du générateur</legend>
+            <legend>Strat du générateur Princess</legend>
             <input type="file"
                    id="strat" name="strat"
                    accept="application/json"/>
             <button type="submit">Submit</button>
         </fieldset>
     </form>
+    <form id="formStratPmi" name="formStratPmi" class="formBlock" onsubmit="event.preventDefault(); loadStratPmi();">
+        <fieldset>
+            <legend>Strat du générateur PMI</legend>
+            <input type="file"
+                   id="stratPmi" name="stratPmi"
+                   accept="application/json"/>
+            <button type="submit">Submit</button>
+        </fieldset>
+    </form>
     <div class="instructionsBlock">
         <fieldset>
-            <legend>Instructions</legend>
+            <legend>Instructions Princess</legend>
             <button onclick="nextInstruction();">Suivant</button>
             <button onclick="autoPlay();">Automatique</button>
+            <button onclick="connectSocket();">Socket</button>
+        </fieldset>
+    </div>
+    <div class="instructionsBlock">
+        <fieldset>
+            <legend>Instructions PMI</legend>
+            <button onclick="nextInstructionPmi();">Suivant</button>
+            <button onclick="autoPlayPmi();">Automatique</button>
         </fieldset>
     </div>
     <div class="dataBlock">
         <fieldset id="data" class="dataFieldset">
-            <legend>Exécution</legend>
+            <legend>Exécution Princess</legend>
+        </fieldset>
+    </div>
+    <div class="dataBlock">
+        <fieldset id="dataPmi" class="dataFieldset">
+            <legend>Exécution PMI</legend>
         </fieldset>
     </div>
 </div>
 
 <script>
   var stage;
+
   var bigPrincess;
+  var pmiPrincess;
+
   var strat;
   var stratIndex = 0;
+
+  var stratPmi;
+  var stratPmiIndex = 0;
+
   var rotationTime = 200;
   var moveTime = 800;
+  var dataDiv = document.getElementById('data');
 
   function init() {
     stage = new createjs.Stage("canvas");
@@ -122,6 +154,15 @@
     bigPrincess.regY = 100;
     bigPrincess.alpha = 0.7;
     stage.addChild(bigPrincess);
+
+    pmiPrincess = new createjs.Bitmap('./pmiPrincess.png');
+    pmiPrincess.x = 1200;
+    pmiPrincess.y = 800;
+    pmiPrincess.regX = 150;
+    pmiPrincess.regY = 75;
+    pmiPrincess.alpha = 0.7;
+    stage.addChild(pmiPrincess);
+
     stage.update();
 
     createjs.Ticker.setFPS(60);
@@ -132,20 +173,39 @@
   function initRobot() {
     createjs.Tween.get(bigPrincess)
         .to({ rotation: radiansToDegrees(Math.PI - Math.PI / 2) }, rotationTime, createjs.Ease.getPowInOut(4))
-        .to({ x: 200, y: 800 }, moveTime, createjs.Ease.getPowInOut(4));
+        .to({ x: 200, y: 750 }, moveTime, createjs.Ease.getPowInOut(4));
+
+    createjs.Tween.get(pmiPrincess)
+        .to({ rotation: radiansToDegrees(0) }, rotationTime, createjs.Ease.getPowInOut(4))
+        .to({ x: 200, y: 1020 }, moveTime, createjs.Ease.getPowInOut(4));
   }
 
   function moveRobot(x, y, rotation) {
     var shape = new createjs.Shape();
     shape.graphics
         .setStrokeStyle(3)
-        .beginStroke('rgba(255,20,147 ,1)')
+        .beginStroke('rgba(255,20,147,1)')
         .moveTo(bigPrincess.x, bigPrincess.y)
         .lineTo(x,y);
     stage.addChild(shape);
     stage.update();
 
     createjs.Tween.get(bigPrincess)
+        .to({ rotation: radiansToDegrees(Math.PI - rotation) }, rotationTime, createjs.Ease.getPowInOut(4))
+        .to({ x, y }, moveTime, createjs.Ease.getPowInOut(4));
+  }
+
+  function movePmi(x, y, rotation) {
+    var shape = new createjs.Shape();
+    shape.graphics
+        .setStrokeStyle(3)
+        .beginStroke('rgb(255,105,180,1)')
+        .moveTo(pmiPrincess.x, pmiPrincess.y)
+        .lineTo(x,y);
+    stage.addChild(shape);
+    stage.update();
+
+    createjs.Tween.get(pmiPrincess)
         .to({ rotation: radiansToDegrees(Math.PI - rotation) }, rotationTime, createjs.Ease.getPowInOut(4))
         .to({ x, y }, moveTime, createjs.Ease.getPowInOut(4));
   }
@@ -295,6 +355,19 @@
     }
   }
 
+  function loadStratPmi() {
+    var file = document.getElementById('stratPmi');
+    if (file.files.length) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            stratPmi = JSON.parse(e.target.result);
+            stratPmiIndex = 0;
+        };
+        reader.readAsBinaryString(file.files[0]);
+        return true;
+    }
+  }
+
   function nextInstruction() {
     if (stratIndex >= strat.length) {
         alert('Fini !!');
@@ -320,6 +393,31 @@
     return false;
   }
 
+  function nextInstructionPmi() {
+    if (stratPmiIndex >= stratPmi.length) {
+        alert('Fini !!');
+        return true;
+    }
+    var instruction = stratPmi[stratPmiIndex];
+    stratPmiIndex++;
+
+    var regexpZone = /(delete|add)-zone#(.+)/;
+    var parseZone = regexpZone.exec(instruction.command);
+
+    var dataDiv = document.getElementById('dataPmi');
+    dataDiv.insertAdjacentHTML('beforeend', '<strong>' + instruction.task + '</strong> : ' + instruction.command + '<br>');
+    dataDiv.scrollTop = dataDiv.scrollHeight;
+    movePmi(instruction.position.y, instruction.position.x, instruction.position.theta);
+    if (parseZone !== null) {
+        if (parseZone[1] === 'delete') {
+            deleteZone(parseZone[2]);
+        } else {
+            addZone(parseZone[2]);
+        }
+    }
+    return false;
+  }
+
   async function autoPlay() {
     if (!nextInstruction()) {
         await sleep(rotationTime + moveTime + 1);
@@ -327,8 +425,44 @@
     }
   }
 
+  async function autoPlayPmi() {
+    if (!nextInstructionPmi()) {
+        await sleep(rotationTime + moveTime + 1);
+        autoPlayPmi();
+    }
+  }
+
   function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  function connectSocket() {
+    var socket = new WebSocket("ws://192.168.0.102:4269", "loggerListener");
+
+    socket.onopen = function(e) {
+      alert("[open] Connection established");
+      alert("Sending to server");
+      socket.send("loggerListener");
+    };
+
+    socket.onmessage = function(event) {
+      console.log(`[message] Data received from server: ${event.data}`);
+    };
+
+    socket.onclose = function(event) {
+        console.log(event);
+      if (event.wasClean) {
+        alert(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
+      } else {
+        // e.g. server process killed or network down
+        // event.code is usually 1006 in this case
+        alert('[close] Connection died');
+      }
+    };
+
+    socket.onerror = function(error) {
+      console.log(error);
+    };
   }
 </script>
 

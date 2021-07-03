@@ -81,7 +81,8 @@ public class MovementManager {
         logger.info("isMatchStarted = " + isMatchStarted);
         gotoQueue.clear();
         if (trajectory.size() > 1) {
-            for (Point point : trajectory.subList(0, trajectory.size() - 2)) {
+            // On supprime le premier point qui est le point de départ et le dernier pour finir sur un goto précis
+            for (Point point : trajectory.subList(1, trajectory.size() - 2)) {
                 gotoQueue.add(point);
                 if (isMatchStarted) {
                     this.asservInterface.goToChain(new Position(point.x, point.y));

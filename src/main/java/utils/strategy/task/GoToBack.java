@@ -1,7 +1,6 @@
 package utils.strategy.task;
 
 import asserv.Position;
-import pathfinding.table.Point;
 import utils.strategy.Tache;
 
 public class GoToBack extends Tache {
@@ -15,16 +14,16 @@ public class GoToBack extends Tache {
     }
 
     @Override
-    public void execute(Position startPoint) {
+    public String execute(Position startPoint) {
         this.endPoint = new Position(
             this.positionX,
             this.positionY,
             (this.calculateTheta(startPoint, this.positionX, this.positionY) - Math.PI) % (2 * Math.PI)
         );
-        System.out.println("{ " +
+        return "{ " +
             "\"task\":\""+this.desc+"\"," +
             "\"command\":\"goto-back#" + + this.positionX + ";" + this.positionY + "\"," +
             "\"position\":" + this.endPoint.toJson() +
-        "},");
+        "},";
     }
 }

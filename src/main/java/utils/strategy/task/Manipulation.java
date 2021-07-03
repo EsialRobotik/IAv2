@@ -1,7 +1,6 @@
 package utils.strategy.task;
 
 import asserv.Position;
-import pathfinding.table.Point;
 import utils.strategy.Tache;
 
 public class Manipulation extends Tache {
@@ -15,12 +14,12 @@ public class Manipulation extends Tache {
     }
 
     @Override
-    public void execute(Position startPoint) {
+    public String execute(Position startPoint) {
         this.endPoint = startPoint;
-        System.out.println("{ " +
+        return "{ " +
             "\"task\":\""+this.desc+"\"," +
             "\"command\":\"action#" + + this.actionId + "\"," +
             "\"position\":" + this.endPoint.toJson() +
-        "},");
+        "},";
     }
 }

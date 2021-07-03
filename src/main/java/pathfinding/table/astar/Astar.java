@@ -307,7 +307,18 @@ public class Astar {
         // On vérifie les index, parce qu'on sait jamais non plus...
         if (start.x < 0 || start.x >= dimX || start.y < 0 || start.y >= dimY
                 || objectif.x < 0 || objectif.x > dimX || objectif.y < 0 || objectif.y >= dimY) {
-            throw new IndexOutOfBoundsException("Point en dehors de la table !");
+            logger.error("Point en dehors de la table !");
+            return null;
+        }
+
+        if (grille[start.x][start.y] == null) {
+            logger.error("Départ en zone interdite");
+            return null;
+        }
+
+        if (grille[objectif.x][objectif.y] == null) {
+            logger.error("Arrivée en zone interdite");
+            return null;
         }
 
         // On lance le bouzin !
@@ -317,8 +328,9 @@ public class Astar {
         Node courant = grille[objectif.x][objectif.y];
 
         // Si l'objectif n'a pas de parent, c'est qu'il n'y a pas de chemin !
-        if (courant.parent == null) {
-            throw new IndexOutOfBoundsException("Aucun chemin trouvé !");
+        if (courant == null || courant.parent == null) {
+            logger.error("Aucun chemin trouvé !");
+            return null;
         }
 
         while (courant != null) {

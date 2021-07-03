@@ -46,9 +46,14 @@ public class PathFinding {
                 Point rectifiedStart = new Point(start.getX() / 10, start.getY() / 10);
                 Point rectifiedEnd = new Point(end.getX() / 10, end.getY() / 10);
                 Stack<Point> path = astar.getChemin(rectifiedStart, rectifiedEnd);
+                computedPath = new ArrayList<>();
+                if (path == null) {
+                    computationEnded = true;
+                    computationStart = false;
+                    return;
+                }
                 List<Point> simplePath = LineSimplificator.getSimpleLines(path);
                 Collections.reverse(simplePath);
-                computedPath = new ArrayList<>();
                 for(Point p : simplePath) {
                     computedPath.add(new Point(p.getX() * 10, p.getY() * 10));
                 }

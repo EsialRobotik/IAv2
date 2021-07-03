@@ -6,7 +6,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.apache.logging.log4j.Level;
 import pathfinding.PathFinding;
-import pathfinding.table.Point;
 import pathfinding.table.Table;
 import pathfinding.table.astar.Astar;
 import utils.strategy.Objectif;
@@ -38,15 +37,14 @@ public class Main2021 {
          */
         TaskList recuperationRecifSud =  new TaskList();
         recuperationRecifSud.add(new Go("Step de départ bizarre", 1));
-        recuperationRecifSud.add(new GoTo("Sortie départ", 800, 730));
+        recuperationRecifSud.add(new GoTo("Sortie départ", 750, 670));
         recuperationRecifSud.add(new Manipulation("Preparer ramassage recif sud", 5));
-        recuperationRecifSud.add(new GoToAstar("Placement recif sud", 1590, 230));
-        recuperationRecifSud.add(new GoTo("Mise en position rammassage recif sud", 1595, 130));
-        recuperationRecifSud.add(new Face("Alignement recif sud", 1595, 0));
-        recuperationRecifSud.add(new Go("Plaquage rammassage recif sud", 130, 500));
+        recuperationRecifSud.add(new GoToAstar("Placement recif sud", 1600, 230));
+        recuperationRecifSud.add(new Face("Alignement recif sud", 1600, 0));
+        recuperationRecifSud.add(new Go("Plaquage rammassage recif sud", 230, 500));
         recuperationRecifSud.add(new Manipulation("Ramassage recif sud", 6));
         recuperationRecifSud.add(new Manipulation("Libération ramassage recif sud", 7));
-        recuperationRecifSud.add(new Go("Sortie recif sud", -230));
+        recuperationRecifSud.add(new Go("Sortie recif sud", -210));
         Objectif objectifRecuperationRecifSud0 = new Objectif("Recif Sud", objectifsCouleur0.size()+1, 0, 1, recuperationRecifSud);
         Objectif objectifRecuperationRecifSud3000 = new Objectif("Recif Sud", objectifsCouleur3000.size()+1, 0, 1, null);
         try {
@@ -64,21 +62,22 @@ public class Main2021 {
         int score = 15;
         TaskList manches =  new TaskList();
         TaskList manches3000 =  new TaskList();
-        manches.add(new GoToAstar("Placement manche à air", 1780, 210));
-        manches.add(new Face("Alignement manche à air", 1780, 3000));
+        manches.add(new GoToAstar("Placement manche à air", 1800, 210));
+        manches.add(new GoTo("Ajustement placement manche à air", 1830, 210));
+        manches.add(new Face("Alignement manche à air", 1830, 3000));
         manches.add(new Go("Callage manche à air", -120, 500));
         int sortieBras = manches.size()+1;
         manches.add(new Manipulation("Sortie bras droit", 1, Tache.Mirror.SPECIFIC));
         manches3000.add(new Manipulation("Sortie bras gauche", 2, Tache.Mirror.SPECIFIC), sortieBras);
         manches.add(new SetSpeed("Réduction de la vitesse", 50));
-        manches.add(new GoTo("Taper la manche 1", 1780, 290));
-        manches.add(new Face("Réalignement", 1780, 3000));
-        manches.add(new GoTo("Taper la manche 2", 1780, 700));
+        manches.add(new GoTo("Taper la manche 1", 1830, 290));
+        manches.add(new GoTo("Taper la manche 2", 1830, 700));
         manches.add(new SetSpeed("Vitesse normale", 100));
         int rentrerBras = manches.size()+1;
         manches.add(new Manipulation("Rentrer bras droit", 3, Tache.Mirror.SPECIFIC));
         manches3000.add(new Manipulation("Rentrer bras gauche", 4, Tache.Mirror.SPECIFIC), rentrerBras);
         manches.add(new Go("On quitte la zone", -70));
+        manches.add(new GoTo("On quitte la zone interdite", 1800, 630));
         Objectif objectifManches0 = new Objectif("Manches à air", objectifsCouleur0.size()+1, score, 1, manches);
         Objectif objectifManches3000 = new Objectif("Manches à air", objectifsCouleur3000.size()+1, score, 1, null);
         try {
@@ -153,7 +152,7 @@ public class Main2021 {
         TaskList largageSud = new TaskList();
         largageSud.add(new GoToAstar("Déplacement largage sud", 1420, 220));
         largageSud.add(new Face("Alignement largage sud", 0, 220));
-        largageSud.add(new Go("Placement largage sud", 120));
+        largageSud.add(new Go("Placement largage sud", 200));
         largageSud.add(new Manipulation("Préparer largage recif sud", 8));
         largageSud.add(new Manipulation("Largage impaire recif sud", 9));
         largageSud.add(new Go("Sortie largage sud", -200));
@@ -176,11 +175,11 @@ public class Main2021 {
          */
         score = 8;
         TaskList largageNord = new TaskList();
-        largageNord.add(new GoToAstar("Placement largage nord", 210, 280));
+        largageNord.add(new GoToAstar("Placement largage nord", 300, 280));
         largageNord.add(new Face("Alignement largage nord", 2000, 280));
         largageNord.add(new GoTo("Placement largage nord", 360, 280));
         largageNord.add(new Manipulation("Largage impaire nord", 10));
-        largageNord.add(new GoToBack("Sortie largage nord", 210, 280));
+        largageNord.add(new GoToBack("Sortie largage nord", 230, 280));
         largageNord.add(new Manipulation("On remet tout en place", 0));
         Objectif objectifRecifLargageN0 = new Objectif("Largage nord", objectifsCouleur0.size()+1, score, 1, largageNord);
         Objectif objectifRecifLargageN3000 = new Objectif("Largage nord", objectifsCouleur3000.size()+1, score, 1, null);
@@ -257,21 +256,29 @@ public class Main2021 {
 
         System.out.println("Test de la strat");
         try {
-            LoggerFactory.init(Level.OFF);
+            LoggerFactory.init(Level.TRACE);
             Table table = new Table("table0.tbl");
             table.loadJsonFromFile("table.json");
             PathFinding pathFinding = new PathFinding(new Astar(table));
-            Position startPoint = new Position(800, 200, Math.PI / 2);
-            System.out.println("[");
-            System.out.println("{ \"task\":\"Position de départ\",\"command\":\"start\",\"position\":" + startPoint.toJson() + "},");
+            Position startPoint = new Position(750, 200, Math.PI / 2);
+            StringBuilder stratSimu = new StringBuilder("[");
+            stratSimu.append("{ \"task\":\"Position de départ\",\"command\":\"start\",\"position\":" + startPoint.toJson() + "},");
             for (Objectif objectif : strat.couleur0) {
                 for (Tache task: objectif.taches) {
                     task.pathFinding = pathFinding;
-                    task.execute(startPoint);
+                    String execution = task.execute(startPoint);
+                    System.out.println(execution);
+                    stratSimu.append(execution);
                     startPoint = task.getEndPoint();
                 }
             }
-            System.out.println("]");
+            stratSimu.deleteCharAt(stratSimu.length()-1);
+            stratSimu.append("]");
+            try (PrintWriter stratFile = new PrintWriter("strat_simu.json")) {
+                stratFile.println(stratSimu);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

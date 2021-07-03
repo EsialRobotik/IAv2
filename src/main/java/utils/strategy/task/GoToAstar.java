@@ -4,6 +4,8 @@ import asserv.Position;
 import pathfinding.table.Point;
 import utils.strategy.Tache;
 
+import java.util.List;
+
 public class GoToAstar extends Tache {
 
     public GoToAstar(String desc, int positionX, int positionY) {
@@ -15,7 +17,7 @@ public class GoToAstar extends Tache {
     }
 
     @Override
-    public void execute(Position startPoint) {
+    public String execute(Position startPoint) {
         pathFinding.computePath(
                 new Point(startPoint),
                 new Point(this.positionX, this.positionY)
@@ -27,16 +29,23 @@ public class GoToAstar extends Tache {
                 e.printStackTrace();
             }
         }
+        StringBuilder res = new StringBuilder();
         this.endPoint = startPoint;
-        for (Point p : pathFinding.getLastComputedPath()) {
+        List<Point> path = pathFinding.getLastComputedPath();
+        if (path.size() == 0) {
+            System.err.println("Erreur de pathfinding");
+            return "";
+        }
+        for (Point p : path) {
             if (this.endPoint.getX() != p.x || this.endPoint.getY() != p.y) {
                 this.endPoint = new Position(p.x, p.y, this.calculateTheta(this.endPoint, p.x, p.y));
             }
-            System.out.println("{ " +
+            res.append("{ " +
                 "\"task\":\""+this.desc+"\"," +
                 "\"command\":\"goto-astar#" + + p.x + ";" + p.y + "\"," +
                 "\"position\":" + this.endPoint.toJson() +
             "},");
         }
+        return res.toString();
     }
 }

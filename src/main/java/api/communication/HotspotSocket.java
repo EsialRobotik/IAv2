@@ -51,8 +51,8 @@ public class HotspotSocket {
     public static void main(String[] args) throws Exception {
         String hostname = "localhost";
         int port = 4269;
-        String who = "robot";
-//        String who = "loggerListener";
+//        String who = "robot";
+        String who = "loggerListener";
         HotspotSocket socket = new HotspotSocket(hostname, port, who);
         while (true) {
             socket.write("Coucou 2");

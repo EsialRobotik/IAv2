@@ -3,7 +3,6 @@ package utils.strategy;
 import asserv.Position;
 import com.google.gson.annotations.SerializedName;
 import pathfinding.PathFinding;
-import pathfinding.table.Point;
 
 /**
  * Created by franc on 27/04/2018.
@@ -150,6 +149,7 @@ public class Tache {
         this.type = t.type;
         this.subtype = t.subtype;
         this.actionId = t.actionId;
+        this.itemId = t.itemId;
         this.mirror = t.mirror;
         this.timeout = t.timeout;
     }
@@ -242,7 +242,9 @@ public class Tache {
         this.timeout = timeout;
     }
 
-    public void execute(Position startPoint) {}
+    public String execute(Position startPoint) {
+        return "";
+    }
 
     public Position getEndPoint() {
         return this.endPoint;
@@ -254,7 +256,9 @@ public class Tache {
         } else if (finalX == currentPosition.getX()) {
             return finalY > currentPosition.getY() ? Math.PI / 2 : -Math.PI / 2;
         } else {
-            return Math.atan(((double)(finalY - currentPosition.getY()) / (double)(finalX - currentPosition.getX())));
+            return
+                (finalY > currentPosition.getY() || finalX < currentPosition.getX() ? Math.PI : 0) +
+                Math.atan(((double)(finalY - currentPosition.getY())) / ((double)(finalX - currentPosition.getX())));
         }
     }
 

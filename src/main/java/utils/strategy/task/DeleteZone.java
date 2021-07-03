@@ -14,13 +14,13 @@ public class DeleteZone extends Tache {
     }
 
     @Override
-    public void execute(Position startPoint) {
+    public String execute(Position startPoint) {
         this.endPoint = startPoint;
         this.pathFinding.liberateElementById(this.itemId);
-        System.out.println("{ " +
+        return "{ " +
             "\"task\":\""+this.desc+"\"," +
             "\"command\":\"delete-zone#" + this.itemId + "\"," +
             "\"position\":" + this.endPoint.toJson() +
-        "},");
+        "},";
     }
 }

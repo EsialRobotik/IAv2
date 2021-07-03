@@ -1,7 +1,6 @@
 package utils.strategy.task;
 
 import asserv.Position;
-import pathfinding.table.Point;
 import utils.strategy.Tache;
 
 public class Go extends Tache {
@@ -23,14 +22,14 @@ public class Go extends Tache {
     }
 
     @Override
-    public void execute(Position startPoint) {
+    public String execute(Position startPoint) {
         int newX = startPoint.getX() + (int) (this.dist * Math.cos(startPoint.getTheta()));
         int newY = startPoint.getY() + (int) (this.dist * Math.sin(startPoint.getTheta()));
         this.endPoint = new Position(newX, newY, startPoint.getTheta());
-        System.out.println("{ " +
+        return "{ " +
             "\"task\":\""+this.desc+"\"," +
             "\"command\":\"go#" + this.dist + "\"," +
             "\"position\":" + this.endPoint.toJson() +
-        "},");
+        "},";
     }
 }
