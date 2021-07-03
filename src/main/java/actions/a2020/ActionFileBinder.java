@@ -50,7 +50,25 @@ public class ActionFileBinder implements ActionInterface {
 		 */
 		PREPARER_PHARE("preparer_phare.json", false), // 11
 
-		FUNNY_ACTION("sortir_drapeau.json"); // 12
+		FUNNY_ACTION("sortir_drapeau.json"), // 12
+
+		/**
+		 * PMI Init
+		 */
+		PMI_RANGER_BRAS_DROIT("pmi_ranger_bras_droit.json"), // 13
+		PMI_RANGER_BRAS_GAUCHE("pmi_ranger_bras_gauche.json"), // 14
+
+		/**
+		 * PMI Ramassage de bouée
+		 */
+		PMI_SORTIR_LEVER_BRAS_DROIT("pmi_sortir_lever_bras_droit.json"), // 15
+		PMI_SORTIR_LEVER_BRAS_GAUCHE("pmi_sortir_lever_bras_gauche.json"), // 16
+		PMI_POSER_BRAS_DROIT("pmi_poser_bras_droit.json"), // 17
+		PMI_POSER_BRAS_GAUCHE("pmi_poser_bras_gauche.json"), // 18
+		PMI_ATTRAPER_BRAS_DROIT("pmi_attraper_bras_droit.json"), // 19
+		PMI_ATTRAPER_BRAS_GAUCHE("pmi_attraper_bras_gauche.json"), // 20
+		PMI_LACHER_BRAS_DROIT("pmi_lacher_bras_droit.json"), // 21
+		PMI_LACHER_BRAS_GAUCHE("pmi_lacher_bras_gauche.json"); // 22
 
 		public final String nomFichier;
 		public final boolean instantReturn;

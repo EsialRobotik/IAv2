@@ -15,6 +15,8 @@ import api.log.LoggerFactory;
 import asserv.Asserv;
 import asserv.AsservInterface;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import detection.DetectionInterface;
 import detection.DetectionInterfaceImpl;
@@ -30,6 +32,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
 /**
  * This class is responsible for the loading of the robot
@@ -131,8 +134,13 @@ public class ConfigurationManager {
                 SerialPort sp = AX12LinkSerial.getSerialPort(configObject.get("serie").getAsString());
                 AX12LinkSerial ax12Link = new AX12LinkSerial(sp, configObject.get("baud").getAsInt());
                 String dataDir = configObject.get("dataDir").getAsString();
+                JsonArray initArray = configObject.getAsJsonArray("init");
+                ArrayList<Integer> initActionsIds = new ArrayList<>();
+                for (JsonElement actionId : initArray) {
+                    initActionsIds.add(actionId.getAsInt());
+                }
                 actionFileBinder = new ActionFileBinder(ax12Link, dataDir, actionCollection);
-                actionSupervisor = new ActionSupervisor(actionFileBinder);
+                actionSupervisor = new ActionSupervisor(actionFileBinder, initActionsIds);
             }
         }
 

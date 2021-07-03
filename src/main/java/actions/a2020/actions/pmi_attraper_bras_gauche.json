@@ -1,0 +1,13 @@
+{
+    "actionPools": [
+        {
+            "actions": [
+                {
+                    "actionId": "actionPump",
+                    "switchState": true,
+                    "pumpId": 1
+                }
+            ]
+        }
+    ]
+}

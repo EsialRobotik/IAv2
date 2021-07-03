@@ -1,5 +1,7 @@
 package actions;
 
+import java.util.ArrayList;
+
 /**
  * The purpose of this class is to handle the execution of actions
  * Created by icule on 21/05/17.
@@ -7,9 +9,11 @@ package actions;
 public class ActionSupervisor {
     private ActionInterface actionInterface;
     private ActionExecutor currentActionExecutor;
+    private ArrayList<Integer> initActionsId;
 
-    public ActionSupervisor(ActionInterface actionInterface) {
+    public ActionSupervisor(ActionInterface actionInterface, ArrayList<Integer> initActionsId) {
         this.actionInterface = actionInterface;
+        this.initActionsId = initActionsId;
     }
 
     public void executeCommand(int id) {
@@ -26,6 +30,12 @@ public class ActionSupervisor {
 
     public void stopActions() {
         actionInterface.stopActions();
+    }
+
+    public void init() {
+        for (int actionId : this.initActionsId) {
+            this.executeCommand(actionId);
+        }
     }
 
     /**
