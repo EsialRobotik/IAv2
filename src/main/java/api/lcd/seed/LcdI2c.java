@@ -64,6 +64,7 @@ public class LcdI2c implements LCD {
             Thread.sleep(500);
         } catch (InterruptedException e) {
         }
+        this.charGotoXY(0, 0);
     }
 
     @Override

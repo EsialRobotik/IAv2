@@ -40,8 +40,8 @@ public class Main2021 {
         recuperationRecifSud.add(new GoTo("Sortie départ", 750, 670));
         recuperationRecifSud.add(new Manipulation("Preparer ramassage recif sud", 5));
         recuperationRecifSud.add(new GoToAstar("Placement recif sud", 1600, 230));
-        recuperationRecifSud.add(new Face("Alignement recif sud", 1600, 0));
-        recuperationRecifSud.add(new Go("Plaquage rammassage recif sud", 230, 500));
+        recuperationRecifSud.add(new GoTo("Alignement recif sud", 1600, 130));
+        recuperationRecifSud.add(new Go("Plaquage rammassage recif sud", 130, 500));
         recuperationRecifSud.add(new Manipulation("Ramassage recif sud", 6));
         recuperationRecifSud.add(new Manipulation("Libération ramassage recif sud", 7));
         recuperationRecifSud.add(new Go("Sortie recif sud", -210));
@@ -62,22 +62,21 @@ public class Main2021 {
         int score = 15;
         TaskList manches =  new TaskList();
         TaskList manches3000 =  new TaskList();
-        manches.add(new GoToAstar("Placement manche à air", 1800, 210));
-        manches.add(new GoTo("Ajustement placement manche à air", 1830, 210));
-        manches.add(new Face("Alignement manche à air", 1830, 3000));
+        manches.add(new GoToAstar("Placement manche à air", 1700, 210));
+        manches.add(new GoToBack("Ajustement placement manche à air", 1800, 210));
+        manches.add(new Face("Alignement manche à air", 1800, 3000));
         manches.add(new Go("Callage manche à air", -120, 500));
         int sortieBras = manches.size()+1;
         manches.add(new Manipulation("Sortie bras droit", 1, Tache.Mirror.SPECIFIC));
         manches3000.add(new Manipulation("Sortie bras gauche", 2, Tache.Mirror.SPECIFIC), sortieBras);
         manches.add(new SetSpeed("Réduction de la vitesse", 50));
-        manches.add(new GoTo("Taper la manche 1", 1830, 290));
-        manches.add(new GoTo("Taper la manche 2", 1830, 700));
+        manches.add(new GoTo("Taper la manche 1", 1800, 290));
+        manches.add(new GoTo("Taper la manche 2", 1800, 700));
         manches.add(new SetSpeed("Vitesse normale", 100));
         int rentrerBras = manches.size()+1;
         manches.add(new Manipulation("Rentrer bras droit", 3, Tache.Mirror.SPECIFIC));
         manches3000.add(new Manipulation("Rentrer bras gauche", 4, Tache.Mirror.SPECIFIC), rentrerBras);
         manches.add(new Go("On quitte la zone", -70));
-        manches.add(new GoTo("On quitte la zone interdite", 1800, 630));
         Objectif objectifManches0 = new Objectif("Manches à air", objectifsCouleur0.size()+1, score, 1, manches);
         Objectif objectifManches3000 = new Objectif("Manches à air", objectifsCouleur3000.size()+1, score, 1, null);
         try {
@@ -115,12 +114,12 @@ public class Main2021 {
          */
         score = 6;
         TaskList petitPort = new TaskList();
-        petitPort.add(new GoToAstar("Déplacement petit port", 1425, 1800));
+        petitPort.add(new GoToAstar("Déplacement petit port", 1450, 1800));
         petitPort.add(new Face("Alignement petit port", 0, 1800));
         petitPort.add(new GoToBack("Marquage bouées petit port", 1700, 1800));
         petitPort.add(new DeleteZone("Suppression zone bouée 8", "bouee8"));
         petitPort.add(new DeleteZone("Suppression zone bouée 11", "bouee11"));
-        petitPort.add(new GoTo("Sortie petit port", 1425, 1800));
+        petitPort.add(new GoTo("Sortie petit port", 1450, 1800));
 
         // TODO Taff de picrate
         petitPort.add(new DeleteZone("Suppression zone bouée 1", "bouee1"));
@@ -152,10 +151,10 @@ public class Main2021 {
         TaskList largageSud = new TaskList();
         largageSud.add(new GoToAstar("Déplacement largage sud", 1420, 220));
         largageSud.add(new Face("Alignement largage sud", 0, 220));
-        largageSud.add(new Go("Placement largage sud", 200));
+        largageSud.add(new Go("Placement largage sud", 190));
         largageSud.add(new Manipulation("Préparer largage recif sud", 8));
         largageSud.add(new Manipulation("Largage impaire recif sud", 9));
-        largageSud.add(new Go("Sortie largage sud", -200));
+        largageSud.add(new Go("Sortie largage sud", -190));
         Objectif objectifLargageSud0 = new Objectif("Largage sud", objectifsCouleur0.size()+1, score, 1, largageSud);
         Objectif objectifLargageSud3000 = new Objectif("Largage sud", objectifsCouleur3000.size()+1, score, 1, null);
         try {
@@ -175,7 +174,7 @@ public class Main2021 {
          */
         score = 8;
         TaskList largageNord = new TaskList();
-        largageNord.add(new GoToAstar("Placement largage nord", 300, 280));
+        largageNord.add(new GoToAstar("Placement largage nord", 280, 280));
         largageNord.add(new Face("Alignement largage nord", 2000, 280));
         largageNord.add(new GoTo("Placement largage nord", 360, 280));
         largageNord.add(new Manipulation("Largage impaire nord", 10));
@@ -256,7 +255,7 @@ public class Main2021 {
 
         System.out.println("Test de la strat");
         try {
-            LoggerFactory.init(Level.TRACE);
+            LoggerFactory.init(Level.OFF);
             Table table = new Table("table0.tbl");
             table.loadJsonFromFile("table.json");
             PathFinding pathFinding = new PathFinding(new Astar(table));
@@ -517,7 +516,7 @@ public class Main2021 {
          */
         int score = 10;
         List<Tache> tachesPortNord =  new ArrayList<>();
-        tachesPortNord.add(new Tache("On se gare", tachesPortNord.size()+1, 300, 150, Tache.Type.DEPLACEMENT, Tache.SubType.GOTO_ASTAR, -1, Tache.Mirror.MIRRORY));
+        tachesPortNord.add(new Tache("On se gare", tachesPortNord.size()+1, 250, 250, Tache.Type.DEPLACEMENT, Tache.SubType.GOTO_ASTAR, -1, Tache.Mirror.MIRRORY));
         Objectif objectifPortN0 = new Objectif("Port Nord", objectifsCouleur0.size()+1, score, 1, tachesPortNord);
         Objectif objectifPortN3000 = new Objectif("Port Nord", objectifsCouleur3000.size()+1, score, 1, null);
         try {
@@ -534,7 +533,7 @@ public class Main2021 {
          */
         score = 10;
         List<Tache> tachesPortSud =  new ArrayList<>();
-        tachesPortSud.add(new Tache("On se gare", tachesPortSud.size()+1, 1300, 150, Tache.Type.DEPLACEMENT, Tache.SubType.GOTO_ASTAR, -1, Tache.Mirror.MIRRORY));
+        tachesPortSud.add(new Tache("On se gare", tachesPortSud.size()+1, 1250, 250, Tache.Type.DEPLACEMENT, Tache.SubType.GOTO_ASTAR, -1, Tache.Mirror.MIRRORY));
         Objectif objectifPortS0 = new Objectif("Port Sud", objectifsCouleur0.size()+1, score, 1, tachesPortSud);
         Objectif objectifPortS3000 = new Objectif("Port Sud", objectifsCouleur3000.size()+1, score, 1, null);
         try {

@@ -8,7 +8,7 @@ import org.apache.logging.log4j.core.config.ConfigurationFactory;
 public class LoggerFactory {
     private static boolean hasBeenInit = false;
 
-    public static void init(final Level level){
+    public static void init(final Level level) {
         ConfigurationFactory.setConfigurationFactory(new CustomConfigurationFactory(level));
         hasBeenInit = true;
     }

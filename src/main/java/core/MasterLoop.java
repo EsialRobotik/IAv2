@@ -259,33 +259,28 @@ public class MasterLoop {
         logger.info("Init mainLoop");
 
         // Calage bordure
-        lcdDisplay.println(colorDetector.isColor0() ? TableColor.COLOR_0.toString() : TableColor.COLOR_3000.toString());
+        lcdDisplay.println(colorDetector.isColor0() ? TableColor.COLOR_0.toString() : TableColor.COLOR_3000.toString() + " ou reset ?");
         logger.info("Attente mise en place tirette pour init calage");
-        lcdDisplay.println("Attente tirette");
+        lcdDisplay.println("Attente tirette init");
         tirette.waitForTirette(true);
-        logger.info("Attente retrait tirette pour init calage");
-        lcdDisplay.println(colorDetector.isColor0() ? TableColor.COLOR_0.toString() : TableColor.COLOR_3000.toString());
-        lcdDisplay.println("Enlever tirette");
         tirette.waitForTirette(false);
         logger.info("Start calage bordure");
-        lcdDisplay.println("Lancement calage bordure");
         movementManager.calage(colorDetector.isColor0());
+        lcdDisplay.println("Initialisation OK");
 
         logger.info("Initialisation des actionneurs");
-        lcdDisplay.println("Init actions");
         actionSupervisor.executeCommand(0);
 
-        lcdDisplay.println("Attente tirette");
+        lcdDisplay.println("Attente tirette GoStart");
         logger.info("Attente tirette mise en position de depart");
         tirette.waitForTirette(true);
-        lcdDisplay.println("tirette gostart");
         tirette.waitForTirette(false);
         logger.info("Start zone de depart");
-        lcdDisplay.println("position depart");
         movementManager.goStart(colorDetector.isColor0());
 
         // Wait tirette remise
-        lcdDisplay.println("Attente tirette");
+        lcdDisplay.clear();
+        lcdDisplay.println("Attente tirette depart");
         logger.info("Init ended, wait for tirette");
         tirette.waitForTirette(true);
         logger.info("Tirette inserted. End of initialization.");

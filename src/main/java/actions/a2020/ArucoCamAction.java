@@ -31,28 +31,28 @@ public class ArucoCamAction implements ActionExecutor {
         Gson gson = new Gson();
         this.nord0 = new ActionDescriptor(
             gson.fromJson(
-                "{\"desc\":\"Port Nord\",\"id\":1,\"points\":10,\"priorite\":1,\"taches\":[{\"desc\":\"On se gare au Nord\",\"id\":3,\"positionX\":300,\"positionY\":250,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto_astar\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1}]}",
+                "{\"desc\":\"Port Nord\",\"id\":1,\"points\":10,\"priorite\":1,\"taches\":[{\"desc\":\"On se gare au Nord\",\"id\":3,\"positionX\":250,\"positionY\":250,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto_astar\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1}]}",
                 JsonObject.class
             ),
             actionCollection.isStepByStep()
         );
         this.sud0 = new ActionDescriptor(
             gson.fromJson(
-                "{\"desc\":\"Port Sud\",\"id\":2,\"points\":10,\"priorite\":1,\"taches\":[{\"desc\":\"On se gare au Sud\",\"id\":3,\"positionX\":1300,\"positionY\":250,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto_astar\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1}]}",
+                "{\"desc\":\"Port Sud\",\"id\":2,\"points\":10,\"priorite\":1,\"taches\":[{\"desc\":\"On se gare au Sud\",\"id\":3,\"positionX\":1350,\"positionY\":250,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto_astar\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1}]}",
                 JsonObject.class
             ),
             actionCollection.isStepByStep()
         );
         this.nord3000 = new ActionDescriptor(
             gson.fromJson(
-                "{\"desc\":\"Port Nord\",\"id\":1,\"points\":10,\"priorite\":1,\"taches\":[{\"desc\":\"On se gare au Nord\",\"id\":3,\"positionX\":300,\"positionY\":2750,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto_astar\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1}]}",
+                "{\"desc\":\"Port Nord\",\"id\":1,\"points\":10,\"priorite\":1,\"taches\":[{\"desc\":\"On se gare au Nord\",\"id\":3,\"positionX\":250,\"positionY\":2750,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto_astar\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1}]}",
                 JsonObject.class
             ),
             actionCollection.isStepByStep()
         );
         this.sud3000 = new ActionDescriptor(
             gson.fromJson(
-                "{\"desc\":\"Port Sud\",\"id\":2,\"points\":10,\"priorite\":1,\"taches\":[{\"desc\":\"On se gare au Sud\",\"id\":3,\"positionX\":1300,\"positionY\":2750,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto_astar\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1}]}",
+                "{\"desc\":\"Port Sud\",\"id\":2,\"points\":10,\"priorite\":1,\"taches\":[{\"desc\":\"On se gare au Sud\",\"id\":3,\"positionX\":1350,\"positionY\":2750,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto_astar\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1}]}",
                 JsonObject.class
             ),
             actionCollection.isStepByStep()

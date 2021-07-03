@@ -8,13 +8,13 @@
     "tableJsonPath": "table.json",
     "commandFile": "configCollection.json",
     "lcd": {
-        "type": "segment",
-        "i2cAddress": 39,
+        "type": "full",
+        "i2cAddress": 81,
         "lineCount": 2,
         "lineLength": 16
     },
     "loggerSocket": {
-        "active": false,
+        "active": true,
         "host": "192.168.0.102",
         "port": 4269,
         "who": "princesspi"

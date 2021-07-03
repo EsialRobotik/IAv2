@@ -63,22 +63,25 @@ public class CustomConfigurationFactory extends ConfigurationFactory {
                 add(builder.newAppenderRef("Stdout")).
                 addAttribute("additivity", false));
 
-        Gson gson = new Gson();
-        Reader reader = Files.newBufferedReader(Paths.get(Main.configFilePath));
-        JsonObject configRootNode = gson.fromJson(reader, JsonObject.class);
-        JsonObject loggerSocketConfig = configRootNode.getAsJsonObject("loggerSocket");
-        if (loggerSocketConfig != null && loggerSocketConfig.get("active").getAsBoolean()) {
-            appenderBuilder = builder.newAppender("Socket", "Socket")
-                .addAttribute("host", loggerSocketConfig.get("host").getAsString())
-                .addAttribute("protocol", Protocol.TCP)
-                .addAttribute("port", loggerSocketConfig.get("port").getAsInt())
-                .addAttribute("reconnectDelayMillis", -1)
-                .addAttribute("immediateFail", false);
-            appenderBuilder.add(builder.newLayout("PatternLayout").
-                addAttribute("pattern", "%d ["+loggerSocketConfig.get("who").getAsString()+"][%t][%c{1}] %-5level: %msg%n%throwable"));
-            appenderBuilder.add(builder.newFilter("MarkerFilter", Filter.Result.DENY,
-                Filter.Result.NEUTRAL).addAttribute("marker", "FLOW"));
-            builder.add(appenderBuilder);
+        JsonObject loggerSocketConfig = null;
+        if (!this.level.equals(Level.OFF)) {
+            Gson gson = new Gson();
+            Reader reader = Files.newBufferedReader(Paths.get(Main.configFilePath));
+            JsonObject configRootNode = gson.fromJson(reader, JsonObject.class);
+            loggerSocketConfig = configRootNode.getAsJsonObject("loggerSocket");
+            if (loggerSocketConfig != null && loggerSocketConfig.get("active").getAsBoolean()) {
+                appenderBuilder = builder.newAppender("Socket", "Socket")
+                        .addAttribute("host", loggerSocketConfig.get("host").getAsString())
+                        .addAttribute("protocol", Protocol.TCP)
+                        .addAttribute("port", loggerSocketConfig.get("port").getAsInt())
+                        .addAttribute("reconnectDelayMillis", -1)
+                        .addAttribute("immediateFail", false);
+                appenderBuilder.add(builder.newLayout("PatternLayout").
+                        addAttribute("pattern", "%d [" + loggerSocketConfig.get("who").getAsString() + "][%t][%c{1}] %-5level: %msg%n%throwable"));
+                appenderBuilder.add(builder.newFilter("MarkerFilter", Filter.Result.DENY,
+                        Filter.Result.NEUTRAL).addAttribute("marker", "FLOW"));
+                builder.add(appenderBuilder);
+            }
         }
 
         LayoutComponentBuilder layoutBuilder;
