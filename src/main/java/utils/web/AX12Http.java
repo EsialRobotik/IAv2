@@ -7,7 +7,7 @@ import java.io.OutputStream;
 import java.net.InetSocketAddress;
 
 import actions.ax12.ActionOrchestrator;
-import api.ax12.AX12LinkSerial;
+import api.ax12.AX12Link;
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -24,9 +24,9 @@ public class AX12Http implements HttpHandler {
 	
 	protected File staticContentFolder;
 	protected ActionOrchestrator orchestrator;
-	protected AX12LinkSerial ls;
+	protected AX12Link ls;
 
-	public AX12Http(File staticContentForlder, File dataDir, AX12LinkSerial ax12Link) {
+	public AX12Http(File staticContentForlder, File dataDir, AX12Link ax12Link) {
 		this.staticContentFolder = staticContentForlder;
 		this.orchestrator = null;
 		this.ls = ax12Link;
@@ -115,7 +115,7 @@ public class AX12Http implements HttpHandler {
 		this.orchestrator = ao;
 	}
 	
-	public AX12LinkSerial getAx12Link() {
+	public AX12Link getAx12Link() {
 		return ls;
 	}
 	

@@ -1,0 +1,280 @@
+<html>
+<title>Picrate Princess 2021 Actuators</title>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../libs/jquery-ui-1.12.1.min.css">
+    <link rel="stylesheet" href="../libs/jquery-ui-1.12.1.structure.min.css">
+    <link rel="stylesheet" href="../libs/jquery-ui-1.12.1.theme.min.css">
+    <link rel="stylesheet" href="../libs/jquery.toast.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="logo.png">
+    <script src="../libs/jquery-1.12.4.js"></script>
+    <script src="../libs/jquery-ui-1.12.1.min.js"></script>
+    <script src="../libs/jquery.toast.min.js"></script>
+    <script src="app2021_pmi.js"></script>
+</head>
+<body>
+
+<h1><img src="logo.png" height="25px"> Grabing Princess Actuator Configurator</h1>
+<!-- Pour voir tout de suite s'il manque du JS ouj du CSS -->
+<h1 class="css-load-checker" style="color: orange;">Chargement du CSS...</h1>
+<h1 class="js-load-checker" style="color: orange;">Chargement du JS...</h1>
+
+<div class="actions-records">
+    <h3 class="u-no-margin-top">Enregistrement des Pools</h3>
+    <fieldset class="actions-records__ax12">
+        <legend>Position AX12</legend>
+        <label for="princess_ax12_1">Gauche</label>
+        <input type="checkbox" name="princess_ax12" id="princess_ax12_1" checked="checked">
+        <label for="princess_ax12_2">Droit</label>
+        <input type="checkbox" name="princess_ax12" id="princess_ax12_2" checked="checked">
+        <br><br>
+        <button class="ui-button ui-widget ui-corner-all actions-records__ax12_new">
+            <span class="ui-icon ui-icon-bullet"></span> Rec Nouveau
+        </button>
+        <button class="ui-button ui-widget ui-corner-all actions-records__ax12_current">
+            <span class="ui-icon ui-icon-bullet"></span> Rec Courant
+        </button>
+        <br><br>
+        <button class="ui-button ui-widget ui-corner-all actions-records__ax12-release-selected">
+            <span class="ui-icon ui-icon-heart"></span> Libérer sélection
+        </button>
+        <button class="ui-button ui-widget ui-corner-all actions-records__ax12-release-all">
+            <span class="ui-icon ui-icon-heart"></span> Libérer tout
+        </button>
+    </fieldset>
+    <fieldset class="actions-records__serialflag">
+        <legend>Pompes</legend>
+        <label for="princess_serial_flag_dtr">Droite</label>
+        <input type="checkbox" name="princess_serial-flag-dtr" id="princess_serial_flag_dtr" class="actions-records__serialflag-flag" value="DTR" checked="checked">
+        <label for="princess_serial_flag_rts">Gauche</label>
+        <input type="checkbox" name="princess_serial-flag-rts" id="princess_serial_flag_rts" class="actions-records__serialflag-flag" value="RTS" checked="checked">
+        <button class="ui-button ui-widget ui-corner-all actions-records__serialflag-btn-on">
+            <span class="ui-icon ui-icon-flag"></span> ON
+        </button>
+        <button class="ui-button ui-widget ui-corner-all actions-records__serialflag-btn-off">
+            <span class="ui-icon ui-icon-flag"></span> OFF
+        </button>
+    </fieldset>
+    <fieldset class="actions-records__delay">
+        <legend>Délais</legend>
+        <button class="ui-button ui-widget ui-corner-all">
+            <span class="ui-icon ui-icon-clock"></span> Ajouter
+        </button>
+        <input type="number" step="5" value="200" size="4">ms
+    </fieldset>
+
+    <fieldset class="actions-records__behaviour">
+        <legend>Comportement AX12</legend>
+        <table>
+            <tr>
+                <td>Vitesse</td>
+                <td>Accélération</td>
+                <td>Précision</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><input data-spinner class="actions-records__behaviour-speed" size="4" value="800" /></td>
+                <td><input data-spinner class="actions-records__behaviour-acceleration" size="4" value="15" /></td>
+                <td><input data-spinner class="actions-records__behaviour-compliance" size="4" value="2" /></td>
+                <td>
+                    <button class="ui-button ui-widget ui-corner-all ui-button-icon-only ui-button-icon-only--max actions-records__behaviour-record" title="Ajouter">
+                        <span class="ui-icon ui-icon-plus"></span>
+                    </button>
+                </td>
+            </tr>
+        </table>
+        <button class="ui-button ui-widget ui-corner-all actions-records__behaviour-disable-torque">
+            <span class="ui-icon ui-icon-power"></span> Désactiver le couple
+        </button>
+    </fieldset>
+
+    <h3>Gestion fichiers JSON</h3>
+    <div class="actions-records__json">
+        Nom liste : <input type="text" class="actions-records__json_filename" size="30"><br>
+        <button class="ui-button ui-widget ui-corner-all" title="Télécharger">
+            <span class="ui-icon ui-icon-arrowthickstop-1-s"></span> Télécharger
+        </button>
+        <button class="ui-button ui-widget ui-corner-all" title="Sauvegarder">
+            <span class="ui-icon ui-icon-arrowthickstop-1-n"></span> Envoyer
+        </button>
+        <div class="actions-records__json--drop-area">Glisser ici un fichier JSON</div>
+
+        <select data-select class="actions-records__json--file-list"></select>
+        <button class="ui-button ui-widget ui-corner-all ui-button-icon-only  ui-button-icon-only--max" title="Recharger la liste">
+            <span class="ui-icon ui-icon-refresh"></span>
+        </button>
+        <button class="ui-button ui-widget ui-corner-all" title="Charger">
+            <span class="ui-icon ui-icon-arrowthick-1-e"></span> Charger
+        </button>
+
+    </div>
+</div>
+
+<h2>Liste d'actions :</h2>
+
+<ul id="listeActions" class="actions-container">
+    <!-- <li class="ui-state-default actions-item">C'est vide !</li> -->
+</ul>
+<hr>
+
+<div class="actions-controls">
+    <button class="ui-button ui-widget ui-corner-all">
+        <span class="ui-icon ui-icon-arrowrefresh-1-w"></span> Jouer premier
+    </button>
+    <button class="ui-button ui-widget ui-corner-all">
+        <span class="ui-icon ui-icon-play"></span> Jouer depuis la sélection
+    </button>
+    <button class="ui-button ui-widget ui-corner-all">
+        <span class="ui-icon ui-icon-seek-start"></span> Jouer précédent
+    </button>
+    <button class="ui-button ui-widget ui-corner-all">
+        <span class="ui-icon ui-icon-seek-end"></span> Jouer suivant
+    </button>
+    <button class="ui-button ui-widget ui-corner-all">
+        <span class="ui-icon ui-icon-stop"></span> Pause/Stop
+    </button>
+</div>
+
+<div id="templates">
+
+    <div class="action-item action-item__hidden-actions-container">
+        <button class="ui-button ui-widget ui-corner-all ui-button-icon-only ui-button-icon-only--max" title="Rejouer élément uniquement">
+            <span class="ui-icon ui-icon-play"></span>
+        </button>
+        <button class="ui-button ui-widget ui-corner-all ui-button-icon-only ui-button-icon-only--max" title="Lire à partir de là">
+            <span class="ui-icon ui-icon-seek-next"></span>
+        </button>
+        <button class="ui-button ui-widget ui-corner-all ui-button-icon-only ui-button-icon-only--max" title="Activer/désactiver">
+            <span class="ui-icon ui-icon-power"></span>
+        </button><br>
+        <button class="ui-button ui-widget ui-corner-all ui-button-icon-only ui-button-icon-only--max" title="Dupliquer">
+            <span class="ui-icon ui-icon-copy"></span>
+        </button>
+        <button class="ui-button ui-widget ui-corner-all ui-button-icon-only ui-button-icon-only--max" title="Supprimer">
+            <span class="ui-icon ui-icon-trash"></span>
+        </button>
+        <button class="ui-button ui-widget ui-corner-all ui-button-icon-only ui-button-icon-only--max" title="Re-enregistrer les valeurs">
+            <span class="ui-icon ui-icon-bullet"></span>
+        </button>
+    </div>
+
+    <div class="action-subitem action-subitem__ax12">
+        <div>
+            AX12 <select class="action-item__ax12-id">
+            <option selected="selected" value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select>#
+        </div><div>
+        Angle <input class="action-item__ax12-angle" name="spinner" value="10" size="5">°
+    </div>
+        <button class="ui-button ui-widget ui-corner-all ui-button-icon-only  ui-button-icon-only--max" title="Supprimer">
+            <span class="ui-icon ui-icon-trash"></span>
+        </button>
+        <button class="ui-button ui-widget ui-corner-all ui-button-icon-only  ui-button-icon-only--max" title="Charger la valeur">
+            <span class="ui-icon ui-icon-folder-open"></span>
+        </button>
+    </div>
+
+    <div class="action-subitem action-subitem__behaviour">
+        <div>
+            AX12 <select class="action-subitem__behaviour-id">
+            <option selected="selected" value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="254">254</option>
+        </select>#
+        </div><div>
+        <table>
+            <tr><td>Vit.</td><td><input class="action-subitem__behaviour-speed" size="4" /></td></tr>
+            <tr><td>Acc.</td><td><input class="action-subitem__behaviour-acceleration" size="4" /></td></tr>
+            <tr><td>Pre.</td><td><input class="action-subitem__behaviour-compliance" size="4" /></td></tr>
+        </table>
+    </div>
+        <button class="ui-button ui-widget ui-corner-all ui-button-icon-only  ui-button-icon-only--max" title="Supprimer">
+            <span class="ui-icon ui-icon-trash"></span>
+        </button>
+    </div>
+
+    <div class="action-subitem action-subitem__disable-torque">
+        Disable torque
+        <div>
+            AX12 <select class="action-subitem__disable-torque-id">
+            <option selected="selected" value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="254">254</option>
+        </select>#
+        </div>
+        <button class="ui-button ui-widget ui-corner-all ui-button-icon-only  ui-button-icon-only--max" title="Supprimer">
+            <span class="ui-icon ui-icon-trash"></span>
+        </button>
+    </div>
+
+    <div class="action-subitem action-subitem__serialflag">
+        <div>
+            Pompe
+            <div>
+                Bras <select class="action-subitem__serialflag-flag">
+                <option value="DTR">Gauche</option>
+                <option value="RTS">Droite</option>
+            </select>
+            </div><div>
+            State <select class="action-subitem__serialflag-enabled">
+            <option value="1">ON</option>
+            <option value="0">OFF</option>
+        </select>
+        </div>
+        </div>
+        <button class="ui-button ui-widget ui-corner-all ui-button-icon-only  ui-button-icon-only--max" title="Supprimer">
+            <span class="ui-icon ui-icon-trash"></span>
+        </button>
+    </div>
+
+    <div class="action-subitem action-subitem__delay">
+        <div>
+
+            Delay <input class="action-subitem__delay-value" type="number" step="5" value="200" size="4">ms
+        </div>
+        <button class="ui-button ui-widget ui-corner-all ui-button-icon-only  ui-button-icon-only--max" title="Supprimer">
+            <span class="ui-icon ui-icon-trash"></span>
+        </button>
+    </div>
+
+    <div id="dialog-confirm" title="Sauvegarder le sketch courant ?">
+        <p>
+            <span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>
+
+        </p>
+    </div>
+
+</div>
+
+<h3>Json :</h3>
+<textarea id="jsonInput"></textarea>
+<button id="btn_parser">Parser</button>
+</body>
+
+</html>
