@@ -7,6 +7,8 @@ import api.log.LoggerFactory;
 import org.apache.logging.log4j.Logger;
 import pathfinding.PathFinding;
 
+import java.net.URISyntaxException;
+
 public class CommunicationManager {
 
     private PathFinding pathFinding;
@@ -20,22 +22,22 @@ public class CommunicationManager {
         this.logger = LoggerFactory.getLogger(CommunicationManager.class);
         try {
             this.hotspotSocket = new HotspotSocket(host, port, "robot");
-        } catch (InterruptedException e) {
+        } catch (URISyntaxException e) {
             e.printStackTrace();
             this.logger.error("socket creation failed");
         }
     }
 
     public void sendDeleteZone(String zoneId) {
-        this.hotspotSocket.write("delete-zone#" + zoneId);
+        this.hotspotSocket.send("delete-zone#" + zoneId);
     }
 
     public void sendAddZone(String zoneId) {
-        this.hotspotSocket.write("add-zone#" + zoneId);
+        this.hotspotSocket.send("add-zone#" + zoneId);
     }
 
     public void sendActionData(int actionId, String data) {
-        this.hotspotSocket.write("action-data#" + actionId + "#" + data);
+        this.hotspotSocket.send("action-data#" + actionId + "#" + data);
     }
 
     public void readFromServer() {
