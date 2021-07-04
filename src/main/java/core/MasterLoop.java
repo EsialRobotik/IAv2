@@ -269,7 +269,7 @@ public class MasterLoop {
         lcdDisplay.println("Initialisation OK");
 
         logger.info("Initialisation des actionneurs");
-        actionSupervisor.executeCommand(0);
+        actionSupervisor.init();
 
         lcdDisplay.println("Attente tirette GoStart");
         logger.info("Attente tirette mise en position de depart");
