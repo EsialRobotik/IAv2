@@ -3,9 +3,17 @@
         {
             "actions": [
                 {
-                    "actionId": "actionPump",
-                    "switchState": false,
-                    "pumpId": 0
+                    "actionId": "actionSerialFlag",
+                    "serialFlagId": "DTR",
+                    "serialFlagEnabled": false
+                }
+            ]
+        },
+        {
+            "actions": [
+                {
+                    "actionId": "actionWaiting",
+                    "waitingTimeMs": 500
                 }
             ]
         }

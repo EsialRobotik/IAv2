@@ -3,9 +3,9 @@
         {
             "actions": [
                 {
-                    "actionId": "actionPump",
-                    "switchState": true,
-                    "pumpId": 0
+                    "actionId": "actionSerialFlag",
+                    "serialFlagId": "DTR",
+                    "serialFlagEnabled": true
                 }
             ]
         }

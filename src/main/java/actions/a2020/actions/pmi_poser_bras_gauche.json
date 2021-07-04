@@ -9,6 +9,14 @@
                     "readOnlyAngleDegrees": 154.8
                 }
             ]
+        },
+        {
+            "actions": [
+                {
+                    "actionId": "actionWaiting",
+                    "waitingTimeMs": 500
+                }
+            ]
         }
     ]
 }
