@@ -3,6 +3,7 @@ package actions;
 import actions.ax12.ActionOrchestrator;
 import actions.ax12.ActionOrchestratorHelper;
 import api.ax12.AX12Link;
+import manager.CommunicationManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -62,6 +63,16 @@ public class ActionAX12Json implements ActionExecutor {
 	@Override
 	public void resetActionState() {
 		this.finished = false;
+	}
+
+	@Override
+	public void setData(String data) {
+		// nothing
+	}
+
+	@Override
+	public void setCommunicationManager(CommunicationManager communicationManager) {
+		// nothing
 	}
 
 }

@@ -69,7 +69,7 @@ task deployPrincessPicrate {
             session(remotes.princessPicrate) {
                 put from: 'build/libs/esialrobotik.ia-2.0-all.jar', into: 'IA'
                 put from: 'config_PMI.json', into: 'IA/config.json'
-                put from: 'configCollection.json', into: 'IA'
+                put from: 'configCollectionPmi.json', into: 'IA'
                 put from: 'table.json', into: 'IA'
                 put from: 'table0.tbl', into: 'IA'
                 put from: 'table3000.tbl', into: 'IA'

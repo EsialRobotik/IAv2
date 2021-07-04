@@ -308,16 +308,19 @@ public class Astar {
         if (start.x < 0 || start.x >= dimX || start.y < 0 || start.y >= dimY
                 || objectif.x < 0 || objectif.x > dimX || objectif.y < 0 || objectif.y >= dimY) {
             logger.error("Point en dehors de la table !");
+            System.out.println("Point en dehors de la table !");
             return null;
         }
 
         if (grille[start.x][start.y] == null) {
             logger.error("Départ en zone interdite");
+            System.out.println("Départ en zone interdite");
             return null;
         }
 
         if (grille[objectif.x][objectif.y] == null) {
             logger.error("Arrivée en zone interdite");
+            System.out.println("Arrivée en zone interdite");
             return null;
         }
 
@@ -330,6 +333,7 @@ public class Astar {
         // Si l'objectif n'a pas de parent, c'est qu'il n'y a pas de chemin !
         if (courant == null || courant.parent == null) {
             logger.error("Aucun chemin trouvé !");
+            System.out.println("Aucun chemin trouvé !");
             return null;
         }
 

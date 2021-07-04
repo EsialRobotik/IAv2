@@ -43,7 +43,7 @@
 			}
 			.dataBlock {
 			    width: 700px;
-			    height: 550px;
+			    height: 530px;
 			    margin: 10px;
 			    padding: 10px;
 			    font-size: 28px;
@@ -51,7 +51,7 @@
 			.dataFieldset {
 			    width: 700px;
 			    overflow: auto;
-			    height: 550px;
+			    height: 530px;
 			}
 			button,input {
 			    font-size: 25px;
@@ -177,7 +177,7 @@
 
     createjs.Tween.get(pmiPrincess)
         .to({ rotation: radiansToDegrees(0) }, rotationTime, createjs.Ease.getPowInOut(4))
-        .to({ x: 200, y: 1020 }, moveTime, createjs.Ease.getPowInOut(4));
+        .to({ x: 250, y: 1020 }, moveTime, createjs.Ease.getPowInOut(4));
   }
 
   function moveRobot(x, y, rotation) {
@@ -370,7 +370,6 @@
 
   function nextInstruction() {
     if (stratIndex >= strat.length) {
-        alert('Fini !!');
         return true;
     }
     var instruction = strat[stratIndex];
@@ -395,7 +394,6 @@
 
   function nextInstructionPmi() {
     if (stratPmiIndex >= stratPmi.length) {
-        alert('Fini !!');
         return true;
     }
     var instruction = stratPmi[stratPmiIndex];

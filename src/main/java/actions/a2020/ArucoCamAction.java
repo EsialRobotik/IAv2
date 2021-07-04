@@ -8,6 +8,7 @@ import api.communication.Shell;
 import api.log.LoggerFactory;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import manager.CommunicationManager;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Logger;
 
@@ -20,6 +21,7 @@ public class ArucoCamAction implements ActionExecutor {
     private Logger logger;
 
     protected ActionCollection actionCollection;
+    protected CommunicationManager communicationManager;
     protected ActionDescriptor nord0, sud0, nord3000, sud3000;
 
     public ArucoCamAction(Shell shell, ActionCollection actionCollection) {
@@ -31,32 +33,36 @@ public class ArucoCamAction implements ActionExecutor {
         Gson gson = new Gson();
         this.nord0 = new ActionDescriptor(
             gson.fromJson(
-                "{\"desc\":\"Port Nord\",\"id\":1,\"points\":10,\"priorite\":1,\"taches\":[{\"desc\":\"On se gare au Nord\",\"id\":3,\"positionX\":250,\"positionY\":250,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto_astar\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1}]}",
+                "{\"desc\":\"Port Nord\",\"id\":1,\"points\":10,\"priorite\":1,\"taches\":[{\"desc\":\"On se gare\",\"id\":1,\"positionX\":300,\"positionY\":700,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto_astar\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1},{\"desc\":\"On se gare\",\"id\":2,\"positionX\":300,\"positionY\":400,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1}]}",
                 JsonObject.class
             ),
             actionCollection.isStepByStep()
         );
         this.sud0 = new ActionDescriptor(
             gson.fromJson(
-                "{\"desc\":\"Port Sud\",\"id\":2,\"points\":10,\"priorite\":1,\"taches\":[{\"desc\":\"On se gare au Sud\",\"id\":3,\"positionX\":1350,\"positionY\":250,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto_astar\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1}]}",
+                "{\"desc\":\"Port Sud\",\"id\":2,\"points\":10,\"priorite\":1,\"taches\":[{\"desc\":\"On se gare\",\"id\":1,\"positionX\":1300,\"positionY\":700,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto_astar\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1},{\"desc\":\"On se gare\",\"id\":2,\"positionX\":1300,\"positionY\":400,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1}]}",
                 JsonObject.class
             ),
             actionCollection.isStepByStep()
         );
         this.nord3000 = new ActionDescriptor(
             gson.fromJson(
-                "{\"desc\":\"Port Nord\",\"id\":1,\"points\":10,\"priorite\":1,\"taches\":[{\"desc\":\"On se gare au Nord\",\"id\":3,\"positionX\":250,\"positionY\":2750,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto_astar\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1}]}",
+                "{\"desc\":\"Port Nord\",\"id\":1,\"points\":10,\"priorite\":1,\"taches\":[{\"desc\":\"On se gare\",\"id\":1,\"positionX\":300,\"positionY\":2300,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto_astar\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1},{\"desc\":\"On se gare\",\"id\":2,\"positionX\":300,\"positionY\":2600,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1}]}",
                 JsonObject.class
             ),
             actionCollection.isStepByStep()
         );
         this.sud3000 = new ActionDescriptor(
             gson.fromJson(
-                "{\"desc\":\"Port Sud\",\"id\":2,\"points\":10,\"priorite\":1,\"taches\":[{\"desc\":\"On se gare au Sud\",\"id\":3,\"positionX\":1350,\"positionY\":2750,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto_astar\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1}]}",
+                "{\"desc\":\"Port Sud\",\"id\":2,\"points\":10,\"priorite\":1,\"taches\":[{\"desc\":\"On se gare\",\"id\":1,\"positionX\":1300,\"positionY\":2300,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto_astar\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1},{\"desc\":\"On se gare\",\"id\":2,\"positionX\":1300,\"positionY\":2600,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1}]}",
                 JsonObject.class
             ),
             actionCollection.isStepByStep()
         );
+    }
+
+    public void setCommunicationManager(CommunicationManager communicationManager) {
+        this.communicationManager = communicationManager;
     }
 
     @Override
@@ -84,6 +90,7 @@ public class ArucoCamAction implements ActionExecutor {
                             actionCollection.addAction(nord3000);
                             logger.info("Load Nord3000");
                         }
+                        communicationManager.sendActionData(ActionFileBinder.ActionFile.PMI_BOUSSOLE.ordinal(), "NORD");
                     } else if (result.contains("#SUD#")) {
                         logger.info("SUD détecté");
                         if (actionCollection.isColor0()) {
@@ -93,6 +100,7 @@ public class ArucoCamAction implements ActionExecutor {
                             actionCollection.addAction(sud3000);
                             logger.info("Load Sud3000");
                         }
+                        communicationManager.sendActionData(ActionFileBinder.ActionFile.PMI_BOUSSOLE.ordinal(), "SUD");
                     } else {
                         logger.info("JE SAIS PAS !!! MAIS JAMAIS AU NORD !!!");
                         if (actionCollection.isColor0()) {
@@ -102,6 +110,7 @@ public class ArucoCamAction implements ActionExecutor {
                             actionCollection.addAction(sud3000);
                             logger.info("Load Sud3000");
                         }
+                        communicationManager.sendActionData(ActionFileBinder.ActionFile.PMI_BOUSSOLE.ordinal(), "NORD");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -119,6 +128,11 @@ public class ArucoCamAction implements ActionExecutor {
     @Override
     public void resetActionState() {
         this.finished = false;
+    }
+
+    @Override
+    public void setData(String data) {
+        // nothing
     }
 
     public static void main(String args[]) throws IOException, InterruptedException {

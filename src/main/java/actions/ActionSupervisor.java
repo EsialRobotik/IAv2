@@ -1,5 +1,7 @@
 package actions;
 
+import manager.CommunicationManager;
+
 import java.util.ArrayList;
 
 /**
@@ -10,10 +12,15 @@ public class ActionSupervisor {
     private ActionInterface actionInterface;
     private ActionExecutor currentActionExecutor;
     private ArrayList<Integer> initActionsId;
+    private CommunicationManager communicationManager;
 
     public ActionSupervisor(ActionInterface actionInterface, ArrayList<Integer> initActionsId) {
         this.actionInterface = actionInterface;
         this.initActionsId = initActionsId;
+    }
+
+    public ActionExecutor getActionExecutor(int id) {
+        return actionInterface.getActionExecutor(id);
     }
 
     public void executeCommand(int id) {
@@ -48,5 +55,10 @@ public class ActionSupervisor {
 
     public boolean isLastExecutionFinished() {
         return this.currentActionExecutor.finished();
+    }
+
+    public void setCommunicationManager(CommunicationManager communicationManager) {
+        this.communicationManager = communicationManager;
+        this.actionInterface.setCommunicationManager(communicationManager);
     }
 }

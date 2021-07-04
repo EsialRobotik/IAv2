@@ -6,6 +6,7 @@ import actions.ActionExecutor;
 import actions.ActionInterface;
 import api.ax12.AX12LinkSerial;
 import api.communication.Shell;
+import manager.CommunicationManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,6 +17,7 @@ public class ActionFileBinder implements ActionInterface {
 	protected File dataDir;
 	protected AX12LinkSerial ax12Link;
 	protected ActionCollection actionCollection;
+	protected CommunicationManager communicationManager;
 	
 	public enum ActionFile {
 		/**
@@ -68,7 +70,10 @@ public class ActionFileBinder implements ActionInterface {
 		PMI_ATTRAPER_BRAS_DROIT("pmi_attraper_bras_droit.json"), // 19
 		PMI_ATTRAPER_BRAS_GAUCHE("pmi_attraper_bras_gauche.json"), // 20
 		PMI_LACHER_BRAS_DROIT("pmi_lacher_bras_droit.json"), // 21
-		PMI_LACHER_BRAS_GAUCHE("pmi_lacher_bras_gauche.json"); // 22
+		PMI_LACHER_BRAS_GAUCHE("pmi_lacher_bras_gauche.json"), // 22
+
+		ARUCO_CAM(""),
+		PMI_BOUSSOLE("");
 
 		public final String nomFichier;
 		public final boolean instantReturn;
@@ -96,21 +101,25 @@ public class ActionFileBinder implements ActionInterface {
 		ax12Link.enableRts(false);
 
 		ActionFile[] files = ActionFile.values();
-		actionsList = new ActionExecutor[files.length + 1];
+		actionsList = new ActionExecutor[files.length];
 
 		for (int i = 0; i < files.length; i++) {
-			File f = new File(this.dataDir.getAbsolutePath() + File.separator + files[i].nomFichier);
-			actionsList[i] = new ActionAX12Json(ax12Link, f, files[i].instantReturn);
-		}
-
-		try {
-			Shell shell = new Shell("python /home/pi/2020Aruco/testPiCameraArucoShell.py --quiet");
-			shell.start();
-			actionsList[files.length] = new ArucoCamAction(shell, this.actionCollection);
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+			if (i == ActionFile.ARUCO_CAM.ordinal()) {
+				try {
+					Shell shell = new Shell("python /home/pi/2020Aruco/testPiCameraArucoShell.py --quiet");
+					shell.start();
+					actionsList[files.length] = new ArucoCamAction(shell, this.actionCollection);
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			} else if (i == ActionFile.PMI_BOUSSOLE.ordinal()) {
+				actionsList[i] = new PmiBoussoleAction(this.actionCollection);
+			} else {
+				File f = new File(this.dataDir.getAbsolutePath() + File.separator + files[i].nomFichier);
+				actionsList[i] = new ActionAX12Json(ax12Link, f, files[i].instantReturn);
+			}
 		}
 	}
 	
@@ -135,5 +144,11 @@ public class ActionFileBinder implements ActionInterface {
 		ActionExecutor actionExecutor = this.getActionExecutor(ActionFile.FUNNY_ACTION.ordinal());
 		actionExecutor.execute();
 		return 10;
+	}
+
+	@Override
+	public void setCommunicationManager(CommunicationManager communicationManager) {
+		this.communicationManager = communicationManager;
+		actionsList[ActionFile.ARUCO_CAM.ordinal()].setCommunicationManager(communicationManager);
 	}
 }

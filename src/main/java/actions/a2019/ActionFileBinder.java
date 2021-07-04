@@ -4,6 +4,7 @@ import actions.ActionAX12Json;
 import actions.ActionExecutor;
 import actions.ActionInterface;
 import api.ax12.AX12LinkSerial;
+import manager.CommunicationManager;
 
 import java.io.File;
 
@@ -84,5 +85,10 @@ public class ActionFileBinder implements ActionInterface {
 	@Override
 	public int funnyAction() {
 		return 0;
+	}
+
+	@Override
+	public void setCommunicationManager(CommunicationManager communicationManager) {
+		// nothing
 	}
 }
