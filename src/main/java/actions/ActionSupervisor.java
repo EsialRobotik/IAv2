@@ -42,6 +42,13 @@ public class ActionSupervisor {
     public void init() {
         for (int actionId : this.initActionsId) {
             this.executeCommand(actionId);
+            while (!this.isLastExecutionFinished()) {
+                try {
+                    Thread.sleep(5);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
