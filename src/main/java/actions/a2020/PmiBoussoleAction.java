@@ -68,7 +68,7 @@ public class PmiBoussoleAction implements ActionExecutor {
                 try {
                     logger.info("Analyse de la data");
                     logger.info("Tag = " + commData);
-                    if (commData.contains("#NORD#")) {
+                    if (commData.contains("NORD")) {
                         logger.info("NORD détecté");
                         if (actionCollection.isColor0()) {
                             actionCollection.addAction(nord0);
@@ -77,7 +77,7 @@ public class PmiBoussoleAction implements ActionExecutor {
                             actionCollection.addAction(nord3000);
                             logger.info("Load Nord3000");
                         }
-                    } else if (commData.contains("#SUD#")) {
+                    } else if (commData.contains("SUD")) {
                         logger.info("SUD détecté");
                         if (actionCollection.isColor0()) {
                             actionCollection.addAction(sud0);

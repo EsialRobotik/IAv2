@@ -281,9 +281,6 @@ public class SRF08 implements UltraSoundInterface {
      */
     public long getMeasure() {
 
-        logger.info("SRF08 : Asking for sensor measure by sending " + String.format("0x%X",COMMAND_RANGING_CM) +
-                    " to register " + String.format("0x%X",REGISTER_COMMAND));
-
         byte buffer[] = {REGISTER_COMMAND,COMMAND_RANGING_CM,0,0};
 
         this.i2cDevice.write(buffer, 0, 2);
@@ -307,7 +304,6 @@ public class SRF08 implements UltraSoundInterface {
         }
 
         this.i2cDevice.write(buffer, 0, 1);
-        logger.info("SRF08 : Getting measure.");
 
         this.i2cDevice.read(buffer,0,4);
 
@@ -317,11 +313,6 @@ public class SRF08 implements UltraSoundInterface {
         if (distance == 0) {
             distance = 1000;
         }
-        logger.info("SRF08 : Measurement done : " + distance + " cm (low byte:" +
-                    lo_byte + String.format(" (0x%X)", lo_byte) + " high byte :" +
-                    hi_byte + String.format(" (0x%X)", hi_byte));
-
-
         return distance * 10;
     }
 
