@@ -75,13 +75,13 @@ public class MainPmi2021 {
         mirrorId = recuperationBouees1_2.size() + 1;
         recuperationBouees1_2.add(new Manipulation("Ramassage bouée 2 - Lever", ActionFileBinder.ActionFile.PMI_SORTIR_LEVER_BRAS_GAUCHE.ordinal(), Tache.Mirror.SPECIFIC));
         recuperationBouees1_2_3000.add(new Manipulation("Ramassage bouée 2 - Lever", ActionFileBinder.ActionFile.PMI_SORTIR_LEVER_BRAS_DROIT.ordinal(), Tache.Mirror.SPECIFIC), mirrorId);
-        recuperationBouees1_2.add(new GoToBack("Mise en position largage bouée 1", 995, 240));
+        recuperationBouees1_2.add(new GoToBack("Mise en position largage bouée 1", 980, 240));
         mirrorId = recuperationBouees1_2.size() + 1;
         recuperationBouees1_2.add(new Manipulation("Largage bouée 1 - Pompe", ActionFileBinder.ActionFile.PMI_LACHER_BRAS_DROIT.ordinal(), Tache.Mirror.SPECIFIC));
         recuperationBouees1_2_3000.add(new Manipulation("Largage bouée 1 - Pompe", ActionFileBinder.ActionFile.PMI_LACHER_BRAS_GAUCHE.ordinal(), Tache.Mirror.SPECIFIC), mirrorId);
-        recuperationBouees1_2.add(new Go("Retour au centre", -300));
+        recuperationBouees1_2.add(new Go("Retour au centre", -250));
         recuperationBouees1_2.add(new DeleteZone("Suppression zone bouée 2", "bouee2"));
-        recuperationBouees1_2.add(new GoTo("Mise en position largage bouée 2", 605, 240));
+        recuperationBouees1_2.add(new GoTo("Mise en position largage bouée 2", 620, 240));
         mirrorId = recuperationBouees1_2.size() + 1;
         recuperationBouees1_2.add(new Manipulation("Largage bouée 2 - Pompe", ActionFileBinder.ActionFile.PMI_LACHER_BRAS_GAUCHE.ordinal(), Tache.Mirror.SPECIFIC));
         recuperationBouees1_2_3000.add(new Manipulation("Largage bouée 2 - Pompe", ActionFileBinder.ActionFile.PMI_LACHER_BRAS_DROIT.ordinal(), Tache.Mirror.SPECIFIC), mirrorId);
@@ -107,8 +107,9 @@ public class MainPmi2021 {
         score = 2;
         TaskList recuperationBouees4 =  new TaskList();
         recuperationBouees4.add(new GoToAstar("Mise en position bouée 4", 1090, 700));
-        recuperationBouees4.add(new SetSpeed("Vitesse réduite", 50));
-        recuperationBouees4.add(new GoToBack("Marquage bouée 4", 1090, 225));
+        recuperationBouees4.add(new SetSpeed("Vitesse réduite", 25));
+        recuperationBouees4.add(new GoToBack("Marquage bouée 4", 1090, 500));
+        recuperationBouees4.add(new GoToBack("Marquage bouée 4", 1090, 220));
         recuperationBouees4.add(new SetSpeed("Vitesse normale", 100));
         recuperationBouees4.add(new GoTo("Sortie de la zone", 1090, 700));
         recuperationBouees4.add(new DeleteZone("Suppression zone bouée 4", "bouee4"));
@@ -132,8 +133,9 @@ public class MainPmi2021 {
         score = 4;
         TaskList recuperationBouees3 =  new TaskList();
         recuperationBouees3.add(new GoToAstar("Mise en position bouée 3", 520, 700));
-        recuperationBouees3.add(new SetSpeed("Vitesse réduite", 50));
-        recuperationBouees3.add(new GoToBack("Marquage bouée 3", 520, 225));
+        recuperationBouees3.add(new SetSpeed("Vitesse réduite", 25));
+        recuperationBouees3.add(new GoToBack("Marquage bouée 3", 520, 500));
+        recuperationBouees3.add(new GoToBack("Marquage bouée 3", 520, 220));
         recuperationBouees3.add(new SetSpeed("Vitesse normale", 100));
         recuperationBouees3.add(new GoTo("Sortie de la zone", 520, 700));
         recuperationBouees3.add(new DeleteZone("Suppression zone bouée 3", "bouee3"));
@@ -199,6 +201,7 @@ public class MainPmi2021 {
         recuperationBouees6.add(new Manipulation("Ramassage bouée 6 - Lever", ActionFileBinder.ActionFile.PMI_SORTIR_LEVER_BRAS_DROIT.ordinal(), Tache.Mirror.SPECIFIC));
         recuperationBouees6_3000.add(new Manipulation("Ramassage bouée 6 - Lever", ActionFileBinder.ActionFile.PMI_SORTIR_LEVER_BRAS_GAUCHE.ordinal(), Tache.Mirror.SPECIFIC), mirrorId);
         recuperationBouees6.add(new DeleteZone("Suppression zone bouée 6", "bouee6"));
+        recuperationBouees6.add(new GoTo("Placement pour forcer le chemin de Astar", 500, 1100));
         Objectif objectifRecuperationBouees6_0 = new Objectif("Récupération Bouée 6", objectifsCouleur0.size()+1, score, 1, recuperationBouees6);
         Objectif objectifRecuperationBouees6_3000 = new Objectif("Récupération Bouée 6", objectifsCouleur3000.size()+1, score, 1, null);
         try {
@@ -220,7 +223,10 @@ public class MainPmi2021 {
         TaskList petitPort = new TaskList();
         petitPort.add(new GoToAstar("Déplacement petit port", 1450, 1800));
         petitPort.add(new Face("Alignement petit port", 0, 1800));
+        petitPort.add(new SetSpeed("Vitesse réduite", 50));
+        petitPort.add(new GoToBack("Marquage bouées petit port", 1600, 1800));
         petitPort.add(new GoToBack("Marquage bouées petit port", 1800, 1800));
+        petitPort.add(new SetSpeed("Vitesse normale", 100));
         petitPort.add(new DeleteZone("Suppression zone bouée 8", "bouee8"));
         petitPort.add(new DeleteZone("Suppression zone bouée 11", "bouee11"));
         petitPort.add(new GoTo("Placement rotation largage bouée 5 et 6", 1600, 1800));
@@ -267,7 +273,7 @@ public class MainPmi2021 {
             Table table = new Table("table0.tbl");
             table.loadJsonFromFile("table.json");
             PathFinding pathFinding = new PathFinding(new Astar(table));
-            Position startPoint = new Position(1020, 250, Math.PI);
+            Position startPoint = new Position(1020, 240, Math.PI);
             StringBuilder stratSimu = new StringBuilder("[");
             stratSimu.append("{ \"task\":\"Position de départ\",\"command\":\"start\",\"position\":" + startPoint.toJson() + "},");
             for (Objectif objectif : strat.couleur0) {
