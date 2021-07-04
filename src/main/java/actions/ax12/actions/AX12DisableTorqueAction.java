@@ -22,7 +22,7 @@ public class AX12DisableTorqueAction extends Action {
 			this.ax12.disableTorque();
 			this.actionDone = true;
 		} catch (AX12LinkException | AX12Exception e) {
-			throw new ActionException("Error applying position state", e);
+			throw new ActionException("Error disabling torque on AX #"+this.ax12.getAddress(), e);
 		}
 	}
 

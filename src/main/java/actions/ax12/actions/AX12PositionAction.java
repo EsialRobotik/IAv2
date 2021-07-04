@@ -22,7 +22,7 @@ public class AX12PositionAction extends Action {
 		try {
 			this.ax12.setServoPosition(angle);
 		} catch (AX12LinkException | AX12Exception e) {
-			throw new ActionException("Error applying position state", e);
+			throw new ActionException("Error applying position state on AX #"+this.ax12.getAddress(), e);
 		}
 	}
 
