@@ -108,7 +108,7 @@ public class ActionFileBinder implements ActionInterface {
 				try {
 					Shell shell = new Shell("python /home/pi/2020Aruco/testPiCameraArucoShell.py --quiet");
 					shell.start();
-					actionsList[files.length] = new ArucoCamAction(shell, this.actionCollection);
+					actionsList[i] = new ArucoCamAction(shell, this.actionCollection);
 				} catch (IOException e) {
 					e.printStackTrace();
 				} catch (InterruptedException e) {
