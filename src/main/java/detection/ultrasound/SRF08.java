@@ -299,7 +299,6 @@ public class SRF08 implements UltraSoundInterface {
         You can then read the sonar data. Your controller can take advantage of this to perform other tasks while the
         SRF08 is ranging.
          */
-        int distance = 10000;
         buffer[0] = 0;
         try {
             Thread.sleep(75, 0);
@@ -314,7 +313,10 @@ public class SRF08 implements UltraSoundInterface {
 
         int hi_byte = buffer[2];
         int lo_byte = buffer[3];
-        distance = (int)(((byte)(hi_byte << 8)) + lo_byte);
+        int distance = (int)(((byte)(hi_byte << 8)) + lo_byte);
+        if (distance == 0) {
+            distance = 1000;
+        }
         logger.info("SRF08 : Measurement done : " + distance + " cm (low byte:" +
                     lo_byte + String.format(" (0x%X)", lo_byte) + " high byte :" +
                     hi_byte + String.format(" (0x%X)", hi_byte));
