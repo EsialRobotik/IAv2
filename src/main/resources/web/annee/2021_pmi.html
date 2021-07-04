@@ -45,10 +45,10 @@
     </fieldset>
     <fieldset class="actions-records__serialflag">
         <legend>Pompes</legend>
-        <label for="princess_serial_flag_dtr">Droite</label>
-        <input type="checkbox" name="princess_serial-flag-dtr" id="princess_serial_flag_dtr" class="actions-records__serialflag-flag" value="DTR" checked="checked">
         <label for="princess_serial_flag_rts">Gauche</label>
         <input type="checkbox" name="princess_serial-flag-rts" id="princess_serial_flag_rts" class="actions-records__serialflag-flag" value="RTS" checked="checked">
+        <label for="princess_serial_flag_dtr">Droite</label>
+        <input type="checkbox" name="princess_serial-flag-dtr" id="princess_serial_flag_dtr" class="actions-records__serialflag-flag" value="DTR" checked="checked">
         <button class="ui-button ui-widget ui-corner-all actions-records__serialflag-btn-on">
             <span class="ui-icon ui-icon-flag"></span> ON
         </button>
@@ -238,8 +238,8 @@
             Pompe
             <div>
                 Bras <select class="action-subitem__serialflag-flag">
-                <option value="DTR">Gauche</option>
-                <option value="RTS">Droite</option>
+                <option value="DTR">Droite</option>
+                <option value="RTS">Gauche</option>
             </select>
             </div><div>
             State <select class="action-subitem__serialflag-enabled">
