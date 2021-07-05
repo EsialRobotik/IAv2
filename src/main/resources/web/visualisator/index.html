@@ -435,31 +435,35 @@
   }
 
   function connectSocket() {
-    var socket = new WebSocket("ws://192.168.0.102:4269", "loggerListener");
+    var socket = null;
+    try {
+        socket = new WebSocket("ws://localhost:4269");
+    } catch (exception) {
+        console.error(exception);
+    }
 
-    socket.onopen = function(e) {
-      alert("[open] Connection established");
-      alert("Sending to server");
-      socket.send("loggerListener");
-    };
-
-    socket.onmessage = function(event) {
-      console.log(`[message] Data received from server: ${event.data}`);
-    };
-
-    socket.onclose = function(event) {
-        console.log(event);
-      if (event.wasClean) {
-        alert(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
-      } else {
-        // e.g. server process killed or network down
-        // event.code is usually 1006 in this case
-        alert('[close] Connection died');
-      }
-    };
-
+    // Récupération des erreurs.
+    // Si la connexion ne s'établie pas,
+    // l'erreur sera émise ici.
     socket.onerror = function(error) {
-      console.log(error);
+        console.error(error);
+    };
+
+    // Lorsque la connexion est établie.
+    socket.onopen = function(event) {
+        console.log("Connexion établie.");
+
+        // Lorsque la connexion se termine.
+        this.onclose = function(event) {
+            console.log("Connexion terminé.");
+        };
+
+        // Lorsque le serveur envoi un message.
+        this.onmessage = function(event) {
+            console.log("Message:", event.data);
+        };
+
+        this.send("loggerListener");
     };
   }
 </script>
