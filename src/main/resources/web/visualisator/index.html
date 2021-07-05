@@ -462,6 +462,8 @@
         this.onmessage = function(event) {
             console.log("Message:", event.data);
         };
+
+        this.send("loggerListener");
     };
   }
 </script>

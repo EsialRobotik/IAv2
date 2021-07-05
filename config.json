@@ -15,8 +15,9 @@
     },
     "loggerSocket": {
         "active": true,
-        "host": "192.168.0.102",
+        "host": "localhost",
         "port": 4269,
+        "logPort": 1664,
         "who": "princesspi"
     },
     "asserv": {

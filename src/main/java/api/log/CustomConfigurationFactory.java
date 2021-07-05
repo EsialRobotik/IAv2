@@ -73,7 +73,7 @@ public class CustomConfigurationFactory extends ConfigurationFactory {
                 appenderBuilder = builder.newAppender("Socket", "Socket")
                         .addAttribute("host", loggerSocketConfig.get("host").getAsString())
                         .addAttribute("protocol", Protocol.TCP)
-                        .addAttribute("port", loggerSocketConfig.get("port").getAsInt())
+                        .addAttribute("port", loggerSocketConfig.get("logPort").getAsInt())
                         .addAttribute("reconnectDelayMillis", -1)
                         .addAttribute("immediateFail", false);
                 appenderBuilder.add(builder.newLayout("PatternLayout").
