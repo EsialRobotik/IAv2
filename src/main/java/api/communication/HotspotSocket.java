@@ -71,6 +71,9 @@ public class HotspotSocket extends WebSocketClient {
 
     public static void main(String[] args) throws Exception {
         LoggerFactory.init(Level.TRACE);
+        Logger logger = LoggerFactory.getLogger(HotspotSocket.class);
+        logger.info("init logger");
+
         String hostname = "localhost";
         int port = 4269;
         String who = "robot";
