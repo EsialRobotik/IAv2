@@ -99,86 +99,50 @@ public class MainPmi2021 {
         objectifsCouleur3000.add(objectifRecuperationBouees1_2_3000);
 
         /*
-         * On marque la bouée 4
-         * Score = 2
-         *  - 1 point par bouée dans le port => 1
-         *  - 1 point par bouée dans le bon chenal => 1
-         */
-        score = 2;
-        TaskList recuperationBouees4 =  new TaskList();
-        recuperationBouees4.add(new GoToAstar("Mise en position bouée 4", 1090, 700));
-        recuperationBouees4.add(new SetSpeed("Vitesse réduite", 25));
-        recuperationBouees4.add(new GoToBack("Marquage bouée 4", 1090, 500));
-        recuperationBouees4.add(new GoToBack("Marquage bouée 4", 1090, 220));
-        recuperationBouees4.add(new SetSpeed("Vitesse normale", 100));
-        recuperationBouees4.add(new GoTo("Sortie de la zone", 1090, 700));
-        recuperationBouees4.add(new DeleteZone("Suppression zone bouée 4", "bouee4"));
-        Objectif objectifRecuperationBouees4_0 = new Objectif("Bouée 4", objectifsCouleur0.size()+1, score, 1, recuperationBouees4);
-        Objectif objectifRecuperationBouees4_3000 = new Objectif("Bouée 4", objectifsCouleur3000.size()+1, score, 1, null);
-        try {
-            objectifRecuperationBouees4_3000.generateMirror(objectifRecuperationBouees4_0.taches);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        objectifsCouleur0.add(objectifRecuperationBouees4_0);
-        objectifsCouleur3000.add(objectifRecuperationBouees4_3000);
-
-        /*
-         * On marque la bouée 3
-         * Score = 4
+         * On marque la bouée 3, on allume le phare, on récupère la bouée 5
+         * Score = 19
          *  - 1 point par bouée dans le port => 1
          *  - 1 point par bouée dans le bon chenal => 1
          *  - une paire dans les chenaux => 2
+         *  - phare => 15
          */
-        score = 4;
+        score = 19;
         TaskList recuperationBouees3 =  new TaskList();
+        TaskList recuperationBouees3_3000 =  new TaskList();
         recuperationBouees3.add(new GoToAstar("Mise en position bouée 3", 520, 700));
         recuperationBouees3.add(new SetSpeed("Vitesse réduite", 25));
         recuperationBouees3.add(new GoToBack("Marquage bouée 3", 520, 500));
         recuperationBouees3.add(new GoToBack("Marquage bouée 3", 520, 220));
         recuperationBouees3.add(new SetSpeed("Vitesse normale", 100));
-        recuperationBouees3.add(new GoTo("Sortie de la zone", 520, 700));
+        recuperationBouees3.add(new GoTo("Sortie de la zone", 520, 500));
         recuperationBouees3.add(new DeleteZone("Suppression zone bouée 3", "bouee3"));
-        Objectif objectifRecuperationBouees3_0 = new Objectif("Bouée 3", objectifsCouleur0.size()+1, score, 1, recuperationBouees3);
-        Objectif objectifRecuperationBouees3_3000 = new Objectif("Bouée 3", objectifsCouleur3000.size()+1, score, 1, null);
+        recuperationBouees3.add(new GoTo("Direction le phare", 200, 290));
+        recuperationBouees3.add(new Face("Alignement phare", 0, 290));
+        recuperationBouees3.add(new GoTo("Allumage phare", 100, 290));
+        recuperationBouees3.add(new GoToBack("Retour phare", 200, 290));
+        recuperationBouees3.add(new GoTo("Mise en position bouée 5", 160, 500));
+        recuperationBouees3.add(new Face("Alignement bouée 5", 160, 3000));
+        recuperationBouees3.add(new GoTo("Mise en position ramassage bouée 5", 160, 559));
+        mirrorId = recuperationBouees1_2.size() + 1;
+        recuperationBouees3.add(new Manipulation("Ramassage bouée 5 - Pompe", ActionFileBinder.ActionFile.PMI_ATTRAPER_BRAS_GAUCHE.ordinal(), Tache.Mirror.SPECIFIC));
+        recuperationBouees3_3000.add(new Manipulation("Ramassage bouée 5 - Pompe", ActionFileBinder.ActionFile.PMI_ATTRAPER_BRAS_DROIT.ordinal(), Tache.Mirror.SPECIFIC), mirrorId);
+        mirrorId = recuperationBouees1_2.size() + 1;
+        recuperationBouees3.add(new Manipulation("Ramassage bouée 5 - Poser", ActionFileBinder.ActionFile.PMI_POSER_BRAS_GAUCHE.ordinal(), Tache.Mirror.SPECIFIC));
+        recuperationBouees3_3000.add(new Manipulation("Ramassage bouée 5 - Poser", ActionFileBinder.ActionFile.PMI_POSER_BRAS_DROIT.ordinal(), Tache.Mirror.SPECIFIC), mirrorId);
+        mirrorId = recuperationBouees1_2.size() + 1;
+        recuperationBouees3.add(new Manipulation("Ramassage bouée 5 - Lever", ActionFileBinder.ActionFile.PMI_SORTIR_LEVER_BRAS_GAUCHE.ordinal(), Tache.Mirror.SPECIFIC));
+        recuperationBouees3_3000.add(new Manipulation("Ramassage bouée 5 - Lever", ActionFileBinder.ActionFile.PMI_SORTIR_LEVER_BRAS_DROIT.ordinal(), Tache.Mirror.SPECIFIC), mirrorId);
+        recuperationBouees3.add(new DeleteZone("Suppression zone bouée 5", "bouee5"));
+        recuperationBouees3.add(new GoTo("Sortie zone interdite", 200, 560));
+        Objectif objectifRecuperationBouees3_0 = new Objectif("Bouée 3 + Phare + Bouée 5", objectifsCouleur0.size()+1, score, 1, recuperationBouees3);
+        Objectif objectifRecuperationBouees3_3000 = new Objectif("Bouée 3 + Phare + Bouée 5", objectifsCouleur3000.size()+1, score, 1, null);
         try {
-            objectifRecuperationBouees3_3000.generateMirror(objectifRecuperationBouees3_0.taches);
+            objectifRecuperationBouees3_3000.generateMirror(objectifRecuperationBouees3_0.taches, recuperationBouees3_3000);
         } catch (Exception e) {
             e.printStackTrace();
         }
         objectifsCouleur0.add(objectifRecuperationBouees3_0);
         objectifsCouleur3000.add(objectifRecuperationBouees3_3000);
-
-        /*
-         * Ramassage bouées 5
-         * Score = 0
-         */
-        score = 0;
-        TaskList recuperationBouees5 =  new TaskList();
-        TaskList recuperationBouees5_3000 =  new TaskList();
-        recuperationBouees5.add(new GoToAstar("Mise en position bouée 5", 350, 700));
-        recuperationBouees5.add(new GoTo("Mise en position bouée 5", 250, 730));
-        recuperationBouees5.add(new Face("Alignement bouée 5", 0, 730));
-        recuperationBouees5.add(new GoTo("Mise en position ramassage bouée 5", 216, 730));
-        mirrorId = recuperationBouees1_2.size() + 1;
-        recuperationBouees5.add(new Manipulation("Ramassage bouée 5 - Pompe", ActionFileBinder.ActionFile.PMI_ATTRAPER_BRAS_GAUCHE.ordinal(), Tache.Mirror.SPECIFIC));
-        recuperationBouees5_3000.add(new Manipulation("Ramassage bouée 5 - Pompe", ActionFileBinder.ActionFile.PMI_ATTRAPER_BRAS_DROIT.ordinal(), Tache.Mirror.SPECIFIC), mirrorId);
-        mirrorId = recuperationBouees1_2.size() + 1;
-        recuperationBouees5.add(new Manipulation("Ramassage bouée 5 - Poser", ActionFileBinder.ActionFile.PMI_POSER_BRAS_GAUCHE.ordinal(), Tache.Mirror.SPECIFIC));
-        recuperationBouees5_3000.add(new Manipulation("Ramassage bouée 5 - Poser", ActionFileBinder.ActionFile.PMI_POSER_BRAS_DROIT.ordinal(), Tache.Mirror.SPECIFIC), mirrorId);
-        mirrorId = recuperationBouees1_2.size() + 1;
-        recuperationBouees5.add(new Manipulation("Ramassage bouée 5 - Lever", ActionFileBinder.ActionFile.PMI_SORTIR_LEVER_BRAS_GAUCHE.ordinal(), Tache.Mirror.SPECIFIC));
-        recuperationBouees5_3000.add(new Manipulation("Ramassage bouée 5 - Lever", ActionFileBinder.ActionFile.PMI_SORTIR_LEVER_BRAS_DROIT.ordinal(), Tache.Mirror.SPECIFIC), mirrorId);
-        recuperationBouees5.add(new DeleteZone("Suppression zone bouée 5", "bouee5"));
-        Objectif objectifRecuperationBouees5_0 = new Objectif("Récupération Bouée 5", objectifsCouleur0.size()+1, score, 1, recuperationBouees5);
-        Objectif objectifRecuperationBouees5_3000 = new Objectif("Récupération Bouée 5", objectifsCouleur3000.size()+1, score, 1, null);
-        try {
-            objectifRecuperationBouees5_3000.generateMirror(objectifRecuperationBouees5_0.taches, recuperationBouees5_3000);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        objectifsCouleur0.add(objectifRecuperationBouees5_0);
-        objectifsCouleur3000.add(objectifRecuperationBouees5_3000);
 
         /*
          * Ramassage bouées 6
@@ -221,11 +185,12 @@ public class MainPmi2021 {
          */
         score = 12;
         TaskList petitPort = new TaskList();
-        petitPort.add(new GoToAstar("Déplacement petit port", 1450, 1800));
+        petitPort.add(new GoToAstar("Déplacement petit port", 1420, 1800));
         petitPort.add(new Face("Alignement petit port", 0, 1800));
         petitPort.add(new SetSpeed("Vitesse réduite", 50));
         petitPort.add(new GoToBack("Marquage bouées petit port", 1600, 1800));
         petitPort.add(new GoToBack("Marquage bouées petit port", 1800, 1800));
+        petitPort.add(new GoToBack("Marquage bouées petit port", 1850, 1800));
         petitPort.add(new SetSpeed("Vitesse normale", 100));
         petitPort.add(new DeleteZone("Suppression zone bouée 8", "bouee8"));
         petitPort.add(new DeleteZone("Suppression zone bouée 11", "bouee11"));
@@ -264,8 +229,13 @@ public class MainPmi2021 {
         }
 
         Strategie startBoussole = MainPmi2021.mainBoussole();
-        strat.couleur0.add(startBoussole.couleur0.get(0)); // Nord
-//        strat.couleur0.add(startBoussole.couleur0.get(1)); // Sud
+//        strat.couleur0.add(startBoussole.couleur0.get(0)); // Nord
+        strat.couleur0.add(startBoussole.couleur0.get(1)); // Sud
+
+        // Ajout du clean de princess pour les tests
+        TaskList fakeZoneForSimu = new TaskList();
+        fakeZoneForSimu.add(new DeleteZone("Suppression zone bouée 4", "bouee4"));
+        recuperationBouees6.addAll(fakeZoneForSimu);
 
         System.out.println("Test de la strat");
         try {
@@ -281,7 +251,9 @@ public class MainPmi2021 {
                     task.pathFinding = pathFinding;
                     String execution = task.execute(startPoint);
                     System.out.println(execution);
-                    stratSimu.append(execution);
+                    if (!fakeZoneForSimu.contains(task)) {
+                        stratSimu.append(execution);
+                    }
                     startPoint = task.getEndPoint();
                 }
             }

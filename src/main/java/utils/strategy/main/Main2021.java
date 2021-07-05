@@ -107,6 +107,32 @@ public class Main2021 {
         objectifsCouleur3000.add(objectifPhoto3000);
 
         /*
+         * On marque la bouée 4
+         * Score = 2
+         *  - 1 point par bouée dans le port => 1
+         *  - 1 point par bouée dans le bon chenal => 1
+         */
+        score = 2;
+        TaskList recuperationBouees4 =  new TaskList();
+        recuperationBouees4.add(new GoToAstar("Mise en position bouée 4", 1090, 700));
+        recuperationBouees4.add(new SetSpeed("Vitesse réduite", 25));
+        recuperationBouees4.add(new GoToBack("Marquage bouée 4", 1090, 500));
+        recuperationBouees4.add(new GoToBack("Marquage bouée 4", 1090, 220));
+        recuperationBouees4.add(new SetSpeed("Vitesse normale", 100));
+        recuperationBouees4.add(new GoTo("Sortie de la zone", 1090, 700));
+        recuperationBouees4.add(new DeleteZone("Suppression zone bouée 4", "bouee4"));
+        recuperationBouees4.add(new AddZone("Blocage du chenal Sud", "chenal_depart_s"));
+        Objectif objectifRecuperationBouees4_0 = new Objectif("Bouée 4", objectifsCouleur0.size()+1, score, 1, recuperationBouees4);
+        Objectif objectifRecuperationBouees4_3000 = new Objectif("Bouée 4", objectifsCouleur3000.size()+1, score, 1, null);
+        try {
+            objectifRecuperationBouees4_3000.generateMirror(objectifRecuperationBouees4_0.taches);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        objectifsCouleur0.add(objectifRecuperationBouees4_0);
+        objectifsCouleur3000.add(objectifRecuperationBouees4_3000);
+
+        /*
          * Largage des bouées sud
          * Score = 6
          *  - 1 point par bouée dans le port => 3
@@ -219,18 +245,19 @@ public class Main2021 {
         }
 
         // Ajout du clean de picrate pour les tests
-        photo.add(new DeleteZone("Suppression zone bouée 1", "bouee1"));
-        photo.add(new DeleteZone("Suppression zone bouée 2", "bouee2"));
-        photo.add(new DeleteZone("Suppression zone bouée 3", "bouee3"));
-        photo.add(new DeleteZone("Suppression zone bouée 4", "bouee4"));
-        photo.add(new DeleteZone("Suppression zone bouée 5", "bouee5"));
-        photo.add(new DeleteZone("Suppression zone bouée 6", "bouee6"));
-        photo.add(new AddZone("Blocage du chenal Sud", "chenal_depart_s"));
-        photo.add(new AddZone("Blocage du chenal Nord", "chenal_depart_n"));
+        TaskList fakeZoneForSimu = new TaskList();
+        fakeZoneForSimu.add(new DeleteZone("Suppression zone bouée 1", "bouee1"));
+        fakeZoneForSimu.add(new DeleteZone("Suppression zone bouée 2", "bouee2"));
+        fakeZoneForSimu.add(new DeleteZone("Suppression zone bouée 3", "bouee3"));
+        fakeZoneForSimu.add(new DeleteZone("Suppression zone bouée 5", "bouee5"));
+        fakeZoneForSimu.add(new DeleteZone("Suppression zone bouée 6", "bouee6"));
+        fakeZoneForSimu.add(new AddZone("Blocage du chenal Sud", "chenal_depart_s"));
+        fakeZoneForSimu.add(new AddZone("Blocage du chenal Nord", "chenal_depart_n"));
+        photo.addAll(fakeZoneForSimu);
 
         Strategie startBoussole = Main2021.mainBoussole();
-        strat.couleur0.add(startBoussole.couleur0.get(0)); // Nord
-//        strat.couleur0.add(startBoussole.couleur0.get(1)); // Sud
+//        strat.couleur0.add(startBoussole.couleur0.get(0)); // Nord
+        strat.couleur0.add(startBoussole.couleur0.get(1)); // Sud
 
         System.out.println("Test de la strat");
         try {
@@ -246,7 +273,9 @@ public class Main2021 {
                     task.pathFinding = pathFinding;
                     String execution = task.execute(startPoint);
                     System.out.println(execution);
-                    stratSimu.append(execution);
+                    if (!fakeZoneForSimu.contains(task)) {
+                        stratSimu.append(execution);
+                    }
                     startPoint = task.getEndPoint();
                 }
             }
