@@ -63,7 +63,8 @@ public class Main {
             configurationManager.getColorDetector(),
             configurationManager.getChrono(),
             configurationManager.getTirette(),
-            configurationManager.getLcdDisplay()
+            configurationManager.getLcdDisplay(),
+            configurationManager.getFunnyActionDescription()
         );
 
         //Init

@@ -1,9 +1,6 @@
 package actions.a2020;
 
-import actions.ActionAX12Json;
-import actions.ActionCollection;
-import actions.ActionExecutor;
-import actions.ActionInterface;
+import actions.*;
 import api.ax12.AX12LinkSerial;
 import api.communication.Shell;
 import manager.CommunicationManager;
@@ -140,10 +137,12 @@ public class ActionFileBinder implements ActionInterface {
 	}
 
 	@Override
-	public int funnyAction() {
-		ActionExecutor actionExecutor = this.getActionExecutor(ActionFile.FUNNY_ACTION.ordinal());
-		actionExecutor.execute();
-		return 10;
+	public int funnyAction(FunnyActionDescription funnyActionDescription) {
+		if (funnyActionDescription.actionId > -1) {
+			ActionExecutor actionExecutor = this.getActionExecutor(funnyActionDescription.actionId);
+			actionExecutor.execute();
+		}
+		return funnyActionDescription.score;
 	}
 
 	@Override

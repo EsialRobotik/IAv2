@@ -56,8 +56,8 @@ public class ActionSupervisor {
      * Funny action
      * @return score
      */
-    public int funnyAction() {
-        return actionInterface.funnyAction();
+    public int funnyAction(FunnyActionDescription funnyActionDescription) {
+        return actionInterface.funnyAction(funnyActionDescription);
     }
 
     public boolean isLastExecutionFinished() {

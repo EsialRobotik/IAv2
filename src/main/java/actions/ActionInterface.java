@@ -11,7 +11,7 @@ public interface ActionInterface {
 
     void stopActions();
 
-    int funnyAction();
+    int funnyAction(FunnyActionDescription funnyActionDescription);
 
     void setCommunicationManager(CommunicationManager communicationManager);
 }

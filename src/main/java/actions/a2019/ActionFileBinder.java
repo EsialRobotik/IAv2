@@ -3,6 +3,7 @@ package actions.a2019;
 import actions.ActionAX12Json;
 import actions.ActionExecutor;
 import actions.ActionInterface;
+import actions.FunnyActionDescription;
 import api.ax12.AX12LinkSerial;
 import manager.CommunicationManager;
 
@@ -83,7 +84,7 @@ public class ActionFileBinder implements ActionInterface {
 	}
 
 	@Override
-	public int funnyAction() {
+	public int funnyAction(FunnyActionDescription funnyActionDescription) {
 		return 0;
 	}
 

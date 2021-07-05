@@ -2,6 +2,7 @@ package manager;
 
 import actions.ActionCollection;
 import actions.ActionSupervisor;
+import actions.FunnyActionDescription;
 import actions.a2020.ActionFileBinder;
 import api.ax12.AX12LinkException;
 import api.ax12.AX12LinkSerial;
@@ -62,6 +63,7 @@ public class ConfigurationManager {
     private LCD lcdDisplay;
     private AsservInterface asserv;
     private ActionFileBinder actionFileBinder;
+    private FunnyActionDescription funnyActionDescription;
 
     public void loadConfiguration(String path) throws IOException, AX12LinkException {
         this.loadConfiguration(path,CONFIG_NOMINAL);
@@ -141,6 +143,11 @@ public class ConfigurationManager {
                 }
                 actionFileBinder = new ActionFileBinder(ax12Link, dataDir, actionCollection);
                 actionSupervisor = new ActionSupervisor(actionFileBinder, initActionsIds);
+                JsonObject funnyAction = configObject.getAsJsonObject("funnyAction");
+                funnyActionDescription = new FunnyActionDescription(
+                    funnyAction.get("actionId").getAsInt(),
+                    funnyAction.get("score").getAsInt()
+                );
             }
         }
 
@@ -233,5 +240,9 @@ public class ConfigurationManager {
 
     public ActionFileBinder getActionFileBinder() {
         return actionFileBinder;
+    }
+
+    public FunnyActionDescription getFunnyActionDescription() {
+        return funnyActionDescription;
     }
 }

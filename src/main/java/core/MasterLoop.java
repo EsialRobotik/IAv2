@@ -1,9 +1,6 @@
 package core;
 
-import actions.ActionCollection;
-import actions.ActionDescriptor;
-import actions.ActionSupervisor;
-import actions.Step;
+import actions.*;
 import api.chrono.Chrono;
 import api.gpio.ColorDetector;
 import api.gpio.Tirette;
@@ -35,6 +32,7 @@ public class MasterLoop {
     private Chrono chrono;
     private Tirette tirette;
     private LCD lcdDisplay;
+    private FunnyActionDescription funnyActionDescription;
 
     private volatile boolean interrupted;
 
@@ -55,7 +53,8 @@ public class MasterLoop {
                       ColorDetector colorDetector,
                       Chrono chrono,
                       Tirette tirette,
-                      LCD lcdDisplay) {
+                      LCD lcdDisplay,
+                      FunnyActionDescription funnyActionDescription) {
         this.movementManager = movementManager;
         this.detectionManager = detectionManager;
         this.communicationManager = communicationManager;
@@ -66,6 +65,7 @@ public class MasterLoop {
         this.tirette = tirette;
         this.lcdDisplay = lcdDisplay;
         this.actionSupervisor = actionSupervisor;
+        this.funnyActionDescription = funnyActionDescription;
 
         this.interrupted = false; // Chiotte de bordel de saloperie d'enflure de connerie !
         this.logger = LoggerFactory.getLogger(MasterLoop.class);
@@ -305,7 +305,7 @@ public class MasterLoop {
         interrupted = true;
         //Launch the funny actions if needed
         logger.info("Funny action");
-        int funnyScore = actionSupervisor.funnyAction();
+        int funnyScore = actionSupervisor.funnyAction(funnyActionDescription);
 
         logger.info("Funny action terminé, mise à jour du score");
         score += funnyScore;
