@@ -1,6 +1,7 @@
 package core;
 
 import actions.ActionCollection;
+import actions.ActionExecutor;
 import actions.a2020.ActionFileBinder;
 import api.ax12.AX12LinkException;
 import api.ax12.AX12LinkSerial;
@@ -168,6 +169,9 @@ public class Main {
                 case "hotspot":
                     Main.testHotspot();
                     break;
+                case "funny-action":
+                    Main.funnyAction();
+                    break;
             }
 
         } else {
@@ -199,6 +203,7 @@ public class Main {
         System.out.println("\t- coupe-off : Danse de la coupe off\n");
         System.out.println("\t- config-ax12 : Lance l'utilitaire de configuration des AX12\n");
         System.out.println("\t- hotspot : Test la communication socket via le hotspot\n");
+        System.out.println("\t- funny-action : Test de la funny action en utilisant l'interrupteur de couleur comme déclencheur\n");
 
         System.out.println("configFile : chemin du fichier de configuration à utiliser. Par defaut, './config.json'\n");
     }
@@ -427,6 +432,31 @@ public class Main {
                 new AX12Http(webRootDir, dataDir, ax12Link);
             }
         } catch (AX12LinkException |IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void funnyAction()
+    {
+        ConfigurationManager configurationManager = new ConfigurationManager();
+        try {
+            configurationManager.loadConfiguration(configFilePath);
+            ColorDetector colorDetector = configurationManager.getColorDetector();
+            ActionExecutor ae = configurationManager.getActionSupervisor().getActionExecutor(configurationManager.getFunnyActionDescription().actionId);
+            boolean triggered = false;
+            while (true) {
+                Thread.sleep(50);
+                if (colorDetector.isColor0() && !triggered) {
+                    ae.resetActionState();
+                    ae.execute();
+                    System.out.println("Trigger");
+                    triggered = true;
+                }
+                if (!colorDetector.isColor0()) {
+                    triggered = false;
+                }
+            }
+        } catch (IOException | AX12LinkException | InterruptedException e) {
             e.printStackTrace();
         }
     }
