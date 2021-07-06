@@ -27,13 +27,13 @@ public class HotspotSocket extends WebSocketClient {
         super(serverURI);
     }
 
-    public HotspotSocket(String hostname, int port, String who) throws URISyntaxException {
+    public HotspotSocket(String hostname, int port, String who) throws URISyntaxException, InterruptedException {
         super(new URI("ws://" + hostname + ":" + port));
         this.hostname = hostname;
         this.port = port;
         this.who = who;
         this.logger = LoggerFactory.getLogger(HotspotSocket.class);
-        this.connect();
+        this.connectBlocking();
     }
 
     @Override

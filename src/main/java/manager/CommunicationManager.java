@@ -22,7 +22,7 @@ public class CommunicationManager {
         this.logger = LoggerFactory.getLogger(CommunicationManager.class);
         try {
             this.hotspotSocket = new HotspotSocket(host, port, "robot");
-        } catch (URISyntaxException e) {
+        } catch (URISyntaxException | InterruptedException e) {
             e.printStackTrace();
             this.logger.error("socket creation failed");
         }

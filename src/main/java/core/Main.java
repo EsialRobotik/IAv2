@@ -4,6 +4,7 @@ import actions.ActionCollection;
 import actions.a2020.ActionFileBinder;
 import api.ax12.AX12LinkException;
 import api.ax12.AX12LinkSerial;
+import api.communication.HotspotSocket;
 import api.communication.Shell;
 import api.gpio.ColorDetector;
 import api.gpio.Tirette;
@@ -26,6 +27,7 @@ import utils.web.ResourcesManager;
 import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -163,6 +165,9 @@ public class Main {
                 case "config-ax12":
                     Main.configAX12();
                     break;
+                case "hotspot":
+                    Main.testHotspot();
+                    break;
             }
 
         } else {
@@ -193,6 +198,7 @@ public class Main {
         System.out.println("\t- pathfinding : Test le calcul de pathfinding\n");
         System.out.println("\t- coupe-off : Danse de la coupe off\n");
         System.out.println("\t- config-ax12 : Lance l'utilitaire de configuration des AX12\n");
+        System.out.println("\t- hotspot : Test la communication socket via le hotspot\n");
 
         System.out.println("configFile : chemin du fichier de configuration à utiliser. Par defaut, './config.json'\n");
     }
@@ -422,6 +428,16 @@ public class Main {
             }
         } catch (AX12LinkException |IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private static void testHotspot() throws URISyntaxException, InterruptedException {
+        HotspotSocket socket = new HotspotSocket("192.168.0.102", 4269, "robot");
+        int i = 0;
+        while (true) {
+            socket.send("Coucou from socket : " + i);
+            Thread.sleep(500);
+            i++;
         }
     }
 
