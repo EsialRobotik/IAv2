@@ -423,7 +423,8 @@ public class Main {
                     throw new RuntimeException("Aucun port série "+" trouvé !");
                 }
 
-                AX12LinkSerial ax12Link = new AX12LinkSerial(sp, configObject.get("baud").getAsInt());
+                boolean combineRxTx = configObject.has("combineRxTx") && configObject.get("combineRxTx").getAsBoolean();
+                AX12LinkSerial ax12Link = new AX12LinkSerial(sp, configObject.get("baud").getAsInt(), combineRxTx);
                 File dataDir = new File(configObject.get("dataDir").getAsString()).getCanonicalFile();
 
                 File webRootDir = new File("webRootDir");

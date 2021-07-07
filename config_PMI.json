@@ -22,6 +22,7 @@
     },
     "asserv": {
         "baud": 115200,
+        "combineRxTx": false,
         "serie": "/dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_066BFF485151717867202913-if02",
         "calage0": {
             "x": 1250,
