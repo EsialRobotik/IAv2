@@ -367,6 +367,7 @@ public class Asserv implements AsservInterface {
         JsonArray start = this.config.getAsJsonArray(isColor0 ? "start0" : "start3000");
         for (JsonElement instruction : start) {
             JsonObject temp = instruction.getAsJsonObject();
+            logger.debug(temp.toString());
             switch (temp.get("type").getAsString()) {
                 case "go":
                     go(temp.get("dist").getAsInt());
