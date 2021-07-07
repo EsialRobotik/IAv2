@@ -36,4 +36,13 @@ public class Chrono {
             }
         }, matchDuration * 1000); //Delay in milliseconds
     }
+
+    /**
+     * Get time since beginning of chrono in ms
+     * @return
+     */
+    public long getTimeSinceBeginning() {
+        Timestamp t = new Timestamp(System.currentTimeMillis());
+        return t.getTime() - (long)timestampStart;
+    }
 }
