@@ -68,6 +68,7 @@ public class ActionFileBinder implements ActionInterface {
 		PMI_ATTRAPER_BRAS_GAUCHE("pmi_attraper_bras_gauche.json"), // 20
 		PMI_LACHER_BRAS_DROIT("pmi_lacher_bras_droit.json"), // 21
 		PMI_LACHER_BRAS_GAUCHE("pmi_lacher_bras_gauche.json"), // 22
+		PMI_ALLUMER_PHARE("pmi_allumer_phare.json"), // 23
 
 		ARUCO_CAM(""),
 		PMI_BOUSSOLE("");

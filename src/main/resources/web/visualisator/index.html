@@ -437,7 +437,7 @@
   function connectSocket() {
     var socket = null;
     try {
-        socket = new WebSocket("ws://localhost:4269");
+        socket = new WebSocket("ws://192.168.0.104:4269");
     } catch (exception) {
         console.error(exception);
     }

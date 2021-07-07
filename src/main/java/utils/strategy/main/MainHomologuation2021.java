@@ -303,7 +303,7 @@ public class MainHomologuation2021 {
         System.out.println("#########################");
         System.out.println(gson.toJson(strat));
 
-        try (PrintWriter jsonFile = new PrintWriter("configCollectionBoussolePmi.json")) {
+        try (PrintWriter jsonFile = new PrintWriter("configCollectionBoussoleHomologuation.json")) {
             jsonFile.println(gson.toJson(strat));
         } catch (FileNotFoundException e) {
             e.printStackTrace();

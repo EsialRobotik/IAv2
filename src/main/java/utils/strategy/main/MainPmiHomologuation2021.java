@@ -116,6 +116,7 @@ public class MainPmiHomologuation2021 {
         recuperationBouees3.add(new SetSpeed("Vitesse normale", 100));
         recuperationBouees3.add(new GoTo("Sortie de la zone", 520, 500));
         recuperationBouees3.add(new DeleteZone("Suppression zone bouée 3", "bouee3"));
+        recuperationBouees3.add(new Manipulation("Bras en position d'allumage du phare", ActionFileBinder.ActionFile.PMI_ALLUMER_PHARE.ordinal()));
         recuperationBouees3.add(new GoTo("Direction le phare", 200, 290));
         recuperationBouees3.add(new Face("Alignement phare", 0, 290));
         recuperationBouees3.add(new GoTo("Placement phare", 120, 290));
@@ -252,7 +253,7 @@ public class MainPmiHomologuation2021 {
         System.out.println("#########################");
         System.out.println(gson.toJson(strat));
 
-        try (PrintWriter jsonFile = new PrintWriter("configCollectionBoussole.json")) {
+        try (PrintWriter jsonFile = new PrintWriter("configCollectionBoussolePmiHomologuation.json")) {
             jsonFile.println(gson.toJson(strat));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
