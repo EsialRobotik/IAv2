@@ -27,32 +27,28 @@ public class PmiBoussoleAction implements ActionExecutor {
         Gson gson = new Gson();
         this.nord0 = new ActionDescriptor(
             gson.fromJson(
-//                "{\"desc\":\"Port Nord\",\"id\":1,\"points\":10,\"priorite\":1,\"taches\":[{\"desc\":\"On se gare\",\"id\":1,\"positionX\":200,\"positionY\":500,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto_astar\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1},{\"desc\":\"On se gare\",\"id\":2,\"positionX\":160,\"positionY\":200,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1},{\"desc\":\"On se gare\",\"id\":3,\"positionX\":160,\"positionY\":90,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1}]}",
-                "{\"desc\":\"Port Nord\",\"id\":1,\"points\":10,\"priorite\":1,\"taches\":[{\"desc\":\"On se gare\",\"id\":1,\"positionX\":300,\"positionY\":700,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto_astar\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1},{\"desc\":\"On se gare\",\"id\":2,\"positionX\":300,\"positionY\":400,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1}]}",
+                "{\"desc\":\"Port Nord\",\"id\":1,\"points\":3,\"priorite\":1,\"taches\":[{\"desc\":\"On se gare\",\"id\":1,\"positionX\":200,\"positionY\":500,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto_astar\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1},{\"desc\":\"On se gare\",\"id\":2,\"positionX\":160,\"positionY\":200,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1},{\"desc\":\"On se gare\",\"id\":3,\"positionX\":160,\"positionY\":90,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1}]}",
                 JsonObject.class
             ),
             actionCollection.isStepByStep()
         );
         this.sud0 = new ActionDescriptor(
             gson.fromJson(
-//                "{\"desc\":\"Port Sud\",\"id\":2,\"points\":10,\"priorite\":1,\"taches\":[{\"desc\":\"On se gare\",\"id\":1,\"positionX\":1400,\"positionY\":500,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto_astar\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1},{\"desc\":\"On se gare\",\"id\":2,\"positionX\":1440,\"positionY\":200,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1},{\"desc\":\"On se gare\",\"id\":3,\"positionX\":1440,\"positionY\":90,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1}]}",
-                "{\"desc\":\"Port Sud\",\"id\":2,\"points\":10,\"priorite\":1,\"taches\":[{\"desc\":\"On se gare\",\"id\":1,\"positionX\":1300,\"positionY\":700,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto_astar\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1},{\"desc\":\"On se gare\",\"id\":2,\"positionX\":1300,\"positionY\":400,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1}]}",
+                "{\"desc\":\"Port Sud\",\"id\":2,\"points\":3,\"priorite\":1,\"taches\":[{\"desc\":\"On se gare\",\"id\":1,\"positionX\":1400,\"positionY\":500,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto_astar\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1},{\"desc\":\"On se gare\",\"id\":2,\"positionX\":1440,\"positionY\":200,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1},{\"desc\":\"On se gare\",\"id\":3,\"positionX\":1440,\"positionY\":90,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1}]}",
                 JsonObject.class
             ),
             actionCollection.isStepByStep()
         );
         this.nord3000 = new ActionDescriptor(
             gson.fromJson(
-//                "{\"desc\":\"Port Nord\",\"id\":1,\"points\":10,\"priorite\":1,\"taches\":[{\"desc\":\"On se gare\",\"id\":1,\"positionX\":200,\"positionY\":2500,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto_astar\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1},{\"desc\":\"On se gare\",\"id\":2,\"positionX\":160,\"positionY\":2800,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1},{\"desc\":\"On se gare\",\"id\":3,\"positionX\":160,\"positionY\":2910,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1}]}",
-                "{\"desc\":\"Port Nord\",\"id\":1,\"points\":10,\"priorite\":1,\"taches\":[{\"desc\":\"On se gare\",\"id\":1,\"positionX\":300,\"positionY\":2300,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto_astar\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1},{\"desc\":\"On se gare\",\"id\":2,\"positionX\":300,\"positionY\":2600,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1}]}",
+                "{\"desc\":\"Port Nord\",\"id\":1,\"points\":3,\"priorite\":1,\"taches\":[{\"desc\":\"On se gare\",\"id\":1,\"positionX\":200,\"positionY\":2500,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto_astar\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1},{\"desc\":\"On se gare\",\"id\":2,\"positionX\":160,\"positionY\":2800,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1},{\"desc\":\"On se gare\",\"id\":3,\"positionX\":160,\"positionY\":2910,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1}]}",
                 JsonObject.class
             ),
             actionCollection.isStepByStep()
         );
         this.sud3000 = new ActionDescriptor(
             gson.fromJson(
-//                "{\"desc\":\"Port Sud\",\"id\":2,\"points\":10,\"priorite\":1,\"taches\":[{\"desc\":\"On se gare\",\"id\":1,\"positionX\":1400,\"positionY\":2500,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto_astar\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1},{\"desc\":\"On se gare\",\"id\":2,\"positionX\":1440,\"positionY\":2800,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1},{\"desc\":\"On se gare\",\"id\":3,\"positionX\":1440,\"positionY\":2910,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1}]}",
-                "{\"desc\":\"Port Sud\",\"id\":2,\"points\":10,\"priorite\":1,\"taches\":[{\"desc\":\"On se gare\",\"id\":1,\"positionX\":1300,\"positionY\":2300,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto_astar\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1},{\"desc\":\"On se gare\",\"id\":2,\"positionX\":1300,\"positionY\":2600,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1}]}",
+                "{\"desc\":\"Port Sud\",\"id\":2,\"points\":3,\"priorite\":1,\"taches\":[{\"desc\":\"On se gare\",\"id\":1,\"positionX\":1400,\"positionY\":2500,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto_astar\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1},{\"desc\":\"On se gare\",\"id\":2,\"positionX\":1440,\"positionY\":2800,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1},{\"desc\":\"On se gare\",\"id\":3,\"positionX\":1440,\"positionY\":2910,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1}]}",
                 JsonObject.class
             ),
             actionCollection.isStepByStep()
@@ -72,7 +68,7 @@ public class PmiBoussoleAction implements ActionExecutor {
                 try {
                     logger.info("Analyse de la data");
                     logger.info("Tag = " + commData);
-                    if (commData.contains("NORD")) {
+                    /*if (commData.contains("NORD")) {
                         logger.info("NORD détecté");
                         if (actionCollection.isColor0()) {
                             actionCollection.addAction(nord0);
@@ -81,7 +77,8 @@ public class PmiBoussoleAction implements ActionExecutor {
                             actionCollection.addAction(nord3000);
                             logger.info("Load Nord3000");
                         }
-                    } else if (commData.contains("SUD")) {
+                    } else if (commData.contains("SUD")) {*/
+                        // Le SUD est plus rentable
                         logger.info("SUD détecté");
                         if (actionCollection.isColor0()) {
                             actionCollection.addAction(sud0);
@@ -90,7 +87,7 @@ public class PmiBoussoleAction implements ActionExecutor {
                             actionCollection.addAction(sud3000);
                             logger.info("Load Sud3000");
                         }
-                    } else {
+                    /*} else {
                         logger.info("JE SAIS PAS !!! MAIS JAMAIS AU NORD !!!");
                         if (actionCollection.isColor0()) {
                             actionCollection.addAction(sud0);
@@ -99,7 +96,7 @@ public class PmiBoussoleAction implements ActionExecutor {
                             actionCollection.addAction(sud3000);
                             logger.info("Load Sud3000");
                         }
-                    }
+                    }*/
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

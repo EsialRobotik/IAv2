@@ -115,11 +115,12 @@ public class Main2021 {
         score = 2;
         TaskList recuperationBouees4 =  new TaskList();
         recuperationBouees4.add(new GoToAstar("Mise en position bouée 4", 1090, 700));
+        recuperationBouees4.add(new Face("Alignement bouée 4", 1090, 3000));
         recuperationBouees4.add(new SetSpeed("Vitesse réduite", 25));
         recuperationBouees4.add(new GoToBack("Marquage bouée 4", 1090, 500));
         recuperationBouees4.add(new GoToBack("Marquage bouée 4", 1090, 400));
         recuperationBouees4.add(new GoToBack("Marquage bouée 4", 1090, 300));
-        recuperationBouees4.add(new GoToBack("Marquage bouée 4", 1090, 260));
+        recuperationBouees4.add(new GoToBack("Marquage bouée 4", 1090, 270));
         recuperationBouees4.add(new SetSpeed("Vitesse normale", 100));
         recuperationBouees4.add(new GoTo("Sortie de la zone", 1090, 700));
         recuperationBouees4.add(new DeleteZone("Suppression zone bouée 4", "bouee4"));
@@ -142,12 +143,12 @@ public class Main2021 {
          */
         score = 6;
         TaskList largageSud = new TaskList();
-        largageSud.add(new GoToAstar("Déplacement largage sud", 1420, 270));
-        largageSud.add(new Face("Alignement largage sud", 0, 270));
-        largageSud.add(new Go("Placement largage sud", 190));
+        largageSud.add(new GoToAstar("Déplacement largage sud", 1420, 260));
+        largageSud.add(new Face("Alignement largage sud", 0, 260));
+        largageSud.add(new Go("Placement largage sud", 160));
         largageSud.add(new Manipulation("Préparer largage recif sud", ActionFileBinder.ActionFile.PREPARER_LARGAGE.ordinal()));
         largageSud.add(new Manipulation("Largage impaire recif sud", ActionFileBinder.ActionFile.LARGUER_DOIGTS_IMPAIRE.ordinal()));
-        largageSud.add(new Go("Sortie largage sud", -290));
+        largageSud.add(new Go("Sortie largage sud", -260));
         largageSud.add(new GoTo("Esquive chenal", 1520, 700));
         Objectif objectifLargageSud0 = new Objectif("Largage sud", objectifsCouleur0.size()+1, score, 1, largageSud);
         Objectif objectifLargageSud3000 = new Objectif("Largage sud", objectifsCouleur3000.size()+1, score, 1, null);
@@ -170,11 +171,12 @@ public class Main2021 {
         TaskList recuperationBouees3 =  new TaskList();
         TaskList recuperationBouees3_3000 =  new TaskList();
         recuperationBouees3.add(new GoToAstar("Mise en position bouée 3", 520, 700));
+        recuperationBouees3.add(new Face("Alignement bouée 3", 520, 3000));
         recuperationBouees3.add(new SetSpeed("Vitesse réduite", 25));
         recuperationBouees3.add(new GoToBack("Marquage bouée 3", 520, 500));
         recuperationBouees3.add(new GoToBack("Marquage bouée 3", 520, 400));
         recuperationBouees3.add(new GoToBack("Marquage bouée 3", 520, 300));
-        recuperationBouees3.add(new GoToBack("Marquage bouée 3", 520, 260));
+        recuperationBouees3.add(new GoToBack("Marquage bouée 3", 520, 270));
         recuperationBouees3.add(new SetSpeed("Vitesse normale", 100));
         recuperationBouees3.add(new GoTo("Sortie de la zone", 520, 700));
         recuperationBouees3.add(new DeleteZone("Suppression zone bouée 3", "bouee3"));
@@ -198,11 +200,11 @@ public class Main2021 {
          */
         score = 8;
         TaskList largageNord = new TaskList();
-        largageNord.add(new GoToAstar("Placement largage nord", 280, 280));
-        largageNord.add(new Face("Alignement largage nord", 2000, 280));
-        largageNord.add(new GoTo("Placement largage nord", 360, 280));
+        largageNord.add(new GoToAstar("Placement largage nord", 280, 260));
+        largageNord.add(new Face("Alignement largage nord", 2000, 260));
+        largageNord.add(new GoTo("Placement largage nord", 320, 260));
         largageNord.add(new Manipulation("Largage impaire nord", ActionFileBinder.ActionFile.LARGUER_DOIGTS_PAIRE.ordinal()));
-        largageNord.add(new GoToBack("Sortie largage nord", 230, 280));
+        largageNord.add(new GoToBack("Sortie largage nord", 230, 260));
         largageNord.add(new Manipulation("On remet tout en place", ActionFileBinder.ActionFile.INIT.ordinal()));
         Objectif objectifRecifLargageN0 = new Objectif("Largage nord", objectifsCouleur0.size()+1, score, 1, largageNord);
         Objectif objectifRecifLargageN3000 = new Objectif("Largage nord", objectifsCouleur3000.size()+1, score, 1, null);
@@ -239,26 +241,54 @@ public class Main2021 {
 
         /*
          * Largage distributeur Nord
-         * Score = 5
-         *  - 1 point par bouée dans le port => 5
+         * Score = 4
+         *  - 1 point par bouée dans le port => 4
          */
+        int mirrorId = 0;
+        score = 4;
         TaskList largageRecifNord = new TaskList();
+        TaskList largageRecifNord_3000 = new TaskList();
         largageRecifNord.add(new GoToAstar("Placement dans le grand port", 800, 450));
         largageRecifNord.add(new Face("Alignement dans le grand port", 800, 0));
         largageRecifNord.add(new Manipulation("Préparer largage grand port", ActionFileBinder.ActionFile.PREPARER_LARGAGE.ordinal()));
-        largageRecifNord.add(new Manipulation("Largage impaire grand port", ActionFileBinder.ActionFile.LARGUER_DOIGTS_IMPAIRE.ordinal()));
-        largageRecifNord.add(new Manipulation("Largage paire grand port", ActionFileBinder.ActionFile.LARGUER_DOIGTS_PAIRE.ordinal()));
+        mirrorId = largageRecifNord.size() + 1;
+        largageRecifNord.add(new Manipulation("Largage grand port", ActionFileBinder.ActionFile.OUVRIR_DOIGTS_1A4.ordinal()));
+        largageRecifNord_3000.add(new Manipulation("Largage grand port", ActionFileBinder.ActionFile.OUVRIR_DOIGTS_1A5.ordinal()), mirrorId);
         largageRecifNord.add(new GoToBack("Sortie grand port", 800, 730));
-        largageRecifNord.add(new Manipulation("On remet tout en place", ActionFileBinder.ActionFile.INIT.ordinal()));
-        Objectif objectifLargageRecifNord0 = new Objectif("Largage recif nord", objectifsCouleur0.size()+1, 0, 1, largageRecifNord);
-        Objectif objectifLargageRecifNord3000 = new Objectif("Largage recif nord", objectifsCouleur3000.size()+1, 0, 1, null);
+        Objectif objectifLargageRecifNord0 = new Objectif("Largage recif nord", objectifsCouleur0.size()+1, score, 1, largageRecifNord);
+        Objectif objectifLargageRecifNord3000 = new Objectif("Largage recif nord", objectifsCouleur3000.size()+1, score, 1, null);
         try {
-            objectifLargageRecifNord3000.generateMirror(objectifLargageRecifNord0.taches);
+            objectifLargageRecifNord3000.generateMirror(objectifLargageRecifNord0.taches, largageRecifNord_3000);
         } catch (Exception e) {
             e.printStackTrace();
         }
         objectifsCouleur0.add(objectifLargageRecifNord0);
         objectifsCouleur3000.add(objectifLargageRecifNord3000);
+
+        /*
+         * Largage dernière bouée
+         * Score = 4
+         *  - 1 point par bouée dans le port => 1
+         *  - 1 point par bouée dans le chenal => 1
+         *  - 2 point par paire => 2
+         */
+        score = 4;
+        TaskList largageDerniereBouee = new TaskList();
+        largageDerniereBouee.add(new GoTo("Placement largage", 365, 730));
+        largageDerniereBouee.add(new Face("Alignement largage", 365, 0));
+        largageDerniereBouee.add(new GoTo("Placement largage", 365, 500));
+        largageDerniereBouee.add(new Face("Alignement largage", 365, 0));
+        largageDerniereBouee.add(new Manipulation("Largage", ActionFileBinder.ActionFile.OUVRIR_DOIGTS_1A5.ordinal()));
+        largageDerniereBouee.add(new GoToBack("On se prépare à se garer", 365, 730));
+        Objectif objectifLargageDerniereBouee0 = new Objectif("Largage recif nord", objectifsCouleur0.size()+1, score, 1, largageDerniereBouee);
+        Objectif objectifLargageDerniereBouee3000 = new Objectif("Largage recif nord", objectifsCouleur3000.size()+1, score, 1, null);
+        try {
+            objectifLargageDerniereBouee3000.generateMirror(objectifLargageDerniereBouee0.taches);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        objectifsCouleur0.add(objectifLargageDerniereBouee0);
+        objectifsCouleur3000.add(objectifLargageDerniereBouee3000);
 
         // Création de la stratégie complète
         Strategie strat = new Strategie();
@@ -290,8 +320,8 @@ public class Main2021 {
         photo.addAll(fakeZoneForSimu);
 
         Strategie startBoussole = Main2021.mainBoussole();
-//        strat.couleur0.add(startBoussole.couleur0.get(0)); // Nord
-        strat.couleur0.add(startBoussole.couleur0.get(1)); // Sud
+        strat.couleur0.add(startBoussole.couleur0.get(0)); // Nord
+//        strat.couleur0.add(startBoussole.couleur0.get(1)); // Sud
 
         System.out.println("Test de la strat");
         try {
@@ -340,8 +370,7 @@ public class Main2021 {
         int score = 10;
         TaskList tachesPortNord =  new TaskList();
         tachesPortNord.add(new GoToAstar("On se gare", 200, 500));
-        tachesPortNord.add(new GoTo("On se gare", 160, 200));
-        tachesPortNord.add(new GoTo("On se gare", 160, 150));
+        tachesPortNord.add(new GoTo("On se gare", 200, 200));
         Objectif objectifPortN0 = new Objectif("Port Nord", objectifsCouleur0.size()+1, score, 1, tachesPortNord);
         Objectif objectifPortN3000 = new Objectif("Port Nord", objectifsCouleur3000.size()+1, score, 1, null);
         try {

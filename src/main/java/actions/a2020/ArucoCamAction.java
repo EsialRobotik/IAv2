@@ -80,11 +80,11 @@ public class ArucoCamAction implements ActionExecutor {
             @Override
             public void run() {
                 try {
-                    logger.info("Analyse du tag");
-                    shell.send("a");
-                    String result = shell.read();
-                    logger.info("Tag = " + result);
-//                    String result = "#NORD#";
+                    logger.info("Analyse du tag... OU PAS !!!!");
+//                    shell.send("a");
+//                    String result = shell.read();
+//                    logger.info("Tag = " + result);
+                    String result = "#NORD#"; // C'est plus rentable d'allez direct au nord en fait
                     if (!result.contains("#NORD#") && !result.contains("#SUD#")) {
                         logger.info("Analyse du tag bis");
                         try {
