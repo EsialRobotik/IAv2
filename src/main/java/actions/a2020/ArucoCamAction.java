@@ -104,7 +104,7 @@ public class ArucoCamAction implements ActionExecutor {
                             actionCollection.addAction(nord3000);
                             logger.info("Load Nord3000");
                         }
-                        communicationManager.sendActionData(ActionFileBinder.ActionFile.PMI_BOUSSOLE.ordinal(), "NORD");
+//                        communicationManager.sendActionData(ActionFileBinder.ActionFile.PMI_BOUSSOLE.ordinal(), "NORD");
                     } else if (result.contains("#SUD#")) {
                         logger.info("SUD détecté");
                         if (actionCollection.isColor0()) {
@@ -114,7 +114,7 @@ public class ArucoCamAction implements ActionExecutor {
                             actionCollection.addAction(sud3000);
                             logger.info("Load Sud3000");
                         }
-                        communicationManager.sendActionData(ActionFileBinder.ActionFile.PMI_BOUSSOLE.ordinal(), "SUD");
+//                        communicationManager.sendActionData(ActionFileBinder.ActionFile.PMI_BOUSSOLE.ordinal(), "SUD");
                     } else {
                         logger.info("JE SAIS PAS !!! MAIS JAMAIS AU NORD !!!");
                         if (actionCollection.isColor0()) {
@@ -124,7 +124,7 @@ public class ArucoCamAction implements ActionExecutor {
                             actionCollection.addAction(sud3000);
                             logger.info("Load Sud3000");
                         }
-                        communicationManager.sendActionData(ActionFileBinder.ActionFile.PMI_BOUSSOLE.ordinal(), "NORD");
+//                        communicationManager.sendActionData(ActionFileBinder.ActionFile.PMI_BOUSSOLE.ordinal(), "NORD");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

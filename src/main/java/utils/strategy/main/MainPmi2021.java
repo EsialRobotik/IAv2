@@ -81,7 +81,7 @@ public class MainPmi2021 {
         recuperationBouees1_2.add(new Manipulation("Largage bouée 1 - Pompe", ActionFileBinder.ActionFile.PMI_LACHER_BRAS_DROIT.ordinal(), Tache.Mirror.SPECIFIC));
         recuperationBouees1_2_3000.add(new Manipulation("Largage bouée 1 - Pompe", ActionFileBinder.ActionFile.PMI_LACHER_BRAS_GAUCHE.ordinal(), Tache.Mirror.SPECIFIC), mirrorId);
         recuperationBouees1_2.add(new DeleteZone("Suppression zone bouée 2", "bouee2"));
-        recuperationBouees1_2.add(new GoToBack("Mise en position largage bouée 2", 400, 200));
+        recuperationBouees1_2.add(new GoToBack("Mise en position largage bouée 2", 380, 200));
         recuperationBouees1_2.add(new Face("Alignement largage bouée 2", 2000, 200));
         mirrorId = recuperationBouees1_2.size() + 1;
         recuperationBouees1_2.add(new Manipulation("Largage bouée 2 - Pompe", ActionFileBinder.ActionFile.PMI_LACHER_BRAS_GAUCHE.ordinal(), Tache.Mirror.SPECIFIC));
@@ -204,7 +204,7 @@ public class MainPmi2021 {
 
         /*
          * On esaie de prendre 2 bouées de plus et les marquer parce qu'on a du temps
-         * Score = 12
+         * Score = 6
          *  - 1 point par bouée dans le port => 2
          *  - 1 point par bouée dans le bon chenal => 2
          *  - une paire dans les chenaux => 2
@@ -244,9 +244,6 @@ public class MainPmi2021 {
         petitPortBis.add(new Manipulation("Largage bouée 9 - Pompe", ActionFileBinder.ActionFile.PMI_LACHER_BRAS_DROIT.ordinal()));
         petitPortBis.add(new Manipulation("Largage bouée 10 - Pompe", ActionFileBinder.ActionFile.PMI_LACHER_BRAS_GAUCHE.ordinal()));
         petitPortBis.add(new GoToBack("Sortie petit port", 1450, 1800));
-        petitPortBis.add(new WaitChrono("Attente", 90));
-        petitPortBis.add(new GoToAstar("Déplacement vers l'arrivee", 1350, 1070));
-        petitPortBis.add(new WaitChrono("Attente", 96));
         Objectif objectifPetitPortBis0 = new Objectif("Petit port bis", objectifsCouleur0.size()+1, score, 1, petitPortBis);
         Objectif objectifPetitPortBis3000 = new Objectif("Petit port bis", objectifsCouleur3000.size()+1, score, 1, null);
         try {
@@ -256,6 +253,23 @@ public class MainPmi2021 {
         }
         objectifsCouleur0.add(objectifPetitPortBis0);
         objectifsCouleur3000.add(objectifPetitPortBis3000);
+
+        /**
+         * On va dans le port Sud
+         * Score = 3 ==> Mauvais port
+         */
+        score = 3;
+        TaskList tachesPortSud =  new TaskList();
+        tachesPortSud.add(new GoTo("On se gare", 1450, 300));
+        Objectif objectifPortS0 = new Objectif("Port Sud", objectifsCouleur0.size()+1, score, 1, tachesPortSud);
+        Objectif objectifPortS3000 = new Objectif("Port Sud", objectifsCouleur3000.size()+1, score, 1, null);
+        try {
+            objectifPortS3000.generateMirror(objectifPortS0.taches);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        objectifsCouleur0.add(objectifPortS0);
+        objectifsCouleur3000.add(objectifPortS3000);
 
         // Création de la stratégie complète
         Strategie strat = new Strategie();
@@ -274,10 +288,6 @@ public class MainPmi2021 {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
-        Strategie startBoussole = MainPmi2021.mainBoussole();
-//        strat.couleur0.add(startBoussole.couleur0.get(0)); // Nord
-        strat.couleur0.add(startBoussole.couleur0.get(1)); // Sud
 
         // Ajout du clean de princess pour les tests
         TaskList fakeZoneForSimu = new TaskList();
