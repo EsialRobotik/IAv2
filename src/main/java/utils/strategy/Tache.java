@@ -54,7 +54,9 @@ public class Tache {
         @SerializedName("suppression")
         SUPPRESSION("suppression"),
         @SerializedName("ajout")
-        AJOUT("ajout")
+        AJOUT("ajout"),
+        @SerializedName("wait_chrono")
+        WAIT_CHRONO("wait_chrono")
         ;
 
         private final String text;

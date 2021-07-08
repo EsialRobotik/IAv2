@@ -23,7 +23,8 @@ public class Step {
         GOTO_ASTAR,
         SET_SPEED,
         SUPPRESSION,
-        AJOUT
+        AJOUT,
+        WAIT_CHRONO
     }
 
     private String desc;
@@ -88,6 +89,9 @@ public class Step {
             } else if (temp.equals("ajout")) {
                 this.subType = SubType.AJOUT;
                 this.itemId = configNode.get("itemId").getAsString();
+            } else if (temp.equals("wait_chrono")) {
+                this.subType = SubType.WAIT_CHRONO;
+                this.timeout = configNode.get("timeout").getAsInt();
             }
 
             if (configNode.has("yPositiveExclusive")) {
