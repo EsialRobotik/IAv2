@@ -92,6 +92,14 @@
             <button type="submit">Submit</button>
         </fieldset>
     </form>
+    <form id="formStratLog" name="formStratLog" class="formBlock" onsubmit="event.preventDefault(); loadStratLog();">
+        <fieldset>
+            <legend>Replay logs Princess</legend>
+            <input type="file"
+                   id="stratLog" name="stratLog"/>
+            <button type="submit">Submit</button>
+        </fieldset>
+    </form>
     <form id="formStratPmi" name="formStratPmi" class="formBlock" onsubmit="event.preventDefault(); loadStratPmi();">
         <fieldset>
             <legend>Strat du générateur PMI</legend>
@@ -368,25 +376,57 @@
     }
   }
 
-  function nextInstruction() {
-    if (stratIndex >= strat.length) {
+  function loadStratLog() {
+    var file = document.getElementById('stratLog');
+    if (file.files.length) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            stratLog = e.target.result.split('\n');
+            rotationTime = 50;
+            moveTime = 50;
+            stratIndex = 0;
+        };
+        reader.readAsBinaryString(file.files[0]);
         return true;
     }
-    var instruction = strat[stratIndex];
+  }
+
+  function nextInstruction() {
+    if (strat) {
+        var startFile = strat;
+    } else {
+        var startFile = stratLog;
+    }
+    if (stratIndex >= startFile.length) {
+        return true;
+    }
+    var instruction = startFile[stratIndex];
     stratIndex++;
 
-    var regexpZone = /(delete|add)-zone#(.+)/;
-    var parseZone = regexpZone.exec(instruction.command);
+    if (strat) {
+        var regexpZone = /(delete|add)-zone#(.+)/;
+        var parseZone = regexpZone.exec(instruction.command);
 
-    var dataDiv = document.getElementById('data');
-    dataDiv.insertAdjacentHTML('beforeend', '<strong>' + instruction.task + '</strong> : ' + instruction.command + '<br>');
-    dataDiv.scrollTop = dataDiv.scrollHeight;
-    moveRobot(instruction.position.y, instruction.position.x, instruction.position.theta);
-    if (parseZone !== null) {
-        if (parseZone[1] === 'delete') {
-            deleteZone(parseZone[2]);
+        var dataDiv = document.getElementById('data');
+        dataDiv.insertAdjacentHTML('beforeend', '<strong>' + instruction.task + '</strong> : ' + instruction.command + '<br>');
+        dataDiv.scrollTop = dataDiv.scrollHeight;
+        moveRobot(instruction.position.y, instruction.position.x, instruction.position.theta);
+        if (parseZone !== null) {
+            if (parseZone[1] === 'delete') {
+                deleteZone(parseZone[2]);
+            } else {
+                addZone(parseZone[2]);
+            }
+        }
+    } else {
+        var regexpAsserv = /.+\[Asserv\].+#([-0-9]+);([-0-9]+);([-0-9\.]+).+/;
+        var parseAsserv = regexpAsserv.exec(instruction);
+        if (parseAsserv != null) {
+            moveRobot(parseAsserv[2], parseAsserv[1], parseAsserv[3]);
         } else {
-            addZone(parseZone[2]);
+            var dataDiv = document.getElementById('data');
+            dataDiv.insertAdjacentHTML('beforeend', instruction + '<br>');
+            dataDiv.scrollTop = dataDiv.scrollHeight;
         }
     }
     return false;

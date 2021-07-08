@@ -81,10 +81,10 @@ public class UltraSoundManager {
                 Position position = movementManager.getPosition();
 
                 //First one is front left
-                if(pull[0] < thresholdMap.get("FrontLeft")) {
+                if (pull[0] < thresholdMap.get("FrontLeft")) {
                     Position pos = getObstaclePosition(position, posFrontLeft, pull[0]);
                     logger.debug("Ultrasound Avant gauche : " + pull[0]);
-                    if(!table.isAreaForbiddenSafe(pos.getX() / 10, pos.getY() / 10)) {
+                    if (this.mustStop(pos)) {
                        tempDetection[0] = true;
                         logger.info("Ultrasound Avant gauche : STOP (" + pos.getX() + "," + pos.getY() + ")");
                     } else {
@@ -93,10 +93,10 @@ public class UltraSoundManager {
                 }
 
                 //front middle
-                if(pull[1] < thresholdMap.get("Front")) {
+                if (pull[1] < thresholdMap.get("Front")) {
                     Position pos = getObstaclePosition(position, posFront, pull[1]);
                     logger.debug("Ultrasound Avant milieu : " + pull[1]);
-                    if(!table.isAreaForbiddenSafe(pos.getX() / 10, pos.getY() / 10)) {
+                    if (this.mustStop(pos)) {
                         tempDetection[1] = true;
                         logger.info("Ultrasound Avant milieu : STOP (" + pos.getX() + "," + pos.getY() + ")");
                     } else {
@@ -105,10 +105,10 @@ public class UltraSoundManager {
                 }
 
                 //front right
-                if(pull[2] < thresholdMap.get("FrontRight")) {
+                if (pull[2] < thresholdMap.get("FrontRight")) {
                     Position pos = getObstaclePosition(position, posFrontRight, pull[2]);
                     logger.debug("Ultrasound Avant droit : " + pull[2]);
-                    if(!table.isAreaForbiddenSafe(pos.getX() / 10, pos.getY() / 10)) {
+                    if (this.mustStop(pos)) {
                         tempDetection[2] = true;
                         logger.info("Ultrasound Avant droit : STOP (" + pos.getX() + "," + pos.getY() + ")");
                     } else {
@@ -117,10 +117,10 @@ public class UltraSoundManager {
                 }
 
                 //back middle
-                if(pull[3] < thresholdMap.get("Back")) {
+                if (pull[3] < thresholdMap.get("Back")) {
                     Position pos = getObstaclePosition(position, posBack, pull[3]);
                     logger.debug("Ultrasound Arriere : " + pull[3]);
-                    if(!table.isAreaForbiddenSafe(pos.getX() / 10, pos.getY() / 10)) {
+                    if (this.mustStop(pos)) {
                         tempDetection[3] = true;
                         logger.info("Ultrasound Arriere : STOP (" + pos.getX() + "," + pos.getY() + ")");
                     } else {
@@ -225,6 +225,10 @@ public class UltraSoundManager {
             result[i] = res;
         }
         return result;
+    }
+
+    public boolean mustStop(Position position) {
+        return position.getX() > 10 && position.getX() < 1990 && position.getY() > 10 && position.getY() < 2990;
     }
 
     public static void main(String[] args) throws Exception {

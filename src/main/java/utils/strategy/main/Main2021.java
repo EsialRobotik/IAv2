@@ -95,7 +95,7 @@ public class Main2021 {
         score = 0;
         TaskList photo =  new TaskList();
         photo.add(new Face("Alignement boussole", 0, 1500));
-        photo.add(new Manipulation("Photo", ActionFileBinder.ActionFile.values().length));
+        photo.add(new Manipulation("Photo", ActionFileBinder.ActionFile.ARUCO_CAM.ordinal()));
         Objectif objectifPhoto0 = new Objectif("Photo", objectifsCouleur0.size()+1, score, 1, photo);
         Objectif objectifPhoto3000 = new Objectif("Photo", objectifsCouleur3000.size()+1, score, 1, null);
         try {
@@ -117,7 +117,9 @@ public class Main2021 {
         recuperationBouees4.add(new GoToAstar("Mise en position bouée 4", 1090, 700));
         recuperationBouees4.add(new SetSpeed("Vitesse réduite", 25));
         recuperationBouees4.add(new GoToBack("Marquage bouée 4", 1090, 500));
-        recuperationBouees4.add(new GoToBack("Marquage bouée 4", 1090, 220));
+        recuperationBouees4.add(new GoToBack("Marquage bouée 4", 1090, 400));
+        recuperationBouees4.add(new GoToBack("Marquage bouée 4", 1090, 300));
+        recuperationBouees4.add(new GoToBack("Marquage bouée 4", 1090, 260));
         recuperationBouees4.add(new SetSpeed("Vitesse normale", 100));
         recuperationBouees4.add(new GoTo("Sortie de la zone", 1090, 700));
         recuperationBouees4.add(new DeleteZone("Suppression zone bouée 4", "bouee4"));
@@ -140,12 +142,13 @@ public class Main2021 {
          */
         score = 6;
         TaskList largageSud = new TaskList();
-        largageSud.add(new GoToAstar("Déplacement largage sud", 1420, 220));
-        largageSud.add(new Face("Alignement largage sud", 0, 220));
+        largageSud.add(new GoToAstar("Déplacement largage sud", 1420, 270));
+        largageSud.add(new Face("Alignement largage sud", 0, 270));
         largageSud.add(new Go("Placement largage sud", 190));
         largageSud.add(new Manipulation("Préparer largage recif sud", ActionFileBinder.ActionFile.PREPARER_LARGAGE.ordinal()));
         largageSud.add(new Manipulation("Largage impaire recif sud", ActionFileBinder.ActionFile.LARGUER_DOIGTS_IMPAIRE.ordinal()));
-        largageSud.add(new Go("Sortie largage sud", -190));
+        largageSud.add(new Go("Sortie largage sud", -290));
+        largageSud.add(new GoTo("Esquive chenal", 1520, 700));
         Objectif objectifLargageSud0 = new Objectif("Largage sud", objectifsCouleur0.size()+1, score, 1, largageSud);
         Objectif objectifLargageSud3000 = new Objectif("Largage sud", objectifsCouleur3000.size()+1, score, 1, null);
         try {
@@ -155,6 +158,36 @@ public class Main2021 {
         }
         objectifsCouleur0.add(objectifLargageSud0);
         objectifsCouleur3000.add(objectifLargageSud3000);
+
+        /*
+         * On marque la bouée 3, on allume le phare, on récupère la bouée 5
+         * Score = 19
+         *  - 1 point par bouée dans le port => 1
+         *  - 1 point par bouée dans le bon chenal => 1
+         *  - une paire dans les chenaux => 2
+         */
+        score = 4;
+        TaskList recuperationBouees3 =  new TaskList();
+        TaskList recuperationBouees3_3000 =  new TaskList();
+        recuperationBouees3.add(new GoToAstar("Mise en position bouée 3", 520, 700));
+        recuperationBouees3.add(new SetSpeed("Vitesse réduite", 25));
+        recuperationBouees3.add(new GoToBack("Marquage bouée 3", 520, 500));
+        recuperationBouees3.add(new GoToBack("Marquage bouée 3", 520, 400));
+        recuperationBouees3.add(new GoToBack("Marquage bouée 3", 520, 300));
+        recuperationBouees3.add(new GoToBack("Marquage bouée 3", 520, 260));
+        recuperationBouees3.add(new SetSpeed("Vitesse normale", 100));
+        recuperationBouees3.add(new GoTo("Sortie de la zone", 520, 700));
+        recuperationBouees3.add(new DeleteZone("Suppression zone bouée 3", "bouee3"));
+        recuperationBouees3.add(new AddZone("Blocage du chenal Nord", "chenal_depart_n"));
+        Objectif objectifRecuperationBouees3_0 = new Objectif("Bouée 3 + Phare + Bouée 5", objectifsCouleur0.size()+1, score, 1, recuperationBouees3);
+        Objectif objectifRecuperationBouees3_3000 = new Objectif("Bouée 3 + Phare + Bouée 5", objectifsCouleur3000.size()+1, score, 1, null);
+        try {
+            objectifRecuperationBouees3_3000.generateMirror(objectifRecuperationBouees3_0.taches, recuperationBouees3_3000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        objectifsCouleur0.add(objectifRecuperationBouees3_0);
+        objectifsCouleur3000.add(objectifRecuperationBouees3_3000);
 
         /*
          * Largage des bouées nord
@@ -210,7 +243,8 @@ public class Main2021 {
          *  - 1 point par bouée dans le port => 5
          */
         TaskList largageRecifNord = new TaskList();
-        largageRecifNord.add(new GoToAstar("Placement dans le grand port", 800, 300));
+        largageRecifNord.add(new GoToAstar("Placement dans le grand port", 800, 450));
+        largageRecifNord.add(new Face("Alignement dans le grand port", 800, 0));
         largageRecifNord.add(new Manipulation("Préparer largage grand port", ActionFileBinder.ActionFile.PREPARER_LARGAGE.ordinal()));
         largageRecifNord.add(new Manipulation("Largage impaire grand port", ActionFileBinder.ActionFile.LARGUER_DOIGTS_IMPAIRE.ordinal()));
         largageRecifNord.add(new Manipulation("Largage paire grand port", ActionFileBinder.ActionFile.LARGUER_DOIGTS_PAIRE.ordinal()));
@@ -291,224 +325,6 @@ public class Main2021 {
         }
     }
 
-    public static void mainStrat(String... arg) throws Exception {
-//    public static void main(String... arg) throws Exception {
-        System.out.println("Génération de la stratégie");
-
-        // Liste des objectifs de chaque côté
-        // 0 = Bleu, 3000 = Jaune
-        List<Objectif> objectifsCouleur0 = new ArrayList<>();
-        List<Objectif> objectifsCouleur3000 = new ArrayList<>();
-
-        /**
-         * On va placer la bouée N dans le chenal et on fait de la place avec celle de l'autre couleur
-         * Score = Poser le phare (2) + Bouée placée (1) + Chenal (1) + Bouée placée (1) = 5
-         */
-        int score = 5;
-        List<Tache> tachesBoueeNord =  new ArrayList<>();
-        tachesBoueeNord.add(new Tache("Step de départ bizarre", tachesBoueeNord.size()+1, 1, Tache.Type.DEPLACEMENT, Tache.SubType.GO, -1, Tache.Mirror.MIRRORY));
-        tachesBoueeNord.add(new Tache("Sortie départ", tachesBoueeNord.size()+1, 800, 730, Tache.Type.DEPLACEMENT, Tache.SubType.GOTO_CHAIN, -1, Tache.Mirror.MIRRORY));
-        tachesBoueeNord.add(new Tache("Placement bouée Nord", tachesBoueeNord.size()+1, 610, 730, Tache.Type.DEPLACEMENT, Tache.SubType.GOTO_CHAIN, -1, Tache.Mirror.MIRRORY));
-        tachesBoueeNord.add(new Tache("Placement bouée Nord", tachesBoueeNord.size()+1, 610, 650, Tache.Type.DEPLACEMENT, Tache.SubType.GOTO_CHAIN, -1, Tache.Mirror.MIRRORY));
-        tachesBoueeNord.add(new Tache("Alignement bouée Nord", tachesBoueeNord.size()+1, 610, 0, Tache.Type.DEPLACEMENT, Tache.SubType.FACE, -1, Tache.Mirror.MIRRORY));
-        tachesBoueeNord.add(new Tache("Marquage bouée Nord", tachesBoueeNord.size()+1, 610, 200, Tache.Type.DEPLACEMENT, Tache.SubType.GOTO, -1, Tache.Mirror.MIRRORY));
-        tachesBoueeNord.add(new Tache("Libération bouée Nord", tachesBoueeNord.size()+1, 610, 700, Tache.Type.DEPLACEMENT, Tache.SubType.GOTO_BACK, -1, Tache.Mirror.MIRRORY));
-        tachesBoueeNord.add(new Tache("Suppression bouée 3", tachesBoueeNord.size()+1, Tache.Type.ELEMENT, Tache.SubType.SUPPRESSION, "bouee3", Tache.Mirror.MIRRORY));
-        tachesBoueeNord.add(new Tache("Placement bouée Nord à virer", tachesBoueeNord.size()+1, 190, 415, Tache.Type.DEPLACEMENT, Tache.SubType.GOTO_ASTAR, -1, Tache.Mirror.MIRRORY));
-        tachesBoueeNord.add(new Tache("Placement bouée Nord à virer", tachesBoueeNord.size()+1, 0, 415, Tache.Type.DEPLACEMENT, Tache.SubType.FACE, -1, Tache.Mirror.MIRRORY));
-        tachesBoueeNord.add(new Tache("Marquage bouée Nord à virer", tachesBoueeNord.size()+1, -270, Tache.Type.DEPLACEMENT, Tache.SubType.GO, -1, Tache.Mirror.MIRRORY));
-        tachesBoueeNord.add(new Tache("Libération bouée Nord à virer", tachesBoueeNord.size()+1, 170, Tache.Type.DEPLACEMENT, Tache.SubType.GO, -1, Tache.Mirror.MIRRORY));
-        tachesBoueeNord.add(new Tache("Suppression bouée 1", tachesBoueeNord.size()+1, Tache.Type.ELEMENT, Tache.SubType.SUPPRESSION, "bouee1", Tache.Mirror.MIRRORY));
-        tachesBoueeNord.add(new Tache("Blocage du chenal Nord", tachesBoueeNord.size()+1, Tache.Type.ELEMENT, Tache.SubType.AJOUT, "chenal_depart_n", Tache.Mirror.MIRRORY));
-        Objectif objectifBoueeN0 = new Objectif("Bouées Nord", objectifsCouleur0.size()+1, score, 1, tachesBoueeNord);
-        Objectif objectifBoueeN3000 = new Objectif("Bouées Nord", objectifsCouleur3000.size()+1, score, 1, null);
-        try {
-            objectifBoueeN3000.generateMirror(objectifBoueeN0.taches);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        objectifsCouleur0.add(objectifBoueeN0);
-        objectifsCouleur3000.add(objectifBoueeN3000);
-
-        /**
-         * On allume le phare
-         * Score = Allumer le phare (3) + Phare qui fonctionne (10) = 13
-         */
-        score = 13;
-        List<Tache> tachesPhare =  new ArrayList<>();
-        tachesPhare.add(new Tache("Placement phare", tachesPhare.size()+1, 280, 225, Tache.Type.DEPLACEMENT, Tache.SubType.GOTO, -1, Tache.Mirror.MIRRORY));
-        tachesPhare.add(new Tache("Alignement phare", tachesPhare.size()+1, 0, 225, Tache.Type.DEPLACEMENT, Tache.SubType.FACE, -1, Tache.Mirror.MIRRORY));
-        tachesPhare.add(new Tache("Preparation phare", tachesPhare.size()+1, 0, Tache.Type.MANIPULATION, null, 11, Tache.Mirror.MIRRORY));
-        tachesPhare.add(new Tache("Allumage phare", tachesPhare.size()+1, 150, Tache.Type.DEPLACEMENT, Tache.SubType.GO, -1, Tache.Mirror.MIRRORY, 1500));
-        tachesPhare.add(new Tache("Sortie zone N", tachesPhare.size()+1, -100, Tache.Type.DEPLACEMENT, Tache.SubType.GO, -1, Tache.Mirror.MIRRORY));
-        tachesPhare.add(new Tache("On remet tout en place", tachesPhare.size()+1, 0, Tache.Type.MANIPULATION, null, 0, Tache.Mirror.MIRRORY, 1500));
-        Objectif objectifPhare0 = new Objectif("Phare", objectifsCouleur0.size()+1, score, 1, tachesPhare);
-        Objectif objectifPhare3000 = new Objectif("Phare", objectifsCouleur3000.size()+1, score, 1, null);
-        try {
-            objectifPhare3000.generateMirror(objectifPhare0.taches);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        objectifsCouleur0.add(objectifPhare0);
-        objectifsCouleur3000.add(objectifPhare3000);
-
-
-        /**
-         * On fait de la place avec la bouée Sud
-         * Score = Bouée placée (1) = 1
-         */
-        score = 1;
-        List<Tache> tachesBoueeSud =  new ArrayList<>();
-        tachesBoueeSud.add(new Tache("Placement bouée Sud à virer", tachesBoueeSud.size()+1, 1500, 230, Tache.Type.DEPLACEMENT, Tache.SubType.GOTO_ASTAR, -1, Tache.Mirror.MIRRORY));
-        tachesBoueeSud.add(new Tache("Placement bouée Sud à virer", tachesBoueeSud.size()+1, 0, 230, Tache.Type.DEPLACEMENT, Tache.SubType.FACE, -1, Tache.Mirror.MIRRORY));
-        tachesBoueeSud.add(new Tache("Marquage bouée Sud à virer", tachesBoueeSud.size()+1, 250, Tache.Type.DEPLACEMENT, Tache.SubType.GO, -1, Tache.Mirror.MIRRORY));
-        tachesBoueeSud.add(new Tache("Marquage bouée Sud à virer", tachesBoueeSud.size()+1, 140, Tache.Type.DEPLACEMENT, Tache.SubType.GO, -1, Tache.Mirror.MIRRORY));
-        tachesBoueeSud.add(new Tache("Libération bouée Sud à virer", tachesBoueeSud.size()+1, 1400, 230, Tache.Type.DEPLACEMENT, Tache.SubType.GOTO_BACK, -1, Tache.Mirror.MIRRORY));
-        tachesBoueeSud.add(new Tache("Suppression bouée 2", tachesBoueeSud.size()+1, Tache.Type.ELEMENT, Tache.SubType.SUPPRESSION, "bouee2", Tache.Mirror.MIRRORY));
-        Objectif objectifBoueeS0 = new Objectif("Bouée Sud à virer", objectifsCouleur0.size()+1, score, 1, tachesBoueeSud);
-        Objectif objectifBoueeS3000 = new Objectif("Bouée Sud à virer", objectifsCouleur3000.size()+1, score, 1, null);
-        try {
-            objectifBoueeS3000.generateMirror(objectifBoueeS0.taches);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        objectifsCouleur0.add(objectifBoueeS0);
-        objectifsCouleur3000.add(objectifBoueeS3000);
-
-
-        /**
-         * On va taper les manches à air
-         * Score = 15 pour les 2
-         */
-        score = 15;
-        List<Tache> tachesManches =  new ArrayList<>();
-        List<Tache> tachesManches3000 =  new ArrayList<>();
-        tachesManches.add(new Tache("Placement manche à air", tachesManches.size()+1, 1780, 210, Tache.Type.DEPLACEMENT, Tache.SubType.GOTO_ASTAR, -1, Tache.Mirror.MIRRORY));
-        tachesManches.add(new Tache("Alignement manche à air", tachesManches.size()+1, 1780, 3000, Tache.Type.DEPLACEMENT, Tache.SubType.FACE, -1, Tache.Mirror.MIRRORY));
-        tachesManches.add(new Tache("Alignement manche à air", tachesManches.size()+1, -120, Tache.Type.DEPLACEMENT, Tache.SubType.GO, -1, Tache.Mirror.MIRRORY, 500));
-        int sortieBras = tachesManches.size()+1;
-        tachesManches.add(new Tache("Sortie bras droit", sortieBras, 0, Tache.Type.MANIPULATION, null, 1, Tache.Mirror.SPECIFIC));
-        tachesManches3000.add(new Tache("Sortie bras gauche", sortieBras, 0, Tache.Type.MANIPULATION, null, 2, Tache.Mirror.SPECIFIC));
-        tachesManches.add(new Tache("Réduction de la vitesse", tachesManches.size()+1, 50, Tache.Type.DEPLACEMENT, Tache.SubType.SET_SPEED, -1, Tache.Mirror.MIRRORY));
-        tachesManches.add(new Tache("Taper les manches", tachesManches.size()+1, 1780, 290, Tache.Type.DEPLACEMENT, Tache.SubType.GOTO, -1, Tache.Mirror.MIRRORY));
-        tachesManches.add(new Tache("Alignement manche à air", tachesManches.size()+1, 1780, 3000, Tache.Type.DEPLACEMENT, Tache.SubType.FACE, -1, Tache.Mirror.MIRRORY));
-        tachesManches.add(new Tache("Taper les manches", tachesManches.size()+1, 1780, 700, Tache.Type.DEPLACEMENT, Tache.SubType.GOTO, -1, Tache.Mirror.MIRRORY));
-        tachesManches.add(new Tache("Vitesse normale", tachesManches.size()+1, 100, Tache.Type.DEPLACEMENT, Tache.SubType.SET_SPEED, -1, Tache.Mirror.MIRRORY));
-        int rentrerBras = tachesManches.size()+1;
-        tachesManches.add(new Tache("Rentrer bras droit", rentrerBras, 0, Tache.Type.MANIPULATION, null, 3, Tache.Mirror.SPECIFIC));
-        tachesManches3000.add(new Tache("Rentrer bras gauche", rentrerBras, 0, Tache.Type.MANIPULATION, null, 4, Tache.Mirror.SPECIFIC));
-        tachesManches.add(new Tache("On quitte la zone", tachesManches.size()+1, -50, Tache.Type.DEPLACEMENT, Tache.SubType.GO, -1, Tache.Mirror.MIRRORY));
-        tachesManches.add(new Tache("Alignement boussole", tachesManches.size()+1, 0, 1500, Tache.Type.DEPLACEMENT, Tache.SubType.FACE, -1, Tache.Mirror.MIRRORY));
-        tachesManches.add(new Tache("Photo", tachesManches.size()+1, 0, Tache.Type.MANIPULATION, null, 13, Tache.Mirror.MIRRORY));
-        Objectif objectifManches0 = new Objectif("Manches à air", objectifsCouleur0.size()+1, score, 1, tachesManches);
-        Objectif objectifManches3000 = new Objectif("Manches à air", objectifsCouleur3000.size()+1, score, 1, null);
-        try {
-            objectifManches3000.generateMirror(objectifManches0.taches, tachesManches3000);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        objectifsCouleur0.add(objectifManches0);
-        objectifsCouleur3000.add(objectifManches3000);
-
-
-        /**
-         * On vide le récif de notre couleur et on largue les impaire
-         * Score = 3 bouées (3) + 3 chenal (3) + 1 paires (2) = 8
-         */
-        score = 8;
-        List<Tache> tachesRecifS =  new ArrayList<>();
-        tachesRecifS.add(new Tache("Preparer ramassage recif sud", tachesRecifS.size()+1, 0, Tache.Type.MANIPULATION, null, 5, Tache.Mirror.MIRRORY));
-        tachesRecifS.add(new Tache("Placement recif sud", tachesRecifS.size()+1, 1595, 230, Tache.Type.DEPLACEMENT, Tache.SubType.GOTO_ASTAR, -1, Tache.Mirror.MIRRORY));
-        tachesRecifS.add(new Tache("Alignement recif sud", tachesRecifS.size()+1, 1595, 0, Tache.Type.DEPLACEMENT, Tache.SubType.FACE, -1, Tache.Mirror.MIRRORY));
-        tachesRecifS.add(new Tache("Mise en position rammassage recif sud", tachesRecifS.size()+1, 1595, 130, Tache.Type.DEPLACEMENT, Tache.SubType.GOTO, -1, Tache.Mirror.MIRRORY));
-        tachesRecifS.add(new Tache("Mise en position rammassage recif sud", tachesRecifS.size()+1, 130, Tache.Type.DEPLACEMENT, Tache.SubType.GO, -1, Tache.Mirror.MIRRORY, 500));
-        tachesRecifS.add(new Tache("Ramassage recif sud", tachesRecifS.size()+1, 0, Tache.Type.MANIPULATION, null, 6, Tache.Mirror.MIRRORY));
-        tachesRecifS.add(new Tache("Libération ramassage recif sud", tachesRecifS.size()+1, 0, Tache.Type.MANIPULATION, null, 7, Tache.Mirror.MIRRORY));
-        tachesRecifS.add(new Tache("Sortie recif sud", tachesRecifS.size()+1, 1595, 230, Tache.Type.DEPLACEMENT, Tache.SubType.GOTO_BACK, -1, Tache.Mirror.MIRRORY));
-        tachesRecifS.add(new Tache("Placement largage sud", tachesRecifS.size()+1, 1220, 220, Tache.Type.DEPLACEMENT, Tache.SubType.GOTO_ASTAR, -1, Tache.Mirror.MIRRORY));
-        tachesRecifS.add(new Tache("Alignement largage sud", tachesRecifS.size()+1, 0, 220, Tache.Type.DEPLACEMENT, Tache.SubType.FACE, -1, Tache.Mirror.MIRRORY));
-        tachesRecifS.add(new Tache("Préparer largage recif sud", tachesRecifS.size()+1, 0, Tache.Type.MANIPULATION, null, 8, Tache.Mirror.MIRRORY));
-        tachesRecifS.add(new Tache("Largage impaire recif sud", tachesRecifS.size()+1, 0, Tache.Type.MANIPULATION, null, 9, Tache.Mirror.MIRRORY));
-        tachesRecifS.add(new Tache("Sortie largage sud", tachesRecifS.size()+1, -200, Tache.Type.DEPLACEMENT, Tache.SubType.GO, -1, Tache.Mirror.MIRRORY));
-        tachesRecifS.add(new Tache("Blocage du chenal Sud", tachesRecifS.size()+1, Tache.Type.ELEMENT, Tache.SubType.AJOUT, "chenal_depart_s", Tache.Mirror.MIRRORY));
-
-        Objectif objectifRecifS0 = new Objectif("Récif sud", objectifsCouleur0.size()+1, score, 1, tachesRecifS);
-        Objectif objectifRecifS3000 = new Objectif("Récif sud", objectifsCouleur3000.size()+1, score, 1, null);
-        try {
-            objectifRecifS3000.generateMirror(objectifRecifS0.taches);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        objectifsCouleur0.add(objectifRecifS0);
-        objectifsCouleur3000.add(objectifRecifS3000);
-
-        /**
-         * On largue les bouées paires
-         * Score = 2 bouée (2) + 2 chenal (2) + 2 paires (4) = 8
-         */
-        score = 8;
-        List<Tache> tachesRecifSPair =  new ArrayList<>();
-        tachesRecifSPair.add(new Tache("Placement recif nord", tachesRecifSPair.size()+1, 310, 280, Tache.Type.DEPLACEMENT, Tache.SubType.GOTO_ASTAR, -1, Tache.Mirror.MIRRORY));
-        tachesRecifSPair.add(new Tache("Alignement recif nord", tachesRecifSPair.size()+1, 2000, 280, Tache.Type.DEPLACEMENT, Tache.SubType.FACE, -1, Tache.Mirror.MIRRORY));
-        tachesRecifSPair.add(new Tache("Placement recif nord", tachesRecifSPair.size()+1, 360, 280, Tache.Type.DEPLACEMENT, Tache.SubType.GOTO, -1, Tache.Mirror.MIRRORY));
-        tachesRecifSPair.add(new Tache("Largage impaire recif sud", tachesRecifSPair.size()+1, 0, Tache.Type.MANIPULATION, null, 10, Tache.Mirror.MIRRORY));
-        tachesRecifSPair.add(new Tache("Sortie largage nord", tachesRecifSPair.size()+1, -150, Tache.Type.DEPLACEMENT, Tache.SubType.GO, -1, Tache.Mirror.MIRRORY));
-        tachesRecifSPair.add(new Tache("On remet tout en place", tachesRecifSPair.size()+1, 0, Tache.Type.MANIPULATION, null, 0, Tache.Mirror.MIRRORY));
-        Objectif objectifRecifSPair0 = new Objectif("Récif sud", objectifsCouleur0.size()+1, score, 1, tachesRecifSPair);
-        Objectif objectifRecifSPair3000 = new Objectif("Récif sud", objectifsCouleur3000.size()+1, score, 1, null);
-        try {
-            objectifRecifSPair3000.generateMirror(objectifRecifSPair0.taches);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        objectifsCouleur0.add(objectifRecifSPair0);
-        objectifsCouleur3000.add(objectifRecifSPair3000);
-
-        /**
-         * On marque la bouée Sud dans le chenal
-         * Score = Bouée placée (1) + Chenal (1) = 2
-         * PAS LE TEMPS !!!
-         */
-//        score = 2;
-//        List<Tache> tachesBoueeSudChenal =  new ArrayList<>();
-//        tachesBoueeSudChenal.add(new Tache("Placement bouée Sud", tachesBoueeSudChenal.size()+1, 980, 700, Tache.Type.DEPLACEMENT, Tache.SubType.GOTO, -1, Tache.Mirror.MIRRORY));
-//        tachesBoueeSudChenal.add(new Tache("Placement bouée Sud", tachesBoueeSudChenal.size()+1, 980, 650, Tache.Type.DEPLACEMENT, Tache.SubType.GOTO, -1, Tache.Mirror.MIRRORY));
-//        tachesBoueeSudChenal.add(new Tache("Alignement bouée Sud", tachesBoueeSudChenal.size()+1, 980, 0, Tache.Type.DEPLACEMENT, Tache.SubType.FACE, -1, Tache.Mirror.MIRRORY));
-//        tachesBoueeSudChenal.add(new Tache("Réduction de la vitesse", tachesBoueeSudChenal.size()+1, 50, Tache.Type.DEPLACEMENT, Tache.SubType.SET_SPEED, -1, Tache.Mirror.MIRRORY));
-//        tachesBoueeSudChenal.add(new Tache("Marquage bouée Sud", tachesBoueeSudChenal.size()+1, 100, Tache.Type.DEPLACEMENT, Tache.SubType.GO, -1, Tache.Mirror.MIRRORY));
-//        tachesBoueeSudChenal.add(new Tache("Remise de la vitesse", tachesBoueeSudChenal.size()+1, 100, Tache.Type.DEPLACEMENT, Tache.SubType.SET_SPEED, -1, Tache.Mirror.MIRRORY));
-//        tachesBoueeSudChenal.add(new Tache("Libération bouée Sud", tachesBoueeSudChenal.size()+1, 980, 770, Tache.Type.DEPLACEMENT, Tache.SubType.GOTO_BACK, -1, Tache.Mirror.MIRRORY));
-//        Objectif objectifBoueeSChenal0 = new Objectif("Bouée Sud", objectifsCouleur0.size()+1, score, 1, tachesBoueeSudChenal);
-//        Objectif objectifBoueeSChenal3000 = new Objectif("Bouée Sud", objectifsCouleur3000.size()+1, score, 1, null);
-//        try {
-//            objectifBoueeSChenal3000.generateMirror(objectifBoueeSChenal0.taches);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        objectifsCouleur0.add(objectifBoueeSChenal0);
-//        objectifsCouleur3000.add(objectifBoueeSChenal3000);
-
-        // Création de la stratégie complète
-        Strategie strat = new Strategie();
-        strat.couleur0 = objectifsCouleur0;
-        strat.couleur3000 = objectifsCouleur3000;
-
-        System.out.println(strat.toString());
-
-        final GsonBuilder builder = new GsonBuilder();
-        final Gson gson = builder.create();
-
-        System.out.println("#########################");
-        System.out.println(gson.toJson(strat));
-
-        try (PrintWriter jsonFile = new PrintWriter("configCollection.json")) {
-            jsonFile.println(gson.toJson(strat));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-    }
-
     public static Strategie mainBoussole() throws Exception {
         System.out.println("Génération de l'action pour arriver à bon port");
 
@@ -523,8 +339,9 @@ public class Main2021 {
          */
         int score = 10;
         TaskList tachesPortNord =  new TaskList();
-        tachesPortNord.add(new GoToAstar("On se gare", 300, 700));
-        tachesPortNord.add(new GoTo("On se gare", 300, 400));
+        tachesPortNord.add(new GoToAstar("On se gare", 200, 500));
+        tachesPortNord.add(new GoTo("On se gare", 160, 200));
+        tachesPortNord.add(new GoTo("On se gare", 160, 150));
         Objectif objectifPortN0 = new Objectif("Port Nord", objectifsCouleur0.size()+1, score, 1, tachesPortNord);
         Objectif objectifPortN3000 = new Objectif("Port Nord", objectifsCouleur3000.size()+1, score, 1, null);
         try {
@@ -541,8 +358,9 @@ public class Main2021 {
          */
         score = 10;
         TaskList tachesPortSud =  new TaskList();
-        tachesPortSud.add(new GoToAstar("On se gare", 1300, 700));
-        tachesPortSud.add(new GoTo("On se gare", 1300, 400));
+        tachesPortSud.add(new GoToAstar("On se gare", 1400, 500));
+        tachesPortSud.add(new GoTo("On se gare", 1440, 200));
+        tachesPortSud.add(new GoTo("On se gare", 1440, 150));
         Objectif objectifPortS0 = new Objectif("Port Sud", objectifsCouleur0.size()+1, score, 1, tachesPortSud);
         Objectif objectifPortS3000 = new Objectif("Port Sud", objectifsCouleur3000.size()+1, score, 1, null);
         try {
@@ -566,7 +384,7 @@ public class Main2021 {
         System.out.println("#########################");
         System.out.println(gson.toJson(strat));
 
-        try (PrintWriter jsonFile = new PrintWriter("configCollectionBoussole.json")) {
+        try (PrintWriter jsonFile = new PrintWriter("configCollectionBoussoleHomologuation.json")) {
             jsonFile.println(gson.toJson(strat));
         } catch (FileNotFoundException e) {
             e.printStackTrace();

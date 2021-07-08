@@ -36,7 +36,7 @@
         },
         "start0": [
             {
-                "type": "goto",
+                "type": "go",
                 "dist": 100
             },
             {
@@ -90,7 +90,7 @@
                     "x": 70,
                     "y": 100,
                     "angle": 0,
-                    "threshold": 350
+                    "threshold": 400
                 },
                 {
                     "desc": "Avant milieu (0x74)",
@@ -100,7 +100,7 @@
                     "x": 70,
                     "y": -100,
                     "angle": 0,
-                    "threshold": 350
+                    "threshold": 400
                 },
                 {
                     "desc": "Avant droit (0x72)",
@@ -110,7 +110,7 @@
                     "x": 70,
                     "y": 0,
                     "angle": 0,
-                    "threshold": 350
+                    "threshold": 400
                 },
                 {
                     "desc": "Arrière (0x71)",
@@ -120,7 +120,7 @@
                     "x": -70,
                     "y": 0,
                     "angle": 180,
-                    "threshold": 200
+                    "threshold": 350
                 }
             ]
         }
