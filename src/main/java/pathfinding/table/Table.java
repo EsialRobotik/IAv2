@@ -28,6 +28,7 @@ public class Table {
     private int margin;
 
     private boolean[][] forbiddenArea;
+    private List<List<Point>> detectionIgnoreQuadrilaterium;
 
     private List<Shape> shapeList;
     private Map<Shape, List<Point>> elementsList;
@@ -131,6 +132,28 @@ public class Table {
                 }
             }
             elementsList.put(shape, points);
+        }
+
+        detectionIgnoreQuadrilaterium = new ArrayList<>();
+        for (JsonElement jsonElement : rootElement.getAsJsonArray("detectionIgnoreZone")) {
+            List<Point> points = new ArrayList<>();
+            points.add(new Point(
+                jsonElement.getAsJsonObject().get("x1").getAsInt(),
+                jsonElement.getAsJsonObject().get("y1").getAsInt()
+            ));
+            points.add(new Point(
+                jsonElement.getAsJsonObject().get("x2").getAsInt(),
+                jsonElement.getAsJsonObject().get("y2").getAsInt()
+            ));
+            points.add(new Point(
+                jsonElement.getAsJsonObject().get("x3").getAsInt(),
+                jsonElement.getAsJsonObject().get("y3").getAsInt()
+            ));
+            points.add(new Point(
+                jsonElement.getAsJsonObject().get("x4").getAsInt(),
+                jsonElement.getAsJsonObject().get("y4").getAsInt()
+            ));
+            detectionIgnoreQuadrilaterium.add(points);
         }
     }
 
@@ -465,6 +488,23 @@ public class Table {
             return true;
         }
         return forbiddenArea[x][y];
+    }
+
+    /**
+     * Vérifie si un point est dans une zone de détection à ignorer
+     * TODO fonctionne uniquement avec des quadrilatères alignés sur la table avec les points dans l'ordre
+     * TODO à améliorer pour faire mieux
+     * @param point
+     * @return
+     */
+    public boolean isPointInDetectionIgnoreZone(Point point) {
+        for (List<Point> quadrilaterium: this.detectionIgnoreQuadrilaterium) {
+            if (point.x >= quadrilaterium.get(0).x && point.x <= quadrilaterium.get(2).x
+                && point.y >= quadrilaterium.get(0).y && point.y <= quadrilaterium.get(2).y) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public static void main(String[] args) throws IOException {

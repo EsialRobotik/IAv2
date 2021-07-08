@@ -6,6 +6,7 @@ import asserv.Position;
 import detection.DetectionInterface;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Logger;
+import pathfinding.table.Point;
 import pathfinding.table.Table;
 
 import java.util.HashMap;
@@ -228,7 +229,9 @@ public class UltraSoundManager {
     }
 
     public boolean mustStop(Position position) {
-        return position.getX() > 10 && position.getX() < 1990 && position.getY() > 10 && position.getY() < 2990;
+        return position.getX() > 10 && position.getX() < 1990
+            && position.getY() > 10 && position.getY() < 2990
+            && !this.table.isPointInDetectionIgnoreZone(new Point(position));
     }
 
     public static void main(String[] args) throws Exception {
