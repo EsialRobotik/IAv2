@@ -70,8 +70,8 @@ public class ActionFileBinder implements ActionInterface {
 		PMI_LACHER_BRAS_GAUCHE("pmi_lacher_bras_gauche.json"), // 22
 		PMI_ALLUMER_PHARE("pmi_allumer_phare.json"), // 23
 
-		ARUCO_CAM(""),
-		PMI_BOUSSOLE("");
+		ARUCO_CAM(""), // 24
+		PMI_BOUSSOLE(""); // 25
 
 		public final String nomFichier;
 		public final boolean instantReturn;

@@ -95,7 +95,7 @@ public class MainHomologuation2021 {
         score = 0;
         TaskList photo =  new TaskList();
         photo.add(new Face("Alignement boussole", 0, 1500));
-        photo.add(new Manipulation("Photo", ActionFileBinder.ActionFile.values().length));
+        photo.add(new Manipulation("Photo", ActionFileBinder.ActionFile.ARUCO_CAM.ordinal()));
         Objectif objectifPhoto0 = new Objectif("Photo", objectifsCouleur0.size()+1, score, 1, photo);
         Objectif objectifPhoto3000 = new Objectif("Photo", objectifsCouleur3000.size()+1, score, 1, null);
         try {
@@ -260,7 +260,7 @@ public class MainHomologuation2021 {
         TaskList tachesPortNord =  new TaskList();
         tachesPortNord.add(new GoToAstar("On se gare", 200, 500));
         tachesPortNord.add(new GoTo("On se gare", 160, 200));
-        tachesPortNord.add(new GoTo("On se gare", 160, 120));
+        tachesPortNord.add(new GoTo("On se gare", 160, 150));
         Objectif objectifPortN0 = new Objectif("Port Nord", objectifsCouleur0.size()+1, score, 1, tachesPortNord);
         Objectif objectifPortN3000 = new Objectif("Port Nord", objectifsCouleur3000.size()+1, score, 1, null);
         try {
@@ -279,7 +279,7 @@ public class MainHomologuation2021 {
         TaskList tachesPortSud =  new TaskList();
         tachesPortSud.add(new GoToAstar("On se gare", 1400, 500));
         tachesPortSud.add(new GoTo("On se gare", 1440, 200));
-        tachesPortSud.add(new GoTo("On se gare", 1440, 120));
+        tachesPortSud.add(new GoTo("On se gare", 1440, 150));
         Objectif objectifPortS0 = new Objectif("Port Sud", objectifsCouleur0.size()+1, score, 1, tachesPortSud);
         Objectif objectifPortS3000 = new Objectif("Port Sud", objectifsCouleur3000.size()+1, score, 1, null);
         try {

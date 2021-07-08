@@ -31,6 +31,7 @@ public class MainPmi2021 {
         // 0 = Bleu, 3000 = Jaune
         List<Objectif> objectifsCouleur0 = new ArrayList<>();
         List<Objectif> objectifsCouleur3000 = new ArrayList<>();
+        int mirrorId = 0;
 
         /*
          * On attrape et on marque les bouée 1 et 2
@@ -45,7 +46,7 @@ public class MainPmi2021 {
         recuperationBouees1_2.add(new Go("Step de départ bizarre", 1));
         recuperationBouees1_2.add(new GoTo("Mise en position bouée 1", 600, 240));
         recuperationBouees1_2.add(new Face("Alignement bouée 1", 0, 240));
-        int mirrorId = recuperationBouees1_2.size() + 1;
+        mirrorId = recuperationBouees1_2.size() + 1;
         recuperationBouees1_2.add(new Manipulation("Preparer ramassage bouée 1", ActionFileBinder.ActionFile.PMI_SORTIR_LEVER_BRAS_DROIT.ordinal(), Tache.Mirror.SPECIFIC));
         recuperationBouees1_2_3000.add(new Manipulation("Preparer ramassage bouée 1", ActionFileBinder.ActionFile.PMI_SORTIR_LEVER_BRAS_GAUCHE.ordinal(), Tache.Mirror.SPECIFIC), mirrorId);
         recuperationBouees1_2.add(new GoTo("Mise en position récupération bouée 1", 516, 240));
@@ -79,13 +80,13 @@ public class MainPmi2021 {
         mirrorId = recuperationBouees1_2.size() + 1;
         recuperationBouees1_2.add(new Manipulation("Largage bouée 1 - Pompe", ActionFileBinder.ActionFile.PMI_LACHER_BRAS_DROIT.ordinal(), Tache.Mirror.SPECIFIC));
         recuperationBouees1_2_3000.add(new Manipulation("Largage bouée 1 - Pompe", ActionFileBinder.ActionFile.PMI_LACHER_BRAS_GAUCHE.ordinal(), Tache.Mirror.SPECIFIC), mirrorId);
-        recuperationBouees1_2.add(new Go("Retour au centre", -250));
         recuperationBouees1_2.add(new DeleteZone("Suppression zone bouée 2", "bouee2"));
-        recuperationBouees1_2.add(new GoTo("Mise en position largage bouée 2", 620, 240));
+        recuperationBouees1_2.add(new GoToBack("Mise en position largage bouée 2", 420, 200));
+        recuperationBouees1_2.add(new Face("Alignement largage bouée 2", 2000, 200));
         mirrorId = recuperationBouees1_2.size() + 1;
         recuperationBouees1_2.add(new Manipulation("Largage bouée 2 - Pompe", ActionFileBinder.ActionFile.PMI_LACHER_BRAS_GAUCHE.ordinal(), Tache.Mirror.SPECIFIC));
         recuperationBouees1_2_3000.add(new Manipulation("Largage bouée 2 - Pompe", ActionFileBinder.ActionFile.PMI_LACHER_BRAS_DROIT.ordinal(), Tache.Mirror.SPECIFIC), mirrorId);
-        recuperationBouees1_2.add(new GoToBack("Retour au centre", 750, 240));
+        recuperationBouees1_2.add(new GoToBack("Direction le phare", 200, 200));
         recuperationBouees1_2.add(new AddZone("Blocage du chenal Sud", "chenal_depart_s"));
         recuperationBouees1_2.add(new AddZone("Blocage du chenal Nord", "chenal_depart_n"));
         Objectif objectifRecuperationBouees1_2_0 = new Objectif("Bouées 1 et 2", objectifsCouleur0.size()+1, score, 1, recuperationBouees1_2);
@@ -101,21 +102,11 @@ public class MainPmi2021 {
         /*
          * On marque la bouée 3, on allume le phare, on récupère la bouée 5
          * Score = 19
-         *  - 1 point par bouée dans le port => 1
-         *  - 1 point par bouée dans le bon chenal => 1
-         *  - une paire dans les chenaux => 2
          *  - phare => 15
          */
-        score = 19;
+        score = 15;
         TaskList recuperationBouees3 =  new TaskList();
         TaskList recuperationBouees3_3000 =  new TaskList();
-        recuperationBouees3.add(new GoToAstar("Mise en position bouée 3", 520, 700));
-        recuperationBouees3.add(new SetSpeed("Vitesse réduite", 25));
-        recuperationBouees3.add(new GoToBack("Marquage bouée 3", 520, 500));
-        recuperationBouees3.add(new GoToBack("Marquage bouée 3", 520, 220));
-        recuperationBouees3.add(new SetSpeed("Vitesse normale", 100));
-        recuperationBouees3.add(new GoTo("Sortie de la zone", 520, 500));
-        recuperationBouees3.add(new DeleteZone("Suppression zone bouée 3", "bouee3"));
         recuperationBouees3.add(new GoTo("Direction le phare", 200, 290));
         recuperationBouees3.add(new Face("Alignement phare", 0, 290));
         recuperationBouees3.add(new GoTo("Placement phare", 120, 290));
@@ -123,20 +114,19 @@ public class MainPmi2021 {
         recuperationBouees3.add(new Go("Allumage phare", 20, 500));
         recuperationBouees3.add(new SetSpeed("Vitesse normale", 100));
         recuperationBouees3.add(new GoToBack("Retour phare", 200, 290));
-        recuperationBouees3.add(new GoTo("Mise en position bouée 5", 160, 500));
-        recuperationBouees3.add(new Face("Alignement bouée 5", 160, 3000));
-        recuperationBouees3.add(new GoTo("Mise en position ramassage bouée 5", 160, 559));
-        mirrorId = recuperationBouees1_2.size() + 1;
+        recuperationBouees3.add(new GoTo("Mise en position bouée 5", 320, 730));
+        recuperationBouees3.add(new Face("Alignement bouée 5", 0, 730));
+        recuperationBouees3.add(new GoTo("Mise en position ramassage bouée 5", 210, 730));
+        mirrorId = recuperationBouees3.size() + 1;
         recuperationBouees3.add(new Manipulation("Ramassage bouée 5 - Pompe", ActionFileBinder.ActionFile.PMI_ATTRAPER_BRAS_GAUCHE.ordinal(), Tache.Mirror.SPECIFIC));
         recuperationBouees3_3000.add(new Manipulation("Ramassage bouée 5 - Pompe", ActionFileBinder.ActionFile.PMI_ATTRAPER_BRAS_DROIT.ordinal(), Tache.Mirror.SPECIFIC), mirrorId);
-        mirrorId = recuperationBouees1_2.size() + 1;
+        mirrorId = recuperationBouees3.size() + 1;
         recuperationBouees3.add(new Manipulation("Ramassage bouée 5 - Poser", ActionFileBinder.ActionFile.PMI_POSER_BRAS_GAUCHE.ordinal(), Tache.Mirror.SPECIFIC));
         recuperationBouees3_3000.add(new Manipulation("Ramassage bouée 5 - Poser", ActionFileBinder.ActionFile.PMI_POSER_BRAS_DROIT.ordinal(), Tache.Mirror.SPECIFIC), mirrorId);
-        mirrorId = recuperationBouees1_2.size() + 1;
+        mirrorId = recuperationBouees3.size() + 1;
         recuperationBouees3.add(new Manipulation("Ramassage bouée 5 - Lever", ActionFileBinder.ActionFile.PMI_SORTIR_LEVER_BRAS_GAUCHE.ordinal(), Tache.Mirror.SPECIFIC));
         recuperationBouees3_3000.add(new Manipulation("Ramassage bouée 5 - Lever", ActionFileBinder.ActionFile.PMI_SORTIR_LEVER_BRAS_DROIT.ordinal(), Tache.Mirror.SPECIFIC), mirrorId);
         recuperationBouees3.add(new DeleteZone("Suppression zone bouée 5", "bouee5"));
-        recuperationBouees3.add(new GoTo("Sortie zone interdite", 200, 560));
         Objectif objectifRecuperationBouees3_0 = new Objectif("Bouée 3 + Phare + Bouée 5", objectifsCouleur0.size()+1, score, 1, recuperationBouees3);
         Objectif objectifRecuperationBouees3_3000 = new Objectif("Bouée 3 + Phare + Bouée 5", objectifsCouleur3000.size()+1, score, 1, null);
         try {
@@ -154,17 +144,16 @@ public class MainPmi2021 {
         score = 0;
         TaskList recuperationBouees6 =  new TaskList();
         TaskList recuperationBouees6_3000 =  new TaskList();
-        recuperationBouees6.add(new GoToAstar("Mise en position bouée 6", 340, 670));
-        recuperationBouees6.add(new GoTo("Mise en position bouée 6", 340, 800));
+        recuperationBouees6.add(new GoTo("Mise en position bouée 6", 340, 670));
         recuperationBouees6.add(new Face("Alignement bouée 6", 340, 3000));
         recuperationBouees6.add(new GoTo("Mise en position ramassage bouée 6", 340, 840));
-        mirrorId = recuperationBouees1_2.size() + 1;
+        mirrorId = recuperationBouees6.size() + 1;
         recuperationBouees6.add(new Manipulation("Ramassage bouée 6 - Pompe", ActionFileBinder.ActionFile.PMI_ATTRAPER_BRAS_DROIT.ordinal(), Tache.Mirror.SPECIFIC));
         recuperationBouees6_3000.add(new Manipulation("Ramassage bouée 6 - Pompe", ActionFileBinder.ActionFile.PMI_ATTRAPER_BRAS_GAUCHE.ordinal(), Tache.Mirror.SPECIFIC), mirrorId);
-        mirrorId = recuperationBouees1_2.size() + 1;
+        mirrorId = recuperationBouees6.size() + 1;
         recuperationBouees6.add(new Manipulation("Ramassage bouée 6 - Poser", ActionFileBinder.ActionFile.PMI_POSER_BRAS_DROIT.ordinal(), Tache.Mirror.SPECIFIC));
         recuperationBouees6_3000.add(new Manipulation("Ramassage bouée 6 - Poser", ActionFileBinder.ActionFile.PMI_POSER_BRAS_GAUCHE.ordinal(), Tache.Mirror.SPECIFIC), mirrorId);
-        mirrorId = recuperationBouees1_2.size() + 1;
+        mirrorId = recuperationBouees6.size() + 1;
         recuperationBouees6.add(new Manipulation("Ramassage bouée 6 - Lever", ActionFileBinder.ActionFile.PMI_SORTIR_LEVER_BRAS_DROIT.ordinal(), Tache.Mirror.SPECIFIC));
         recuperationBouees6_3000.add(new Manipulation("Ramassage bouée 6 - Lever", ActionFileBinder.ActionFile.PMI_SORTIR_LEVER_BRAS_GAUCHE.ordinal(), Tache.Mirror.SPECIFIC), mirrorId);
         recuperationBouees6.add(new DeleteZone("Suppression zone bouée 6", "bouee6"));
@@ -193,16 +182,16 @@ public class MainPmi2021 {
         petitPort.add(new SetSpeed("Vitesse réduite", 50));
         petitPort.add(new GoToBack("Marquage bouées petit port", 1600, 1800));
         petitPort.add(new GoToBack("Marquage bouées petit port", 1800, 1800));
-        petitPort.add(new GoToBack("Marquage bouées petit port", 1850, 1800));
         petitPort.add(new SetSpeed("Vitesse normale", 100));
         petitPort.add(new DeleteZone("Suppression zone bouée 8", "bouee8"));
         petitPort.add(new DeleteZone("Suppression zone bouée 11", "bouee11"));
         petitPort.add(new GoTo("Placement rotation largage bouée 5 et 6", 1600, 1800));
         petitPort.add(new Face("Alignement largage bouée 5 et 6", 2000, 1800));
-        petitPort.add(new GoTo("Placement largage bouée 5 et 6", 1700, 1800));
+        petitPort.add(new GoTo("Placement largage bouée 5 et 6", 1650, 1800));
         petitPort.add(new Manipulation("Largage bouée 5 - Pompe", ActionFileBinder.ActionFile.PMI_LACHER_BRAS_DROIT.ordinal()));
         petitPort.add(new Manipulation("Largage bouée 6 - Pompe", ActionFileBinder.ActionFile.PMI_LACHER_BRAS_GAUCHE.ordinal()));
         petitPort.add(new GoToBack("Sortie petit port", 1450, 1800));
+        petitPort.add(new WaitChrono("Attente", 91));
         Objectif objectifPetitPort0 = new Objectif("Petit port", objectifsCouleur0.size()+1, score, 1, petitPort);
         Objectif objectifPetitPort3000 = new Objectif("Petit port", objectifsCouleur3000.size()+1, score, 1, null);
         try {
@@ -237,6 +226,7 @@ public class MainPmi2021 {
 
         // Ajout du clean de princess pour les tests
         TaskList fakeZoneForSimu = new TaskList();
+        fakeZoneForSimu.add(new DeleteZone("Suppression zone bouée 3", "bouee3"));
         fakeZoneForSimu.add(new DeleteZone("Suppression zone bouée 4", "bouee4"));
         recuperationBouees6.addAll(fakeZoneForSimu);
 
@@ -286,9 +276,8 @@ public class MainPmi2021 {
          */
         int score = 10;
         TaskList tachesPortNord =  new TaskList();
-        tachesPortNord.add(new GoToAstar("On se gare", 200, 500));
-        tachesPortNord.add(new GoTo("On se gare", 160, 200));
-        tachesPortNord.add(new GoTo("On se gare", 160, 90));
+        tachesPortNord.add(new GoToAstar("On se gare", 300, 700));
+        tachesPortNord.add(new GoTo("On se gare", 300, 400));
         Objectif objectifPortN0 = new Objectif("Port Nord", objectifsCouleur0.size()+1, score, 1, tachesPortNord);
         Objectif objectifPortN3000 = new Objectif("Port Nord", objectifsCouleur3000.size()+1, score, 1, null);
         try {
@@ -305,9 +294,8 @@ public class MainPmi2021 {
          */
         score = 10;
         TaskList tachesPortSud =  new TaskList();
-        tachesPortSud.add(new GoToAstar("On se gare", 1400, 500));
-        tachesPortSud.add(new GoTo("On se gare", 1440, 200));
-        tachesPortSud.add(new GoTo("On se gare", 1440, 90));
+        tachesPortSud.add(new GoToAstar("On se gare", 1300, 700));
+        tachesPortSud.add(new GoTo("On se gare", 1300, 400));
         Objectif objectifPortS0 = new Objectif("Port Sud", objectifsCouleur0.size()+1, score, 1, tachesPortSud);
         Objectif objectifPortS3000 = new Objectif("Port Sud", objectifsCouleur3000.size()+1, score, 1, null);
         try {
@@ -331,7 +319,7 @@ public class MainPmi2021 {
         System.out.println("#########################");
         System.out.println(gson.toJson(strat));
 
-        try (PrintWriter jsonFile = new PrintWriter("configCollectionBoussolePmi.json")) {
+        try (PrintWriter jsonFile = new PrintWriter("configCollectionBoussolePmiHomologuation.json")) {
             jsonFile.println(gson.toJson(strat));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
