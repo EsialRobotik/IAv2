@@ -81,12 +81,12 @@ public class MainPmi2021 {
         recuperationBouees1_2.add(new Manipulation("Largage bouée 1 - Pompe", ActionFileBinder.ActionFile.PMI_LACHER_BRAS_DROIT.ordinal(), Tache.Mirror.SPECIFIC));
         recuperationBouees1_2_3000.add(new Manipulation("Largage bouée 1 - Pompe", ActionFileBinder.ActionFile.PMI_LACHER_BRAS_GAUCHE.ordinal(), Tache.Mirror.SPECIFIC), mirrorId);
         recuperationBouees1_2.add(new DeleteZone("Suppression zone bouée 2", "bouee2"));
-        recuperationBouees1_2.add(new GoToBack("Mise en position largage bouée 2", 420, 200));
+        recuperationBouees1_2.add(new GoToBack("Mise en position largage bouée 2", 400, 200));
         recuperationBouees1_2.add(new Face("Alignement largage bouée 2", 2000, 200));
         mirrorId = recuperationBouees1_2.size() + 1;
         recuperationBouees1_2.add(new Manipulation("Largage bouée 2 - Pompe", ActionFileBinder.ActionFile.PMI_LACHER_BRAS_GAUCHE.ordinal(), Tache.Mirror.SPECIFIC));
         recuperationBouees1_2_3000.add(new Manipulation("Largage bouée 2 - Pompe", ActionFileBinder.ActionFile.PMI_LACHER_BRAS_DROIT.ordinal(), Tache.Mirror.SPECIFIC), mirrorId);
-        recuperationBouees1_2.add(new GoToBack("Direction le phare", 200, 200));
+        recuperationBouees1_2.add(new GoToBack("Direction le phare", 200, 180));
         recuperationBouees1_2.add(new AddZone("Blocage du chenal Sud", "chenal_depart_s"));
         recuperationBouees1_2.add(new AddZone("Blocage du chenal Nord", "chenal_depart_n"));
         Objectif objectifRecuperationBouees1_2_0 = new Objectif("Bouées 1 et 2", objectifsCouleur0.size()+1, score, 1, recuperationBouees1_2);
@@ -192,7 +192,7 @@ public class MainPmi2021 {
         petitPort.add(new Manipulation("Largage bouée 6 - Pompe", ActionFileBinder.ActionFile.PMI_LACHER_BRAS_GAUCHE.ordinal()));
         petitPort.add(new GoToBack("Sortie petit port", 1450, 1800));
         petitPort.add(new WaitChrono("Attente", 90));
-        petitPort.add(new GoToAstar("Déplacement vers l'arrivee", 1350, 1000));
+        petitPort.add(new GoToAstar("Déplacement vers l'arrivee", 1350, 1070));
         petitPort.add(new WaitChrono("Attente", 95));
         Objectif objectifPetitPort0 = new Objectif("Petit port", objectifsCouleur0.size()+1, score, 1, petitPort);
         Objectif objectifPetitPort3000 = new Objectif("Petit port", objectifsCouleur3000.size()+1, score, 1, null);

@@ -88,7 +88,7 @@
                     "x": 120,
                     "y": 105,
                     "angle": 20,
-                    "threshold": 400
+                    "threshold": 350
                 },
                 {
                     "desc": "Milieu",
@@ -97,7 +97,7 @@
                     "x": 125,
                     "y": 0,
                     "angle": 0,
-                    "threshold": 400
+                    "threshold": 350
                 },
                 {
                     "desc": "Avant droit",
@@ -106,7 +106,7 @@
                     "x": 120,
                     "y": -105,
                     "angle": -20,
-                    "threshold": 400
+                    "threshold": 350
                 },
                 {
                     "desc": "Arrière",
@@ -115,7 +115,7 @@
                     "x": -125,
                     "y": 0,
                     "angle": 180,
-                    "threshold": 300
+                    "threshold": 280
                 }
             ]
         },
