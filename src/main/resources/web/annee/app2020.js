@@ -476,8 +476,8 @@ $( function() {
 
     const getAx12IdsToRecord = function(all = false) {
         axs = [];
-        binding = [10, 3, 2, 1, 9, 5, 4, 7]; // 5 doigts puis main pui bras gauche et droit
-        [0, 1, 2, 3, 4, 5, 6, 7].forEach(function(num) {
+        binding = [10, 3, 2, 1, 9, 5, 4, 7, 16]; // 5 doigts puis main puis bras gauche, droit et drapeau
+        [0, 1, 2, 3, 4, 5, 6, 7, 8].forEach(function(num) {
             if (all || $(".actions-records").find(".actions-records__ax12 input[id=princess_ax12_"+(num+1)+"]").prop('checked')) {
                 axs = axs.concat(binding[num]);
             }
