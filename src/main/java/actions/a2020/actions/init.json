@@ -5,50 +5,56 @@
                 {
                     "actionId": "actionPosition",
                     "ax12Id": 10,
-                    "rawAngle": 424,
-                    "readOnlyAngleDegrees": 124.34017595307918
+                    "rawAngle": 858,
+                    "readOnlyAngleDegrees": 251.61290322580646
                 },
                 {
                     "actionId": "actionPosition",
                     "ax12Id": 3,
-                    "rawAngle": 589,
-                    "readOnlyAngleDegrees": 172.72727272727275
+                    "rawAngle": 172,
+                    "readOnlyAngleDegrees": 50.43988269794721
                 },
                 {
                     "actionId": "actionPosition",
                     "ax12Id": 2,
-                    "rawAngle": 591,
-                    "readOnlyAngleDegrees": 173.31378299120234
+                    "rawAngle": 227,
+                    "readOnlyAngleDegrees": 66.56891495601172
                 },
                 {
                     "actionId": "actionPosition",
                     "ax12Id": 1,
-                    "rawAngle": 431,
-                    "readOnlyAngleDegrees": 126.39296187683284
+                    "rawAngle": 850,
+                    "readOnlyAngleDegrees": 249.266862170088
                 },
                 {
                     "actionId": "actionPosition",
                     "ax12Id": 9,
-                    "rawAngle": 597,
-                    "readOnlyAngleDegrees": 175.07331378299122
+                    "rawAngle": 124,
+                    "readOnlyAngleDegrees": 36.36363636363637
                 },
                 {
                     "actionId": "actionPosition",
                     "ax12Id": 5,
-                    "rawAngle": 715,
-                    "readOnlyAngleDegrees": 209.67741935483872
+                    "rawAngle": 716,
+                    "readOnlyAngleDegrees": 209.97067448680355
                 },
                 {
                     "actionId": "actionPosition",
                     "ax12Id": 4,
-                    "rawAngle": 236,
-                    "readOnlyAngleDegrees": 69.20821114369501
+                    "rawAngle": 234,
+                    "readOnlyAngleDegrees": 68.6217008797654
                 },
                 {
                     "actionId": "actionPosition",
                     "ax12Id": 7,
                     "rawAngle": 477,
                     "readOnlyAngleDegrees": 139.88269794721407
+                },
+                {
+                    "actionId": "actionPosition",
+                    "ax12Id": 16,
+                    "rawAngle": 795,
+                    "readOnlyAngleDegrees": 233.13782991202345
                 }
             ]
         },

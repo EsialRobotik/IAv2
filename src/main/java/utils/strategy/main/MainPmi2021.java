@@ -191,7 +191,9 @@ public class MainPmi2021 {
         petitPort.add(new Manipulation("Largage bouée 5 - Pompe", ActionFileBinder.ActionFile.PMI_LACHER_BRAS_DROIT.ordinal()));
         petitPort.add(new Manipulation("Largage bouée 6 - Pompe", ActionFileBinder.ActionFile.PMI_LACHER_BRAS_GAUCHE.ordinal()));
         petitPort.add(new GoToBack("Sortie petit port", 1450, 1800));
-        petitPort.add(new WaitChrono("Attente", 91));
+        petitPort.add(new WaitChrono("Attente", 90));
+        petitPort.add(new GoToAstar("Déplacement vers l'arrivee", 1350, 1000));
+        petitPort.add(new WaitChrono("Attente", 95));
         Objectif objectifPetitPort0 = new Objectif("Petit port", objectifsCouleur0.size()+1, score, 1, petitPort);
         Objectif objectifPetitPort3000 = new Objectif("Petit port", objectifsCouleur3000.size()+1, score, 1, null);
         try {
