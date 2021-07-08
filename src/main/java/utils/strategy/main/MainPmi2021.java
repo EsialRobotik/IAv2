@@ -147,6 +147,7 @@ public class MainPmi2021 {
         recuperationBouees6.add(new GoTo("Mise en position bouée 6", 340, 670));
         recuperationBouees6.add(new Face("Alignement bouée 6", 340, 3000));
         recuperationBouees6.add(new GoTo("Mise en position ramassage bouée 6", 340, 840));
+        recuperationBouees6.add(new Face("Alignement ramassage bouée 6", 340, 3000));
         mirrorId = recuperationBouees6.size() + 1;
         recuperationBouees6.add(new Manipulation("Ramassage bouée 6 - Pompe", ActionFileBinder.ActionFile.PMI_ATTRAPER_BRAS_DROIT.ordinal(), Tache.Mirror.SPECIFIC));
         recuperationBouees6_3000.add(new Manipulation("Ramassage bouée 6 - Pompe", ActionFileBinder.ActionFile.PMI_ATTRAPER_BRAS_GAUCHE.ordinal(), Tache.Mirror.SPECIFIC), mirrorId);
@@ -193,7 +194,7 @@ public class MainPmi2021 {
         petitPort.add(new GoToBack("Sortie petit port", 1450, 1800));
         petitPort.add(new WaitChrono("Attente", 90));
         petitPort.add(new GoToAstar("Déplacement vers l'arrivee", 1350, 1070));
-        petitPort.add(new WaitChrono("Attente", 95));
+        petitPort.add(new WaitChrono("Attente", 96));
         Objectif objectifPetitPort0 = new Objectif("Petit port", objectifsCouleur0.size()+1, score, 1, petitPort);
         Objectif objectifPetitPort3000 = new Objectif("Petit port", objectifsCouleur3000.size()+1, score, 1, null);
         try {

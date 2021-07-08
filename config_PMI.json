@@ -2,7 +2,7 @@
     "desc": "Configuration du robot PMI 2020 - Princess Picrate",
     "gpioColorSelector": 4,
     "gpioTirette": 5,
-    "matchDuration": 99,
+    "matchDuration": 100,
     "table0Path": "table0.tbl",
     "table3000Path": "table3000.tbl",
     "tableJsonPath": "table.json",
@@ -14,7 +14,7 @@
         "lineLength": 16
     },
     "loggerSocket": {
-        "active": true,
+        "active": false,
         "host": "192.168.0.104",
         "port": 4269,
         "logPort": 1664,

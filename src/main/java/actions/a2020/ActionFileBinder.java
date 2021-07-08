@@ -20,7 +20,7 @@ public class ActionFileBinder implements ActionInterface {
 		/**
 		 * Initialisation avant match
 		 */
-		INIT("init.json", true), // 0
+		INIT("init.json", false), // 0
 
 		/**
 		 * Gestion des bras
