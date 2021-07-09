@@ -4,64 +4,12 @@
     <meta charset="UTF-8">
     <title>PrincessVisu</title>
 
-    <style type="text/css">
-  			.outsideWrapper{
-			    width:3000px; height:2000px;
-			    margin:0px 0px;
-			    display: inline-block;
-			}
-			.insideWrapper{
-			    width:100%; height:100%;
-			    position:relative;
-			}
-			.coveredImage{
-			    width:100%; height:100%;
-			    position:absolute; top:0px; left:0px;
-			}
-			.coveringCanvas{
-			    width:100%; height:100%;
-			    position:absolute; top:0px; left:0px;
-			    background-color: rgba(0,0,0,.1);
-			}
-			.coveringButton{
-				position:absolute; top:50px; left:50px;
-			}
-			.configBlock {
-			    display: inline-block;
-			    width: 700px;
-			    vertical-align: top;
-			    font-size: 35px;
-			}
-			.formBlock {
-			    width: 700px;
-			    margin: 10px;
-			}
-			.instructionsBlock {
-			    width: 700px;
-			    margin: 10px;
-			    padding: 10px;
-			}
-			.dataBlock {
-			    width: 700px;
-			    height: 530px;
-			    margin: 10px;
-			    padding: 10px;
-			    font-size: 28px;
-			}
-			.dataFieldset {
-			    width: 700px;
-			    overflow: auto;
-			    height: 530px;
-			}
-			button,input {
-			    font-size: 25px;
-                padding: 10px;
-            }
-    </style>
+    <link rel="stylesheet" href="visualisator.css">
 
     <!-- https://createjs.com - Voir EaselJs pour le canvas et TweenJs pour les animations -->
     <script src="./createjs.min.js"></script>
     <script src="./tweenjs.min.js"></script>
+    <script src="./visualisator.js"></script>
 
 </head>
 <body onload="init();">
@@ -74,439 +22,92 @@
 </div>
 
 <div class="configBlock">
-    <form id="formTable" name="formTable" class="formBlock" onsubmit="event.preventDefault(); loadTable();">
+    <form id="formTable" name="formTable" class="formBlock" onsubmit="event.preventDefault(); loadFiles();">
         <fieldset>
-            <legend>Configuration de la table</legend>
-            <input type="file"
-                   id="table" name="table"
-                   accept="application/json"/>
-            <button type="submit">Submit</button>
+            <legend>Configuration</legend>
+
+            <div>
+                <input type="file"
+                       id="table" name="table"
+                       accept="application/json"
+                       class="inputfile"
+                       data-multiple-caption="{count} files selected"/>
+                <label for="table"><span>Table</span></label>
+            </div>
+
+            <div>
+                <input type="file"
+                       id="strat" name="strat"
+                       accept="application/json"
+                       class="inputfile"
+                       data-multiple-caption="{count} files selected"/>
+                <label for="strat"><span>Strat simulateur Princess</span></label>
+                <input type="file"
+                       id="stratPmi" name="stratPmi"
+                       accept="application/json"
+                       class="inputfile"
+                       data-multiple-caption="{count} files selected"/>
+                <label for="stratPmi"><span>Strat simulateur PMI</span></label>
+            </div>
+
+            <div>
+                <input type="file"
+                       id="stratLog" name="stratLog"
+                       class="inputfile"
+                       data-multiple-caption="{count} files selected"/>
+                <label for="stratLog"><span>Strat Log Princess</span></label>
+                <input type="file"
+                       id="stratPmiLog" name="stratPmiLog"
+                       class="inputfile"
+                       data-multiple-caption="{count} files selected"/>
+                <label for="stratPmiLog"><span>Strat Log PMI</span></label>
+            </div>
+
+            <div>
+                <button type="submit">Envoyer</button>
+            </div>
         </fieldset>
     </form>
-    <form id="formStrat" name="formStrat" class="formBlock" onsubmit="event.preventDefault(); loadStrat();">
-        <fieldset>
-            <legend>Strat du générateur Princess</legend>
-            <input type="file"
-                   id="strat" name="strat"
-                   accept="application/json"/>
-            <button type="submit">Submit</button>
-        </fieldset>
-    </form>
-    <form id="formStratLog" name="formStratLog" class="formBlock" onsubmit="event.preventDefault(); loadStratLog();">
-        <fieldset>
-            <legend>Replay logs Princess</legend>
-            <input type="file"
-                   id="stratLog" name="stratLog"/>
-            <button type="submit">Submit</button>
-        </fieldset>
-    </form>
-    <form id="formStratPmi" name="formStratPmi" class="formBlock" onsubmit="event.preventDefault(); loadStratPmi();">
-        <fieldset>
-            <legend>Strat du générateur PMI</legend>
-            <input type="file"
-                   id="stratPmi" name="stratPmi"
-                   accept="application/json"/>
-            <button type="submit">Submit</button>
-        </fieldset>
-    </form>
+
     <div class="instructionsBlock">
         <fieldset>
-            <legend>Instructions Princess</legend>
-            <button onclick="nextInstruction();">Suivant</button>
-            <button onclick="autoPlay();">Automatique</button>
-            <button onclick="connectSocket();">Socket</button>
+            <legend>Instructions</legend>
+            <table>
+                <tr>
+                    <th>Princess</th>
+                    <th>PMI</th>
+                    <th>Autre</th>
+                </tr>
+                <tr>
+                    <td><button id="princessNext" onclick="nextInstruction();" disabled>Suivant</button></td>
+                    <td><button id="pmiNext" onclick="nextInstructionPmi();" disabled>Suivant</button></td>
+                    <td><button onclick="connectSocket();">Live</button></td>
+                </tr>
+                <tr>
+                    <td><button id="princessAuto" onclick="autoPlay();" disabled>Automatique</button></td>
+                    <td><button id="pmiAuto" onclick="autoPlayPmi();" disabled>Automatique</button></td>
+                    <td><button onclick="autoPlay();autoPlayPmi();">Full auto</button></td>
+                </tr>
+            </table>
+
         </fieldset>
     </div>
-    <div class="instructionsBlock">
-        <fieldset>
-            <legend>Instructions PMI</legend>
-            <button onclick="nextInstructionPmi();">Suivant</button>
-            <button onclick="autoPlayPmi();">Automatique</button>
-        </fieldset>
-    </div>
-    <div class="dataBlock">
-        <fieldset id="data" class="dataFieldset">
-            <legend>Exécution Princess</legend>
-        </fieldset>
-    </div>
-    <div class="dataBlock">
-        <fieldset id="dataPmi" class="dataFieldset">
-            <legend>Exécution PMI</legend>
-        </fieldset>
-    </div>
+
+    <table class="dataBlock">
+        <tr>
+            <th>Exécution Princess</th>
+        </tr>
+        <tr>
+            <td id="data" class="dataFieldset"></td>
+        </tr>
+        <tr>
+            <th>Exécution PMI</th>
+        </tr>
+        <tr>
+            <td id="dataPmi" class="dataFieldset"></td>
+        </tr>
+    </table>
 </div>
-
-<script>
-  var stage;
-
-  var bigPrincess;
-  var pmiPrincess;
-
-  var strat;
-  var stratIndex = 0;
-
-  var stratPmi;
-  var stratPmiIndex = 0;
-
-  var rotationTime = 200;
-  var moveTime = 800;
-  var dataDiv = document.getElementById('data');
-
-  function init() {
-    stage = new createjs.Stage("canvas");
-
-    bigPrincess = new createjs.Bitmap('./bigPrincess.png');
-    bigPrincess.x = 800;
-    bigPrincess.y = 800;
-    bigPrincess.regX = 150;
-    bigPrincess.regY = 100;
-    bigPrincess.alpha = 0.7;
-    stage.addChild(bigPrincess);
-
-    pmiPrincess = new createjs.Bitmap('./pmiPrincess.png');
-    pmiPrincess.x = 1200;
-    pmiPrincess.y = 800;
-    pmiPrincess.regX = 150;
-    pmiPrincess.regY = 75;
-    pmiPrincess.alpha = 0.7;
-    stage.addChild(pmiPrincess);
-
-    stage.update();
-
-    createjs.Ticker.setFPS(60);
-    createjs.Ticker.addEventListener("tick", stage);
-    initRobot();
-  }
-
-  function initRobot() {
-    createjs.Tween.get(bigPrincess)
-        .to({ rotation: radiansToDegrees(Math.PI - Math.PI / 2) }, rotationTime, createjs.Ease.getPowInOut(4))
-        .to({ x: 200, y: 750 }, moveTime, createjs.Ease.getPowInOut(4));
-
-    createjs.Tween.get(pmiPrincess)
-        .to({ rotation: radiansToDegrees(0) }, rotationTime, createjs.Ease.getPowInOut(4))
-        .to({ x: 240, y: 1020 }, moveTime, createjs.Ease.getPowInOut(4));
-  }
-
-  function moveRobot(x, y, rotation) {
-    var shape = new createjs.Shape();
-    shape.graphics
-        .setStrokeStyle(3)
-        .beginStroke('rgba(255,20,147,1)')
-        .moveTo(bigPrincess.x, bigPrincess.y)
-        .lineTo(x,y);
-    stage.addChild(shape);
-    stage.update();
-
-    createjs.Tween.get(bigPrincess)
-        .to({ rotation: radiansToDegrees(Math.PI - rotation) }, rotationTime, createjs.Ease.getPowInOut(4))
-        .to({ x, y }, moveTime, createjs.Ease.getPowInOut(4));
-  }
-
-  function movePmi(x, y, rotation) {
-    var shape = new createjs.Shape();
-    shape.graphics
-        .setStrokeStyle(3)
-        .beginStroke('rgb(255,105,180,1)')
-        .moveTo(pmiPrincess.x, pmiPrincess.y)
-        .lineTo(x,y);
-    stage.addChild(shape);
-    stage.update();
-
-    createjs.Tween.get(pmiPrincess)
-        .to({ rotation: radiansToDegrees(Math.PI - rotation) }, rotationTime, createjs.Ease.getPowInOut(4))
-        .to({ x, y }, moveTime, createjs.Ease.getPowInOut(4));
-  }
-
-  function loadTable() {
-    var file = document.getElementById('table');
-    if (file.files.length) {
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            var jsonTable = JSON.parse(e.target.result);
-
-            // Zones interdites fixes
-            jsonTable.zonesInterdites.forEach(zone => {
-                displayZone(zone, jsonTable, 'rgba(255,0,0,0.6)', 'rgba(200,0,0,0.4)');
-            });
-
-            // Bordure haut
-            var shape = new createjs.Shape();
-            shape.graphics
-                .beginFill('rgba(200,0,0,0.4)')
-                .drawRect(0, 0, 3000, jsonTable.marge);
-            stage.addChild(shape);
-
-            // Bordure bas
-            shape = new createjs.Shape();
-            shape.graphics
-                .beginFill('rgba(200,0,0,0.4)')
-                .drawRect(0, 2000 - jsonTable.marge, 3000, 2000);
-            stage.addChild(shape);
-
-            // Bordure gauche
-            shape = new createjs.Shape();
-            shape.graphics
-                .beginFill('rgba(200,0,0,0.4)')
-                .drawRect(0, 0, jsonTable.marge, 2000);
-            stage.addChild(shape);
-
-            // Bordure droite
-            shape = new createjs.Shape();
-            shape.graphics
-                .beginFill('rgba(200,0,0,0.4)')
-                .drawRect(3000 - jsonTable.marge, 0, 3000, 2000);
-            stage.addChild(shape);
-
-            // Zones interdites mobiles
-            jsonTable.elementsJeu.forEach(zone => {
-                displayZone(zone, jsonTable, 'rgba(255,255,0,0.6)', 'rgba(255,165,0,0.4)');
-            });
-            stage.update();
-
-            deleteZone('start0');
-        };
-        reader.readAsBinaryString(file.files[0]);
-
-        return true;
-    }
-  }
-
-  function displayZone(zone, jsonTable, colorPrimary, colorSecondary) {
-    if (zone.forme == 'polygone') {
-        if (zone.points.length === 4) {
-            var topLeftCorner = zone.points[0];
-            var bottomRightCorner = zone.points[0];
-            zone.points.forEach(point => {
-                if (topLeftCorner.x >= point.x && topLeftCorner.y >= point.y) {
-                    topLeftCorner = point;
-                }
-                if (bottomRightCorner.x <= point.x && bottomRightCorner.y <= point.y) {
-                    bottomRightCorner = point;
-                }
-            });
-
-            var shape = new createjs.Shape();
-            shape.name = zone.id;
-            shape.visible = zone.active;
-            shape.graphics
-                .beginFill(colorPrimary)
-                .drawRect(
-                    topLeftCorner.y,
-                    topLeftCorner.x,
-                    bottomRightCorner.y - topLeftCorner.y,
-                    bottomRightCorner.x - topLeftCorner.x
-                );
-            stage.addChild(shape);
-
-            shape = new createjs.Shape();
-            shape.name = zone.id + '_margin';
-            shape.visible = zone.active;
-            shape.graphics
-                .beginFill(colorSecondary)
-                .drawRect(
-                    topLeftCorner.y - jsonTable.marge,
-                    topLeftCorner.x - jsonTable.marge,
-                    (bottomRightCorner.y - topLeftCorner.y) + jsonTable.marge * 2,
-                    (bottomRightCorner.x - topLeftCorner.x) + jsonTable.marge * 2
-                );
-            stage.addChild(shape);
-        } else {
-            alert('Je gère pas encore ce cas, have fun : ' + zone.id + '-' + zone.forme + '-' + zone.active);
-        }
-    } else if (zone.forme == 'cercle') {
-        var shape = new createjs.Shape();
-        shape.name = zone.id;
-        shape.visible = zone.active;
-        shape.graphics
-            .beginFill(colorPrimary)
-            .drawCircle(zone.centre.y, zone.centre.x, zone.rayon);
-        stage.addChild(shape);
-
-        shape = new createjs.Shape();
-        shape.name = zone.id + '_margin';
-        shape.visible = zone.active;
-        shape.graphics
-            .beginFill(colorSecondary)
-            .drawCircle(zone.centre.y, zone.centre.x, zone.rayon + jsonTable.marge);
-        stage.addChild(shape);
-    }
-  }
-
-  function deleteZone(zoneName) {
-    stage.getChildByName(zoneName).visible = false;
-    stage.getChildByName(zoneName + '_margin').visible = false;
-    stage.update();
-  }
-
-  function addZone(zoneName) {
-    stage.getChildByName(zoneName).visible = true;
-    stage.getChildByName(zoneName + '_margin').visible = true;
-    stage.update();
-  }
-
-  function radiansToDegrees(radians) {
-    var pi = Math.PI;
-    return radians * (180/pi);
-  }
-
-  function loadStrat() {
-    var file = document.getElementById('strat');
-    if (file.files.length) {
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            strat = JSON.parse(e.target.result);
-            stratIndex = 0;
-        };
-        reader.readAsBinaryString(file.files[0]);
-        return true;
-    }
-  }
-
-  function loadStratPmi() {
-    var file = document.getElementById('stratPmi');
-    if (file.files.length) {
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            stratPmi = JSON.parse(e.target.result);
-            stratPmiIndex = 0;
-        };
-        reader.readAsBinaryString(file.files[0]);
-        return true;
-    }
-  }
-
-  function loadStratLog() {
-    var file = document.getElementById('stratLog');
-    if (file.files.length) {
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            stratLog = e.target.result.split('\n');
-            rotationTime = 50;
-            moveTime = 50;
-            stratIndex = 0;
-        };
-        reader.readAsBinaryString(file.files[0]);
-        return true;
-    }
-  }
-
-  function nextInstruction() {
-    if (strat) {
-        var startFile = strat;
-    } else {
-        var startFile = stratLog;
-    }
-    if (stratIndex >= startFile.length) {
-        return true;
-    }
-    var instruction = startFile[stratIndex];
-    stratIndex++;
-
-    if (strat) {
-        var regexpZone = /(delete|add)-zone#(.+)/;
-        var parseZone = regexpZone.exec(instruction.command);
-
-        var dataDiv = document.getElementById('data');
-        dataDiv.insertAdjacentHTML('beforeend', '<strong>' + instruction.task + '</strong> : ' + instruction.command + '<br>');
-        dataDiv.scrollTop = dataDiv.scrollHeight;
-        moveRobot(instruction.position.y, instruction.position.x, instruction.position.theta);
-        if (parseZone !== null) {
-            if (parseZone[1] === 'delete') {
-                deleteZone(parseZone[2]);
-            } else {
-                addZone(parseZone[2]);
-            }
-        }
-    } else {
-        var regexpAsserv = /.+\[Asserv\].+#([-0-9]+);([-0-9]+);([-0-9\.]+).+/;
-        var parseAsserv = regexpAsserv.exec(instruction);
-        if (parseAsserv != null) {
-            moveRobot(parseAsserv[2], parseAsserv[1], parseAsserv[3]);
-        } else {
-            var dataDiv = document.getElementById('data');
-            dataDiv.insertAdjacentHTML('beforeend', instruction + '<br>');
-            dataDiv.scrollTop = dataDiv.scrollHeight;
-        }
-    }
-    return false;
-  }
-
-  function nextInstructionPmi() {
-    if (stratPmiIndex >= stratPmi.length) {
-        return true;
-    }
-    var instruction = stratPmi[stratPmiIndex];
-    stratPmiIndex++;
-
-    var regexpZone = /(delete|add)-zone#(.+)/;
-    var parseZone = regexpZone.exec(instruction.command);
-
-    var dataDiv = document.getElementById('dataPmi');
-    dataDiv.insertAdjacentHTML('beforeend', '<strong>' + instruction.task + '</strong> : ' + instruction.command + '<br>');
-    dataDiv.scrollTop = dataDiv.scrollHeight;
-    movePmi(instruction.position.y, instruction.position.x, instruction.position.theta);
-    if (parseZone !== null) {
-        if (parseZone[1] === 'delete') {
-            deleteZone(parseZone[2]);
-        } else {
-            addZone(parseZone[2]);
-        }
-    }
-    return false;
-  }
-
-  async function autoPlay() {
-    if (!nextInstruction()) {
-        await sleep(rotationTime + moveTime + 1);
-        autoPlay();
-    }
-  }
-
-  async function autoPlayPmi() {
-    if (!nextInstructionPmi()) {
-        await sleep(rotationTime + moveTime + 1);
-        autoPlayPmi();
-    }
-  }
-
-  function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
-
-  function connectSocket() {
-    var socket = null;
-    try {
-        socket = new WebSocket("ws://192.168.0.104:4269");
-    } catch (exception) {
-        console.error(exception);
-    }
-
-    // Récupération des erreurs.
-    // Si la connexion ne s'établie pas,
-    // l'erreur sera émise ici.
-    socket.onerror = function(error) {
-        console.error(error);
-    };
-
-    // Lorsque la connexion est établie.
-    socket.onopen = function(event) {
-        console.log("Connexion établie.");
-
-        // Lorsque la connexion se termine.
-        this.onclose = function(event) {
-            console.log("Connexion terminé.");
-        };
-
-        // Lorsque le serveur envoi un message.
-        this.onmessage = function(event) {
-            console.log("Message:", event.data);
-        };
-
-        this.send("loggerListener");
-    };
-  }
-</script>
 
 </body>
 </html>
