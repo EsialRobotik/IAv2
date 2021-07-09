@@ -254,7 +254,7 @@ public class Main2021 {
 //        mirrorId = largageRecifNord.size() + 1;
         largageRecifNord.add(new Manipulation("Largage grand port", ActionFileBinder.ActionFile.OUVRIR_DOIGTS_1A5.ordinal()));
 //        largageRecifNord_3000.add(new Manipulation("Largage grand port", ActionFileBinder.ActionFile.OUVRIR_DOIGTS_2A5.ordinal()), mirrorId);
-        largageRecifNord.add(new GoToBack("Sortie grand port", 800, 730));
+        largageRecifNord.add(new GoToBack("Sortie grand port", 800, 800));
         Objectif objectifLargageRecifNord0 = new Objectif("Largage recif nord", objectifsCouleur0.size()+1, score, 1, largageRecifNord);
         Objectif objectifLargageRecifNord3000 = new Objectif("Largage recif nord", objectifsCouleur3000.size()+1, score, 1, null);
         try {
@@ -264,31 +264,6 @@ public class Main2021 {
         }
         objectifsCouleur0.add(objectifLargageRecifNord0);
         objectifsCouleur3000.add(objectifLargageRecifNord3000);
-
-        /*
-         * Largage dernière bouée
-         * Score = 4
-         *  - 1 point par bouée dans le port => 1
-         *  - 1 point par bouée dans le chenal => 1
-         *  - 2 point par paire => 2
-         */
-//        score = 4;
-//        TaskList largageDerniereBouee = new TaskList();
-//        largageDerniereBouee.add(new GoTo("Placement largage", 365, 730));
-//        largageDerniereBouee.add(new Face("Alignement largage", 365, 0));
-//        largageDerniereBouee.add(new GoTo("Placement largage", 365, 570));
-//        largageDerniereBouee.add(new Face("Alignement largage", 365, 0));
-//        largageDerniereBouee.add(new Manipulation("Largage", ActionFileBinder.ActionFile.OUVRIR_DOIGTS_1A5.ordinal()));
-//        largageDerniereBouee.add(new GoToBack("On se prépare à se garer", 365, 730));
-//        Objectif objectifLargageDerniereBouee0 = new Objectif("Largage recif nord", objectifsCouleur0.size()+1, score, 1, largageDerniereBouee);
-//        Objectif objectifLargageDerniereBouee3000 = new Objectif("Largage recif nord", objectifsCouleur3000.size()+1, score, 1, null);
-//        try {
-//            objectifLargageDerniereBouee3000.generateMirror(objectifLargageDerniereBouee0.taches);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        objectifsCouleur0.add(objectifLargageDerniereBouee0);
-//        objectifsCouleur3000.add(objectifLargageDerniereBouee3000);
 
         // Création de la stratégie complète
         Strategie strat = new Strategie();
@@ -389,7 +364,6 @@ public class Main2021 {
         TaskList tachesPortSud =  new TaskList();
         tachesPortSud.add(new GoToAstar("On se gare", 1400, 500));
         tachesPortSud.add(new GoTo("On se gare", 1440, 200));
-        tachesPortSud.add(new GoTo("On se gare", 1440, 150));
         Objectif objectifPortS0 = new Objectif("Port Sud", objectifsCouleur0.size()+1, score, 1, tachesPortSud);
         Objectif objectifPortS3000 = new Objectif("Port Sud", objectifsCouleur3000.size()+1, score, 1, null);
         try {
@@ -413,7 +387,7 @@ public class Main2021 {
         System.out.println("#########################");
         System.out.println(gson.toJson(strat));
 
-        try (PrintWriter jsonFile = new PrintWriter("configCollectionBoussoleHomologuation.json")) {
+        try (PrintWriter jsonFile = new PrintWriter("configCollectionBoussole.json")) {
             jsonFile.println(gson.toJson(strat));
         } catch (FileNotFoundException e) {
             e.printStackTrace();

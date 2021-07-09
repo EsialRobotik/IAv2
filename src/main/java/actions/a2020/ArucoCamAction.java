@@ -31,36 +31,25 @@ public class ArucoCamAction implements ActionExecutor {
         this.logger = LoggerFactory.getLogger(ArucoCamAction.class);
 
         Gson gson = new Gson();
+        JsonObject jsonObjectif = gson.fromJson(
+            "{\"couleur0\":[{\"desc\":\"Port Nord\",\"id\":1,\"points\":10,\"priorite\":1,\"taches\":[{\"desc\":\"On se gare\",\"id\":1,\"positionX\":200,\"positionY\":500,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto_astar\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1},{\"desc\":\"On se gare\",\"id\":2,\"positionX\":200,\"positionY\":200,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1}]},{\"desc\":\"Port Sud\",\"id\":2,\"points\":10,\"priorite\":1,\"taches\":[{\"desc\":\"On se gare\",\"id\":1,\"positionX\":1400,\"positionY\":500,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto_astar\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1},{\"desc\":\"On se gare\",\"id\":2,\"positionX\":1440,\"positionY\":200,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1}]}],\"couleur3000\":[{\"desc\":\"Port Nord\",\"id\":1,\"points\":10,\"priorite\":1,\"taches\":[{\"desc\":\"On se gare\",\"id\":1,\"positionX\":200,\"positionY\":2500,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto_astar\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1},{\"desc\":\"On se gare\",\"id\":2,\"positionX\":200,\"positionY\":2800,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1}]},{\"desc\":\"Port Sud\",\"id\":2,\"points\":10,\"priorite\":1,\"taches\":[{\"desc\":\"On se gare\",\"id\":1,\"positionX\":1400,\"positionY\":2500,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto_astar\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1},{\"desc\":\"On se gare\",\"id\":2,\"positionX\":1440,\"positionY\":2800,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1}]}]}\n",
+            JsonObject.class
+        );
+
         this.nord0 = new ActionDescriptor(
-            gson.fromJson(
-//                "{\"desc\":\"Port Nord\",\"id\":1,\"points\":10,\"priorite\":1,\"taches\":[{\"desc\":\"On se gare\",\"id\":1,\"positionX\":300,\"positionY\":700,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto_astar\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1},{\"desc\":\"On se gare\",\"id\":2,\"positionX\":300,\"positionY\":400,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1}]}",
-                "{\"desc\":\"Port Nord\",\"id\":1,\"points\":10,\"priorite\":1,\"taches\":[{\"desc\":\"On se gare\",\"id\":1,\"positionX\":200,\"positionY\":500,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto_astar\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1},{\"desc\":\"On se gare\",\"id\":2,\"positionX\":160,\"positionY\":200,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1},{\"desc\":\"On se gare\",\"id\":3,\"positionX\":160,\"positionY\":150,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1}]}",
-                JsonObject.class
-            ),
+            jsonObjectif.getAsJsonArray("couleur0").get(0).getAsJsonObject(),
             actionCollection.isStepByStep()
         );
         this.sud0 = new ActionDescriptor(
-            gson.fromJson(
-//                "{\"desc\":\"Port Sud\",\"id\":2,\"points\":10,\"priorite\":1,\"taches\":[{\"desc\":\"On se gare\",\"id\":1,\"positionX\":1300,\"positionY\":700,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto_astar\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1},{\"desc\":\"On se gare\",\"id\":2,\"positionX\":1300,\"positionY\":400,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1}]}",
-                "{\"desc\":\"Port Sud\",\"id\":2,\"points\":10,\"priorite\":1,\"taches\":[{\"desc\":\"On se gare\",\"id\":1,\"positionX\":1400,\"positionY\":500,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto_astar\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1},{\"desc\":\"On se gare\",\"id\":2,\"positionX\":1440,\"positionY\":200,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1},{\"desc\":\"On se gare\",\"id\":3,\"positionX\":1440,\"positionY\":150,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1}]}",
-                JsonObject.class
-            ),
+            jsonObjectif.getAsJsonArray("couleur0").get(1).getAsJsonObject(),
             actionCollection.isStepByStep()
         );
         this.nord3000 = new ActionDescriptor(
-            gson.fromJson(
-//                "{\"desc\":\"Port Nord\",\"id\":1,\"points\":10,\"priorite\":1,\"taches\":[{\"desc\":\"On se gare\",\"id\":1,\"positionX\":300,\"positionY\":2300,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto_astar\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1},{\"desc\":\"On se gare\",\"id\":2,\"positionX\":300,\"positionY\":2600,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1}]}",
-                "{\"desc\":\"Port Nord\",\"id\":1,\"points\":10,\"priorite\":1,\"taches\":[{\"desc\":\"On se gare\",\"id\":1,\"positionX\":200,\"positionY\":2500,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto_astar\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1},{\"desc\":\"On se gare\",\"id\":2,\"positionX\":160,\"positionY\":2800,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1},{\"desc\":\"On se gare\",\"id\":3,\"positionX\":160,\"positionY\":2850,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1}]}",
-                JsonObject.class
-            ),
+            jsonObjectif.getAsJsonArray("couleur3000").get(0).getAsJsonObject(),
             actionCollection.isStepByStep()
         );
         this.sud3000 = new ActionDescriptor(
-            gson.fromJson(
-//                "{\"desc\":\"Port Sud\",\"id\":2,\"points\":10,\"priorite\":1,\"taches\":[{\"desc\":\"On se gare\",\"id\":1,\"positionX\":1300,\"positionY\":2300,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto_astar\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1},{\"desc\":\"On se gare\",\"id\":2,\"positionX\":1300,\"positionY\":2600,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1}]}",
-                "{\"desc\":\"Port Sud\",\"id\":2,\"points\":10,\"priorite\":1,\"taches\":[{\"desc\":\"On se gare\",\"id\":1,\"positionX\":1400,\"positionY\":2500,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto_astar\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1},{\"desc\":\"On se gare\",\"id\":2,\"positionX\":1440,\"positionY\":2800,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1},{\"desc\":\"On se gare\",\"id\":3,\"positionX\":1440,\"positionY\":2850,\"dist\":0,\"type\":\"deplacement\",\"subtype\":\"goto\",\"actionId\":-1,\"mirror\":\"MIRRORY\",\"timeout\":-1}]}",
-                JsonObject.class
-            ),
+            jsonObjectif.getAsJsonArray("couleur3000").get(1).getAsJsonObject(),
             actionCollection.isStepByStep()
         );
     }
@@ -81,10 +70,9 @@ public class ArucoCamAction implements ActionExecutor {
             public void run() {
                 try {
                     logger.info("Analyse du tag... OU PAS !!!!");
-//                    shell.send("a");
-//                    String result = shell.read();
-//                    logger.info("Tag = " + result);
-                    String result = "#NORD#"; // C'est plus rentable d'allez direct au nord en fait
+                    shell.send("a");
+                    String result = shell.read();
+                    logger.info("Tag = " + result);
                     if (!result.contains("#NORD#") && !result.contains("#SUD#")) {
                         logger.info("Analyse du tag bis");
                         try {

@@ -254,23 +254,6 @@ public class MainPmi2021 {
         objectifsCouleur0.add(objectifPetitPortBis0);
         objectifsCouleur3000.add(objectifPetitPortBis3000);
 
-        /**
-         * On va dans le port Sud
-         * Score = 3 ==> Mauvais port
-         */
-        score = 3;
-        TaskList tachesPortSud =  new TaskList();
-        tachesPortSud.add(new GoTo("On se gare", 1450, 300));
-        Objectif objectifPortS0 = new Objectif("Port Sud", objectifsCouleur0.size()+1, score, 1, tachesPortSud);
-        Objectif objectifPortS3000 = new Objectif("Port Sud", objectifsCouleur3000.size()+1, score, 1, null);
-        try {
-            objectifPortS3000.generateMirror(objectifPortS0.taches);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        objectifsCouleur0.add(objectifPortS0);
-        objectifsCouleur3000.add(objectifPortS3000);
-
         // Création de la stratégie complète
         Strategie strat = new Strategie();
         strat.couleur0 = objectifsCouleur0;
@@ -326,71 +309,4 @@ public class MainPmi2021 {
             e.printStackTrace();
         }
     }
-
-    public static Strategie mainBoussole() {
-        System.out.println("Génération de l'action pour arriver à bon port");
-
-        // Liste des objectifs de chaque côté
-        // 0 = Bleu, 3000 = Jaune
-        List<Objectif> objectifsCouleur0 = new ArrayList<>();
-        List<Objectif> objectifsCouleur3000 = new ArrayList<>();
-
-        /**
-         * On se positionne entre les deux port et on va dans le bon
-         * Score = 10
-         */
-        int score = 10;
-        TaskList tachesPortNord =  new TaskList();
-        tachesPortNord.add(new GoToAstar("On se gare", 300, 700));
-        tachesPortNord.add(new GoTo("On se gare", 300, 400));
-        Objectif objectifPortN0 = new Objectif("Port Nord", objectifsCouleur0.size()+1, score, 1, tachesPortNord);
-        Objectif objectifPortN3000 = new Objectif("Port Nord", objectifsCouleur3000.size()+1, score, 1, null);
-        try {
-            objectifPortN3000.generateMirror(objectifPortN0.taches);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        objectifsCouleur0.add(objectifPortN0);
-        objectifsCouleur3000.add(objectifPortN3000);
-
-        /**
-         * On se positionne entre les deux port et on va dans le bon
-         * Score = 10
-         */
-        score = 10;
-        TaskList tachesPortSud =  new TaskList();
-        tachesPortSud.add(new GoToAstar("On se gare", 1300, 700));
-        tachesPortSud.add(new GoTo("On se gare", 1300, 400));
-        Objectif objectifPortS0 = new Objectif("Port Sud", objectifsCouleur0.size()+1, score, 1, tachesPortSud);
-        Objectif objectifPortS3000 = new Objectif("Port Sud", objectifsCouleur3000.size()+1, score, 1, null);
-        try {
-            objectifPortS3000.generateMirror(objectifPortS0.taches);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        objectifsCouleur0.add(objectifPortS0);
-        objectifsCouleur3000.add(objectifPortS3000);
-
-        // Création de la stratégie complète
-        Strategie strat = new Strategie();
-        strat.couleur0 = objectifsCouleur0;
-        strat.couleur3000 = objectifsCouleur3000;
-
-        System.out.println(strat.toString());
-
-        final GsonBuilder builder = new GsonBuilder();
-        final Gson gson = builder.create();
-
-        System.out.println("#########################");
-        System.out.println(gson.toJson(strat));
-
-        try (PrintWriter jsonFile = new PrintWriter("configCollectionBoussolePmiHomologuation.json")) {
-            jsonFile.println(gson.toJson(strat));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        return strat;
-    }
-
 }
