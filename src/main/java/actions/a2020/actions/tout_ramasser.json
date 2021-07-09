@@ -5,26 +5,26 @@
                 {
                     "actionId": "actionPosition",
                     "ax12Id": 10,
-                    "rawAngle": 426,
-                    "readOnlyAngleDegrees": 124.92668621700881
+                    "rawAngle": 423,
+                    "readOnlyAngleDegrees": 124.04692082111437
                 },
                 {
                     "actionId": "actionPosition",
                     "ax12Id": 3,
-                    "rawAngle": 590,
-                    "readOnlyAngleDegrees": 173.02052785923755
+                    "rawAngle": 593,
+                    "readOnlyAngleDegrees": 173.90029325513197
                 },
                 {
                     "actionId": "actionPosition",
                     "ax12Id": 2,
-                    "rawAngle": 591,
-                    "readOnlyAngleDegrees": 173.31378299120234
+                    "rawAngle": 593,
+                    "readOnlyAngleDegrees": 173.90029325513197
                 },
                 {
                     "actionId": "actionPosition",
                     "ax12Id": 1,
-                    "rawAngle": 432,
-                    "readOnlyAngleDegrees": 126.68621700879766
+                    "rawAngle": 429,
+                    "readOnlyAngleDegrees": 125.80645161290323
                 },
                 {
                     "actionId": "actionPosition",
