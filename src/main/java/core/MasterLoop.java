@@ -312,7 +312,6 @@ public class MasterLoop {
         logger.info("Funny action terminé, mise à jour du score");
         score += funnyScore;
         lcdDisplay.score(score);
-        lcdDisplay.println("End of match");
     }
 
     //Start the computation of the path.

@@ -20,7 +20,7 @@ public class ActionFileBinder implements ActionInterface {
 		/**
 		 * Initialisation avant match
 		 */
-		INIT("init.json", true), // 0
+		INIT("init.json", false), // 0
 
 		/**
 		 * Gestion des bras
@@ -71,7 +71,12 @@ public class ActionFileBinder implements ActionInterface {
 		PMI_ALLUMER_PHARE("pmi_allumer_phare.json"), // 23
 
 		ARUCO_CAM(""), // 24
-		PMI_BOUSSOLE(""); // 25
+		PMI_BOUSSOLE(""), // 25
+
+		OUVRIR_DOIGTS_1A4("ouvrir_doigts_1a4.json"), // 26
+		OUVRIR_DOIGTS_2A5("ouvrir_doigts_2a5.json"), // 27
+		OUVRIR_DOIGTS_1A5("ouvrir_doigts_1a5.json"), // 28
+		;
 
 		public final String nomFichier;
 		public final boolean instantReturn;

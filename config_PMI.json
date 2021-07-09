@@ -2,7 +2,7 @@
     "desc": "Configuration du robot PMI 2020 - Princess Picrate",
     "gpioColorSelector": 4,
     "gpioTirette": 5,
-    "matchDuration": 99,
+    "matchDuration": 100,
     "table0Path": "table0.tbl",
     "table3000Path": "table3000.tbl",
     "tableJsonPath": "table.json",
@@ -14,7 +14,7 @@
         "lineLength": 16
     },
     "loggerSocket": {
-        "active": true,
+        "active": false,
         "host": "192.168.0.104",
         "port": 4269,
         "logPort": 1664,
@@ -90,7 +90,7 @@
                     "x": 70,
                     "y": 100,
                     "angle": 0,
-                    "threshold": 400
+                    "threshold": 350
                 },
                 {
                     "desc": "Avant milieu (0x74)",
@@ -100,7 +100,7 @@
                     "x": 70,
                     "y": -100,
                     "angle": 0,
-                    "threshold": 400
+                    "threshold": 350
                 },
                 {
                     "desc": "Avant droit (0x72)",
@@ -110,7 +110,7 @@
                     "x": 70,
                     "y": 0,
                     "angle": 0,
-                    "threshold": 400
+                    "threshold": 350
                 },
                 {
                     "desc": "Arrière (0x71)",
@@ -120,7 +120,7 @@
                     "x": -70,
                     "y": 0,
                     "angle": 180,
-                    "threshold": 350
+                    "threshold": 280
                 }
             ]
         }

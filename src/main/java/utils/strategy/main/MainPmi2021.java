@@ -76,17 +76,17 @@ public class MainPmi2021 {
         mirrorId = recuperationBouees1_2.size() + 1;
         recuperationBouees1_2.add(new Manipulation("Ramassage bouée 2 - Lever", ActionFileBinder.ActionFile.PMI_SORTIR_LEVER_BRAS_GAUCHE.ordinal(), Tache.Mirror.SPECIFIC));
         recuperationBouees1_2_3000.add(new Manipulation("Ramassage bouée 2 - Lever", ActionFileBinder.ActionFile.PMI_SORTIR_LEVER_BRAS_DROIT.ordinal(), Tache.Mirror.SPECIFIC), mirrorId);
-        recuperationBouees1_2.add(new GoToBack("Mise en position largage bouée 1", 980, 240));
+        recuperationBouees1_2.add(new GoToBack("Mise en position largage bouée 1", 970, 240));
         mirrorId = recuperationBouees1_2.size() + 1;
         recuperationBouees1_2.add(new Manipulation("Largage bouée 1 - Pompe", ActionFileBinder.ActionFile.PMI_LACHER_BRAS_DROIT.ordinal(), Tache.Mirror.SPECIFIC));
         recuperationBouees1_2_3000.add(new Manipulation("Largage bouée 1 - Pompe", ActionFileBinder.ActionFile.PMI_LACHER_BRAS_GAUCHE.ordinal(), Tache.Mirror.SPECIFIC), mirrorId);
         recuperationBouees1_2.add(new DeleteZone("Suppression zone bouée 2", "bouee2"));
-        recuperationBouees1_2.add(new GoToBack("Mise en position largage bouée 2", 420, 200));
+        recuperationBouees1_2.add(new GoToBack("Mise en position largage bouée 2", 380, 200));
         recuperationBouees1_2.add(new Face("Alignement largage bouée 2", 2000, 200));
         mirrorId = recuperationBouees1_2.size() + 1;
         recuperationBouees1_2.add(new Manipulation("Largage bouée 2 - Pompe", ActionFileBinder.ActionFile.PMI_LACHER_BRAS_GAUCHE.ordinal(), Tache.Mirror.SPECIFIC));
         recuperationBouees1_2_3000.add(new Manipulation("Largage bouée 2 - Pompe", ActionFileBinder.ActionFile.PMI_LACHER_BRAS_DROIT.ordinal(), Tache.Mirror.SPECIFIC), mirrorId);
-        recuperationBouees1_2.add(new GoToBack("Direction le phare", 200, 200));
+        recuperationBouees1_2.add(new GoToBack("Direction le phare", 200, 180));
         recuperationBouees1_2.add(new AddZone("Blocage du chenal Sud", "chenal_depart_s"));
         recuperationBouees1_2.add(new AddZone("Blocage du chenal Nord", "chenal_depart_n"));
         Objectif objectifRecuperationBouees1_2_0 = new Objectif("Bouées 1 et 2", objectifsCouleur0.size()+1, score, 1, recuperationBouees1_2);
@@ -147,6 +147,7 @@ public class MainPmi2021 {
         recuperationBouees6.add(new GoTo("Mise en position bouée 6", 340, 670));
         recuperationBouees6.add(new Face("Alignement bouée 6", 340, 3000));
         recuperationBouees6.add(new GoTo("Mise en position ramassage bouée 6", 340, 840));
+        recuperationBouees6.add(new Face("Alignement ramassage bouée 6", 340, 3000));
         mirrorId = recuperationBouees6.size() + 1;
         recuperationBouees6.add(new Manipulation("Ramassage bouée 6 - Pompe", ActionFileBinder.ActionFile.PMI_ATTRAPER_BRAS_DROIT.ordinal(), Tache.Mirror.SPECIFIC));
         recuperationBouees6_3000.add(new Manipulation("Ramassage bouée 6 - Pompe", ActionFileBinder.ActionFile.PMI_ATTRAPER_BRAS_GAUCHE.ordinal(), Tache.Mirror.SPECIFIC), mirrorId);
@@ -187,13 +188,10 @@ public class MainPmi2021 {
         petitPort.add(new DeleteZone("Suppression zone bouée 11", "bouee11"));
         petitPort.add(new GoTo("Placement rotation largage bouée 5 et 6", 1600, 1800));
         petitPort.add(new Face("Alignement largage bouée 5 et 6", 2000, 1800));
-        petitPort.add(new GoTo("Placement largage bouée 5 et 6", 1650, 1800));
+        petitPort.add(new GoTo("Placement largage bouée 5 et 6", 1700, 1800));
         petitPort.add(new Manipulation("Largage bouée 5 - Pompe", ActionFileBinder.ActionFile.PMI_LACHER_BRAS_DROIT.ordinal()));
         petitPort.add(new Manipulation("Largage bouée 6 - Pompe", ActionFileBinder.ActionFile.PMI_LACHER_BRAS_GAUCHE.ordinal()));
         petitPort.add(new GoToBack("Sortie petit port", 1450, 1800));
-        petitPort.add(new WaitChrono("Attente", 90));
-        petitPort.add(new GoToAstar("Déplacement vers l'arrivee", 1350, 1000));
-        petitPort.add(new WaitChrono("Attente", 95));
         Objectif objectifPetitPort0 = new Objectif("Petit port", objectifsCouleur0.size()+1, score, 1, petitPort);
         Objectif objectifPetitPort3000 = new Objectif("Petit port", objectifsCouleur3000.size()+1, score, 1, null);
         try {
@@ -203,6 +201,75 @@ public class MainPmi2021 {
         }
         objectifsCouleur0.add(objectifPetitPort0);
         objectifsCouleur3000.add(objectifPetitPort3000);
+
+        /*
+         * On esaie de prendre 2 bouées de plus et les marquer parce qu'on a du temps
+         * Score = 6
+         *  - 1 point par bouée dans le port => 2
+         *  - 1 point par bouée dans le bon chenal => 2
+         *  - une paire dans les chenaux => 2
+         */
+        score = 6;
+        TaskList petitPortBis = new TaskList();
+        TaskList petitPortBis_3000 = new TaskList();
+        petitPortBis.add(new GoToAstar("Déplacement bouée 10", 1260, 1500));
+        petitPortBis.add(new GoTo("Placement bouée 10", 1260, 1380));
+        petitPortBis.add(new Face("Alignement bouée 10", 1260, 0));
+        mirrorId = petitPortBis.size() + 1;
+        petitPortBis.add(new Manipulation("Ramassage bouée 10 - Pompe", ActionFileBinder.ActionFile.PMI_ATTRAPER_BRAS_DROIT.ordinal(), Tache.Mirror.SPECIFIC));
+        petitPortBis_3000.add(new Manipulation("Ramassage bouée 10 - Pompe", ActionFileBinder.ActionFile.PMI_ATTRAPER_BRAS_GAUCHE.ordinal(), Tache.Mirror.SPECIFIC), mirrorId);
+        mirrorId = petitPortBis.size() + 1;
+        petitPortBis.add(new Manipulation("Ramassage bouée 10 - Poser", ActionFileBinder.ActionFile.PMI_POSER_BRAS_DROIT.ordinal(), Tache.Mirror.SPECIFIC));
+        petitPortBis_3000.add(new Manipulation("Ramassage bouée 10 - Poser", ActionFileBinder.ActionFile.PMI_POSER_BRAS_GAUCHE.ordinal(), Tache.Mirror.SPECIFIC), mirrorId);
+        mirrorId = petitPortBis.size() + 1;
+        petitPortBis.add(new Manipulation("Ramassage bouée 10 - Lever", ActionFileBinder.ActionFile.PMI_SORTIR_LEVER_BRAS_DROIT.ordinal(), Tache.Mirror.SPECIFIC));
+        petitPortBis_3000.add(new Manipulation("Ramassage bouée 10 - Lever", ActionFileBinder.ActionFile.PMI_SORTIR_LEVER_BRAS_GAUCHE.ordinal(), Tache.Mirror.SPECIFIC), mirrorId);
+        petitPortBis.add(new DeleteZone("Suppression bouée 10", "bouee10"));
+        petitPortBis.add(new GoToAstar("Déplacement bouée 9", 740, 1380));
+        petitPortBis.add(new GoTo("Placement bouée 9", 740, 1210));
+        petitPortBis.add(new Face("Alignement bouée 9", 740, 0));
+        mirrorId = petitPortBis.size() + 1;
+        petitPortBis.add(new Manipulation("Ramassage bouée 9 - Pompe", ActionFileBinder.ActionFile.PMI_ATTRAPER_BRAS_GAUCHE.ordinal(), Tache.Mirror.SPECIFIC));
+        petitPortBis_3000.add(new Manipulation("Ramassage bouée 9 - Pompe", ActionFileBinder.ActionFile.PMI_ATTRAPER_BRAS_DROIT.ordinal(), Tache.Mirror.SPECIFIC), mirrorId);
+        mirrorId = petitPortBis.size() + 1;
+        petitPortBis.add(new Manipulation("Ramassage bouée 9 - Poser", ActionFileBinder.ActionFile.PMI_POSER_BRAS_GAUCHE.ordinal(), Tache.Mirror.SPECIFIC));
+        petitPortBis_3000.add(new Manipulation("Ramassage bouée 9 - Poser", ActionFileBinder.ActionFile.PMI_POSER_BRAS_DROIT.ordinal(), Tache.Mirror.SPECIFIC), mirrorId);
+        mirrorId = petitPortBis.size() + 1;
+        petitPortBis.add(new Manipulation("Ramassage bouée 9 - Lever", ActionFileBinder.ActionFile.PMI_SORTIR_LEVER_BRAS_GAUCHE.ordinal(), Tache.Mirror.SPECIFIC));
+        petitPortBis_3000.add(new Manipulation("Ramassage bouée 9 - Lever", ActionFileBinder.ActionFile.PMI_SORTIR_LEVER_BRAS_DROIT.ordinal(), Tache.Mirror.SPECIFIC), mirrorId);
+        petitPortBis.add(new DeleteZone("Suppression bouée 9", "bouee9"));
+        petitPortBis.add(new GoToAstar("Déplacement petit port", 1420, 1800));
+        petitPortBis.add(new Face("Alignement largage bouée 9 et 10", 2000, 1800));
+        petitPortBis.add(new GoTo("Placement largage bouée 9 et 10", 1600, 1800));
+        petitPortBis.add(new Manipulation("Largage bouée 9 - Pompe", ActionFileBinder.ActionFile.PMI_LACHER_BRAS_DROIT.ordinal()));
+        petitPortBis.add(new Manipulation("Largage bouée 10 - Pompe", ActionFileBinder.ActionFile.PMI_LACHER_BRAS_GAUCHE.ordinal()));
+        petitPortBis.add(new GoToBack("Sortie petit port", 1450, 1800));
+        Objectif objectifPetitPortBis0 = new Objectif("Petit port bis", objectifsCouleur0.size()+1, score, 1, petitPortBis);
+        Objectif objectifPetitPortBis3000 = new Objectif("Petit port bis", objectifsCouleur3000.size()+1, score, 1, null);
+        try {
+            objectifPetitPortBis3000.generateMirror(objectifPetitPortBis0.taches, petitPortBis_3000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        objectifsCouleur0.add(objectifPetitPortBis0);
+        objectifsCouleur3000.add(objectifPetitPortBis3000);
+
+        /**
+         * On va dans le port Sud
+         * Score = 3 ==> Mauvais port
+         */
+        score = 3;
+        TaskList tachesPortSud =  new TaskList();
+        tachesPortSud.add(new GoTo("On se gare", 1450, 300));
+        Objectif objectifPortS0 = new Objectif("Port Sud", objectifsCouleur0.size()+1, score, 1, tachesPortSud);
+        Objectif objectifPortS3000 = new Objectif("Port Sud", objectifsCouleur3000.size()+1, score, 1, null);
+        try {
+            objectifPortS3000.generateMirror(objectifPortS0.taches);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        objectifsCouleur0.add(objectifPortS0);
+        objectifsCouleur3000.add(objectifPortS3000);
 
         // Création de la stratégie complète
         Strategie strat = new Strategie();
@@ -221,10 +288,6 @@ public class MainPmi2021 {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
-        Strategie startBoussole = MainPmi2021.mainBoussole();
-//        strat.couleur0.add(startBoussole.couleur0.get(0)); // Nord
-        strat.couleur0.add(startBoussole.couleur0.get(1)); // Sud
 
         // Ajout du clean de princess pour les tests
         TaskList fakeZoneForSimu = new TaskList();
