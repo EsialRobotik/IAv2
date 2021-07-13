@@ -93,7 +93,7 @@
                     "threshold": 350
                 },
                 {
-                    "desc": "Avant milieu (0x74)",
+                    "desc": "Avant milieu (0x74) pas vrai",
                     "address": 116,
                     "maxAnalogGain": 31,
                     "range": 13,
@@ -103,8 +103,8 @@
                     "threshold": 350
                 },
                 {
-                    "desc": "Avant droit (0x72)",
-                    "address": 114,
+                    "desc": "Avant droit (0x72) pas vrai",
+                    "address": 116,
                     "maxAnalogGain": 31,
                     "range": 13,
                     "x": 70,

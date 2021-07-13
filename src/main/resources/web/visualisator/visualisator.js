@@ -2,21 +2,22 @@ var stage;
 
 var bigPrincess;
 var pmiPrincess;
+var margin = 0;
 
 var stratSimulator;
 var stratLog;
 var stratIndex = 0;
 var timestampLog;
-var deltaTimestampLog;
 
 var stratPmiSimulator;
 var stratPmiLog;
 var stratPmiIndex = 0;
 var timestampPmiLog;
-var deltaTimestampPmiLog;
 
 var rotationTime = 100;
 var moveTime = 600;
+var detected = [];
+var detectedPmi = [];
 
 /**
  * Initialisation des robots à animer
@@ -88,7 +89,7 @@ function initRobot() {
  * @param rotation Angle
  * @param speed Temps d'exécution
  */
-function moveRobot(x, y, rotation, speed) {
+function moveRobot(x, y, rotation, speed, auto = false) {
     var shape = new createjs.Shape();
     shape.graphics
         .setStrokeStyle(3)
@@ -107,7 +108,12 @@ function moveRobot(x, y, rotation, speed) {
 
     createjs.Tween.get(bigPrincess)
         .to({rotation: radiansToDegrees(Math.PI - rotation)}, tRotation, createjs.Ease.getPowInOut(4))
-        .to({x: y, y: x}, tMove, createjs.Ease.getPowInOut(4));
+        .to({x: y, y: x}, tMove, createjs.Ease.getPowInOut(4))
+        .call(() => {
+            if (auto) {
+                autoPlay();
+            }
+        });
 }
 
 /**
@@ -117,7 +123,7 @@ function moveRobot(x, y, rotation, speed) {
  * @param rotation Angle
  * @param speed Temps d'exécution
  */
-function movePmi(x, y, rotation, speed) {
+function movePmi(x, y, rotation, speed, auto = false) {
     var shape = new createjs.Shape();
     shape.graphics
         .setStrokeStyle(3)
@@ -136,7 +142,12 @@ function movePmi(x, y, rotation, speed) {
 
     createjs.Tween.get(pmiPrincess)
         .to({rotation: radiansToDegrees(Math.PI - rotation)}, tRotation, createjs.Ease.getPowInOut(4))
-        .to({x: y, y: x}, tMove, createjs.Ease.getPowInOut(4));
+        .to({x: y, y: x}, tMove, createjs.Ease.getPowInOut(4))
+        .call(() => {
+            if (auto) {
+                autoPlayPmi();
+            }
+        });
 }
 
 /**
@@ -159,6 +170,7 @@ function loadTable() {
         var reader = new FileReader();
         reader.onload = function (e) {
             var jsonTable = JSON.parse(e.target.result);
+            margin = jsonTable.marge;
 
             // Zones interdites fixes
             jsonTable.zonesInterdites.forEach(zone => {
@@ -200,6 +212,7 @@ function loadTable() {
             stage.update();
 
             deleteZone('start0');
+            deleteZone('start3000');
         };
         reader.readAsBinaryString(file.files[0]);
 
@@ -416,7 +429,7 @@ function cleanLogFile(file) {
         if (drop && split[key].includes('Tirette pull, begin of the match')) {
             drop = false;
         }
-        if (!drop && split[key] !== '') {
+        if (!drop && split[key] !== '' && !split[key].includes('DEBUG: Detection NOK')) {
             res.push(split[key]);
         }
     }
@@ -427,7 +440,7 @@ function cleanLogFile(file) {
  * Récupération et application de l'instruction suivante de la Princess
  * @returns {boolean}
  */
-function nextInstruction() {
+function nextInstruction(auto = false) {
     var startFile = stratSimulator ? stratSimulator : stratLog;
     if (stratIndex >= startFile.length) {
         return true;
@@ -436,9 +449,9 @@ function nextInstruction() {
     stratIndex++;
 
     if (stratSimulator) {
-        playSimulatorInstruction(instruction, 'data', 'princess');
+        playSimulatorInstruction(instruction, 'data', 'princess', auto);
     } else {
-        playLogInstruction(instruction, 'data', 'princess');
+        playLogInstruction(instruction, 'data', 'princess', auto);
     }
     return false;
 }
@@ -447,7 +460,7 @@ function nextInstruction() {
  * Récupération et application de l'instruction suivante de la PMI
  * @returns {boolean}
  */
-function nextInstructionPmi() {
+function nextInstructionPmi(auto = false) {
     var startFile = stratPmiSimulator ? stratPmiSimulator : stratPmiLog;
     if (stratPmiIndex >= startFile.length) {
         return true;
@@ -456,9 +469,9 @@ function nextInstructionPmi() {
     stratPmiIndex++;
 
     if (stratPmiSimulator) {
-        playSimulatorInstruction(instruction, 'dataPmi', 'pmi');
+        playSimulatorInstruction(instruction, 'dataPmi', 'pmi', auto);
     } else {
-        playLogInstruction(instruction, 'dataPmi', 'pmi');
+        playLogInstruction(instruction, 'dataPmi', 'pmi', auto);
     }
     return false;
 }
@@ -469,7 +482,7 @@ function nextInstructionPmi() {
  * @param divId
  * @param who
  */
-function playSimulatorInstruction(instruction, divId, who) {
+async function playSimulatorInstruction(instruction, divId, who, auto = false) {
     var regexpZone = /(delete|add)-zone#(.+)/;
     var parseZone = regexpZone.exec(instruction.command);
 
@@ -488,9 +501,17 @@ function playSimulatorInstruction(instruction, divId, who) {
             addZone(parseZone[2]);
         }
     }
+    await sleep(moveTime + rotationTime);
+    if (auto) {
+        if (who === 'princess') {
+            nextInstruction(true);
+        } else {
+            nextInstructionPmi(true);
+        }
+    }
 }
 
-function playLogInstruction(instruction, divId, who) {
+async function playLogInstruction(instruction, divId, who, auto = false) {
     var regexpTimestamp = /([0-9]{4}-[0-9]{2}-[0-9]{2}) ([0-9]{2}):([0-9]{2}):([0-9]{2}),([0-9]+) .+/;
     var parseTimestamp = regexpTimestamp.exec(instruction);
     var delta = undefined;
@@ -504,43 +525,98 @@ function playLogInstruction(instruction, divId, who) {
             timestampPmiLog = date;
         }
     }
-    if (who === 'princess') {
-        deltaTimestampLog = delta ? delta : 0;
-    } else {
-        deltaTimestampPmiLog = delta ? delta : 0;
+
+    if (delta == undefined || delta == NaN) {
+        delta = 0;
     }
 
     var regexpAsserv = /.+\[Asserv\].+#([-0-9]+);([-0-9]+);([-0-9\.]+).+/;
     var parseAsserv = regexpAsserv.exec(instruction);
-    var regexpInfo = /.+INFO :(.+)/;
     if (parseAsserv != null) {
         if (who === 'princess') {
-            moveRobot(parseAsserv[1], parseAsserv[2], parseAsserv[3], delta);
+            moveRobot(parseAsserv[1], parseAsserv[2], parseAsserv[3], delta, auto);
         } else {
-            movePmi(parseAsserv[1], parseAsserv[2], parseAsserv[3], delta);
+            movePmi(parseAsserv[1], parseAsserv[2], parseAsserv[3], delta, auto);
         }
     } else {
+        var regexpInfo = /.+INFO :(.+)/;
         var parseInfo = regexpInfo.exec(instruction);
         if (parseInfo != null) {
             var dataDiv = document.getElementById(divId);
             dataDiv.insertAdjacentHTML('beforeend', parseInfo[1] + '<br>');
             dataDiv.scrollTop = dataDiv.scrollHeight;
         }
+
+        var regexpDetection = /.+\[UltraSoundManager\] INFO : (.+) : STOP \(([-0-9]+),([-0-9]+)\)/;
+        var parseDetection = regexpDetection.exec(instruction);
+        if (parseDetection != null) {
+            var colorPrimary = 'rgba(100,100,100,0.6)';
+            var colorSecondary = 'rgba(200,200,200,0.4)'
+
+            if (stage.getChildByName(who + '_' + parseDetection[1].replaceAll(' ', '_'))) {
+                stage.removeChild(
+                    stage.getChildByName(who + '_' + parseDetection[1].replaceAll(' ', '_')),
+                    stage.getChildByName(who + '_' + parseDetection[1].replaceAll(' ', '_') + '_margin')
+                );
+                stage.update();
+            }
+
+            var shape = new createjs.Shape();
+            shape.name = who + '_' + parseDetection[1].replaceAll(' ', '_');
+            shape.active = true;
+            shape.graphics
+                .beginFill(colorPrimary)
+                .drawCircle(parseDetection[3], parseDetection[2], 150);
+            stage.addChild(shape);
+
+            shape = new createjs.Shape();
+            shape.name = who + '_' + parseDetection[1].replaceAll(' ', '_') + '_margin';
+            shape.active = true;
+            shape.graphics
+                .beginFill(colorSecondary)
+                .drawCircle(parseDetection[3], parseDetection[2], 150 + margin);
+            stage.addChild(shape);
+            stage.update();
+            detected.push(who + '_' + parseDetection[1].replaceAll(' ', '_'));
+        }
+
+        if (instruction.includes('INFO : OK devant')) {
+            var keep = [];
+            detected.forEach(val => {
+                if (val.includes(who)) {
+                    stage.removeChild(
+                        stage.getChildByName(val),
+                        stage.getChildByName(val + '_margin')
+                    );
+                } else {
+                    keep.push(val);
+                }
+            });
+            detected = keep;
+            stage.update();
+        }
+
+        // TODO virer les fantomes des logs
+        // TODO logs propre des zones interdites
+
+        await sleep(delta);
+
+        if (auto) {
+            if (who === 'princess') {
+                nextInstruction(true);
+            } else {
+                nextInstructionPmi(true);
+            }
+        }
     }
 }
 
 async function autoPlay() {
-    if (!nextInstruction()) {
-        await sleep(deltaTimestampLog ? deltaTimestampLog : rotationTime + moveTime + 1);
-        autoPlay();
-    }
+    nextInstruction(true);
 }
 
 async function autoPlayPmi() {
-    if (!nextInstructionPmi()) {
-        await sleep(deltaTimestampPmiLog ? deltaTimestampPmiLog : rotationTime + moveTime + 1);
-        autoPlayPmi();
-    }
+    nextInstructionPmi(true);
 }
 
 function sleep(ms) {
