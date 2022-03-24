@@ -1,6 +1,5 @@
 buildscript {
     dependencies {
-        classpath "com.github.jengelman.gradle.plugins:shadow:1.2.4"
         classpath 'de.sebastianboegl.gradle.plugins:shadow-log4j-transformer:1.0.1'
     }
 }
@@ -8,9 +7,8 @@ buildscript {
 plugins {
     id 'java'
     id 'org.hidetake.ssh' version '2.10.1'
+    id "com.github.johnrengelman.shadow" version "7.1.2"
 }
-
-apply plugin: 'com.github.johnrengelman.shadow'
 
 ssh.settings {
     dryRun = project.hasProperty('dryRun')
@@ -38,11 +36,10 @@ remotes {
 shadowJar {
     manifest {
         attributes 'Implementation-Title': 'IA',
-                'Implementation-Version': version,
+                'Implementation-Version': archiveVersion,
                 'Main-Class': 'core.Main'
     }
-    baseName = project.name
-    transform(de.sebastianboegl.gradle.plugins.shadow.transformers.Log4j2PluginsFileTransformer)
+//    transform(de.sebastianboegl.gradle.plugins.shadow.transformers.Log4j2PluginsFileTransformer)
 }
 
 // SSH deploy
@@ -86,27 +83,25 @@ repositories {
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
-
     // Log4J : https://logging.apache.org/log4j/2.x/
-    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.13.1'
-    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.13.1'
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.13.1'
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.13.1'
 
     // Pi4J : https://pi4j.com/1.2/index.html
-    compile 'com.pi4j:pi4j-core:1.2'
+    implementation 'com.pi4j:pi4j-core:1.2'
 
     // PiCam : https://github.com/caprica/picam
-    compile group: 'uk.co.caprica', name: 'picam', version: '2.0.2'
+    implementation group: 'uk.co.caprica', name: 'picam', version: '2.0.2'
 
     // OpenCv
-    compile group: 'org.bytedeco.javacpp-presets', name: 'opencv', version: '4.0.1-1.4.4'
+    implementation group: 'org.bytedeco.javacpp-presets', name: 'opencv', version: '4.0.1-1.4.4'
 
     // GSon
-    compile 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.google.code.gson:gson:2.8.6'
 
     // RXTX
-    compile group: 'org.rxtx', name: 'rxtx', version: '2.1.7'
+    implementation group: 'org.rxtx', name: 'rxtx', version: '2.1.7'
 
     // Lib de WebSocket
-    compile "org.java-websocket:Java-WebSocket:1.5.1"
+    implementation "org.java-websocket:Java-WebSocket:1.5.1"
 }
