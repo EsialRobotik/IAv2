@@ -83,7 +83,6 @@ task deployPrincessPicrate {
 repositories {
     mavenCentral()
     maven { url 'https://jitpack.io' }
-    jcenter()
 }
 
 dependencies {
@@ -96,14 +95,17 @@ dependencies {
     // Pi4J : https://pi4j.com/1.2/index.html
     compile 'com.pi4j:pi4j-core:1.2'
 
+    // PiCam : https://github.com/caprica/picam
+    compile group: 'uk.co.caprica', name: 'picam', version: '2.0.2'
+
+    // OpenCv
+    compile group: 'org.bytedeco.javacpp-presets', name: 'opencv', version: '4.0.1-1.4.4'
+
     // GSon
     compile 'com.google.code.gson:gson:2.8.6'
 
     // RXTX
     compile group: 'org.rxtx', name: 'rxtx', version: '2.1.7'
-
-    // https://mvnrepository.com/artifact/com.kitfox.svg/svg-salamander
-    compile group: 'com.kitfox.svg', name: 'svg-salamander', version: '1.0'
 
     // Lib de WebSocket
     compile "org.java-websocket:Java-WebSocket:1.5.1"

@@ -5,6 +5,7 @@ import actions.ActionExecutor;
 import actions.a2020.ActionFileBinder;
 import api.ax12.AX12LinkException;
 import api.ax12.AX12LinkSerial;
+import api.camera.Camera;
 import api.communication.HotspotSocket;
 import api.communication.Shell;
 import api.gpio.ColorDetector;
@@ -20,6 +21,10 @@ import manager.ConfigurationManager;
 import manager.DetectionManager;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Logger;
+import org.opencv.aruco.Aruco;
+import org.opencv.aruco.Dictionary;
+import org.opencv.core.Mat;
+import org.opencv.imgcodecs.Imgcodecs;
 import pathfinding.PathFinding;
 import pathfinding.table.Point;
 import utils.web.AX12Http;
@@ -32,6 +37,7 @@ import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -169,6 +175,9 @@ public class Main {
                 case "hotspot":
                     Main.testHotspot();
                     break;
+                case "camera":
+                    Main.camera();
+                    break;
                 case "funny-action":
                     Main.funnyAction();
                     break;
@@ -179,6 +188,18 @@ public class Main {
             printUsage();
             return;
         }
+    }
+
+    private static void camera() {
+        Camera camera = new Camera();
+        File picture = camera.takePicture("test-image.jpg");
+        Mat inputImage = Imgcodecs.imread(picture.getName());
+        List<Mat> corners = new ArrayList<>();
+        Mat markerIds = new Mat();
+        Dictionary dictionary = Aruco.getPredefinedDictionary(Aruco.DICT_4X4_100);
+        // DetectorParameters parameters = DetectorParameters.create();
+        Aruco.detectMarkers(inputImage, dictionary, corners, markerIds);
+        System.out.println(markerIds);
     }
 
     private static void printUsage() {
@@ -203,6 +224,7 @@ public class Main {
         System.out.println("\t- coupe-off : Danse de la coupe off\n");
         System.out.println("\t- config-ax12 : Lance l'utilitaire de configuration des AX12\n");
         System.out.println("\t- hotspot : Test la communication socket via le hotspot\n");
+        System.out.println("\t- camera : Test la camera\n");
         System.out.println("\t- funny-action : Test de la funny action en utilisant l'interrupteur de couleur comme déclencheur\n");
 
         System.out.println("configFile : chemin du fichier de configuration à utiliser. Par defaut, './config.json'\n");
