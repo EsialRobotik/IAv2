@@ -1,5 +1,5 @@
 {
-    "desc": "Configuration du robot 2021 - Digital Princess",
+    "desc": "Configuration du robot 2022 - Fenwick Princess",
     "gpioColorSelector": 4,
     "gpioTirette": 5,
     "matchDuration": 99,
@@ -24,12 +24,12 @@
         "baud": 115200,
         "serie": "/dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_066FFF383133524157185717-if02",
         "calage0": {
-            "x": 680,
+            "x": 250,
             "y": 165,
             "theta": 1.5707963267948966192313216916398
         },
         "calage3000": {
-            "x": 680,
+            "x": 250,
             "y": 2835,
             "theta": -1.5707963267948966192313216916398
         },
@@ -40,12 +40,12 @@
             },
             {
                 "type": "goto",
-                "x": 750,
+                "x": 600,
                 "y": 200
             },
             {
                 "type": "face",
-                "x": 750,
+                "x": 600,
                 "y": 3000
             }
         ],
@@ -56,12 +56,12 @@
             },
             {
                 "type": "goto",
-                "x": 750,
+                "x": 600,
                 "y": 2800
             },
             {
                 "type": "face",
-                "x": 750,
+                "x": 600,
                 "y": 0
             }
         ]

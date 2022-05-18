@@ -368,15 +368,21 @@ public class Asserv implements AsservInterface {
         for (JsonElement instruction : start) {
             JsonObject temp = instruction.getAsJsonObject();
             logger.debug(temp.toString());
+            Position depart;
             switch (temp.get("type").getAsString()) {
                 case "go":
                     go(temp.get("dist").getAsInt());
                     this.logger.info("Go " + temp.get("dist").getAsInt());
                     break;
                 case "goto":
-                    Position depart = new Position(temp.get("x").getAsInt(), temp.get("y").getAsInt());
+                    depart = new Position(temp.get("x").getAsInt(), temp.get("y").getAsInt());
                     this.logger.info("Goto " + depart.toString());
                     goTo(depart);
+                    break;
+                case "goto_reverse":
+                    depart = new Position(temp.get("x").getAsInt(), temp.get("y").getAsInt());
+                    this.logger.info("Goto " + depart.toString());
+                    goToReverse(depart);
                     break;
                 case "face":
                     Position alignement = new Position(temp.get("x").getAsInt(), temp.get("y").getAsInt());

@@ -1,5 +1,5 @@
 {
-    "desc": "Configuration du robot PMI 2020 - Princess Picrate",
+    "desc": "Configuration du robot PMI 2022 - Pass-Pass Princess",
     "gpioColorSelector": 4,
     "gpioTirette": 5,
     "matchDuration": 100,
@@ -25,12 +25,12 @@
         "combineRxTx": false,
         "serie": "/dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_066BFF485151717867202913-if02",
         "calage0": {
-            "x": 1250,
+            "x": 1150,
             "y": 115,
             "theta": 1.5707963267948966192313216916398
         },
         "calage3000": {
-            "x": 1250,
+            "x": 1150,
             "y": 2885,
             "theta": -1.5707963267948966192313216916398
         },
@@ -41,12 +41,17 @@
             },
             {
                 "type": "goto",
-                "x": 1020,
+                "x": 1150,
+                "y": 240
+            },
+            {
+                "type": "goto_reverse",
+                "x": 900,
                 "y": 240
             },
             {
                 "type": "face",
-                "x": 0,
+                "x": 2000,
                 "y": 240
             }
         ],
@@ -57,12 +62,17 @@
             },
             {
                 "type": "goto",
-                "x": 1020,
+                "x": 1150,
+                "y": 2760
+            },
+            {
+                "type": "goto_reverse",
+                "x": 900,
                 "y": 2760
             },
             {
                 "type": "face",
-                "x": 0,
+                "x": 2000,
                 "y": 2760
             }
         ]
