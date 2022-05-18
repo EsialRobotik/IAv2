@@ -21,16 +21,18 @@ var detectedPmi = [];
 
 /**
  * Initialisation des robots à animer
+ * @var object big : {x, y, theta, regX, regY}
+ * @var object small : {x, y, theta, regX, regY}
  */
-function init() {
+function init(big, small) {
     stage = new createjs.Stage("canvas");
 
     bigPrincess = new createjs.Bitmap('./bigPrincess.png');
     bigPrincess.x = 800;
     bigPrincess.y = 800;
     // Décallage du point d'animation au centre du robot
-    bigPrincess.regX = 150;
-    bigPrincess.regY = 100;
+    bigPrincess.regX = big.regX;
+    bigPrincess.regY = big.regY;
     bigPrincess.alpha = 0.7;
     stage.addChild(bigPrincess);
 
@@ -38,8 +40,8 @@ function init() {
     pmiPrincess.x = 1200;
     pmiPrincess.y = 800;
     // Décallage du point d'animation au centre du robot
-    pmiPrincess.regX = 150;
-    pmiPrincess.regY = 75;
+    pmiPrincess.regX = small.regX;
+    pmiPrincess.regY = small.regY;
     pmiPrincess.alpha = 0.7;
     stage.addChild(pmiPrincess);
 
@@ -47,7 +49,7 @@ function init() {
 
     createjs.Ticker.setFPS(60);
     createjs.Ticker.addEventListener("tick", stage);
-    initRobot();
+    initRobot(big, small);
 
     var inputs = document.querySelectorAll('.inputfile');
     Array.prototype.forEach.call(inputs, function (input) {
@@ -71,15 +73,17 @@ function init() {
 
 /**
  * Mise en position de départ des robots
+ * @var object big : {x, y, theta, regX, regY}
+ * @var object small : {x, y, theta, regX, regY}
  */
-function initRobot() {
+function initRobot(big, small) {
     createjs.Tween.get(bigPrincess)
-        .to({rotation: radiansToDegrees(Math.PI - Math.PI / 2)}, rotationTime, createjs.Ease.getPowInOut(4))
-        .to({x: 200, y: 750}, moveTime, createjs.Ease.getPowInOut(4));
+        .to({rotation: radiansToDegrees(big.theta)}, rotationTime, createjs.Ease.getPowInOut(4))
+        .to({x: big.x, y: big.y}, moveTime, createjs.Ease.getPowInOut(4));
 
     createjs.Tween.get(pmiPrincess)
-        .to({rotation: radiansToDegrees(0)}, rotationTime, createjs.Ease.getPowInOut(4))
-        .to({x: 240, y: 1020}, moveTime, createjs.Ease.getPowInOut(4));
+        .to({rotation: radiansToDegrees(small.theta)}, rotationTime, createjs.Ease.getPowInOut(4))
+        .to({x: small.x, y: small.y}, moveTime, createjs.Ease.getPowInOut(4));
 }
 
 /**
