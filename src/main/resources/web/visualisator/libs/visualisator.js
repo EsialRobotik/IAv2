@@ -221,6 +221,39 @@ function loadTable() {
 }
 
 /**
+ * Chargement du fichier tbl pour validation
+ *
+ */
+function loadTbl() {
+    var file = document.getElementById('tblCheck');
+    if (file && file.files && file.files.length) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            var tblArray = e.target.result.split('\n');
+            var size = tblArray.shift().split(' ');
+            for (var y = 0; y < size[1]/10; y++) {
+                for (var x = 0; x < size[0]/10; x++) {
+                    if (tblArray[x].charAt(y) == 'x') {
+                        var shape = new createjs.Shape();
+                        tblArray.forEach(value => {
+                            shape
+                                .graphics
+                                .beginFill('rgba(255,0,0,0.4)')
+                                .drawRect(y*10, x*10, 9, 9);
+                        });
+                        stage.addChild(shape);
+                    }
+                }
+            }
+            stage.update();
+        };
+        reader.readAsBinaryString(file.files[0]);
+
+        return true;
+    }
+}
+
+/**
  * Affichage des zones interdites
  * @param zone
  * @param jsonTable
@@ -265,6 +298,20 @@ function displayZone(zone, jsonTable, colorPrimary, colorSecondary) {
                     (bottomRightCorner.y - topLeftCorner.y) + jsonTable.marge * 2,
                     (bottomRightCorner.x - topLeftCorner.x) + jsonTable.marge * 2
                 );
+            stage.addChild(shape);
+        } else if (zone.points.length === 3) {
+            // Pour un triangle, on ajoute le margin à la mano parce que c'est trop chiant à calculer
+            var color = zone.id.match('_margin') ? colorSecondary : colorPrimary;
+
+            var shape = new createjs.Shape();
+            shape.name = zone.id;
+            shape.visible = zone.active;
+            shape.graphics
+                .beginFill(color)
+                .moveTo(zone.points[0].y, zone.points[0].x)
+                .lineTo(zone.points[1].y, zone.points[1].x)
+                .lineTo(zone.points[2].y, zone.points[2].x)
+                .lineTo(zone.points[0].y, zone.points[0].x);
             stage.addChild(shape);
         } else {
             alert('Je gère pas encore ce cas, have fun : ' + zone.id + '-' + zone.forme + '-' + zone.active);
@@ -629,6 +676,7 @@ function loadFiles() {
     loadSimulatorStratPmi();
     loadStratLog();
     loadStratLogPmi();
+    loadTbl();
 }
 
 function connectSocket() {

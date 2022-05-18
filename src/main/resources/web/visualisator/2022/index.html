@@ -4,19 +4,20 @@
     <meta charset="UTF-8">
     <title>PrincessVisu</title>
 
-    <link rel="stylesheet" href="visualisator.css">
+    <link rel="stylesheet" href="../libs/visualisator.css">
 
     <!-- https://createjs.com - Voir EaselJs pour le canvas et TweenJs pour les animations -->
-    <script src="./createjs.min.js"></script>
-    <script src="./tweenjs.min.js"></script>
-    <script src="./visualisator.js"></script>
+    <script src="../libs/createjs.min.js"></script>
+    <script src="../libs/tweenjs.min.js"></script>
+    <script src="../libs/geometric.js"></script>
+    <script src="../libs/visualisator.js"></script>
 
 </head>
 <body onload="init();">
 
 <div class="outsideWrapper">
     <div class="insideWrapper">
-        <img src="2021/table.svg" class="coveredImage">
+        <img src="table.svg" class="coveredImage">
         <canvas id="canvas" class="coveringCanvas" width="3000" height="2000"></canvas>
     </div>
 </div>
@@ -61,6 +62,14 @@
                        class="inputfile"
                        data-multiple-caption="{count} files selected"/>
                 <label for="stratPmiLog"><span>Strat Log PMI</span></label>
+            </div>
+
+            <div>
+                <input type="file"
+                       id="tblCheck" name="tblCheck"
+                       class="inputfile"
+                       data-multiple-caption="{count} files selected"/>
+                <label for="tblCheck"><span>Check tbl</span></label>
             </div>
 
             <div>
