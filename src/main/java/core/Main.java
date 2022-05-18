@@ -23,6 +23,7 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Logger;
 import org.opencv.aruco.Aruco;
 import org.opencv.aruco.Dictionary;
+import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
 import pathfinding.PathFinding;
@@ -48,6 +49,8 @@ import java.util.Scanner;
 public class Main {
 
     public static String configFilePath = "config.json";
+
+    public static Logger logger = null;
 
     public Main(boolean stepByStep) throws IOException, InterruptedException, AX12LinkException {
         //Load of the configuration first
@@ -126,7 +129,7 @@ public class Main {
                     LoggerFactory.init(Level.ERROR);
                     break;
             }
-            Logger logger = LoggerFactory.getLogger(PathFinding.class);
+            logger = LoggerFactory.getLogger(Main.class);
             logger.info("init logger");
 
             switch (args[1]) {
@@ -190,15 +193,22 @@ public class Main {
         }
     }
 
-    private static void camera() {
+    private static void camera() throws IOException {
+        logger.info("Start camera test");
         Camera camera = new Camera();
+        logger.info("Camera initialised");
         File picture = camera.takePicture("test-image.jpg");
+        logger.info("Picture took");
+        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         Mat inputImage = Imgcodecs.imread(picture.getName());
+        logger.info("input image converted as matrix");
         List<Mat> corners = new ArrayList<>();
         Mat markerIds = new Mat();
         Dictionary dictionary = Aruco.getPredefinedDictionary(Aruco.DICT_4X4_100);
         // DetectorParameters parameters = DetectorParameters.create();
+        logger.info("Start markers detection");
         Aruco.detectMarkers(inputImage, dictionary, corners, markerIds);
+        logger.info("Detection complete");
         System.out.println(markerIds);
     }
 

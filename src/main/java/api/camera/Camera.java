@@ -3,6 +3,7 @@ package api.camera;
 import api.log.LoggerFactory;
 import org.apache.logging.log4j.Logger;
 import uk.co.caprica.picam.*;
+import uk.co.caprica.picam.enums.AutomaticWhiteBalanceMode;
 import uk.co.caprica.picam.enums.Encoding;
 
 import java.io.File;
@@ -24,12 +25,14 @@ public class Camera {
         logger.info("Initialize camera");
         try {
             PicamNativeLibrary.installLibrary("/home/pi/picam");
+            logger.info("Camera library loaded");
             this.camera = new uk.co.caprica.picam.Camera(CameraConfiguration.cameraConfiguration()
                     .width(1920)
                     .height(1080)
+                    .automaticWhiteBalance(AutomaticWhiteBalanceMode.SUNLIGHT)
                     .encoding(Encoding.JPEG)
                     .quality(85));
-            this.camera.open();
+            logger.info("Camera is ready");
         } catch (NativeLibraryException | CameraException e) {
             logger.error(e.getMessage());
         }
@@ -44,7 +47,9 @@ public class Camera {
         try {
             logger.info("Take picture in " + fileName);
             FilePictureCaptureHandler handler = new FilePictureCaptureHandler(new File(fileName));
+            logger.info("Create handler");
             camera.takePicture(handler);
+            logger.info("camera.takePicture");
             return handler.result();
         } catch (CaptureFailedException e) {
             logger.error(e.getMessage());
