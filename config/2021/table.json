@@ -510,6 +510,7 @@
   ],
   "detectionIgnoreZone": [
     {
+      "desc": "chenaux_centraux",
       "x1": 1700,
       "y1": 889,
       "x2": 1700,

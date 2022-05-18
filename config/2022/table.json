@@ -1,0 +1,429 @@
+{
+  "tailleX": 2000,
+  "tailleY": 3000,
+  "couleur0": "Jaune",
+  "couleur3000": "Violet",
+  "marge": 180,
+  "zonesInterdites": [
+    {
+      "id": "start0",
+      "forme": "polygone",
+      "desc": "Depart Jaune",
+      "active": true,
+      "points": [
+        {
+          "x": 400,
+          "y": 0
+        },
+        {
+          "x": 400,
+          "y": 400
+        },
+        {
+          "x": 1000,
+          "y": 400
+        },
+        {
+          "x": 1000,
+          "y": 0
+        }
+      ]
+    },
+    {
+      "id": "start3000",
+      "forme": "polygone",
+      "desc": "Depart Violet",
+      "active": true,
+      "points": [
+        {
+          "x": 400,
+          "y": 3000
+        },
+        {
+          "x": 400,
+          "y": 2600
+        },
+        {
+          "x": 1000,
+          "y": 2600
+        },
+        {
+          "x": 1000,
+          "y": 3000
+        }
+      ]
+    },
+    {
+      "id": "yellowDistributor",
+      "forme" : "polygone",
+      "desc": "Distributeur jaune",
+      "active": true,
+      "points": [
+        {
+          "x": 1175,
+          "y": 0
+        },
+        {
+          "x": 1175,
+          "y": 102
+        },
+        {
+          "x": 1325,
+          "y": 102
+        },
+        {
+          "x": 1325,
+          "y": 0
+        }
+      ]
+    },
+    {
+      "id": "purpleDistributor",
+      "forme" : "polygone",
+      "desc": "Distributeur violet",
+      "active": true,
+      "points": [
+        {
+          "x": 1175,
+          "y": 3000
+        },
+        {
+          "x": 1175,
+          "y": 2898
+        },
+        {
+          "x": 1325,
+          "y": 2898
+        },
+        {
+          "x": 1325,
+          "y": 3000
+        }
+      ]
+    },
+    {
+      "id": "commonYellowDistributor",
+      "forme" : "polygone",
+      "desc": "Distributeur commun jaune",
+      "active": true,
+      "points": [
+        {
+          "x": 0,
+          "y": 1275
+        },
+        {
+          "x": 102,
+          "y": 1275
+        },
+        {
+          "x": 102,
+          "y": 1425
+        },
+        {
+          "x": 0,
+          "y": 1425
+        }
+      ]
+    },
+    {
+      "id": "commonPurpleDistributor",
+      "forme" : "polygone",
+      "desc": "Distributeur commun violet",
+      "active": true,
+      "points": [
+        {
+          "x": 0,
+          "y": 1575
+        },
+        {
+          "x": 102,
+          "y": 1575
+        },
+        {
+          "x": 102,
+          "y": 1725
+        },
+        {
+          "x": 0,
+          "y": 1725
+        }
+      ]
+    },
+    {
+      "id": "commonDistributorSeparator",
+      "forme" : "polygone",
+      "desc": "Séparateur distributeur commun",
+      "active": true,
+      "points": [
+        {
+          "x": 0,
+          "y": 1489
+        },
+        {
+          "x": 300,
+          "y": 1489
+        },
+        {
+          "x": 300,
+          "y": 1511
+        },
+        {
+          "x": 0,
+          "y": 1511
+        }
+      ]
+    },
+    {
+      "id": "yellowSearchZone",
+      "forme" : "polygone",
+      "desc": "Site de fouille jaune",
+      "active": true,
+      "points": [
+        {
+          "x": 1200,
+          "y": 800
+        },
+        {
+          "x": 1200,
+          "y": 1150
+        },
+        {
+          "x": 1550,
+          "y": 1150
+        },
+        {
+          "x": 1550,
+          "y": 800
+        }
+      ]
+    },
+    {
+      "id": "purpleSearchZone",
+      "forme" : "polygone",
+      "desc": "Site de fouille violet",
+      "active": true,
+      "points": [
+        {
+          "x": 1200,
+          "y": 1850
+        },
+        {
+          "x": 1200,
+          "y": 2200
+        },
+        {
+          "x": 1550,
+          "y": 2200
+        },
+        {
+          "x": 1550,
+          "y": 1850
+        }
+      ]
+    },
+    {
+      "id": "yellowExposition",
+      "forme" : "polygone",
+      "desc": "Exposition jaune",
+      "active": true,
+      "points": [
+        {
+          "x": 0,
+          "y": 450
+        },
+        {
+          "x": 0,
+          "y": 1170
+        },
+        {
+          "x": 85,
+          "y": 1170
+        },
+        {
+          "x": 85,
+          "y": 450
+        }
+      ]
+    },
+    {
+      "id": "purpleExposition",
+      "forme" : "polygone",
+      "desc": "Exposition violet",
+      "active": true,
+      "points": [
+        {
+          "x": 0,
+          "y": 1830
+        },
+        {
+          "x": 0,
+          "y": 2550
+        },
+        {
+          "x": 85,
+          "y": 2550
+        },
+        {
+          "x": 85,
+          "y": 1830
+        }
+      ]
+    },
+    {
+      "id": "yellowWorkingShed",
+      "forme" : "polygone",
+      "desc": "Abris de chantier jaune",
+      "active": true,
+      "points": [
+        {
+          "x": 1490,
+          "y": 0
+        },
+        {
+          "x": 2000,
+          "y": 510
+        },
+        {
+          "x": 2000,
+          "y": 0
+        }
+      ]
+    },
+    {
+      "id": "yellowWorkingShed_margin",
+      "forme" : "polygone",
+      "desc": "Abris de chantier jaune",
+      "active": true,
+      "points": [
+        {
+          "x": 1310,
+          "y": 0
+        },
+        {
+          "x": 2000,
+          "y": 690
+        },
+        {
+          "x": 2000,
+          "y": 0
+        }
+      ]
+    },
+    {
+      "id": "purpleWorkingShed",
+      "forme" : "polygone",
+      "desc": "Abris de chantier violet",
+      "active": true,
+      "points": [
+        {
+          "x": 1490,
+          "y": 3000
+        },
+        {
+          "x": 2000,
+          "y": 2490
+        },
+        {
+          "x": 2000,
+          "y": 3000
+        }
+      ]
+    },
+    {
+      "id": "purpleWorkingShed_margin",
+      "forme" : "polygone",
+      "desc": "Abris de chantier violet",
+      "active": true,
+      "points": [
+        {
+          "x": 1310,
+          "y": 3000
+        },
+        {
+          "x": 2000,
+          "y": 2310
+        },
+        {
+          "x": 2000,
+          "y": 3000
+        }
+      ]
+    }
+  ],
+  "elementsJeu" : [
+    {
+      "id": "0_SampleBlue",
+      "forme" : "cercle",
+      "desc": "Echantillon bleu 0",
+      "active": true,
+      "centre" :
+      {
+        "x" : 555,
+        "y" : 900
+      },
+      "rayon": 75
+    },
+    {
+      "id": "0_SampleGreen",
+      "forme" : "cercle",
+      "desc": "Echantillon vert 0",
+      "active": true,
+      "centre" :
+      {
+        "x" : 675,
+        "y" : 830
+      },
+      "rayon": 75
+    },
+    {
+      "id": "0_SampleRed",
+      "forme" : "cercle",
+      "desc": "Echantillon rouge 0",
+      "active": true,
+      "centre" :
+      {
+        "x" : 795,
+        "y" : 900
+      },
+      "rayon": 75
+    },
+    {
+      "id": "3000_SampleBlue",
+      "forme" : "cercle",
+      "desc": "Echantillon bleu 3000",
+      "active": true,
+      "centre" :
+      {
+        "x" : 555,
+        "y" : 2100
+      },
+      "rayon": 75
+    },
+    {
+      "id": "3000_SampleGreen",
+      "forme" : "cercle",
+      "desc": "Echantillon vert 3000",
+      "active": true,
+      "centre" :
+      {
+        "x" : 675,
+        "y" : 2170
+      },
+      "rayon": 75
+    },
+    {
+      "id": "3000_SampleRed",
+      "forme" : "cercle",
+      "desc": "Echantillon rouge 3000",
+      "active": true,
+      "centre" :
+      {
+        "x" : 795,
+        "y" : 2100
+      },
+      "rayon": 75
+    }
+  ],
+  "detectionIgnoreZone": [
+  ]
+}

@@ -508,30 +508,32 @@ public class Table {
     }
 
     public static void main(String[] args) throws IOException {
+        int year = 2022;
+
         // A lancer directement depuis l'IDE pour générer la table
         Table table = new Table();
         ArrayList<String> zoneToSkip = new ArrayList<>();
         zoneToSkip.add("start0");
-        table.loadJsonFromFile("table.json", zoneToSkip);
+        table.loadJsonFromFile("config/" + year + "/table.json", zoneToSkip);
 
         table.drawTable();
         table.computeForbiddenArea();
 
         File f = new File("table0.tbl");
 
-        table.saveToFile(f.getName());
+        table.saveToFile("config/" + year + "/" + f.getName());
 
         table = new Table();
         zoneToSkip = new ArrayList<>();
         zoneToSkip.add("start3000");
-        table.loadJsonFromFile("table.json", zoneToSkip);
+        table.loadJsonFromFile("config/" + year + "/table.json", zoneToSkip);
 
         table.drawTable();
         table.computeForbiddenArea();
 
         f = new File("table3000.tbl");
 
-        table.saveToFile(f.getName());
+        table.saveToFile("config/" + year + "/" + f.getName());
         System.out.println("Generation of the table succesfull.");
     }
 }
