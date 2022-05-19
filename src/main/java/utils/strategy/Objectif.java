@@ -46,7 +46,7 @@ public class Objectif {
             if (tache.mirror == Tache.Mirror.NONE) {
                 this.taches.add(tache);
             } else if (tache.mirror == Tache.Mirror.MIRRORY) {
-                Tache t = new Tache(tache);
+                Tache t = tache.clone();
                 t.positionY = 3000 - t.positionY;
                 if (t.itemId != null) {
                     t.itemId = t.itemId.replace("0_", "3000_");

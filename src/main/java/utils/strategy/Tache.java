@@ -7,7 +7,7 @@ import pathfinding.PathFinding;
 /**
  * Created by franc on 27/04/2018.
  */
-public class Tache {
+public class Tache implements Cloneable {
 
     public enum Type {
         @SerializedName("deplacement")
@@ -276,5 +276,10 @@ public class Tache {
                 ", subtype=" + subtype +
                 ", actionId=" + actionId +
                 '}';
+    }
+
+    @Override
+    public Tache clone() throws CloneNotSupportedException {
+        return (Tache)super.clone();
     }
 }
