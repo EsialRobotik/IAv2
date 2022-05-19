@@ -1,4 +1,4 @@
-package utils.strategy.main;
+package utils.strategy.main.year2021;
 
 import actions.a2020.ActionFileBinder;
 import api.log.LoggerFactory;
@@ -266,7 +266,7 @@ public class MainPmi2021 {
         System.out.println(gson.toJson(strat));
         System.out.println("#########################");
 
-        try (PrintWriter jsonFile = new PrintWriter("configCollectionPmi.json")) {
+        try (PrintWriter jsonFile = new PrintWriter("config/2021/configCollectionPmi.json")) {
             jsonFile.println(gson.toJson(strat));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -281,8 +281,8 @@ public class MainPmi2021 {
         System.out.println("Test de la strat");
         try {
             LoggerFactory.init(Level.OFF);
-            Table table = new Table("table0.tbl");
-            table.loadJsonFromFile("table.json");
+            Table table = new Table("config/2021/table0.tbl");
+            table.loadJsonFromFile("config/2021/table.json");
             PathFinding pathFinding = new PathFinding(new Astar(table));
             Position startPoint = new Position(1020, 240, Math.PI);
             StringBuilder stratSimu = new StringBuilder("[");
@@ -300,7 +300,7 @@ public class MainPmi2021 {
             }
             stratSimu.deleteCharAt(stratSimu.length()-1);
             stratSimu.append("]");
-            try (PrintWriter stratFile = new PrintWriter("strat_simu_pmi.json")) {
+            try (PrintWriter stratFile = new PrintWriter("config/2021/strat_simu_pmi.json")) {
                 stratFile.println(stratSimu);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();

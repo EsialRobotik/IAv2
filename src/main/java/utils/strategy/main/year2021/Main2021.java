@@ -1,4 +1,4 @@
-package utils.strategy.main;
+package utils.strategy.main.year2021;
 
 import actions.a2020.ActionFileBinder;
 import api.log.LoggerFactory;
@@ -21,7 +21,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainHomologuation2021 {
+public class Main2021 {
 
     //    public static void mainStratPrincipal(String... arg) throws Exception {
     public static void main(String... arg) throws Exception {
@@ -115,9 +115,12 @@ public class MainHomologuation2021 {
         score = 2;
         TaskList recuperationBouees4 =  new TaskList();
         recuperationBouees4.add(new GoToAstar("Mise en position bouée 4", 1090, 700));
+        recuperationBouees4.add(new Face("Alignement bouée 4", 1090, 3000));
         recuperationBouees4.add(new SetSpeed("Vitesse réduite", 25));
         recuperationBouees4.add(new GoToBack("Marquage bouée 4", 1090, 500));
-        recuperationBouees4.add(new GoToBack("Marquage bouée 4", 1090, 220));
+        recuperationBouees4.add(new GoToBack("Marquage bouée 4", 1090, 400));
+        recuperationBouees4.add(new GoToBack("Marquage bouée 4", 1090, 300));
+        recuperationBouees4.add(new GoToBack("Marquage bouée 4", 1090, 270));
         recuperationBouees4.add(new SetSpeed("Vitesse normale", 100));
         recuperationBouees4.add(new GoTo("Sortie de la zone", 1090, 700));
         recuperationBouees4.add(new DeleteZone("Suppression zone bouée 4", "bouee4"));
@@ -140,12 +143,13 @@ public class MainHomologuation2021 {
          */
         score = 6;
         TaskList largageSud = new TaskList();
-        largageSud.add(new GoToAstar("Déplacement largage sud", 1420, 220));
-        largageSud.add(new Face("Alignement largage sud", 0, 220));
-        largageSud.add(new Go("Placement largage sud", 190));
+        largageSud.add(new GoToAstar("Déplacement largage sud", 1420, 260));
+        largageSud.add(new Face("Alignement largage sud", 0, 260));
+        largageSud.add(new Go("Placement largage sud", 155));
         largageSud.add(new Manipulation("Préparer largage recif sud", ActionFileBinder.ActionFile.PREPARER_LARGAGE.ordinal()));
         largageSud.add(new Manipulation("Largage impaire recif sud", ActionFileBinder.ActionFile.LARGUER_DOIGTS_IMPAIRE.ordinal()));
-        largageSud.add(new Go("Sortie largage sud", -190));
+        largageSud.add(new Go("Sortie largage sud", -255));
+        largageSud.add(new GoTo("Esquive chenal", 1520, 700));
         Objectif objectifLargageSud0 = new Objectif("Largage sud", objectifsCouleur0.size()+1, score, 1, largageSud);
         Objectif objectifLargageSud3000 = new Objectif("Largage sud", objectifsCouleur3000.size()+1, score, 1, null);
         try {
@@ -157,6 +161,37 @@ public class MainHomologuation2021 {
         objectifsCouleur3000.add(objectifLargageSud3000);
 
         /*
+         * On marque la bouée 3, on allume le phare, on récupère la bouée 5
+         * Score = 19
+         *  - 1 point par bouée dans le port => 1
+         *  - 1 point par bouée dans le bon chenal => 1
+         *  - une paire dans les chenaux => 2
+         */
+        score = 4;
+        TaskList recuperationBouees3 =  new TaskList();
+        TaskList recuperationBouees3_3000 =  new TaskList();
+        recuperationBouees3.add(new GoToAstar("Mise en position bouée 3", 520, 700));
+        recuperationBouees3.add(new Face("Alignement bouée 3", 520, 3000));
+        recuperationBouees3.add(new SetSpeed("Vitesse réduite", 25));
+        recuperationBouees3.add(new GoToBack("Marquage bouée 3", 520, 500));
+        recuperationBouees3.add(new GoToBack("Marquage bouée 3", 520, 400));
+        recuperationBouees3.add(new GoToBack("Marquage bouée 3", 520, 300));
+        recuperationBouees3.add(new GoToBack("Marquage bouée 3", 520, 270));
+        recuperationBouees3.add(new SetSpeed("Vitesse normale", 100));
+        recuperationBouees3.add(new GoTo("Sortie de la zone", 520, 700));
+        recuperationBouees3.add(new DeleteZone("Suppression zone bouée 3", "bouee3"));
+        recuperationBouees3.add(new AddZone("Blocage du chenal Nord", "chenal_depart_n"));
+        Objectif objectifRecuperationBouees3_0 = new Objectif("Bouée 3 + Phare + Bouée 5", objectifsCouleur0.size()+1, score, 1, recuperationBouees3);
+        Objectif objectifRecuperationBouees3_3000 = new Objectif("Bouée 3 + Phare + Bouée 5", objectifsCouleur3000.size()+1, score, 1, null);
+        try {
+            objectifRecuperationBouees3_3000.generateMirror(objectifRecuperationBouees3_0.taches, recuperationBouees3_3000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        objectifsCouleur0.add(objectifRecuperationBouees3_0);
+        objectifsCouleur3000.add(objectifRecuperationBouees3_3000);
+
+        /*
          * Largage des bouées nord
          * Score = 8
          *  - 1 point par bouée dans le port => 2
@@ -165,11 +200,11 @@ public class MainHomologuation2021 {
          */
         score = 8;
         TaskList largageNord = new TaskList();
-        largageNord.add(new GoToAstar("Placement largage nord", 280, 280));
-        largageNord.add(new Face("Alignement largage nord", 2000, 280));
-        largageNord.add(new GoTo("Placement largage nord", 360, 280));
+        largageNord.add(new GoToAstar("Placement largage nord", 280, 260));
+        largageNord.add(new Face("Alignement largage nord", 2000, 260));
+        largageNord.add(new GoTo("Placement largage nord", 320, 260));
         largageNord.add(new Manipulation("Largage impaire nord", ActionFileBinder.ActionFile.LARGUER_DOIGTS_PAIRE.ordinal()));
-        largageNord.add(new GoToBack("Sortie largage nord", 230, 280));
+        largageNord.add(new GoToBack("Sortie largage nord", 230, 260));
         largageNord.add(new Manipulation("On remet tout en place", ActionFileBinder.ActionFile.INIT.ordinal()));
         Objectif objectifRecifLargageN0 = new Objectif("Largage nord", objectifsCouleur0.size()+1, score, 1, largageNord);
         Objectif objectifRecifLargageN3000 = new Objectif("Largage nord", objectifsCouleur3000.size()+1, score, 1, null);
@@ -180,6 +215,55 @@ public class MainHomologuation2021 {
         }
         objectifsCouleur0.add(objectifRecifLargageN0);
         objectifsCouleur3000.add(objectifRecifLargageN3000);
+
+        /*
+         * On va vider le distributeur Nord
+         * Score = 0
+         */
+        TaskList recuperationRecifNord =  new TaskList();
+        recuperationRecifNord.add(new Manipulation("Preparer ramassage recif nord", ActionFileBinder.ActionFile.PREPARER_RAMASSAGE.ordinal()));
+        recuperationRecifNord.add(new GoToAstar("Placement recif nord", 230, 850));
+        recuperationRecifNord.add(new Face("Alignement recif nord", 0, 850));
+        recuperationRecifNord.add(new GoTo("Mise en position rammassage recif nord", 130, 850));
+        recuperationRecifNord.add(new Go("Plaquage rammassage recif nord", 130, 500));
+        recuperationRecifNord.add(new Manipulation("Ramassage recif nord", ActionFileBinder.ActionFile.TOUT_RAMASSER.ordinal()));
+        recuperationRecifNord.add(new Manipulation("Libération ramassage recif nord", ActionFileBinder.ActionFile.LEVER_GOBELETS.ordinal()));
+        recuperationRecifNord.add(new GoToBack("Sortie recif nord", 230, 850));
+        Objectif objectifRecuperationRecifNord0 = new Objectif("Recif nord", objectifsCouleur0.size()+1, 0, 1, recuperationRecifNord);
+        Objectif objectifRecuperationRecifNord3000 = new Objectif("Recif nord", objectifsCouleur3000.size()+1, 0, 1, null);
+        try {
+            objectifRecuperationRecifNord3000.generateMirror(objectifRecuperationRecifNord0.taches);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        objectifsCouleur0.add(objectifRecuperationRecifNord0);
+        objectifsCouleur3000.add(objectifRecuperationRecifNord3000);
+
+        /*
+         * Largage distributeur Nord
+         * Score = 5
+         *  - 1 point par bouée dans le port => 5
+         */
+        int mirrorId = 0;
+        score = 5;
+        TaskList largageRecifNord = new TaskList();
+        TaskList largageRecifNord_3000 = new TaskList();
+        largageRecifNord.add(new GoToAstar("Placement dans le grand port", 800, 450));
+        largageRecifNord.add(new Face("Alignement dans le grand port", 800, 0));
+        largageRecifNord.add(new Manipulation("Préparer largage grand port", ActionFileBinder.ActionFile.PREPARER_LARGAGE.ordinal()));
+//        mirrorId = largageRecifNord.size() + 1;
+        largageRecifNord.add(new Manipulation("Largage grand port", ActionFileBinder.ActionFile.OUVRIR_DOIGTS_1A5.ordinal()));
+//        largageRecifNord_3000.add(new Manipulation("Largage grand port", ActionFileBinder.ActionFile.OUVRIR_DOIGTS_2A5.ordinal()), mirrorId);
+        largageRecifNord.add(new GoToBack("Sortie grand port", 800, 800));
+        Objectif objectifLargageRecifNord0 = new Objectif("Largage recif nord", objectifsCouleur0.size()+1, score, 1, largageRecifNord);
+        Objectif objectifLargageRecifNord3000 = new Objectif("Largage recif nord", objectifsCouleur3000.size()+1, score, 1, null);
+        try {
+            objectifLargageRecifNord3000.generateMirror(objectifLargageRecifNord0.taches, largageRecifNord_3000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        objectifsCouleur0.add(objectifLargageRecifNord0);
+        objectifsCouleur3000.add(objectifLargageRecifNord3000);
 
         // Création de la stratégie complète
         Strategie strat = new Strategie();
@@ -193,7 +277,7 @@ public class MainHomologuation2021 {
         System.out.println(gson.toJson(strat));
         System.out.println("#########################");
 
-        try (PrintWriter jsonFile = new PrintWriter("configCollection.json")) {
+        try (PrintWriter jsonFile = new PrintWriter("config/2021/configCollection.json")) {
             jsonFile.println(gson.toJson(strat));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -204,19 +288,21 @@ public class MainHomologuation2021 {
         fakeZoneForSimu.add(new DeleteZone("Suppression zone bouée 1", "bouee1"));
         fakeZoneForSimu.add(new DeleteZone("Suppression zone bouée 2", "bouee2"));
         fakeZoneForSimu.add(new DeleteZone("Suppression zone bouée 3", "bouee3"));
+        fakeZoneForSimu.add(new DeleteZone("Suppression zone bouée 5", "bouee5"));
+        fakeZoneForSimu.add(new DeleteZone("Suppression zone bouée 6", "bouee6"));
         fakeZoneForSimu.add(new AddZone("Blocage du chenal Sud", "chenal_depart_s"));
         fakeZoneForSimu.add(new AddZone("Blocage du chenal Nord", "chenal_depart_n"));
         photo.addAll(fakeZoneForSimu);
 
-        Strategie startBoussole = MainHomologuation2021.mainBoussole();
-//        strat.couleur0.add(startBoussole.couleur0.get(0)); // Nord
-        strat.couleur0.add(startBoussole.couleur0.get(1)); // Sud
+        Strategie startBoussole = Main2021.mainBoussole();
+        strat.couleur0.add(startBoussole.couleur0.get(0)); // Nord
+//        strat.couleur0.add(startBoussole.couleur0.get(1)); // Sud
 
         System.out.println("Test de la strat");
         try {
             LoggerFactory.init(Level.OFF);
-            Table table = new Table("table0.tbl");
-            table.loadJsonFromFile("table.json");
+            Table table = new Table("config/2021/table0.tbl");
+            table.loadJsonFromFile("config/2021/table.json");
             PathFinding pathFinding = new PathFinding(new Astar(table));
             Position startPoint = new Position(750, 200, Math.PI / 2);
             StringBuilder stratSimu = new StringBuilder("[");
@@ -234,7 +320,7 @@ public class MainHomologuation2021 {
             }
             stratSimu.deleteCharAt(stratSimu.length()-1);
             stratSimu.append("]");
-            try (PrintWriter stratFile = new PrintWriter("strat_simu.json")) {
+            try (PrintWriter stratFile = new PrintWriter("config/2021/strat_simu.json")) {
                 stratFile.println(stratSimu);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -259,8 +345,7 @@ public class MainHomologuation2021 {
         int score = 10;
         TaskList tachesPortNord =  new TaskList();
         tachesPortNord.add(new GoToAstar("On se gare", 200, 500));
-        tachesPortNord.add(new GoTo("On se gare", 160, 200));
-        tachesPortNord.add(new GoTo("On se gare", 160, 150));
+        tachesPortNord.add(new GoTo("On se gare", 200, 200));
         Objectif objectifPortN0 = new Objectif("Port Nord", objectifsCouleur0.size()+1, score, 1, tachesPortNord);
         Objectif objectifPortN3000 = new Objectif("Port Nord", objectifsCouleur3000.size()+1, score, 1, null);
         try {
@@ -279,7 +364,6 @@ public class MainHomologuation2021 {
         TaskList tachesPortSud =  new TaskList();
         tachesPortSud.add(new GoToAstar("On se gare", 1400, 500));
         tachesPortSud.add(new GoTo("On se gare", 1440, 200));
-        tachesPortSud.add(new GoTo("On se gare", 1440, 150));
         Objectif objectifPortS0 = new Objectif("Port Sud", objectifsCouleur0.size()+1, score, 1, tachesPortSud);
         Objectif objectifPortS3000 = new Objectif("Port Sud", objectifsCouleur3000.size()+1, score, 1, null);
         try {
@@ -303,7 +387,7 @@ public class MainHomologuation2021 {
         System.out.println("#########################");
         System.out.println(gson.toJson(strat));
 
-        try (PrintWriter jsonFile = new PrintWriter("configCollectionBoussoleHomologuation.json")) {
+        try (PrintWriter jsonFile = new PrintWriter("config/2021/configCollectionBoussole.json")) {
             jsonFile.println(gson.toJson(strat));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
