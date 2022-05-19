@@ -34,9 +34,6 @@
                        class="inputfile"
                        data-multiple-caption="{count} files selected"/>
                 <label for="table"><span>Table</span></label>
-            </div>
-
-            <div>
                 <input type="file"
                        id="strat" name="strat"
                        accept="application/json"
@@ -62,9 +59,6 @@
                        class="inputfile"
                        data-multiple-caption="{count} files selected"/>
                 <label for="stratPmiLog"><span>Strat Log PMI</span></label>
-            </div>
-
-            <div>
                 <input type="file"
                        id="tblCheck" name="tblCheck"
                        class="inputfile"
@@ -99,6 +93,52 @@
                 </tr>
             </table>
 
+        </fieldset>
+        <fieldset>
+            <legend>Déplacement manuel</legend>
+            <table>
+                <tr>
+                    <th>Robot</th>
+                    <th>X</th>
+                    <th>Y</th>
+                    <th>Theta</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td>Big</td>
+                    <td>
+                        <input name="big-x" id="big-x" type="number"/>
+                    </td>
+                    <td>
+                        <input name="big-y" id="big-y" type="number"/>
+                    </td>
+                    <td>
+                        <input name="big-theta" id="big-theta" type="number"/>
+                    </td>
+                    <td><button onclick="moveRobot(
+                        document.getElementById('big-x').value,
+                        document.getElementById('big-y').value,
+                        document.getElementById('big-theta').value
+                    );">Go</button></td>
+                </tr>
+                <tr>
+                    <td>Small</td>
+                    <td>
+                        <input name="small-x" id="small-x" type="number"/>
+                    </td>
+                    <td>
+                        <input name="small-y" id="small-y" type="number"/>
+                    </td>
+                    <td>
+                        <input name="small-theta" id="small-theta" type="number"/>
+                    </td>
+                    <td><button onclick="moveRobot(
+                        document.getElementById('small-x').value,
+                        document.getElementById('small-y').value,
+                        document.getElementById('small-theta').value
+                    );">Go</button></td>
+                </tr>
+            </table>
         </fieldset>
     </div>
 
