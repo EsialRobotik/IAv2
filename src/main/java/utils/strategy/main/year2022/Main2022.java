@@ -13,7 +13,10 @@ import utils.strategy.Objectif;
 import utils.strategy.Strategie;
 import utils.strategy.Tache;
 import utils.strategy.TaskList;
-import utils.strategy.task.*;
+import utils.strategy.task.Face;
+import utils.strategy.task.Go;
+import utils.strategy.task.GoToAstar;
+import utils.strategy.task.Manipulation;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -41,8 +44,8 @@ public class Main2022 {
         TaskList recuperationDistributeurCentral0 =  new TaskList();
 //        TaskList recuperationDistributeurCentral3000 =  new TaskList();
         recuperationDistributeurCentral0.add(new Go("Step de départ bizarre", 1));
-        recuperationDistributeurCentral0.add(new GoToAstar("Placement distributeur central", 300, 1295));
-        recuperationDistributeurCentral0.add(new Face("Placement distributeur central", 0, 1295));
+        recuperationDistributeurCentral0.add(new GoToAstar("Placement distributeur central", 300, 1290, Tache.Mirror.NONE));
+        recuperationDistributeurCentral0.add(new Face("Placement distributeur central", 0, 1290, Tache.Mirror.NONE));
         recuperationDistributeurCentral0.add(new Manipulation("Preparer ramassage distributeur central", ActionFileBinder.ActionFile.PREPARER_RAMASSAGE.ordinal()));
         Objectif objectifRecuperationDistributeurCentral0 = new Objectif("Distributeur central", objectifsCouleur0.size()+1, score, 1, recuperationDistributeurCentral0);
         Objectif objectifRecuperationDistributeurCentral3000 = new Objectif("Distributeur central", objectifsCouleur3000.size()+1, score, 1, null);

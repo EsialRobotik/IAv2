@@ -3,7 +3,7 @@ package manager;
 import actions.ActionCollection;
 import actions.ActionSupervisor;
 import actions.FunnyActionDescription;
-import actions.a2020.ActionFileBinder;
+import actions.a2022.ActionFileBinder;
 import api.ax12.AX12LinkException;
 import api.ax12.AX12LinkSerial;
 import api.chrono.Chrono;

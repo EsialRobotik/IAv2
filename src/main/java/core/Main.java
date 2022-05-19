@@ -2,7 +2,7 @@ package core;
 
 import actions.ActionCollection;
 import actions.ActionExecutor;
-import actions.a2020.ActionFileBinder;
+import actions.a2022.ActionFileBinder;
 import api.ax12.AX12LinkException;
 import api.ax12.AX12LinkSerial;
 import api.camera.Camera;
