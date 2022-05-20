@@ -111,7 +111,7 @@ public class Table {
         if (zoneToSkip.size() > 0) {
             for (JsonElement jsonElement : rootElement.getAsJsonArray("zonesInterdites")) {
                 Shape shape = ShapeFactory.getShape(jsonElement.getAsJsonObject());
-                if (zoneToSkip.contains(shape.getId())) {
+                if (zoneToSkip.contains(shape.getId()) || shape.getId().contains("_margin")) {
                     continue;
                 }
                 shapeList.add(shape);

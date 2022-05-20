@@ -495,6 +495,79 @@
         "y" : 2620
       },
       "rayon": 75
+    },
+
+    {
+      "id": "0_SampleLateralRed",
+      "forme" : "cercle",
+      "desc": "Echantillon Lateral déposé rouge 0",
+      "active": false,
+      "centre" :
+      {
+        "x" : 780,
+        "y" : 80
+      },
+      "rayon": 75
+    },
+    {
+      "id": "0_SampleLateralGreen",
+      "forme" : "cercle",
+      "desc": "Echantillon Lateral déposé vert 0",
+      "active": false,
+      "centre" :
+      {
+        "x" : 780,
+        "y" : 230
+      },
+      "rayon": 75
+    },
+    {
+      "id": "0_SampleLateralBlue",
+      "forme" : "cercle",
+      "desc": "Echantillon Lateral déposé bleu 0",
+      "active": false,
+      "centre" :
+      {
+        "x" : 780,
+        "y" : 380
+      },
+      "rayon": 75
+    },
+    {
+      "id": "3000_SampleLateralRed",
+      "forme" : "cercle",
+      "desc": "Echantillon Lateral déposé rouge 3000",
+      "active": false,
+      "centre" :
+      {
+        "x" : 970,
+        "y" : 2920
+      },
+      "rayon": 75
+    },
+    {
+      "id": "3000_SampleLateralGreen",
+      "forme" : "cercle",
+      "desc": "Echantillon Lateral déposé vert 3000",
+      "active": false,
+      "centre" :
+      {
+        "x" : 970,
+        "y" : 2770
+      },
+      "rayon": 75
+    },
+    {
+      "id": "3000_SampleLateralBlue",
+      "forme" : "cercle",
+      "desc": "Echantillon Lateral déposé bleu 3000",
+      "active": false,
+      "centre" :
+      {
+        "x" : 970,
+        "y" : 2620
+      },
+      "rayon": 75
     }
   ],
   "detectionIgnoreZone": [
