@@ -135,7 +135,11 @@ public class Tache implements Cloneable {
         this.id = id;
         this.type = type;
         this.subtype = subtype;
-        this.itemId = "0_" + itemId;
+        if (mirror.equals(Mirror.SPECIFIC)) {
+            this.itemId = itemId;
+        } else  {
+            this.itemId = "0_" + itemId;
+        }
         this.mirror = mirror;
     }
 

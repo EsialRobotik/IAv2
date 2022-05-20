@@ -3,7 +3,7 @@
   "tailleY": 3000,
   "couleur0": "Jaune",
   "couleur3000": "Violet",
-  "marge": 180,
+  "marge": 170,
   "zonesInterdites": [
     {
       "id": "start0",
@@ -420,6 +420,79 @@
       {
         "x" : 795,
         "y" : 2100
+      },
+      "rayon": 75
+    },
+
+    {
+      "id": "0_SampleCentralRed",
+      "forme" : "cercle",
+      "desc": "Echantillon central déposé rouge 0",
+      "active": false,
+      "centre" :
+      {
+        "x" : 960,
+        "y" : 80
+      },
+      "rayon": 75
+    },
+    {
+      "id": "0_SampleCentralGreen",
+      "forme" : "cercle",
+      "desc": "Echantillon central déposé vert 0",
+      "active": false,
+      "centre" :
+      {
+        "x" : 960,
+        "y" : 230
+      },
+      "rayon": 75
+    },
+    {
+      "id": "0_SampleCentralBlue",
+      "forme" : "cercle",
+      "desc": "Echantillon central déposé bleu 0",
+      "active": false,
+      "centre" :
+      {
+        "x" : 960,
+        "y" : 380
+      },
+      "rayon": 75
+    },
+    {
+      "id": "3000_SampleCentralRed",
+      "forme" : "cercle",
+      "desc": "Echantillon central déposé rouge 3000",
+      "active": false,
+      "centre" :
+      {
+        "x" : 790,
+        "y" : 2920
+      },
+      "rayon": 75
+    },
+    {
+      "id": "3000_SampleCentralGreen",
+      "forme" : "cercle",
+      "desc": "Echantillon central déposé vert 3000",
+      "active": false,
+      "centre" :
+      {
+        "x" : 790,
+        "y" : 2770
+      },
+      "rayon": 75
+    },
+    {
+      "id": "3000_SampleCentralBlue",
+      "forme" : "cercle",
+      "desc": "Echantillon central déposé bleu 3000",
+      "active": false,
+      "centre" :
+      {
+        "x" : 790,
+        "y" : 2620
       },
       "rayon": 75
     }

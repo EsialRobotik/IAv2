@@ -21,7 +21,11 @@ public class ActionFileBinder implements ActionInterface {
 		INIT_BIG("init_big.json", false), // 0
 		INIT_SMALL("init_small.json", false), // 1
 
-
+		FENWICK_OUT("fenwick_out.json", false), // 2
+		FENWICK_IN("fenwick_in.json", false), // 3
+		FENWICK_RED("fenwick_red.json", false), // 4
+		FENWICK_GREEN("fenwick_green.json", false), // 5
+		FENWICK_BLUE("fenwick_blue.json", false), // 6
 		;
 
 		public final String nomFichier;
