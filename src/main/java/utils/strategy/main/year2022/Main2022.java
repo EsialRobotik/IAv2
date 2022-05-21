@@ -211,6 +211,29 @@ public class Main2022 {
         objectifsCouleur0.add(objectifCarresFouille0);
         objectifsCouleur3000.add(objectifCarresFouille3000);
 
+        /**
+         * Rangement
+         * - 20 points si tous les robots de l’équipe sont dans le campement ou la zone de fouille;
+         * Score = 20
+         */
+        score = 20;
+        TaskList rangement0 =  new TaskList();
+        rangement0.add(
+            new GoToAstar("Mise en place rangement zone de fouille", 1600, 1350)
+        );
+        rangement0.add(
+            new GoTo("Mise en place rangement zone de fouille", 1600, 1000)
+        );
+        Objectif objectifRangement0 = new Objectif("Rangement", objectifsCouleur0.size()+1, score, 1, rangement0);
+        Objectif objectifRangement3000 = new Objectif("Rangement", objectifsCouleur0.size()+1, score, 1, null);
+        try {
+            objectifRangement3000.generateMirror(objectifRangement0.taches);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        objectifsCouleur0.add(objectifRangement0);
+        objectifsCouleur3000.add(objectifRangement3000);
+
         // Création de la stratégie complète
         Strategie strat = new Strategie();
         strat.couleur0 = objectifsCouleur0;

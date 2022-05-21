@@ -31,6 +31,12 @@ public class ActionFileBinder implements ActionInterface {
 
 		PASSPASS_GET_STATUE("passpass_get_statue.json", false), // 9
 		PASSPASS_PUT_FAKE("passpass_put_fake.json", false), // 10
+		PASSPASS_TAKE("passpass_take.json", false), // 11
+		PASSPASS_STORE("passpass_store.json", false), // 12
+		PASSPASS_UNSTORE("passpass_unstore.json", false), // 13
+		PASSPASS_SWITCH("passpass_switch.json", false), // 13
+		PASSPASS_PUT("passpass_put.json", false), // 14
+		PASSPASS_PUT_RELEASE("passpass_put_release.json", false), // 15
 		;
 
 		public final String nomFichier;
