@@ -39,6 +39,12 @@ public class ActionFileBinder implements ActionInterface {
 		PASSPASS_SWITCH("passpass_switch.json", false), // 13
 		PASSPASS_PUT("passpass_put.json", false), // 14
 		PASSPASS_PUT_RELEASE("passpass_put_release.json", false), // 15
+
+		FENWICK_ASCENSEUR_HOME_BAS("z", false), // 16
+		FENWICK_ASCENSEUR_HAUTEUR_TOP("g120", false), // 17
+		FENWICK_ASCENSEUR_HAUTEUR_PILE_3("g70", false), // 18
+		FENWICK_ASCENSEUR_HAUTEUR_PILE_2("g55", false), // 19
+		FENWICK_ASCENSEUR_HAUTEUR_PILE_1("g40", false), // 20
 		;
 
 		public final String nomFichier;
