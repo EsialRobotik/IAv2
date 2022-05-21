@@ -26,6 +26,9 @@ public class MainPmi2022 {
     public static void main(String... arg) throws Exception {
         System.out.println("Génération de la stratégie");
 
+        // Pompes à 90 et 235mm du bord
+        // 300 * 160
+
         // Liste des objectifs de chaque côté
         // 0 = Jaune, 3000 = Violet
         List<Objectif> objectifsCouleur0 = new ArrayList<>();
@@ -40,28 +43,23 @@ public class MainPmi2022 {
          * Score = 19
          */
         int score = 19;
-        TaskList swapStatuette0 =  new TaskList();
-        TaskList swapStatuette3000 =  new TaskList();
+        TaskList swapStatuette0 = new TaskList();
+        TaskList swapStatuette3000 = new TaskList();
+        swapStatuette0.setMirrorTaskList(swapStatuette3000);
         swapStatuette0.add(new Go("Step de départ bizarre", 1));
-        swapStatuette0.add(new GoToAstar("Placement chantier récupération statuette", 1600, 500, Tache.Mirror.SPECIFIC));
-        swapStatuette3000.add(new GoToAstar("Placement chantier récupération statuette", 1500, 2600, Tache.Mirror.SPECIFIC), swapStatuette0.size());
-        swapStatuette0.add(new GoTo("Placement chantier récupération statuette", 1720, 420, Tache.Mirror.SPECIFIC));
-        swapStatuette3000.add(new GoTo("Placement chantier récupération statuette", 1580, 2730, Tache.Mirror.SPECIFIC), swapStatuette0.size());
-        swapStatuette0.add(new Face("Alignement récupération statuette", 1800, 342, Tache.Mirror.SPECIFIC));
-        swapStatuette3000.add(new Face("Alignement récupération statuette", 1840, 3000, Tache.Mirror.SPECIFIC), swapStatuette0.size());
+        swapStatuette0.add(new GoToAstar("Placement chantier récupération statuette", 1600, 500, Tache.Mirror.SPECIFIC), new GoToAstar("Placement chantier récupération statuette", 1500, 2600, Tache.Mirror.SPECIFIC));
+        swapStatuette0.add(new GoTo("Placement chantier récupération statuette", 1720, 420, Tache.Mirror.SPECIFIC), new GoTo("Placement chantier récupération statuette", 1580, 2730, Tache.Mirror.SPECIFIC));
+        swapStatuette0.add(new Face("Alignement récupération statuette", 1800, 342, Tache.Mirror.SPECIFIC), new Face("Alignement récupération statuette", 1840, 3000, Tache.Mirror.SPECIFIC));
         swapStatuette0.add(new Manipulation("Récupération statuette", ActionFileBinder.ActionFile.PASSPASS_GET_STATUE.ordinal()));
         swapStatuette0.add(new Go("Manoeuvre libération réplique", -300));
-        swapStatuette0.add(new GoTo("Placement chantier libération réplique", 1500, 450, Tache.Mirror.SPECIFIC));
-        swapStatuette3000.add(new GoTo("Placement chantier libération réplique", 1500, 2450, Tache.Mirror.SPECIFIC), swapStatuette0.size());
-        swapStatuette0.add(new GoTo("Placement chantier libération réplique", 1640, 280, Tache.Mirror.SPECIFIC));
-        swapStatuette3000.add(new GoTo("Placement chantier libération réplique", 1720, 2620, Tache.Mirror.SPECIFIC), swapStatuette0.size());
-        swapStatuette0.add(new Face("Alignement libération réplique", 1930, 0, Tache.Mirror.SPECIFIC));
-        swapStatuette3000.add(new Face("Alignement libération réplique", 2000, 2935, Tache.Mirror.SPECIFIC), swapStatuette0.size());
+        swapStatuette0.add(new GoTo("Placement chantier libération réplique", 1500, 450, Tache.Mirror.SPECIFIC), new GoTo("Placement chantier libération réplique", 1500, 2450, Tache.Mirror.SPECIFIC));
+        swapStatuette0.add(new GoTo("Placement chantier libération réplique", 1640, 280, Tache.Mirror.SPECIFIC), new GoTo("Placement chantier libération réplique", 1720, 2620, Tache.Mirror.SPECIFIC));
+        swapStatuette0.add(new Face("Alignement libération réplique", 1930, 0, Tache.Mirror.SPECIFIC), new Face("Alignement libération réplique", 2000, 2935, Tache.Mirror.SPECIFIC));
         swapStatuette0.add(new Go("Placement final libération réplique", 40, 200));
         swapStatuette0.add(new Manipulation("Libération réplique", ActionFileBinder.ActionFile.PASSPASS_PUT_FAKE.ordinal()));
         swapStatuette0.add(new Go("Libération chantier", -200));
-        Objectif objectifSwapStatuette0 = new Objectif("Distributeur central", objectifsCouleur0.size()+1, score, 1, swapStatuette0);
-        Objectif objectifSwapStatuette3000 = new Objectif("Distributeur central", objectifsCouleur3000.size()+1, score, 1, null);
+        Objectif objectifSwapStatuette0 = new Objectif("Distributeur central", objectifsCouleur0.size() + 1, score, 1, swapStatuette0);
+        Objectif objectifSwapStatuette3000 = new Objectif("Distributeur central", objectifsCouleur3000.size() + 1, score, 1, null);
         try {
             objectifSwapStatuette3000.generateMirror(objectifSwapStatuette0.taches, swapStatuette3000);
         } catch (Exception e) {
@@ -77,13 +75,21 @@ public class MainPmi2022 {
          * Score = 20
          */
         score = 20;
-        TaskList deposeStatuette0 =  new TaskList();
-        deposeStatuette0.add(new GoToAstar("Déplacement exposition", 1750, 1400));
-        deposeStatuette0.add(new GoToAstar("Déplacement exposition", 270, 300));
-        Objectif objectifDeposeStatuette0 = new Objectif("Depose Statuette", objectifsCouleur0.size()+1, score, 1, deposeStatuette0);
-        Objectif objectifDeposeStatuette3000 = new Objectif("Depose Statuette", objectifsCouleur3000.size()+1, score, 1, null);
+        TaskList deposeStatuette0 = new TaskList();
+        TaskList deposeStatuette3000 = new TaskList();
+        deposeStatuette0.setMirrorTaskList(deposeStatuette3000);
+        deposeStatuette0.add(new GoToAstar("Déplacement exposition", 1750, 1340));
+        deposeStatuette0.add(new GoTo("Déplacement exposition", 1000, 1340));
+        deposeStatuette0.add(new GoToAstar("Déplacement exposition", 270, 315, Tache.Mirror.SPECIFIC), new GoToAstar("Déplacement exposition", 270, 2535, Tache.Mirror.SPECIFIC));
+        deposeStatuette0.add(new GoTo("Placement exposition", 90, 315, Tache.Mirror.SPECIFIC), new GoTo("Placement exposition", 90, 2535, Tache.Mirror.SPECIFIC));
+        deposeStatuette0.add(new Face("Alignement exposition", 0, 315, Tache.Mirror.SPECIFIC), new Face("Alignement exposition", 0, 2535, Tache.Mirror.SPECIFIC));
+        deposeStatuette0.add(new Go("Collage statuette", 10, 200));
+        deposeStatuette0.add(new Manipulation("Dépose statuette", ActionFileBinder.ActionFile.PASSPASS_GET_STATUE.ordinal()));
+        deposeStatuette0.add(new Go("Sortie exposition", -190));
+        Objectif objectifDeposeStatuette0 = new Objectif("Depose Statuette", objectifsCouleur0.size() + 1, score, 1, deposeStatuette0);
+        Objectif objectifDeposeStatuette3000 = new Objectif("Depose Statuette", objectifsCouleur3000.size() + 1, score, 1, null);
         try {
-            objectifDeposeStatuette3000.generateMirror(objectifDeposeStatuette0.taches);
+            objectifDeposeStatuette3000.generateMirror(objectifDeposeStatuette0.taches, deposeStatuette3000);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -119,7 +125,7 @@ public class MainPmi2022 {
             StringBuilder stratSimu = new StringBuilder("[");
             stratSimu.append("{ \"task\":\"Position de départ\",\"command\":\"start\",\"position\":" + startPoint.toJson() + "},");
             for (Objectif objectif : strat.couleur0) {
-                for (Tache task: objectif.taches) {
+                for (Tache task : objectif.taches) {
                     task.pathFinding = pathFinding;
                     String execution = task.execute(startPoint);
                     System.out.println(execution);
@@ -127,7 +133,7 @@ public class MainPmi2022 {
                     startPoint = task.getEndPoint();
                 }
             }
-            stratSimu.deleteCharAt(stratSimu.length()-1);
+            stratSimu.deleteCharAt(stratSimu.length() - 1);
             stratSimu.append("]");
             try (PrintWriter stratFile = new PrintWriter("config/2022/strat_simu_pmi_0.json")) {
                 stratFile.println(stratSimu);
@@ -147,7 +153,7 @@ public class MainPmi2022 {
             StringBuilder stratSimu = new StringBuilder("[");
             stratSimu.append("{ \"task\":\"Position de départ\",\"command\":\"start\",\"position\":" + startPoint.toJson() + "},");
             for (Objectif objectif : strat.couleur3000) {
-                for (Tache task: objectif.taches) {
+                for (Tache task : objectif.taches) {
                     task.pathFinding = pathFinding;
                     String execution = task.execute(startPoint);
                     System.out.println(execution);
@@ -155,7 +161,7 @@ public class MainPmi2022 {
                     startPoint = task.getEndPoint();
                 }
             }
-            stratSimu.deleteCharAt(stratSimu.length()-1);
+            stratSimu.deleteCharAt(stratSimu.length() - 1);
             stratSimu.append("]");
             try (PrintWriter stratFile = new PrintWriter("config/2022/strat_simu_pmi_3000.json")) {
                 stratFile.println(stratSimu);
