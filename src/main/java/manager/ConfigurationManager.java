@@ -13,6 +13,7 @@ import api.lcd.LCD;
 import api.lcd.LcdI2cSegment;
 import api.lcd.seed.LcdI2c;
 import api.log.LoggerFactory;
+import api.qik.Qik;
 import asserv.Asserv;
 import asserv.AsservInterface;
 import com.google.gson.Gson;
@@ -141,7 +142,13 @@ public class ConfigurationManager {
                 for (JsonElement actionId : initArray) {
                     initActionsIds.add(actionId.getAsInt());
                 }
-                actionFileBinder = new ActionFileBinder(ax12Link, dataDir, actionCollection);
+                if (configObject.has("qik")) {
+                    Qik qikLink = new Qik(configObject.getAsJsonObject("qik"));
+                    actionFileBinder = new ActionFileBinder(ax12Link, dataDir, actionCollection, qikLink);
+                } else {
+                    actionFileBinder = new ActionFileBinder(ax12Link, dataDir, actionCollection);
+                }
+
                 actionSupervisor = new ActionSupervisor(actionFileBinder, initActionsIds);
                 JsonObject funnyAction = configObject.getAsJsonObject("funnyAction");
                 funnyActionDescription = new FunnyActionDescription(

@@ -20,13 +20,13 @@ version '2.0'
 sourceCompatibility = 1.8
 
 remotes {
-    princessPi {
-        host = '192.168.0.101'
+    bigPrincessPi {
+        host = '192.168.0.103'
         user = 'pi'
         identity = file("${System.properties['user.home']}/.ssh/id_rsa")
     }
-    princessPicrate {
-        host = '192.168.0.103'
+    smallPrincessPi {
+        host = '192.168.0.101'
         user = 'pi'
         identity = file("${System.properties['user.home']}/.ssh/id_rsa")
     }
@@ -43,34 +43,34 @@ shadowJar {
 }
 
 // SSH deploy
-task deployPrincess {
+task deployBigPrincess {
     doLast {
         ssh.run {
-            session(remotes.princessPi) {
+            session(remotes.bigPrincessPi) {
                 put from: 'build/libs/esialrobotik.ia-2.0-all.jar', into: 'IA'
-                put from: 'config.json', into: 'IA'
-                put from: 'configCollection.json', into: 'IA'
-                put from: 'table.json', into: 'IA'
-                put from: 'table0.tbl', into: 'IA'
-                put from: 'table3000.tbl', into: 'IA'
-                put from: 'src/main/java/actions/a2020/actions/', into: 'IA'
+                put from: 'config/2022/config.json', into: 'IA'
+                put from: 'config/2022/configCollection.json', into: 'IA'
+                put from: 'config/2022/table.json', into: 'IA'
+                put from: 'config/2022/table0.tbl', into: 'IA'
+                put from: 'config/2022/table3000.tbl', into: 'IA'
+                put from: 'src/main/java/actions/a2022/actions/', into: 'IA'
                 execute 'sudo sync'
             }
         }
     }
 }
 
-task deployPrincessPicrate {
+task deploySmallPrincess {
     doLast {
         ssh.run {
-            session(remotes.princessPicrate) {
+            session(remotes.smallPrincessPi) {
                 put from: 'build/libs/esialrobotik.ia-2.0-all.jar', into: 'IA'
-                put from: 'config_PMI.json', into: 'IA/config.json'
-                put from: 'configCollectionPmi.json', into: 'IA'
-                put from: 'table.json', into: 'IA'
-                put from: 'table0.tbl', into: 'IA'
-                put from: 'table3000.tbl', into: 'IA'
-                put from: 'src/main/java/actions/a2020/actions/', into: 'IA'
+                put from: 'config/2022/config_PMI.json', into: 'IA/config.json'
+                put from: 'config/2022/configCollectionPmi.json', into: 'IA'
+                put from: 'config/2022/table.json', into: 'IA'
+                put from: 'config/2022/table0.tbl', into: 'IA'
+                put from: 'config/2022/table3000.tbl', into: 'IA'
+                put from: 'src/main/java/actions/a2022/actions/', into: 'IA'
                 execute 'sudo sync'
             }
         }

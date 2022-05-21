@@ -2,6 +2,7 @@ package actions.a2022;
 
 import actions.*;
 import api.ax12.AX12LinkSerial;
+import api.qik.Qik;
 import manager.CommunicationManager;
 
 import java.io.File;
@@ -13,6 +14,7 @@ public class ActionFileBinder implements ActionInterface {
 	protected AX12LinkSerial ax12Link;
 	protected ActionCollection actionCollection;
 	protected CommunicationManager communicationManager;
+	protected Qik qikLink;
 	
 	public enum ActionFile {
 		/**
@@ -52,11 +54,19 @@ public class ActionFileBinder implements ActionInterface {
 			this.instantReturn = instantReturn;
 		}
 	}
-	
+
 	public ActionFileBinder(AX12LinkSerial link, String dataDir, ActionCollection actionCollection) {
 		this.dataDir = new File(dataDir);
 		this.actionCollection = actionCollection;
 		this.ax12Link = link;
+		loadFiles();
+	}
+
+	public ActionFileBinder(AX12LinkSerial link, String dataDir, ActionCollection actionCollection, Qik qikLink) {
+		this.dataDir = new File(dataDir);
+		this.actionCollection = actionCollection;
+		this.ax12Link = link;
+		this.qikLink = qikLink;
 		loadFiles();
 	}
 	

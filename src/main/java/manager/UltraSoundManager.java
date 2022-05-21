@@ -176,6 +176,7 @@ public class UltraSoundManager {
                         System.out.println("Ultrasound Arriere : " + pull[3] + " = " + pos.getX() + "," + pos.getY());
                     }
                 }
+                System.out.println("################################################");
                 for (int i = 0; i < tempDetection.length; i++) {
                     if (!tempDetection[i]) {
                         detection[i] = new boolean[windowSize];

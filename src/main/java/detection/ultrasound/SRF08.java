@@ -202,8 +202,7 @@ public class SRF08 implements UltraSoundInterface {
         int res = this.i2cDevice.read((byte) REGISTER_SOFTWARE_REV); //read the
         if (res == 0){
             logger.error("SRF08 init : Error while trying to get Software Rev.");
-        }
-        else {
+        } else {
             logger.info("SRF08 init : Sensor has the Software Rev. : " + res);
             setSensorMaxGain(currentConfig.maxAnalogGain);
             setSensorRange(currentConfig.range);
@@ -271,8 +270,7 @@ public class SRF08 implements UltraSoundInterface {
     public void setSensorMaxGain(int gain){
 
         this.i2cDevice.write((byte) REGISTER_MAX_GAIN, (byte) gain);
-        this.logger.error("Sensor max analog gain was set to " + gain);
-
+        this.logger.info("Sensor max analog gain was set to " + gain);
     }
 
     /**
