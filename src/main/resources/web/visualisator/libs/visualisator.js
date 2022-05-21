@@ -165,63 +165,53 @@ function radiansToDegrees(radians) {
 }
 
 /**
- * Chargement du fichier table.json et affichage des zones interdites
+ * Chargement de la table et affichage des zones interdites
  * @returns {boolean}
  */
-function loadTable() {
-    var file = document.getElementById('table');
-    if (file && file.files && file.files.length) {
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            var jsonTable = JSON.parse(e.target.result);
-            margin = jsonTable.marge;
+function loadTable(jsonTable) {
+    margin = jsonTable.marge;
 
-            // Zones interdites fixes
-            jsonTable.zonesInterdites.forEach(zone => {
-                displayZone(zone, jsonTable, 'rgba(255,0,0,0.6)', 'rgba(200,0,0,0.4)');
-            });
+    // Zones interdites fixes
+    jsonTable.zonesInterdites.forEach(zone => {
+        displayZone(zone, jsonTable, 'rgba(255,0,0,0.6)', 'rgba(200,0,0,0.4)');
+    });
 
-            // Bordure haut
-            var shape = new createjs.Shape();
-            shape.graphics
-                .beginFill('rgba(200,0,0,0.4)')
-                .drawRect(0, 0, 3000, jsonTable.marge);
-            stage.addChild(shape);
+    // Bordure haut
+    var shape = new createjs.Shape();
+    shape.graphics
+        .beginFill('rgba(200,0,0,0.4)')
+        .drawRect(0, 0, 3000, jsonTable.marge);
+    stage.addChild(shape);
 
-            // Bordure bas
-            shape = new createjs.Shape();
-            shape.graphics
-                .beginFill('rgba(200,0,0,0.4)')
-                .drawRect(0, 2000 - jsonTable.marge, 3000, 2000);
-            stage.addChild(shape);
+    // Bordure bas
+    shape = new createjs.Shape();
+    shape.graphics
+        .beginFill('rgba(200,0,0,0.4)')
+        .drawRect(0, 2000 - jsonTable.marge, 3000, 2000);
+    stage.addChild(shape);
 
-            // Bordure gauche
-            shape = new createjs.Shape();
-            shape.graphics
-                .beginFill('rgba(200,0,0,0.4)')
-                .drawRect(0, 0, jsonTable.marge, 2000);
-            stage.addChild(shape);
+    // Bordure gauche
+    shape = new createjs.Shape();
+    shape.graphics
+        .beginFill('rgba(200,0,0,0.4)')
+        .drawRect(0, 0, jsonTable.marge, 2000);
+    stage.addChild(shape);
 
-            // Bordure droite
-            shape = new createjs.Shape();
-            shape.graphics
-                .beginFill('rgba(200,0,0,0.4)')
-                .drawRect(3000 - jsonTable.marge, 0, 3000, 2000);
-            stage.addChild(shape);
+    // Bordure droite
+    shape = new createjs.Shape();
+    shape.graphics
+        .beginFill('rgba(200,0,0,0.4)')
+        .drawRect(3000 - jsonTable.marge, 0, 3000, 2000);
+    stage.addChild(shape);
 
-            // Zones interdites mobiles
-            jsonTable.elementsJeu.forEach(zone => {
-                displayZone(zone, jsonTable, 'rgba(255,255,0,0.6)', 'rgba(255,165,0,0.4)');
-            });
-            stage.update();
+    // Zones interdites mobiles
+    jsonTable.elementsJeu.forEach(zone => {
+        displayZone(zone, jsonTable, 'rgba(255,255,0,0.6)', 'rgba(255,165,0,0.4)');
+    });
+    stage.update();
 
-            deleteZone('start0');
-            deleteZone('start3000');
-        };
-        reader.readAsBinaryString(file.files[0]);
-
-        return true;
-    }
+    deleteZone('start0');
+    deleteZone('start3000');
 }
 
 /**
@@ -367,38 +357,24 @@ function addZone(zoneName) {
  * Chargement de la start simulateur du robot principal
  * @returns {boolean}
  */
-function loadSimulatorStrat() {
-    var file = document.getElementById('strat');
-    if (file && file.files && file.files.length) {
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            stratSimulator = JSON.parse(e.target.result);
-            stratIndex = 0;
-        };
-        reader.readAsBinaryString(file.files[0]);
-        document.getElementById('princessNext').disabled = false;
-        document.getElementById('princessAuto').disabled = false;
-        return true;
-    }
+function loadSimulatorStrat(strategy) {
+    stratSimulator = strategy;
+    stratIndex = 0;
+    document.getElementById('princessNext').disabled = false;
+    document.getElementById('princessAuto').disabled = false;
+    return true;
 }
 
 /**
  * Chargement de la start simulateur du robot PMI
  * @returns {boolean}
  */
-function loadSimulatorStratPmi() {
-    var file = document.getElementById('stratPmi');
-    if (file && file.files && file.files.length) {
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            stratPmiSimulator = JSON.parse(e.target.result);
-            stratPmiIndex = 0;
-        };
-        reader.readAsBinaryString(file.files[0]);
-        document.getElementById('pmiNext').disabled = false;
-        document.getElementById('pmiAuto').disabled = false;
-        return true;
-    }
+function loadSimulatorStratPmi(strategy) {
+    stratPmiSimulator = strategy;
+    stratPmiIndex = 0;
+    document.getElementById('pmiNext').disabled = false;
+    document.getElementById('pmiAuto').disabled = false;
+    return true;
 }
 
 /**

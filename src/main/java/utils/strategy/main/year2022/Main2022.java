@@ -15,9 +15,12 @@ import utils.strategy.Tache;
 import utils.strategy.TaskList;
 import utils.strategy.task.*;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -280,6 +283,33 @@ public class Main2022 {
                 e.printStackTrace();
             }
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("Génération du JS pour le simulateur");
+        StringBuilder jsVariables = new StringBuilder();
+        jsVariables.append("var jsonTable = ");
+        jsVariables.append(new String(Files.readAllBytes(Paths.get("config/2022/table.json"))));
+        jsVariables.append(";");
+        jsVariables.append("var strategyBig0 = ");
+        jsVariables.append(new String(Files.readAllBytes(Paths.get("config/2022/strat_simu_0.json"))));
+        jsVariables.append(";");
+        jsVariables.append("var strategyBig3000 = ");
+        jsVariables.append(new String(Files.readAllBytes(Paths.get("config/2022/strat_simu_3000.json"))));
+        jsVariables.append(";");
+        if (Files.exists(Paths.get("config/2022/strat_simu_pmi_0.json"))) {
+            jsVariables.append("var strategySmall0 = ");
+            jsVariables.append(new String(Files.readAllBytes(Paths.get("config/2022/strat_simu_pmi_0.json"))));
+            jsVariables.append(";");
+        }
+        if (Files.exists(Paths.get("config/2022/strat_simu_pmi_3000.json"))) {
+            jsVariables.append("var strategySmall3000 = ");
+            jsVariables.append(new String(Files.readAllBytes(Paths.get("config/2022/strat_simu_pmi_3000.json"))));
+            jsVariables.append(";");
+        }
+        try (PrintWriter jsVariablesFile = new PrintWriter("src/main/resources/web/visualisator/2022/variables.js")) {
+            jsVariablesFile.println(jsVariables);
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }

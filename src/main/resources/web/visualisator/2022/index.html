@@ -11,6 +11,7 @@
     <script src="../libs/tweenjs.min.js"></script>
     <script src="../libs/geometric.js"></script>
     <script src="../libs/visualisator.js"></script>
+    <script src="variables.js"></script>
 
 </head>
 <body onload="init({x: 200, y: 600, theta: (Math.PI / 2), regX: 150, regY: 100}, {x: 240, y: 900, theta: Math.PI, regX: 150, regY: 75});">
@@ -23,31 +24,26 @@
 </div>
 
 <div class="configBlock">
+    <div class="formBlock">
+        <fieldset>
+            <legend>Configuration</legend>
+            <div>
+                <button onclick="loadTable(jsonTable)">Table</button>
+            </div>
+            <div>
+                <button onclick="loadSimulatorStrat(strategyBig0)">Strat Big 0</button>
+                <button onclick="loadSimulatorStrat(strategyBig3000)">Strat Big 3000</button>
+            </div>
+            <div>
+                <button onclick="loadSimulatorStratPmi(strategySmall0)">Strat Small 0</button>
+                <button onclick="loadSimulatorStratPmi(strategySmall3000)">Strat Small 3000</button>
+            </div>
+        </fieldset>
+    </div>
+
     <form id="formTable" name="formTable" class="formBlock" onsubmit="event.preventDefault(); loadFiles();">
         <fieldset>
             <legend>Configuration</legend>
-
-            <div>
-                <input type="file"
-                       id="table" name="table"
-                       accept="application/json"
-                       class="inputfile"
-                       data-multiple-caption="{count} files selected"/>
-                <label for="table"><span>Table</span></label>
-                <input type="file"
-                       id="strat" name="strat"
-                       accept="application/json"
-                       class="inputfile"
-                       data-multiple-caption="{count} files selected"/>
-                <label for="strat"><span>Strat simulateur Princess</span></label>
-                <input type="file"
-                       id="stratPmi" name="stratPmi"
-                       accept="application/json"
-                       class="inputfile"
-                       data-multiple-caption="{count} files selected"/>
-                <label for="stratPmi"><span>Strat simulateur PMI</span></label>
-            </div>
-
             <div>
                 <input type="file"
                        id="stratLog" name="stratLog"
