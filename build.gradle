@@ -21,7 +21,7 @@ sourceCompatibility = 1.8
 
 remotes {
     bigPrincessPi {
-        host = '192.168.0.103'
+        host = '192.168.0.105'
         user = 'pi'
         identity = file("${System.properties['user.home']}/.ssh/id_rsa")
     }
