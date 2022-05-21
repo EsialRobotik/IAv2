@@ -15,7 +15,6 @@ import utils.strategy.Tache;
 import utils.strategy.TaskList;
 import utils.strategy.task.*;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -42,23 +41,32 @@ public class Main2022 {
          */
         int score = 3;
         TaskList recuperationDistributeurCentral0 =  new TaskList();
-        recuperationDistributeurCentral0.add(new Go("Step de départ bizarre", 1));
-        recuperationDistributeurCentral0.add(new GoToAstar("Placement distributeur central", 300, 1290, Tache.Mirror.NONE));
-        recuperationDistributeurCentral0.add(new Face("Placement distributeur central", 0, 1290, Tache.Mirror.NONE));
-        recuperationDistributeurCentral0.add(new Manipulation("Preparer ramassage distributeur central", ActionFileBinder.ActionFile.FENWICK_OUT.ordinal()));
-        recuperationDistributeurCentral0.add(new GoTo("Ramassage distributeur central", 230, 1290, Tache.Mirror.NONE));
-        recuperationDistributeurCentral0.add(new Go("Ramassage distributeur central", 30, 200));
-        recuperationDistributeurCentral0.add(new Manipulation("Ramassage distributeur central", ActionFileBinder.ActionFile.FENWICK_IN.ordinal()));
-        recuperationDistributeurCentral0.add(new Go("Sortie distributeur central", -100));
-        Objectif objectifRecuperationDistributeurCentral0 = new Objectif("Distributeur central", objectifsCouleur0.size()+1, score, 1, recuperationDistributeurCentral0);
-        Objectif objectifRecuperationDistributeurCentral3000 = new Objectif("Distributeur central", objectifsCouleur3000.size()+1, score, 1, null);
-        try {
-            objectifRecuperationDistributeurCentral3000.generateMirror(objectifRecuperationDistributeurCentral0.taches);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        objectifsCouleur0.add(objectifRecuperationDistributeurCentral0);
-        objectifsCouleur3000.add(objectifRecuperationDistributeurCentral3000);
+        recuperationDistributeurCentral0.add(
+            new Go("Step de départ bizarre", 1)
+        );
+        recuperationDistributeurCentral0.add(
+            new GoToAstar("Placement distributeur central", 300, 1290, Tache.Mirror.NONE)
+        );
+        recuperationDistributeurCentral0.add(
+            new Face("Placement distributeur central", 0, 1290, Tache.Mirror.NONE)
+        );
+        recuperationDistributeurCentral0.add(
+            new Manipulation("Preparer ramassage distributeur central", ActionFileBinder.ActionFile.FENWICK_OUT.ordinal())
+        );
+        recuperationDistributeurCentral0.add(
+            new GoTo("Ramassage distributeur central", 230, 1290, Tache.Mirror.NONE)
+        );
+        recuperationDistributeurCentral0.add(
+            new Go("Ramassage distributeur central", 30, 200)
+        );
+        recuperationDistributeurCentral0.add(
+            new Manipulation("Ramassage distributeur central", ActionFileBinder.ActionFile.FENWICK_IN.ordinal())
+        );
+        recuperationDistributeurCentral0.add(
+            new Go("Sortie distributeur central", -100)
+        );
+        objectifsCouleur0.add(recuperationDistributeurCentral0.generateObjectif("Distributeur central", objectifsCouleur0.size()+1, score, 1));
+        objectifsCouleur3000.add(recuperationDistributeurCentral0.generateMirrorObjectif("Distributeur central", objectifsCouleur3000.size()+1, score, 1));
 
         /**
          * Largage des échantillons du fenwick dans le campement
@@ -68,35 +76,49 @@ public class Main2022 {
          */
         score = 6;
         TaskList largageDistributeurCentral0 =  new TaskList();
-        TaskList largageDistributeurCentral3000 =  new TaskList();
-        largageDistributeurCentral0.add(new GoToAstar("Placement campement", 900, 450, Tache.Mirror.SPECIFIC));
-        largageDistributeurCentral3000.add(new GoToAstar("Placement campement", 850, 2550, Tache.Mirror.SPECIFIC), largageDistributeurCentral0.size());
-        largageDistributeurCentral0.add(new GoTo("Placement campement largage rouge", 900, 300, Tache.Mirror.SPECIFIC));
-        largageDistributeurCentral3000.add(new GoTo("Placement campement largage rouge", 850, 2700, Tache.Mirror.SPECIFIC), largageDistributeurCentral0.size());
-        largageDistributeurCentral0.add(new Manipulation("Largage campement rouge", ActionFileBinder.ActionFile.FENWICK_RED.ordinal()));
-        largageDistributeurCentral0.add(new AddZone("Echantillon central déposé rouge", "0_SampleCentralRed", Tache.Mirror.SPECIFIC));
-        largageDistributeurCentral3000.add(new AddZone("Echantillon central déposé rouge", "3000_SampleCentralRed", Tache.Mirror.SPECIFIC), largageDistributeurCentral0.size());
-        largageDistributeurCentral0.add(new GoToBack("Placement campement largage vert", 900, 450, Tache.Mirror.SPECIFIC));
-        largageDistributeurCentral3000.add(new GoToBack("Placement campement largage vert", 850, 2550, Tache.Mirror.SPECIFIC), largageDistributeurCentral0.size());
-        largageDistributeurCentral0.add(new Manipulation("Largage campement vert", ActionFileBinder.ActionFile.FENWICK_GREEN.ordinal()));
-        largageDistributeurCentral0.add(new AddZone("Echantillon central déposé vert", "0_SampleCentralGreen", Tache.Mirror.SPECIFIC));
-        largageDistributeurCentral3000.add(new AddZone("Echantillon central déposé vert", "3000_SampleCentralGreen", Tache.Mirror.SPECIFIC), largageDistributeurCentral0.size());
-        largageDistributeurCentral0.add(new GoToBack("Placement campement largage bleu", 900, 600, Tache.Mirror.SPECIFIC));
-        largageDistributeurCentral3000.add(new GoToBack("Placement campement largage bleu", 850, 2400, Tache.Mirror.SPECIFIC), largageDistributeurCentral0.size());
-        largageDistributeurCentral0.add(new Manipulation("Largage campement bleu", ActionFileBinder.ActionFile.FENWICK_BLUE.ordinal()));
-        largageDistributeurCentral0.add(new AddZone("Echantillon central déposé bleu", "0_SampleCentralBlue", Tache.Mirror.SPECIFIC));
-        largageDistributeurCentral3000.add(new AddZone("Echantillon central déposé bleu", "3000_SampleCentralBlue", Tache.Mirror.SPECIFIC), largageDistributeurCentral0.size());
-        largageDistributeurCentral0.add(new GoToBack("Sortie campement", 900, 650, Tache.Mirror.SPECIFIC));
-        largageDistributeurCentral3000.add(new GoToBack("Sortie campement", 850, 2350, Tache.Mirror.SPECIFIC), largageDistributeurCentral0.size());
-        Objectif objectifLargageDistributeurCentral0 = new Objectif("Largage Distributeur central", objectifsCouleur0.size()+1, score, 1, largageDistributeurCentral0);
-        Objectif objectifLargageDistributeurCentral3000 = new Objectif("Largage Distributeur central", objectifsCouleur3000.size()+1, score, 1, null);
-        try {
-            objectifLargageDistributeurCentral3000.generateMirror(objectifLargageDistributeurCentral0.taches, largageDistributeurCentral3000);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        objectifsCouleur0.add(objectifLargageDistributeurCentral0);
-        objectifsCouleur3000.add(objectifLargageDistributeurCentral3000);
+        largageDistributeurCentral0.add(
+            new GoToAstar("Placement campement", 900, 450, Tache.Mirror.SPECIFIC),
+            new GoToAstar("Placement campement", 850, 2550, Tache.Mirror.SPECIFIC)
+        );
+        largageDistributeurCentral0.add(
+            new GoTo("Placement campement largage rouge", 900, 300, Tache.Mirror.SPECIFIC), 
+            new GoTo("Placement campement largage rouge", 850, 2700, Tache.Mirror.SPECIFIC)
+        );
+        largageDistributeurCentral0.add(
+            new Manipulation("Largage campement rouge", ActionFileBinder.ActionFile.FENWICK_RED.ordinal())
+        );
+        largageDistributeurCentral0.add(
+            new AddZone("Echantillon central déposé rouge", "0_SampleCentralRed", Tache.Mirror.SPECIFIC), 
+            new AddZone("Echantillon central déposé rouge", "3000_SampleCentralRed", Tache.Mirror.SPECIFIC)
+        );
+        largageDistributeurCentral0.add(
+            new GoToBack("Placement campement largage vert", 900, 450, Tache.Mirror.SPECIFIC), 
+            new GoToBack("Placement campement largage vert", 850, 2550, Tache.Mirror.SPECIFIC)
+        );
+        largageDistributeurCentral0.add(
+            new Manipulation("Largage campement vert", ActionFileBinder.ActionFile.FENWICK_GREEN.ordinal())
+        );
+        largageDistributeurCentral0.add(
+            new AddZone("Echantillon central déposé vert", "0_SampleCentralGreen", Tache.Mirror.SPECIFIC), 
+            new AddZone("Echantillon central déposé vert", "3000_SampleCentralGreen", Tache.Mirror.SPECIFIC)
+        );
+        largageDistributeurCentral0.add(
+            new GoToBack("Placement campement largage bleu", 900, 600, Tache.Mirror.SPECIFIC), 
+            new GoToBack("Placement campement largage bleu", 850, 2400, Tache.Mirror.SPECIFIC)
+        );
+        largageDistributeurCentral0.add(
+            new Manipulation("Largage campement bleu", ActionFileBinder.ActionFile.FENWICK_BLUE.ordinal())
+        );
+        largageDistributeurCentral0.add(
+            new AddZone("Echantillon central déposé bleu", "0_SampleCentralBlue", Tache.Mirror.SPECIFIC),
+            new AddZone("Echantillon central déposé bleu", "3000_SampleCentralBlue", Tache.Mirror.SPECIFIC)
+        );
+        largageDistributeurCentral0.add(
+            new GoToBack("Sortie campement", 900, 650, Tache.Mirror.SPECIFIC), 
+            new GoToBack("Sortie campement", 850, 2350, Tache.Mirror.SPECIFIC)
+        );
+        objectifsCouleur0.add(largageDistributeurCentral0.generateObjectif("Largage Distributeur central", objectifsCouleur0.size()+1, score, 1));
+        objectifsCouleur3000.add(largageDistributeurCentral0.generateMirrorObjectif("Largage Distributeur central", objectifsCouleur3000.size()+1, score, 1));
 
         /**
          * On va vider le distributeur latéral
@@ -106,26 +128,32 @@ public class Main2022 {
          */
         score = 3;
         TaskList recuperationDistributeurLateral0 =  new TaskList();
-        TaskList recuperationDistributeurLateral3000 =  new TaskList();
-        recuperationDistributeurLateral0.add(new GoToAstar("Placement distributeur latéral", 1300, 400, Tache.Mirror.SPECIFIC));
-        recuperationDistributeurLateral3000.add(new GoToAstar("Placement distributeur latéral", 1200, 2600, Tache.Mirror.SPECIFIC), recuperationDistributeurLateral0.size());
-        recuperationDistributeurLateral0.add(new Face("Alignement distributeur latéral", 1300, 0, Tache.Mirror.SPECIFIC));
-        recuperationDistributeurLateral3000.add(new Face("Alignement distributeur latéral", 1200, 3000, Tache.Mirror.SPECIFIC), recuperationDistributeurLateral0.size());
-        recuperationDistributeurLateral0.add(new Manipulation("Preparer ramassage distributeur latéral", ActionFileBinder.ActionFile.FENWICK_OUT.ordinal()));
-        recuperationDistributeurLateral0.add(new GoTo("Ramassage distributeur latéral", 1300, 230, Tache.Mirror.SPECIFIC));
-        recuperationDistributeurLateral3000.add(new GoTo("Ramassage distributeur latéral", 1200, 2770, Tache.Mirror.SPECIFIC), recuperationDistributeurLateral0.size());
-        recuperationDistributeurLateral0.add(new Go("Ramassage distributeur latéral", 30, 200));
-        recuperationDistributeurLateral0.add(new Manipulation("Ramassage distributeur latéral", ActionFileBinder.ActionFile.FENWICK_IN.ordinal()));
-        recuperationDistributeurLateral0.add(new Go("Sortie distributeur latéral", -200));
-        Objectif objectifRecuperationDistributeurLateral0 = new Objectif("Distributeur latéral", objectifsCouleur0.size()+1, score, 1, recuperationDistributeurLateral0);
-        Objectif objectifRecuperationDistributeurLateral3000 = new Objectif("Distributeur latéral", objectifsCouleur3000.size()+1, score, 1, null);
-        try {
-            objectifRecuperationDistributeurLateral3000.generateMirror(objectifRecuperationDistributeurLateral0.taches, recuperationDistributeurLateral3000);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        objectifsCouleur0.add(objectifRecuperationDistributeurLateral0);
-        objectifsCouleur3000.add(objectifRecuperationDistributeurLateral3000);
+        recuperationDistributeurLateral0.add(
+            new GoToAstar("Placement distributeur latéral", 1300, 400, Tache.Mirror.SPECIFIC), 
+            new GoToAstar("Placement distributeur latéral", 1200, 2600, Tache.Mirror.SPECIFIC)
+        );
+        recuperationDistributeurLateral0.add(
+            new Face("Alignement distributeur latéral", 1300, 0, Tache.Mirror.SPECIFIC), 
+            new Face("Alignement distributeur latéral", 1200, 3000, Tache.Mirror.SPECIFIC)
+        );
+        recuperationDistributeurLateral0.add(
+            new Manipulation("Preparer ramassage distributeur latéral", ActionFileBinder.ActionFile.FENWICK_OUT.ordinal())
+        );
+        recuperationDistributeurLateral0.add(
+            new GoTo("Ramassage distributeur latéral", 1300, 230, Tache.Mirror.SPECIFIC), 
+            new GoTo("Ramassage distributeur latéral", 1200, 2770, Tache.Mirror.SPECIFIC)
+        );
+        recuperationDistributeurLateral0.add(
+            new Go("Ramassage distributeur latéral", 30, 200)
+        );
+        recuperationDistributeurLateral0.add(
+            new Manipulation("Ramassage distributeur latéral", ActionFileBinder.ActionFile.FENWICK_IN.ordinal())
+        );
+        recuperationDistributeurLateral0.add(
+            new Go("Sortie distributeur latéral", -200)
+        );
+        objectifsCouleur0.add(recuperationDistributeurLateral0.generateObjectif("Distributeur latéral", objectifsCouleur0.size()+1, score, 1));
+        objectifsCouleur3000.add(recuperationDistributeurLateral0.generateMirrorObjectif("Distributeur latéral", objectifsCouleur3000.size()+1, score, 1));
 
         /**
          * Largage des échantillons du fenwick dans le campement
@@ -135,38 +163,56 @@ public class Main2022 {
          */
         score = 6;
         TaskList largageDistributeurLateral0 =  new TaskList();
-        TaskList largageDistributeurLateral3000 =  new TaskList();
-        largageDistributeurLateral0.add(new GoTo("Placement campement", 1200, 600));
-        largageDistributeurLateral0.add(new GoTo("Placement campement", 720, 600, Tache.Mirror.SPECIFIC));
-        largageDistributeurLateral3000.add(new GoTo("Placement campement", 1030, 2400, Tache.Mirror.SPECIFIC), largageDistributeurLateral0.size());
-        largageDistributeurLateral0.add(new GoTo("Placement campement largage rouge", 720, 300, Tache.Mirror.SPECIFIC));
-        largageDistributeurLateral3000.add(new GoTo("Placement campement largage rouge", 1030, 2700, Tache.Mirror.SPECIFIC), largageDistributeurLateral0.size());
-        largageDistributeurLateral0.add(new Manipulation("Largage campement rouge", ActionFileBinder.ActionFile.FENWICK_RED.ordinal()));
-        largageDistributeurLateral0.add(new AddZone("Echantillon Lateral déposé rouge", "0_SampleLateralRed", Tache.Mirror.SPECIFIC));
-        largageDistributeurLateral3000.add(new AddZone("Echantillon Lateral déposé rouge", "3000_SampleLateralRed", Tache.Mirror.SPECIFIC), largageDistributeurLateral0.size());
-        largageDistributeurLateral0.add(new GoToBack("Placement campement largage vert", 720, 450, Tache.Mirror.SPECIFIC));
-        largageDistributeurLateral3000.add(new GoToBack("Placement campement largage vert", 1030, 2550, Tache.Mirror.SPECIFIC), largageDistributeurLateral0.size());
-        largageDistributeurLateral0.add(new Manipulation("Largage campement vert", ActionFileBinder.ActionFile.FENWICK_GREEN.ordinal()));
-        largageDistributeurLateral0.add(new AddZone("Echantillon Lateral déposé vert", "0_SampleLateralGreen", Tache.Mirror.SPECIFIC));
-        largageDistributeurLateral3000.add(new AddZone("Echantillon Lateral déposé vert", "3000_SampleLateralGreen", Tache.Mirror.SPECIFIC), largageDistributeurLateral0.size());
-        largageDistributeurLateral0.add(new GoToBack("Placement campement largage bleu", 720, 600, Tache.Mirror.SPECIFIC));
-        largageDistributeurLateral3000.add(new GoToBack("Placement campement largage bleu", 1030, 2400, Tache.Mirror.SPECIFIC), largageDistributeurLateral0.size());
-        largageDistributeurLateral0.add(new Manipulation("Largage campement bleu", ActionFileBinder.ActionFile.FENWICK_BLUE.ordinal()));
-        largageDistributeurLateral0.add(new AddZone("Echantillon Lateral déposé bleu", "0_SampleLateralBlue", Tache.Mirror.SPECIFIC));
-        largageDistributeurLateral3000.add(new AddZone("Echantillon Lateral déposé bleu", "3000_SampleLateralBlue", Tache.Mirror.SPECIFIC), largageDistributeurLateral0.size());
-        largageDistributeurLateral0.add(new GoToBack("Sortie campement", 720, 630, Tache.Mirror.SPECIFIC));
-        largageDistributeurLateral3000.add(new GoToBack("Sortie campement", 1030, 2370, Tache.Mirror.SPECIFIC), largageDistributeurLateral0.size());
-        largageDistributeurLateral0.add(new GoTo("Sortie campement", 900, 650, Tache.Mirror.SPECIFIC));
-        largageDistributeurLateral3000.add(new GoTo("Sortie campement", 1030, 2370, Tache.Mirror.SPECIFIC), largageDistributeurLateral0.size());
-        Objectif objectifLargageDistributeurLateral0 = new Objectif("Largage Distributeur central", objectifsCouleur0.size()+1, score, 1, largageDistributeurLateral0);
-        Objectif objectifLargageDistributeurLateral3000 = new Objectif("Largage Distributeur central", objectifsCouleur3000.size()+1, score, 1, null);
-        try {
-            objectifLargageDistributeurLateral3000.generateMirror(objectifLargageDistributeurLateral0.taches, largageDistributeurLateral3000);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        objectifsCouleur0.add(objectifLargageDistributeurLateral0);
-        objectifsCouleur3000.add(objectifLargageDistributeurLateral3000);
+        largageDistributeurLateral0.add(
+            new GoTo("Placement campement", 1200, 600)
+        );
+        largageDistributeurLateral0.add(
+            new GoTo("Placement campement", 720, 600, Tache.Mirror.SPECIFIC), 
+            new GoTo("Placement campement", 1030, 2400, Tache.Mirror.SPECIFIC)
+        );
+        largageDistributeurLateral0.add(
+            new GoTo("Placement campement largage rouge", 720, 300, Tache.Mirror.SPECIFIC), 
+            new GoTo("Placement campement largage rouge", 1030, 2700, Tache.Mirror.SPECIFIC)
+        );
+        largageDistributeurLateral0.add(
+            new Manipulation("Largage campement rouge", ActionFileBinder.ActionFile.FENWICK_RED.ordinal())
+        );
+        largageDistributeurLateral0.add(
+            new AddZone("Echantillon Lateral déposé rouge", "0_SampleLateralRed", Tache.Mirror.SPECIFIC), 
+            new AddZone("Echantillon Lateral déposé rouge", "3000_SampleLateralRed", Tache.Mirror.SPECIFIC)
+        );
+        largageDistributeurLateral0.add(
+            new GoToBack("Placement campement largage vert", 720, 450, Tache.Mirror.SPECIFIC), 
+            new GoToBack("Placement campement largage vert", 1030, 2550, Tache.Mirror.SPECIFIC)
+        );
+        largageDistributeurLateral0.add(
+            new Manipulation("Largage campement vert", ActionFileBinder.ActionFile.FENWICK_GREEN.ordinal())
+        );
+        largageDistributeurLateral0.add(
+            new AddZone("Echantillon Lateral déposé vert", "0_SampleLateralGreen", Tache.Mirror.SPECIFIC), 
+            new AddZone("Echantillon Lateral déposé vert", "3000_SampleLateralGreen", Tache.Mirror.SPECIFIC)
+        );
+        largageDistributeurLateral0.add(
+            new GoToBack("Placement campement largage bleu", 720, 600, Tache.Mirror.SPECIFIC), 
+            new GoToBack("Placement campement largage bleu", 1030, 2400, Tache.Mirror.SPECIFIC)
+        );
+        largageDistributeurLateral0.add(
+            new Manipulation("Largage campement bleu", ActionFileBinder.ActionFile.FENWICK_BLUE.ordinal())
+        );
+        largageDistributeurLateral0.add(
+            new AddZone("Echantillon Lateral déposé bleu", "0_SampleLateralBlue", Tache.Mirror.SPECIFIC), 
+            new AddZone("Echantillon Lateral déposé bleu", "3000_SampleLateralBlue", Tache.Mirror.SPECIFIC)
+        );
+        largageDistributeurLateral0.add(
+            new GoToBack("Sortie campement", 720, 630, Tache.Mirror.SPECIFIC), 
+            new GoToBack("Sortie campement", 1030, 2370, Tache.Mirror.SPECIFIC)
+        );
+        largageDistributeurLateral0.add(
+            new GoTo("Sortie campement", 900, 650, Tache.Mirror.SPECIFIC), 
+            new GoTo("Sortie campement", 1030, 2370, Tache.Mirror.SPECIFIC)
+        );
+        objectifsCouleur0.add(largageDistributeurLateral0.generateObjectif("Largage Distributeur central", objectifsCouleur0.size()+1, score, 1));
+        objectifsCouleur3000.add(largageDistributeurLateral0.generateMirrorObjectif("Largage Distributeur central", objectifsCouleur3000.size()+1, score, 1));
 
         /**
          * Carrés de fouilles
@@ -175,41 +221,106 @@ public class Main2022 {
          * carré rouge du côté de l’équipe n’est pas basculé;
          * Score = 5 * 4 + 5 = 25
          */
-        score = 25;
-        TaskList carresFouille0 =  new TaskList();
-        TaskList carresFouille3000 =  new TaskList();
-        // TODO Probablement découper ça et avoir un putain de if, c'est trop dangereux là !!!
-        carresFouille0.add(new GoToAstar("Placemnt Carré 1", 1750, 670));
-        carresFouille0.add(new Face("Alignement Carré 1", 1750, 3000));
-        carresFouille0.add(new Manipulation("Carré 1", ActionFileBinder.ActionFile.FENWICK_RIGTH_ARMS.ordinal(), Tache.Mirror.SPECIFIC));
-        carresFouille3000.add(new Manipulation("Carré 1", ActionFileBinder.ActionFile.FENWICK_LEFT_ARMS.ordinal(), Tache.Mirror.SPECIFIC), carresFouille0.size());
-        carresFouille0.add(new GoTo("Placemnt Carré 2", 1750, 850));
-        carresFouille0.add(new Manipulation("Carré 2", ActionFileBinder.ActionFile.FENWICK_RIGTH_ARMS.ordinal(), Tache.Mirror.SPECIFIC));
-        carresFouille3000.add(new Manipulation("Carré 2", ActionFileBinder.ActionFile.FENWICK_LEFT_ARMS.ordinal(), Tache.Mirror.SPECIFIC), carresFouille0.size());
-        carresFouille0.add(new GoTo("Placemnt Carré 3", 1750, 1040));
-        carresFouille0.add(new Manipulation("Carré 3", ActionFileBinder.ActionFile.FENWICK_RIGTH_ARMS.ordinal(), Tache.Mirror.SPECIFIC));
-        carresFouille3000.add(new Manipulation("Carré 3", ActionFileBinder.ActionFile.FENWICK_LEFT_ARMS.ordinal(), Tache.Mirror.SPECIFIC), carresFouille0.size());
-        carresFouille0.add(new GoTo("Placemnt Carré 4", 1750, 1220));
-        carresFouille0.add(new Manipulation("Carré 4", ActionFileBinder.ActionFile.FENWICK_RIGTH_ARMS.ordinal(), Tache.Mirror.SPECIFIC));
-        carresFouille3000.add(new Manipulation("Carré 4", ActionFileBinder.ActionFile.FENWICK_LEFT_ARMS.ordinal(), Tache.Mirror.SPECIFIC), carresFouille0.size());
-        carresFouille0.add(new GoTo("Placemnt Carré 5", 1750, 1410));
-        carresFouille0.add(new Manipulation("Carré 5", ActionFileBinder.ActionFile.FENWICK_RIGTH_ARMS.ordinal(), Tache.Mirror.SPECIFIC));
-        carresFouille3000.add(new Manipulation("Carré 5", ActionFileBinder.ActionFile.FENWICK_LEFT_ARMS.ordinal(), Tache.Mirror.SPECIFIC), carresFouille0.size());
-        carresFouille0.add(new GoTo("Placemnt Carré 6", 1750, 1590));
-        carresFouille0.add(new Manipulation("Carré 6", ActionFileBinder.ActionFile.FENWICK_RIGTH_ARMS.ordinal(), Tache.Mirror.SPECIFIC));
-        carresFouille3000.add(new Manipulation("Carré 6", ActionFileBinder.ActionFile.FENWICK_LEFT_ARMS.ordinal(), Tache.Mirror.SPECIFIC), carresFouille0.size());
-        carresFouille0.add(new GoTo("Placemnt Carré 7", 1750, 1780));
-        carresFouille0.add(new Manipulation("Carré 7", ActionFileBinder.ActionFile.FENWICK_RIGTH_ARMS.ordinal(), Tache.Mirror.SPECIFIC));
-        carresFouille3000.add(new Manipulation("Carré 7", ActionFileBinder.ActionFile.FENWICK_LEFT_ARMS.ordinal(), Tache.Mirror.SPECIFIC), carresFouille0.size());
-        Objectif objectifCarresFouille0 = new Objectif("Découverte carrés de fouilles", objectifsCouleur0.size()+1, score, 1, carresFouille0);
-        Objectif objectifCarresFouille3000 = new Objectif("Découverte carrés de fouilles", objectifsCouleur3000.size()+1, score, 1, null);
-        try {
-            objectifCarresFouille3000.generateMirror(objectifCarresFouille0.taches, carresFouille3000);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        objectifsCouleur0.add(objectifCarresFouille0);
-        objectifsCouleur3000.add(objectifCarresFouille3000);
+        score = 5;
+        TaskList carresFouille1_0 =  new TaskList();
+        carresFouille1_0.add(
+            new GoToAstar("Placement Carré 1", 1750, 670)
+        );
+        carresFouille1_0.add(
+            new Face("Alignement Carré 1", 1750, 3000)
+        );
+        carresFouille1_0.add(
+            new Manipulation("Carré 1", ActionFileBinder.ActionFile.FENWICK_RIGTH_ARMS.ordinal(), Tache.Mirror.SPECIFIC),
+            new Manipulation("Carré 1", ActionFileBinder.ActionFile.FENWICK_LEFT_ARMS.ordinal(), Tache.Mirror.SPECIFIC)
+        );
+        objectifsCouleur0.add(carresFouille1_0.generateObjectif("Carré de fouille 1", objectifsCouleur0.size()+1, score, 1));
+        objectifsCouleur3000.add(carresFouille1_0.generateMirrorObjectif("Carré de fouille 1", objectifsCouleur3000.size()+1, score, 1));
+
+        score = 10; // On le retourne toujours, donc on compte le bonus ici
+        TaskList carresFouille2_0 =  new TaskList();
+        carresFouille2_0.add(
+            new GoToAstar("Placement Carré 2", 1750, 850)
+        );
+        carresFouille2_0.add(
+                new Face("Alignement Carré 2", 1750, 3000)
+        );
+        carresFouille2_0.add(
+            new Manipulation("Carré 2", ActionFileBinder.ActionFile.FENWICK_RIGTH_ARMS.ordinal(), Tache.Mirror.SPECIFIC),
+            new Manipulation("Carré 2", ActionFileBinder.ActionFile.FENWICK_LEFT_ARMS.ordinal(), Tache.Mirror.SPECIFIC)
+        );
+        objectifsCouleur0.add(carresFouille2_0.generateObjectif("Carré de fouille 2", objectifsCouleur0.size()+1, score, 1));
+        objectifsCouleur3000.add(carresFouille2_0.generateMirrorObjectif("Carré de fouille 2", objectifsCouleur3000.size()+1, score, 1));
+
+        score = 5;
+        TaskList carresFouille3_0 =  new TaskList();
+        carresFouille3_0.add(
+            new GoToAstar("Placement Carré 3", 1750, 1040)
+        );
+        carresFouille3_0.add(
+            new Face("Placement Carré 3", 1750, 3000)
+        );
+        carresFouille3_0.add(
+            new Manipulation("Carré 3", ActionFileBinder.ActionFile.FENWICK_RIGTH_ARMS.ordinal(), Tache.Mirror.SPECIFIC),
+            new Manipulation("Carré 3", ActionFileBinder.ActionFile.FENWICK_LEFT_ARMS.ordinal(), Tache.Mirror.SPECIFIC)
+        );
+        objectifsCouleur0.add(carresFouille3_0.generateObjectif("Carré de fouille 3", objectifsCouleur0.size()+1, score, 1));
+        objectifsCouleur3000.add(carresFouille3_0.generateMirrorObjectif("Carré de fouille 3", objectifsCouleur3000.size()+1, score, 1));
+
+        TaskList carresFouille4_0 =  new TaskList();
+        carresFouille4_0.add(
+            new GoToAstar("Placement Carré 4", 1750, 1220)
+        );
+        carresFouille4_0.add(
+                new Face("Placement Carré 4", 1750, 3000)
+        );
+        carresFouille4_0.add(
+            new Manipulation("Carré 4", ActionFileBinder.ActionFile.FENWICK_RIGTH_ARMS.ordinal(), Tache.Mirror.SPECIFIC),
+            new Manipulation("Carré 4", ActionFileBinder.ActionFile.FENWICK_LEFT_ARMS.ordinal(), Tache.Mirror.SPECIFIC)
+        );
+        objectifsCouleur0.add(carresFouille4_0.generateObjectif("Carré de fouille 4", objectifsCouleur0.size()+1, score, 1));
+        objectifsCouleur3000.add(carresFouille4_0.generateMirrorObjectif("Carré de fouille 4", objectifsCouleur3000.size()+1, score, 1));
+
+        TaskList carresFouille5_0 =  new TaskList();
+        carresFouille5_0.add(
+            new GoToAstar("Placement Carré 5", 1750, 1410)
+        );
+        carresFouille5_0.add(
+                new Face("Placement Carré 5", 1750, 3000)
+        );
+        carresFouille5_0.add(
+            new Manipulation("Carré 5", ActionFileBinder.ActionFile.FENWICK_RIGTH_ARMS.ordinal(), Tache.Mirror.SPECIFIC),
+            new Manipulation("Carré 5", ActionFileBinder.ActionFile.FENWICK_LEFT_ARMS.ordinal(), Tache.Mirror.SPECIFIC)
+        );
+        objectifsCouleur0.add(carresFouille5_0.generateObjectif("Carré de fouille 5", objectifsCouleur0.size()+1, score, 1));
+        objectifsCouleur3000.add(carresFouille5_0.generateMirrorObjectif("Carré de fouille 5", objectifsCouleur3000.size()+1, score, 1));
+
+        TaskList carresFouille6_0 =  new TaskList();
+        carresFouille6_0.add(
+            new GoToAstar("Placement Carré 6", 1750, 1590)
+        );
+        carresFouille6_0.add(
+                new Face("Placement Carré 6", 1750, 3000)
+        );
+        carresFouille6_0.add(
+            new Manipulation("Carré 6", ActionFileBinder.ActionFile.FENWICK_RIGTH_ARMS.ordinal(), Tache.Mirror.SPECIFIC),
+            new Manipulation("Carré 6", ActionFileBinder.ActionFile.FENWICK_LEFT_ARMS.ordinal(), Tache.Mirror.SPECIFIC)
+        );
+        objectifsCouleur0.add(carresFouille6_0.generateObjectif("Carré de fouille 6", objectifsCouleur0.size()+1, score, 1));
+        objectifsCouleur3000.add(carresFouille6_0.generateMirrorObjectif("Carré de fouille 6", objectifsCouleur3000.size()+1, score, 1));
+
+        TaskList carresFouille7_0 =  new TaskList();
+        carresFouille7_0.add(
+            new GoToAstar("Placement Carré 7", 1750, 1780)
+        );
+        carresFouille7_0.add(
+                new Face("Placement Carré 7", 1750, 3000)
+        );
+        carresFouille7_0.add(
+            new Manipulation("Carré 7", ActionFileBinder.ActionFile.FENWICK_RIGTH_ARMS.ordinal(), Tache.Mirror.SPECIFIC),
+            new Manipulation("Carré 7", ActionFileBinder.ActionFile.FENWICK_LEFT_ARMS.ordinal(), Tache.Mirror.SPECIFIC)
+        );
+        objectifsCouleur0.add(carresFouille7_0.generateObjectif("Carré de fouille 7", objectifsCouleur0.size()+1, score, 1));
+        objectifsCouleur3000.add(carresFouille7_0.generateMirrorObjectif("Carré de fouille 7", objectifsCouleur3000.size()+1, score, 1));
 
         /**
          * Rangement
@@ -224,15 +335,8 @@ public class Main2022 {
         rangement0.add(
             new GoTo("Mise en place rangement zone de fouille", 1600, 1000)
         );
-        Objectif objectifRangement0 = new Objectif("Rangement", objectifsCouleur0.size()+1, score, 1, rangement0);
-        Objectif objectifRangement3000 = new Objectif("Rangement", objectifsCouleur0.size()+1, score, 1, null);
-        try {
-            objectifRangement3000.generateMirror(objectifRangement0.taches);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        objectifsCouleur0.add(objectifRangement0);
-        objectifsCouleur3000.add(objectifRangement3000);
+        objectifsCouleur0.add(rangement0.generateObjectif("Rangement", objectifsCouleur0.size()+1, score, 1));
+        objectifsCouleur3000.add(rangement0.generateMirrorObjectif("Rangement", objectifsCouleur3000.size()+1, score, 1));
 
         // Création de la stratégie complète
         Strategie strat = new Strategie();
