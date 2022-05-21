@@ -262,8 +262,14 @@ public class Tache implements Cloneable {
         } else if (finalX == currentPosition.getX()) {
             return finalY > currentPosition.getY() ? Math.PI / 2 : -Math.PI / 2;
         } else {
+            double adjust = 0;
+            if (finalY > currentPosition.getY() && finalX > currentPosition.getX()) {
+                adjust = 0;
+            } else if (finalY > currentPosition.getY() || finalX < currentPosition.getX()) {
+                adjust = Math.PI;
+            }
             return
-                (finalY > currentPosition.getY() || finalX < currentPosition.getX() ? Math.PI : 0) +
+                adjust +
                 Math.atan(((double)(finalY - currentPosition.getY())) / ((double)(finalX - currentPosition.getX())));
         }
     }

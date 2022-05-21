@@ -28,6 +28,9 @@ public class ActionFileBinder implements ActionInterface {
 		FENWICK_BLUE("fenwick_blue.json", false), // 6
 		FENWICK_RIGTH_ARMS("fenwick_rigth_arms.json", false), // 7
 		FENWICK_LEFT_ARMS("fenwick_left_arms.json", false), // 8
+
+		PASSPASS_GET_STATUE("passpass_get_statue.json", false), // 9
+		PASSPASS_PUT_FAKE("passpass_put_fake.json", false), // 10
 		;
 
 		public final String nomFichier;
