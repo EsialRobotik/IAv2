@@ -13,6 +13,7 @@ public class ActionSupervisor {
     private ActionExecutor currentActionExecutor;
     private ArrayList<Integer> initActionsId;
     private CommunicationManager communicationManager;
+    private String actionFlag;
 
     public ActionSupervisor(ActionInterface actionInterface, ArrayList<Integer> initActionsId) {
         this.actionInterface = actionInterface;
@@ -23,7 +24,12 @@ public class ActionSupervisor {
         return actionInterface.getActionExecutor(id);
     }
 
+    public String getActionFlag() {
+        return actionFlag;
+    }
+
     public void executeCommand(int id) {
+        actionFlag = null;
         currentActionExecutor = actionInterface.getActionExecutor(id);
         currentActionExecutor.resetActionState();
         Thread t = new Thread(new Runnable() {
@@ -61,7 +67,11 @@ public class ActionSupervisor {
     }
 
     public boolean isLastExecutionFinished() {
-        return this.currentActionExecutor.finished();
+        if (currentActionExecutor.finished()) {
+            actionFlag = currentActionExecutor.getActionFlag();
+            return true;
+        }
+        return false;
     }
 
     public void setCommunicationManager(CommunicationManager communicationManager) {

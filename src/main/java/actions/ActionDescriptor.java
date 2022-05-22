@@ -17,6 +17,7 @@ public class ActionDescriptor {
     private int objectiveId;
     private int points;
     private int priority;
+    private String skipFlag;
 
     private List<Step> stepList;
     private int stepIndex;
@@ -36,6 +37,9 @@ public class ActionDescriptor {
         for (JsonElement elt : object.get("taches").getAsJsonArray()) {
             stepList.add(new Step(elt.getAsJsonObject()));
         }
+        if (object.has("skipFlag")) {
+            skipFlag = object.get("skipFlag").getAsString();
+        }
     }
 
     public String toString() {
@@ -43,6 +47,7 @@ public class ActionDescriptor {
         res += "\ndesc : " + desc;
         res += "\npoints: " + points;
         res += "\npriority : " + priority;
+        res += "\nskipFlag : " + skipFlag;
         return res;
     }
 
@@ -90,6 +95,14 @@ public class ActionDescriptor {
 
     public void setScanner(Scanner scanner) {
         this.scanner = scanner;
+    }
+
+    public int getObjectiveId() {
+        return objectiveId;
+    }
+
+    public String getSkipFlag() {
+        return skipFlag;
     }
 
     public static void main(String[] args) throws FileNotFoundException {

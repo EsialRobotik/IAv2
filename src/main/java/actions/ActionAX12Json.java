@@ -75,4 +75,8 @@ public class ActionAX12Json implements ActionExecutor {
 		// nothing
 	}
 
+	@Override
+	public String getActionFlag() {
+		return null;
+	}
 }
