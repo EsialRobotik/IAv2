@@ -120,6 +120,11 @@ public class PmiBoussoleAction implements ActionExecutor {
         this.commData = data;
     }
 
+    @Override
+    public String getActionFlag() {
+        return null;
+    }
+
     public void setCommunicationManager(CommunicationManager communicationManager) {
         // nothing
     }

@@ -32,4 +32,10 @@ public interface ActionExecutor {
 
     void setCommunicationManager(CommunicationManager communicationManager);
 
+    /**
+     * Renvoit l'action flag pour skip des objectifs si besoin
+     * @return actionFlag ou null
+     */
+    String getActionFlag();
+
 }

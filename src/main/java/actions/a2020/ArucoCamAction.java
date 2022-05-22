@@ -137,6 +137,11 @@ public class ArucoCamAction implements ActionExecutor {
         // nothing
     }
 
+    @Override
+    public String getActionFlag() {
+        return null;
+    }
+
     public static void main(String args[]) throws IOException, InterruptedException {
         LoggerFactory.init(Level.TRACE);
         Shell shell = new Shell("python /home/pi/2020Aruco/testPiCameraArucoShell.py --quiet");

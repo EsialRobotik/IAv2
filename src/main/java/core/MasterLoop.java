@@ -249,6 +249,9 @@ public class MasterLoop {
         } else if ((type == Step.Type.DEPLACEMENT) && movementManager.isLastOrderedMovementEnded()) {
             return true;
         } else if (type == Step.Type.MANIPULATION && actionSupervisor.isLastExecutionFinished()) {
+            if (actionSupervisor.getActionFlag() != null) {
+                actionCollection.addActionFlag(actionSupervisor.getActionFlag());
+            }
             return true;
         } else if (type == Step.Type.ELEMENT) {
             return  true;

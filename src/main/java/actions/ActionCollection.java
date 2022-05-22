@@ -6,15 +6,15 @@ import com.google.gson.stream.JsonReader;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Created by Guillaume on 18/05/2017.
  */
 public class ActionCollection {
     private List<ActionDescriptor> actionList;
+    private Map<Integer, Boolean> actionFinished;
+    private List<String> actionFlags;
     private int currentIndex;
     private JsonElement jsonElement;
     private boolean stepByStep = false;
@@ -34,6 +34,8 @@ public class ActionCollection {
 
     public void prepareActionList(boolean isColor0) {
         actionList = new ArrayList<>();
+        actionFinished = new HashMap<>();
+        actionFlags = new ArrayList<>();
         this.isColor0 = isColor0;
         for (JsonElement element : jsonElement.getAsJsonObject().getAsJsonArray(isColor0 ? "couleur0" : "couleur3000")) {
             ActionDescriptor action = new ActionDescriptor(element.getAsJsonObject(), this.stepByStep);
@@ -41,6 +43,7 @@ public class ActionCollection {
                 action.setScanner(this.scanner);
             }
             actionList.add(action);
+            actionFinished.put(action.getObjectiveId(), false);
         }
     }
 
@@ -53,6 +56,12 @@ public class ActionCollection {
     }
 
     public ActionDescriptor getNextActionToPerform() {
+        // TODO devenir inteligent ici...
+        // - Ajouter une liste de tag de pré-requis comme les skip
+        // - Trier les actions par ID puis Prio
+        // - Parcourir les actions tant que tout n'est pas fait
+        // - Utiliser le lidar intelligemment pour vérifier que les actions sont atteignables
+
         if (currentIndex >= actionList.size()) {
             return null;
         }
@@ -62,7 +71,21 @@ public class ActionCollection {
             scanner.nextLine();
         }
 
-        return actionList.get(currentIndex++);
+        // Skip finished action
+        ActionDescriptor nextAction = actionList.get(currentIndex++);
+        if (nextAction.getSkipFlag() != null && actionFlags.contains(nextAction.getSkipFlag())) {
+            actionFinished.put(nextAction.getObjectiveId(), true);
+        }
+        while (actionFinished.get(nextAction.getObjectiveId())) {
+            if (currentIndex >= actionList.size()) {
+                return null;
+            }
+            nextAction = actionList.get(currentIndex++);
+            if (nextAction.getSkipFlag() != null && actionFlags.contains(nextAction.getSkipFlag())) {
+                actionFinished.put(nextAction.getObjectiveId(), true);
+            }
+        }
+        return nextAction;
     }
 
     public List<ActionDescriptor> getActionList() {
@@ -87,6 +110,11 @@ public class ActionCollection {
 
     public void addAction(ActionDescriptor action) {
         actionList.add(action);
+        actionFinished.put(action.getObjectiveId(), false);
+    }
+
+    public void addActionFlag(String flag) {
+        actionFlags.add(flag);
     }
 
     public static void main(String args[]) throws FileNotFoundException {
