@@ -6,9 +6,9 @@ import api.qik.Qik;
 
 import java.io.IOException;
 
-public class PasspassTake extends ActionReflexiveAbstract {
+public class PasspassPutFakeStatue extends ActionReflexiveAbstract {
 
-    public PasspassTake(ActionFileBinder actionFileBinder) {
+    public PasspassPutFakeStatue(ActionFileBinder actionFileBinder) {
         super(actionFileBinder);
     }
 
@@ -25,17 +25,20 @@ public class PasspassTake extends ActionReflexiveAbstract {
             public void run() {
                 Qik qik = actionFileBinder.getQikLink();
                 try {
-                    qik.setM1Speed(127);
+                    qik.setM1Speed(-127);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                executeSubActions(ActionFileBinder.ActionFile.PASSPASS_AX_BRAS_PRISE_TAKE_DOWN.ordinal());
                 try {
-                    Thread.sleep(150);
+                    Thread.sleep(100);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                executeSubActions(ActionFileBinder.ActionFile.PASSPASS_AX_BRAS_PRISE_TAKE_UP.ordinal());
+                try {
+                    qik.setM1Speed(0);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 finished = true;
             }
         }).start();

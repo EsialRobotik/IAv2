@@ -37,12 +37,11 @@ public class ActionFileBinder implements ActionInterface {
 		FENWICK_FOUILLE_GAUCHE_1("FenwickFouilleGauche1", false, "reflexive"), // 8
 
 		PASSPASS_GET_STATUE("PasspassGetStatue", false, "reflexive"), // 9
-		PASSPASS_PUT_FAKE("PasspassPutFake", false, "reflexive"), // 10
+		PASSPASS_PUT_FAKE_STATUE("PasspassPutFakeStatue", false, "reflexive"), // 10
 		PASSPASS_TAKE("PasspassTake", false, "reflexive"), // 11
 		PASSPASS_STORE("PasspassStore", false, "reflexive"), // 12
 		PASSPASS_UNSTORE("PasspassUnstore", false, "reflexive"), // 13
 		PASSPASS_SWITCH("PasspassSwitch", false, "reflexive"), // 14
-		PASSPASS_PUT("PasspassPut", false, "reflexive"), // 15
 		PASSPASS_PUT_RELEASE("PasspassPutRelease", false, "reflexive"), // 16
 
 		FENWICK_ASCENSEUR_INIT("z", false, "serial"), // 17
@@ -64,19 +63,21 @@ public class ActionFileBinder implements ActionInterface {
 		PASSPASS_AX_BRAS_POSE_OUT("passpass_ax_bras_pose_out.json"), // 31
 		PASSPASS_AX_BRAS_POSE_IN("passpass_ax_bras_pose_in.json"), // 32
 		PASSPASS_AX_BRAS_PRISE_TAKE_UP("passpass_ax_bras_prise_take_up.json"), // 33
-		PASSPASS_AX_BRAS_PRISE_STORE("passpass_ax_bras_prise_store.json"), // 34
+		PASSPASS_AX_BRAS_PRISE_TAKE_DOWN("passpass_ax_bras_prise_take_down.json"), // 34
+		PASSPASS_AX_BRAS_PRISE_STORE("passpass_ax_bras_prise_store.json"), // 35
 
-		PASSPASS_AX_BRAS_STORE_OUT("passpass_ax_bras_store_out.json"), // 35
-		PASSPASS_AX_BRAS_STORE_IN("passpass_ax_bras_store_in.json"), // 35
-		PASSPASS_AX_BRAS_STORE_POMPE("passpass_ax_bras_store_pompe.json"), // 36
-		PASSPASS_AX_SWITCH("passpass_switch.json"), // 37
+		PASSPASS_AX_BRAS_STORE_OUT("passpass_ax_bras_store_out.json"), // 36
+		PASSPASS_AX_BRAS_STORE_IN("passpass_ax_bras_store_in.json"), // 37
+		PASSPASS_AX_BRAS_STORE_POMPE_ON("passpass_ax_bras_store_pompe_on.json"), // 38
+		PASSPASS_AX_BRAS_STORE_POMPE_OFF("passpass_ax_bras_store_pompe_off.json"), // 38
+		PASSPASS_AX_SWITCH("passpass_switch.json"), // 39
 
-		FENWICK_SONDE_DROITE_OUT("fenwick_sonde_droite_out.json"), // 38
-		FENWICK_SONDE_DROITE_IN("fenwick_sonde_droite_in.json"), // 39
-		FENWICK_SONDE_GAUCHE_OUT("fenwick_sonde_gauche_out.json"), // 40
-		FENWICK_SONDE_GAUCHE_IN("fenwick_sonde_gauche_in.json"), // 41
-		FENWICK_FOUILLE_DROITE_4("FenwickFouilleDroite4", false, "reflexive"), // 42
-		FENWICK_FOUILLE_GAUCHE_4("FenwickFouilleGauche4", false, "reflexive"), // 43
+		FENWICK_SONDE_DROITE_OUT("fenwick_sonde_droite_out.json"), // 40
+		FENWICK_SONDE_DROITE_IN("fenwick_sonde_droite_in.json"), // 41
+		FENWICK_SONDE_GAUCHE_OUT("fenwick_sonde_gauche_out.json"), // 42
+		FENWICK_SONDE_GAUCHE_IN("fenwick_sonde_gauche_in.json"), // 43
+		FENWICK_FOUILLE_DROITE_4("FenwickFouilleDroite4", false, "reflexive"), // 44
+		FENWICK_FOUILLE_GAUCHE_4("FenwickFouilleGauche4", false, "reflexive"), // 45
 		;
 
 		public static final String ACTION_AX12 = "ax12";

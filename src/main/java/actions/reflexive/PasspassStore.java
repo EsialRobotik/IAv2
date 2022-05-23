@@ -2,7 +2,9 @@ package actions.reflexive;
 
 import actions.ActionReflexiveAbstract;
 import actions.a2022.ActionFileBinder;
-import manager.CommunicationManager;
+import api.qik.Qik;
+
+import java.io.IOException;
 
 public class PasspassStore extends ActionReflexiveAbstract {
 
@@ -12,31 +14,43 @@ public class PasspassStore extends ActionReflexiveAbstract {
 
     @Override
     public void execute() {
+        logger.info("Start action " + this.getClass());
+        if (finished) {
+            logger.info("Action already finished " + this.getClass());
+            return;
+        }
 
-    }
-
-    @Override
-    public boolean finished() {
-        return false;
-    }
-
-    @Override
-    public void resetActionState() {
-
-    }
-
-    @Override
-    public void setData(String data) {
-
-    }
-
-    @Override
-    public void setCommunicationManager(CommunicationManager communicationManager) {
-
-    }
-
-    @Override
-    public String getActionFlag() {
-        return null;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                executeSubActions(ActionFileBinder.ActionFile.PASSPASS_AX_BRAS_PRISE_STORE.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.PASSPASS_AX_BRAS_STORE_POMPE_ON.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.PASSPASS_AX_BRAS_STORE_OUT.ordinal());
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                Qik qik = actionFileBinder.getQikLink();
+                try {
+                    qik.setM1Speed(-127);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    qik.setM1Speed(0);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                executeSubActions(ActionFileBinder.ActionFile.PASSPASS_AX_BRAS_STORE_IN.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.PASSPASS_AX_BRAS_PRISE_TAKE_UP.ordinal());
+                finished = true;
+            }
+        }).start();
     }
 }

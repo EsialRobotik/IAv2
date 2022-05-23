@@ -85,7 +85,7 @@ public class MainPmi2022 {
             new Go("Placement final libération réplique", 40, 200)
         );
         swapStatuette0.add(
-            new Manipulation("Libération réplique", ActionFileBinder.ActionFile.PASSPASS_PUT_FAKE.ordinal())
+            new Manipulation("Libération réplique", ActionFileBinder.ActionFile.PASSPASS_PUT_FAKE_STATUE.ordinal())
         );
         swapStatuette0.add(
             new Go("Libération chantier", -200)
@@ -129,10 +129,13 @@ public class MainPmi2022 {
             new Face("Alignement exposition", 0, 2535, Tache.Mirror.SPECIFIC)
         );
         deposeStatuette0.add(
+                new Manipulation("Dépose statuette", ActionFileBinder.ActionFile.PASSPASS_AX_BRAS_POSE_OUT.ordinal())
+        );
+        deposeStatuette0.add(
             new Go("Collage statuette", 10, 200)
         );
         deposeStatuette0.add(
-            new Manipulation("Dépose statuette", ActionFileBinder.ActionFile.PASSPASS_GET_STATUE.ordinal())
+            new Manipulation("Dépose statuette", ActionFileBinder.ActionFile.PASSPASS_PUT_RELEASE.ordinal())
         );
         deposeStatuette0.add(
             new Go("Sortie exposition", -190)
@@ -231,7 +234,7 @@ public class MainPmi2022 {
                 new Face("Position dépose vert", 0, 2290, Tache.Mirror.SPECIFIC)
         );
         deposeEchantillonVert0.add(
-                new Manipulation("Depose vert", ActionFileBinder.ActionFile.PASSPASS_PUT.ordinal())
+                new Manipulation("Depose vert", ActionFileBinder.ActionFile.PASSPASS_AX_BRAS_POSE_OUT.ordinal())
         );
         deposeEchantillonVert0.add(
             new Go("Mise en place dépose vert", 100, 1000)
@@ -241,6 +244,9 @@ public class MainPmi2022 {
         );
         deposeEchantillonVert0.add(
                 new Go("Sortie dépose vert", -100)
+        );
+        deposeEchantillonVert0.add(
+                new Manipulation("Depose vert", ActionFileBinder.ActionFile.PASSPASS_AX_BRAS_POSE_IN.ordinal())
         );
         deposeEchantillonVert0.add(
                 new Manipulation("Switch pour rouge", ActionFileBinder.ActionFile.PASSPASS_SWITCH.ordinal())
@@ -273,7 +279,7 @@ public class MainPmi2022 {
                 new Face("Position dépose Rouge", 0, 2050, Tache.Mirror.SPECIFIC)
         );
         deposeEchantillonRouge0.add(
-                new Manipulation("Depose Rouge", ActionFileBinder.ActionFile.PASSPASS_PUT.ordinal())
+                new Manipulation("Depose Rouge", ActionFileBinder.ActionFile.PASSPASS_AX_BRAS_POSE_OUT.ordinal())
         );
         deposeEchantillonRouge0.add(
                 new Go("Mise en place dépose Rouge", 100, 1000)
@@ -283,6 +289,9 @@ public class MainPmi2022 {
         );
         deposeEchantillonRouge0.add(
                 new Go("Sortie dépose Rouge", -100)
+        );
+        deposeEchantillonRouge0.add(
+                new Manipulation("Depose Rouge", ActionFileBinder.ActionFile.PASSPASS_AX_BRAS_POSE_IN.ordinal())
         );
         deposeEchantillonRouge0.add(
                 new Manipulation("Switch pour bleu", ActionFileBinder.ActionFile.PASSPASS_UNSTORE.ordinal())
@@ -319,7 +328,7 @@ public class MainPmi2022 {
                 new Face("Position dépose Bleu", 0, 2530, Tache.Mirror.SPECIFIC)
         );
         deposeEchantillonBleu0.add(
-                new Manipulation("Depose Bleu", ActionFileBinder.ActionFile.PASSPASS_PUT.ordinal())
+                new Manipulation("Depose Bleu", ActionFileBinder.ActionFile.PASSPASS_AX_BRAS_STORE_OUT.ordinal())
         );
         deposeEchantillonBleu0.add(
                 new Go("Mise en place dépose Bleu", 100, 1000)
@@ -331,7 +340,7 @@ public class MainPmi2022 {
                 new Go("Sortie dépose Bleu", -100)
         );
         deposeEchantillonBleu0.add(
-                new Manipulation("On range tout", ActionFileBinder.ActionFile.INIT_SMALL.ordinal())
+                new Manipulation("Depose Bleu", ActionFileBinder.ActionFile.PASSPASS_AX_BRAS_STORE_IN.ordinal())
         );
         Objectif objectifDeposeEchantillonBleu0 = new Objectif("Dépose échantillon Bleu", objectifsCouleur0.size() + 1, score, 1, deposeEchantillonBleu0);
         Objectif objectifDeposeEchantillonBleu3000 = new Objectif("Dépose échantillon Bleu", objectifsCouleur3000.size() + 1, score, 1, null);
