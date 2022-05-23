@@ -63,7 +63,7 @@ public class ActionFileBinder implements ActionInterface {
 
 		PASSPASS_AX_BRAS_POSE_OUT("passpass_ax_bras_pose_out.json"), // 31
 		PASSPASS_AX_BRAS_POSE_IN("passpass_ax_bras_pose_in.json"), // 32
-		PASSPASS_AX_BRAS_PRISE_TAKE("passpass_ax_bras_prise_take.json"), // 33
+		PASSPASS_AX_BRAS_PRISE_TAKE_UP("passpass_ax_bras_prise_take_up.json"), // 33
 		PASSPASS_AX_BRAS_PRISE_STORE("passpass_ax_bras_prise_store.json"), // 34
 
 		PASSPASS_AX_BRAS_STORE_OUT("passpass_ax_bras_store_out.json"), // 35
