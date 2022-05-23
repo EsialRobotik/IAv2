@@ -76,7 +76,7 @@
             "baud": 115200
         },
         "dataDir": "/home/pi/IA/actions/",
-        "init": [0, 16],
+        "init": [0, 16, 17],
         "funnyAction": {
             "actionId": 12,
             "score": 10
