@@ -21,7 +21,7 @@ sourceCompatibility = 1.8
 
 remotes {
     bigPrincessPi {
-        host = '192.168.0.103'
+        host = '192.168.0.105'
         user = 'pi'
         identity = file("${System.properties['user.home']}/.ssh/id_rsa")
     }
@@ -54,6 +54,7 @@ task deployBigPrincess {
                 put from: 'config/2022/table0.tbl', into: 'IA'
                 put from: 'config/2022/table3000.tbl', into: 'IA'
                 put from: 'src/main/java/actions/a2022/actions/', into: 'IA'
+                execute 'sudo rm -rf IA/webRootDir/*'
                 execute 'sudo sync'
             }
         }
@@ -71,6 +72,7 @@ task deploySmallPrincess {
                 put from: 'config/2022/table0.tbl', into: 'IA'
                 put from: 'config/2022/table3000.tbl', into: 'IA'
                 put from: 'src/main/java/actions/a2022/actions/', into: 'IA'
+                execute 'sudo rm -rf IA/webRootDir/*'
                 execute 'sudo sync'
             }
         }

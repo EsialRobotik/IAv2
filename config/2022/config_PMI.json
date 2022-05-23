@@ -101,9 +101,9 @@
                     "address": 112,
                     "maxAnalogGain": 31,
                     "range": 13,
-                    "x": 70,
-                    "y": 100,
-                    "angle": 0,
+                    "x": 80,
+                    "y": 130,
+                    "angle": 30,
                     "threshold": 350
                 },
                 {
@@ -111,8 +111,8 @@
                     "address": 116,
                     "maxAnalogGain": 31,
                     "range": 13,
-                    "x": 70,
-                    "y": -100,
+                    "x": 80,
+                    "y": 0,
                     "angle": 0,
                     "threshold": 350
                 },
@@ -121,9 +121,9 @@
                     "address": 115,
                     "maxAnalogGain": 31,
                     "range": 13,
-                    "x": 70,
-                    "y": 0,
-                    "angle": 0,
+                    "x": 80,
+                    "y": -130,
+                    "angle": -30,
                     "threshold": 350
                 },
                 {
@@ -131,7 +131,7 @@
                     "address": 113,
                     "maxAnalogGain": 31,
                     "range": 13,
-                    "x": -70,
+                    "x": -80,
                     "y": 0,
                     "angle": 180,
                     "threshold": 280
