@@ -78,8 +78,10 @@
         ]
     },
     "actions": {
-        "baud": 115200,
-        "serie": "/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_00000000-if00-port0",
+        "ax12": {
+            "serie": "/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_00000000-if00-port0",
+            "baud": 115200
+        },
         "qik": {
             "serie": "/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_A5XK3RJT-if00-port0",
             "baud": 115200

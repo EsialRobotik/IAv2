@@ -7,6 +7,7 @@ import actions.a2022.ActionFileBinder;
 import api.ax12.AX12LinkException;
 import api.ax12.AX12LinkSerial;
 import api.chrono.Chrono;
+import api.communication.Serial;
 import api.gpio.ColorDetector;
 import api.gpio.Tirette;
 import api.lcd.LCD;
@@ -133,21 +134,29 @@ public class ConfigurationManager {
             configObject = configRootNode.get("actions").getAsJsonObject();
             actionCollection = new ActionCollection(configRootNode.get("commandFile").getAsString());
 
-            if(configObject.has("serie")) {
-                SerialPort sp = AX12LinkSerial.getSerialPort(configObject.get("serie").getAsString());
-                AX12LinkSerial ax12Link = new AX12LinkSerial(sp, configObject.get("baud").getAsInt());
+            if(configObject.has("ax12")) {
+                AX12LinkSerial ax12Link = null;
+                if (configObject.has("ax12")) {
+                    JsonObject ax12Config = configObject.get("ax12").getAsJsonObject();
+                    SerialPort sp = AX12LinkSerial.getSerialPort(ax12Config.get("serial").getAsString());
+                    ax12Link = new AX12LinkSerial(sp, ax12Config.get("baud").getAsInt());
+                }
+                Qik qikLink = null;
+                if (configObject.has("qik")) {
+                    qikLink = new Qik(configObject.getAsJsonObject("qik"));
+                }
+                Serial serialLink = null;
+                if (configObject.has("serial")) {
+                    JsonObject serialConfig = configObject.getAsJsonObject("serial");
+                    serialLink = new Serial(serialConfig.get("serie").getAsString(), serialConfig.get("baud").getAsInt());
+                }
                 String dataDir = configObject.get("dataDir").getAsString();
                 JsonArray initArray = configObject.getAsJsonArray("init");
                 ArrayList<Integer> initActionsIds = new ArrayList<>();
                 for (JsonElement actionId : initArray) {
                     initActionsIds.add(actionId.getAsInt());
                 }
-                if (configObject.has("qik")) {
-                    Qik qikLink = new Qik(configObject.getAsJsonObject("qik"));
-                    actionFileBinder = new ActionFileBinder(ax12Link, dataDir, actionCollection, qikLink);
-                } else {
-                    actionFileBinder = new ActionFileBinder(ax12Link, dataDir, actionCollection);
-                }
+                actionFileBinder = new ActionFileBinder(ax12Link, dataDir, actionCollection, qikLink, serialLink);
 
                 actionSupervisor = new ActionSupervisor(actionFileBinder, initActionsIds);
                 JsonObject funnyAction = configObject.getAsJsonObject("funnyAction");
