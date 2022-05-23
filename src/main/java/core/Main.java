@@ -512,6 +512,8 @@ public class Main {
                         e.printStackTrace();
                     }
                 }
+                System.out.println("Id de l'action à exécuter (voir ActionFileBinder)");
+                System.out.print(">");
             }
         }
     }

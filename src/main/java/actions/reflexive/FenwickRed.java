@@ -1,6 +1,5 @@
 package actions.reflexive;
 
-import actions.ActionExecutor;
 import actions.ActionReflexiveAbstract;
 import actions.a2022.ActionFileBinder;
 
@@ -12,37 +11,35 @@ public class FenwickRed extends ActionReflexiveAbstract {
 
     @Override
     public void execute() {
+        logger.info("Start action " + this.getClass());
         if (finished) {
+            logger.info("Action already finished " + this.getClass());
             return;
         }
 
         new Thread(new Runnable() {
             @Override
             public void run() {
-                ActionExecutor actionExecutor = actionFileBinder.getActionExecutor(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_HAUTEUR_PILE_3.ordinal());
-                actionExecutor.execute();
-                waitForAction(actionExecutor);
-                actionExecutor = actionFileBinder.getActionExecutor(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_POMPE_SUCK.ordinal());
-                actionExecutor.execute();
-                waitForAction(actionExecutor);
-                actionExecutor = actionFileBinder.getActionExecutor(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_HAUTEUR_TOP.ordinal());
-                actionExecutor.execute();
-                waitForAction(actionExecutor);
-                actionExecutor = actionFileBinder.getActionExecutor(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_OUT.ordinal());
-                actionExecutor.execute();
-                waitForAction(actionExecutor);
-                actionExecutor = actionFileBinder.getActionExecutor(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_HAUTEUR_LACHER.ordinal());
-                actionExecutor.execute();
-                waitForAction(actionExecutor);
-                actionExecutor = actionFileBinder.getActionExecutor(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_POMPE_RELEASE.ordinal());
-                actionExecutor.execute();
-                waitForAction(actionExecutor);
-                actionExecutor = actionFileBinder.getActionExecutor(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_HAUTEUR_TOP.ordinal());
-                actionExecutor.execute();
-                waitForAction(actionExecutor);
-                actionExecutor = actionFileBinder.getActionExecutor(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_IN.ordinal());
-                actionExecutor.execute();
-                waitForAction(actionExecutor);
+                executeSubActions(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_POMPE_SUCK.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_HAUTEUR_PILE_3.ordinal());
+                // wait to suck
+                try {
+                    Thread.sleep(250);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                executeSubActions(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_HAUTEUR_TOP.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_OUT.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_HAUTEUR_LACHER.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_POMPE_RELEASE.ordinal());
+                // wait to release
+                try {
+                    Thread.sleep(250);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                executeSubActions(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_HAUTEUR_TOP.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_IN.ordinal());
                 finished = true;
             }
         }).start();
