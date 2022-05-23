@@ -61,25 +61,25 @@ public class ActionFileBinder implements ActionInterface {
 		FENWICK_ASCENSEUR_HAUTEUR_PILE_1("g25", false, "serial"), // 29
 		FENWICK_ASCENSEUR_HAUTEUR_LACHER("g5", false, "serial"), // 30
 
-		PASSPASS_AX_GET_STATUE("passpass_get_statue.json"), // 31
-		PASSPASS_AX_PUT_FAKE("passpass_put_fake.json"), // 32
-		PASSPASS_AX_TAKE("passpass_take.json"), // 33
-		PASSPASS_AX_STORE("passpass_store.json"), // 34
-		PASSPASS_AX_UNSTORE("passpass_unstore.json"), // 35
-		PASSPASS_AX_SWITCH("passpass_switch.json"), // 36
-		PASSPASS_AX_PUT("passpass_put.json"), // 37
-		PASSPASS_AX_PUT_RELEASE("passpass_put_release.json"), // 38
+		PASSPASS_AX_BRAS_POSE_OUT("passpass_ax_bras_pose_out.json"), // 31
+		PASSPASS_AX_BRAS_POSE_IN("passpass_ax_bras_pose_in.json"), // 32
+		PASSPASS_AX_BRAS_PRISE_TAKE("passpass_ax_bras_prise_take.json"), // 33
+		PASSPASS_AX_BRAS_PRISE_STORE("passpass_ax_bras_prise_store.json"), // 34
 
-		FENWICK_SONDE_DROITE_OUT("fenwick_sonde_droite_out.json"), // 39
-		FENWICK_SONDE_DROITE_IN("fenwick_sonde_droite_in.json"), // 40
-		FENWICK_SONDE_GAUCHE_OUT("fenwick_sonde_gauche_out.json"), // 41
-		FENWICK_SONDE_GAUCHE_IN("fenwick_sonde_gauche_in.json"), // 42
-		FENWICK_FOUILLE_DROITE_4("FenwickFouilleDroite4", false, "reflexive"), // 43
-		FENWICK_FOUILLE_GAUCHE_4("FenwickFouilleGauche4", false, "reflexive"), // 44
+		PASSPASS_AX_BRAS_STORE_OUT("passpass_ax_bras_store_out.json"), // 35
+		PASSPASS_AX_BRAS_STORE_IN("passpass_ax_bras_store_in.json"), // 35
+		PASSPASS_AX_BRAS_STORE_POMPE("passpass_ax_bras_store_pompe.json"), // 36
+		PASSPASS_AX_SWITCH("passpass_switch.json"), // 37
+
+		FENWICK_SONDE_DROITE_OUT("fenwick_sonde_droite_out.json"), // 38
+		FENWICK_SONDE_DROITE_IN("fenwick_sonde_droite_in.json"), // 39
+		FENWICK_SONDE_GAUCHE_OUT("fenwick_sonde_gauche_out.json"), // 40
+		FENWICK_SONDE_GAUCHE_IN("fenwick_sonde_gauche_in.json"), // 41
+		FENWICK_FOUILLE_DROITE_4("FenwickFouilleDroite4", false, "reflexive"), // 42
+		FENWICK_FOUILLE_GAUCHE_4("FenwickFouilleGauche4", false, "reflexive"), // 43
 		;
 
 		public static final String ACTION_AX12 = "ax12";
-		public static final String ACTION_QIK = "qik";
 		public static final String ACTION_SERIAL = "serial";
 		public static final String ACTION_REFLEXIVE = "reflexive";
 
