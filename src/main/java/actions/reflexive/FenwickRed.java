@@ -29,12 +29,17 @@ public class FenwickRed extends ActionReflexiveAbstract {
                     e.printStackTrace();
                 }
                 executeSubActions(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_HAUTEUR_TOP.ordinal());
+                try {
+                    Thread.sleep(50);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 executeSubActions(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_OUT.ordinal());
                 executeSubActions(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_HAUTEUR_LACHER.ordinal());
                 executeSubActions(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_POMPE_RELEASE.ordinal());
                 // wait to release
                 try {
-                    Thread.sleep(250);
+                    Thread.sleep(350);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

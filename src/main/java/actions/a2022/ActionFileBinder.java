@@ -55,11 +55,11 @@ public class ActionFileBinder implements ActionInterface {
 		FENWICK_BRAS_GAUCHE_OUT("fenwick_bras_gauche_out.json"), // 24
 		FENWICK_BRAS_GAUCHE_IN("fenwick_bras_gauche_in.json"), // 25
 
-		FENWICK_ASCENSEUR_HAUTEUR_TOP("g135", false, "serial"), // 26
+		FENWICK_ASCENSEUR_HAUTEUR_TOP("g130", false, "serial"), // 26
 		FENWICK_ASCENSEUR_HAUTEUR_PILE_3("g55", false, "serial"), // 27
 		FENWICK_ASCENSEUR_HAUTEUR_PILE_2("g40", false, "serial"), // 28
 		FENWICK_ASCENSEUR_HAUTEUR_PILE_1("g25", false, "serial"), // 29
-		FENWICK_ASCENSEUR_HAUTEUR_LACHER("g10", false, "serial"), // 30
+		FENWICK_ASCENSEUR_HAUTEUR_LACHER("g5", false, "serial"), // 30
 
 		PASSPASS_AX_GET_STATUE("passpass_get_statue.json"), // 31
 		PASSPASS_AX_PUT_FAKE("passpass_put_fake.json"), // 32
