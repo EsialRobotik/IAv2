@@ -23,13 +23,14 @@ public class PasspassSwitch extends ActionReflexiveAbstract {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                executeSubActions(ActionFileBinder.ActionFile.PASSPASS_AX_SWITCH.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.PASSPASS_AX_SWITCH_FACE.ordinal());
                 Qik qik = actionFileBinder.getQikLink();
                 try {
                     qik.setM0Speed(127);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                executeSubActions(ActionFileBinder.ActionFile.PASSPASS_AX_SWITCH_KISS.ordinal());
                 try {
                     qik.setM1Speed(-127);
                 } catch (IOException e) {
@@ -45,6 +46,7 @@ public class PasspassSwitch extends ActionReflexiveAbstract {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                executeSubActions(ActionFileBinder.ActionFile.PASSPASS_AX_SWITCH_FACE.ordinal());
                 executeSubActions(ActionFileBinder.ActionFile.PASSPASS_AX_BRAS_POSE_IN.ordinal());
                 executeSubActions(ActionFileBinder.ActionFile.PASSPASS_AX_BRAS_PRISE_TAKE_UP.ordinal());
                 finished = true;

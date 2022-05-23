@@ -70,7 +70,7 @@ public class ActionFileBinder implements ActionInterface {
 		PASSPASS_AX_BRAS_STORE_IN("passpass_ax_bras_store_in.json"), // 37
 		PASSPASS_AX_BRAS_STORE_POMPE_ON("passpass_ax_bras_store_pompe_on.json"), // 38
 		PASSPASS_AX_BRAS_STORE_POMPE_OFF("passpass_ax_bras_store_pompe_off.json"), // 38
-		PASSPASS_AX_SWITCH("passpass_switch_face.json"), // 39
+		PASSPASS_AX_SWITCH_FACE("passpass_switch_face.json"), // 39
 
 		FENWICK_SONDE_DROITE_OUT("fenwick_sonde_droite_out.json"), // 40
 		FENWICK_SONDE_DROITE_IN("fenwick_sonde_droite_in.json"), // 41
@@ -78,6 +78,8 @@ public class ActionFileBinder implements ActionInterface {
 		FENWICK_SONDE_GAUCHE_IN("fenwick_sonde_gauche_in.json"), // 43
 		FENWICK_FOUILLE_DROITE_4("FenwickFouilleDroite4", false, "reflexive"), // 44
 		FENWICK_FOUILLE_GAUCHE_4("FenwickFouilleGauche4", false, "reflexive"), // 45
+
+		PASSPASS_AX_SWITCH_KISS("passpass_switch_kiss.json"), // 46
 		;
 
 		public static final String ACTION_AX12 = "ax12";
