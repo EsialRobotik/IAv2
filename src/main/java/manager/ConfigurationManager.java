@@ -139,7 +139,7 @@ public class ConfigurationManager {
                 AX12LinkSerial ax12Link = null;
                 if (configObject.has("ax12")) {
                     JsonObject ax12Config = configObject.get("ax12").getAsJsonObject();
-                    SerialPort sp = AX12LinkSerial.getSerialPort(ax12Config.get("serial").getAsString());
+                    SerialPort sp = AX12LinkSerial.getSerialPort(ax12Config.get("serie").getAsString());
                     ax12Link = new AX12LinkSerial(sp, ax12Config.get("baud").getAsInt());
                 }
                 Qik qikLink = null;
@@ -148,7 +148,7 @@ public class ConfigurationManager {
                 }
                 Serial serialLink = null;
                 if (configObject.has("serial")) {
-                    JsonObject serialConfig = configObject.getAsJsonObject("serial");
+                    JsonObject serialConfig = configObject.getAsJsonObject("serie");
                     serialLink = new Serial(serialConfig.get("serie").getAsString(), serialConfig.get("baud").getAsInt());
                 }
                 String dataDir = configObject.get("dataDir").getAsString();
