@@ -230,8 +230,8 @@ public class Main2022 {
             new Face("Alignement Carré 1", 1750, 3000)
         );
         carresFouille1_0.add(
-            new Manipulation("Carré 1", ActionFileBinder.ActionFile.FENWICK_RIGTH_ARMS.ordinal(), Tache.Mirror.SPECIFIC),
-            new Manipulation("Carré 1", ActionFileBinder.ActionFile.FENWICK_LEFT_ARMS.ordinal(), Tache.Mirror.SPECIFIC)
+            new Manipulation("Carré 1", ActionFileBinder.ActionFile.FENWICK_FOUILLE_DROITE_1.ordinal(), Tache.Mirror.SPECIFIC),
+            new Manipulation("Carré 1", ActionFileBinder.ActionFile.FENWICK_FOUILLE_GAUCHE_1.ordinal(), Tache.Mirror.SPECIFIC)
         );
         objectifsCouleur0.add(carresFouille1_0.generateObjectif("Carré de fouille 1", objectifsCouleur0.size()+1, score, 1));
         objectifsCouleur3000.add(carresFouille1_0.generateMirrorObjectif("Carré de fouille 1", objectifsCouleur3000.size()+1, score, 1));
@@ -242,11 +242,15 @@ public class Main2022 {
             new GoToAstar("Placement Carré 2", 1750, 850)
         );
         carresFouille2_0.add(
-                new Face("Alignement Carré 2", 1750, 3000)
+            new Face("Alignement Carré 2", 1750, 3000)
         );
         carresFouille2_0.add(
-            new Manipulation("Carré 2", ActionFileBinder.ActionFile.FENWICK_RIGTH_ARMS.ordinal(), Tache.Mirror.SPECIFIC),
-            new Manipulation("Carré 2", ActionFileBinder.ActionFile.FENWICK_LEFT_ARMS.ordinal(), Tache.Mirror.SPECIFIC)
+            new Manipulation("Carré 2", ActionFileBinder.ActionFile.FENWICK_BRAS_DROIT_OUT.ordinal(), Tache.Mirror.SPECIFIC),
+            new Manipulation("Carré 2", ActionFileBinder.ActionFile.FENWICK_BRAS_GAUCHE_OUT.ordinal(), Tache.Mirror.SPECIFIC)
+        );
+        carresFouille2_0.add(
+            new Manipulation("Carré 2", ActionFileBinder.ActionFile.FENWICK_BRAS_DROIT_IN.ordinal(), Tache.Mirror.SPECIFIC),
+            new Manipulation("Carré 2", ActionFileBinder.ActionFile.FENWICK_BRAS_GAUCHE_IN.ordinal(), Tache.Mirror.SPECIFIC)
         );
         objectifsCouleur0.add(carresFouille2_0.generateObjectif("Carré de fouille 2", objectifsCouleur0.size()+1, score, 1));
         objectifsCouleur3000.add(carresFouille2_0.generateMirrorObjectif("Carré de fouille 2", objectifsCouleur3000.size()+1, score, 1));
@@ -260,22 +264,26 @@ public class Main2022 {
             new Face("Placement Carré 3", 1750, 3000)
         );
         carresFouille3_0.add(
-            new Manipulation("Carré 3", ActionFileBinder.ActionFile.FENWICK_RIGTH_ARMS.ordinal(), Tache.Mirror.SPECIFIC),
-            new Manipulation("Carré 3", ActionFileBinder.ActionFile.FENWICK_LEFT_ARMS.ordinal(), Tache.Mirror.SPECIFIC)
+            new Manipulation("Carré 3", ActionFileBinder.ActionFile.FENWICK_BRAS_DROIT_OUT.ordinal(), Tache.Mirror.SPECIFIC),
+            new Manipulation("Carré 3", ActionFileBinder.ActionFile.FENWICK_BRAS_GAUCHE_OUT.ordinal(), Tache.Mirror.SPECIFIC)
         );
-        objectifsCouleur0.add(carresFouille3_0.generateObjectif("Carré de fouille 3", objectifsCouleur0.size()+1, score, 1));
-        objectifsCouleur3000.add(carresFouille3_0.generateMirrorObjectif("Carré de fouille 3", objectifsCouleur3000.size()+1, score, 1));
+        carresFouille3_0.add(
+            new Manipulation("Carré 3", ActionFileBinder.ActionFile.FENWICK_BRAS_DROIT_IN.ordinal(), Tache.Mirror.SPECIFIC),
+            new Manipulation("Carré 3", ActionFileBinder.ActionFile.FENWICK_BRAS_GAUCHE_IN.ordinal(), Tache.Mirror.SPECIFIC)
+        );
+        objectifsCouleur0.add(carresFouille3_0.generateObjectif("Carré de fouille 3", objectifsCouleur0.size()+1, score, 1, "fouille1OK"));
+        objectifsCouleur3000.add(carresFouille3_0.generateMirrorObjectif("Carré de fouille 3", objectifsCouleur3000.size()+1, score, 1, "fouille1OK"));
 
         TaskList carresFouille4_0 =  new TaskList();
         carresFouille4_0.add(
             new GoToAstar("Placement Carré 4", 1750, 1220)
         );
         carresFouille4_0.add(
-                new Face("Placement Carré 4", 1750, 3000)
+            new Face("Placement Carré 4", 1750, 3000)
         );
         carresFouille4_0.add(
-            new Manipulation("Carré 4", ActionFileBinder.ActionFile.FENWICK_RIGTH_ARMS.ordinal(), Tache.Mirror.SPECIFIC),
-            new Manipulation("Carré 4", ActionFileBinder.ActionFile.FENWICK_LEFT_ARMS.ordinal(), Tache.Mirror.SPECIFIC)
+            new Manipulation("Carré 4", ActionFileBinder.ActionFile.FENWICK_FOUILLE_DROITE_4.ordinal(), Tache.Mirror.SPECIFIC),
+            new Manipulation("Carré 4", ActionFileBinder.ActionFile.FENWICK_FOUILLE_GAUCHE_4.ordinal(), Tache.Mirror.SPECIFIC)
         );
         objectifsCouleur0.add(carresFouille4_0.generateObjectif("Carré de fouille 4", objectifsCouleur0.size()+1, score, 1));
         objectifsCouleur3000.add(carresFouille4_0.generateMirrorObjectif("Carré de fouille 4", objectifsCouleur3000.size()+1, score, 1));
@@ -285,42 +293,54 @@ public class Main2022 {
             new GoToAstar("Placement Carré 5", 1750, 1410)
         );
         carresFouille5_0.add(
-                new Face("Placement Carré 5", 1750, 3000)
+            new Face("Placement Carré 5", 1750, 3000)
         );
         carresFouille5_0.add(
-            new Manipulation("Carré 5", ActionFileBinder.ActionFile.FENWICK_RIGTH_ARMS.ordinal(), Tache.Mirror.SPECIFIC),
-            new Manipulation("Carré 5", ActionFileBinder.ActionFile.FENWICK_LEFT_ARMS.ordinal(), Tache.Mirror.SPECIFIC)
+            new Manipulation("Carré 5", ActionFileBinder.ActionFile.FENWICK_BRAS_DROIT_OUT.ordinal(), Tache.Mirror.SPECIFIC),
+            new Manipulation("Carré 5", ActionFileBinder.ActionFile.FENWICK_BRAS_GAUCHE_OUT.ordinal(), Tache.Mirror.SPECIFIC)
         );
-        objectifsCouleur0.add(carresFouille5_0.generateObjectif("Carré de fouille 5", objectifsCouleur0.size()+1, score, 1));
-        objectifsCouleur3000.add(carresFouille5_0.generateMirrorObjectif("Carré de fouille 5", objectifsCouleur3000.size()+1, score, 1));
+        carresFouille5_0.add(
+            new Manipulation("Carré 5", ActionFileBinder.ActionFile.FENWICK_BRAS_DROIT_IN.ordinal(), Tache.Mirror.SPECIFIC),
+            new Manipulation("Carré 5", ActionFileBinder.ActionFile.FENWICK_BRAS_GAUCHE_IN.ordinal(), Tache.Mirror.SPECIFIC)
+        );
+        objectifsCouleur0.add(carresFouille5_0.generateObjectif("Carré de fouille 5", objectifsCouleur0.size()+1, score, 1, "fouille4OK"));
+        objectifsCouleur3000.add(carresFouille5_0.generateMirrorObjectif("Carré de fouille 5", objectifsCouleur3000.size()+1, score, 1, "fouille4OK"));
 
         TaskList carresFouille6_0 =  new TaskList();
         carresFouille6_0.add(
             new GoToAstar("Placement Carré 6", 1750, 1590)
         );
         carresFouille6_0.add(
-                new Face("Placement Carré 6", 1750, 3000)
+            new Face("Placement Carré 6", 1750, 3000)
         );
         carresFouille6_0.add(
-            new Manipulation("Carré 6", ActionFileBinder.ActionFile.FENWICK_RIGTH_ARMS.ordinal(), Tache.Mirror.SPECIFIC),
-            new Manipulation("Carré 6", ActionFileBinder.ActionFile.FENWICK_LEFT_ARMS.ordinal(), Tache.Mirror.SPECIFIC)
+            new Manipulation("Carré 6", ActionFileBinder.ActionFile.FENWICK_BRAS_DROIT_OUT.ordinal(), Tache.Mirror.SPECIFIC),
+            new Manipulation("Carré 6", ActionFileBinder.ActionFile.FENWICK_BRAS_GAUCHE_OUT.ordinal(), Tache.Mirror.SPECIFIC)
         );
-        objectifsCouleur0.add(carresFouille6_0.generateObjectif("Carré de fouille 6", objectifsCouleur0.size()+1, score, 1));
-        objectifsCouleur3000.add(carresFouille6_0.generateMirrorObjectif("Carré de fouille 6", objectifsCouleur3000.size()+1, score, 1));
+        carresFouille6_0.add(
+            new Manipulation("Carré 6", ActionFileBinder.ActionFile.FENWICK_BRAS_DROIT_IN.ordinal(), Tache.Mirror.SPECIFIC),
+            new Manipulation("Carré 6", ActionFileBinder.ActionFile.FENWICK_BRAS_GAUCHE_IN.ordinal(), Tache.Mirror.SPECIFIC)
+        );
+        objectifsCouleur0.add(carresFouille6_0.generateObjectif("Carré de fouille 6", objectifsCouleur0.size()+1, score, 1, "fouille4OK"));
+        objectifsCouleur3000.add(carresFouille6_0.generateMirrorObjectif("Carré de fouille 6", objectifsCouleur3000.size()+1, score, 1, "fouille4OK"));
 
         TaskList carresFouille7_0 =  new TaskList();
         carresFouille7_0.add(
             new GoToAstar("Placement Carré 7", 1750, 1780)
         );
         carresFouille7_0.add(
-                new Face("Placement Carré 7", 1750, 3000)
+            new Face("Placement Carré 7", 1750, 3000)
         );
         carresFouille7_0.add(
-            new Manipulation("Carré 7", ActionFileBinder.ActionFile.FENWICK_RIGTH_ARMS.ordinal(), Tache.Mirror.SPECIFIC),
-            new Manipulation("Carré 7", ActionFileBinder.ActionFile.FENWICK_LEFT_ARMS.ordinal(), Tache.Mirror.SPECIFIC)
+            new Manipulation("Carré 7", ActionFileBinder.ActionFile.FENWICK_BRAS_DROIT_OUT.ordinal(), Tache.Mirror.SPECIFIC),
+            new Manipulation("Carré 7", ActionFileBinder.ActionFile.FENWICK_BRAS_GAUCHE_OUT.ordinal(), Tache.Mirror.SPECIFIC)
         );
-        objectifsCouleur0.add(carresFouille7_0.generateObjectif("Carré de fouille 7", objectifsCouleur0.size()+1, score, 1));
-        objectifsCouleur3000.add(carresFouille7_0.generateMirrorObjectif("Carré de fouille 7", objectifsCouleur3000.size()+1, score, 1));
+        carresFouille7_0.add(
+            new Manipulation("Carré 7", ActionFileBinder.ActionFile.FENWICK_BRAS_DROIT_IN.ordinal(), Tache.Mirror.SPECIFIC),
+            new Manipulation("Carré 7", ActionFileBinder.ActionFile.FENWICK_BRAS_GAUCHE_IN.ordinal(), Tache.Mirror.SPECIFIC)
+        );
+        objectifsCouleur0.add(carresFouille7_0.generateObjectif("Carré de fouille 7", objectifsCouleur0.size()+1, score, 1, "fouille4KO"));
+        objectifsCouleur3000.add(carresFouille7_0.generateMirrorObjectif("Carré de fouille 7", objectifsCouleur3000.size()+1, score, 1, "fouille4KO"));
 
         /**
          * Rangement

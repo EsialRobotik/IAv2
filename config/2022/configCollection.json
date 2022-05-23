@@ -576,7 +576,18 @@
           "positionY": 0,
           "dist": 0,
           "type": "manipulation",
-          "actionId": 7,
+          "actionId": 22,
+          "mirror": "SPECIFIC",
+          "timeout": -1
+        },
+        {
+          "desc": "Carré 2",
+          "id": 4,
+          "positionX": 0,
+          "positionY": 0,
+          "dist": 0,
+          "type": "manipulation",
+          "actionId": 23,
           "mirror": "SPECIFIC",
           "timeout": -1
         }
@@ -619,11 +630,23 @@
           "positionY": 0,
           "dist": 0,
           "type": "manipulation",
-          "actionId": 7,
+          "actionId": 22,
+          "mirror": "SPECIFIC",
+          "timeout": -1
+        },
+        {
+          "desc": "Carré 3",
+          "id": 4,
+          "positionX": 0,
+          "positionY": 0,
+          "dist": 0,
+          "type": "manipulation",
+          "actionId": 23,
           "mirror": "SPECIFIC",
           "timeout": -1
         }
-      ]
+      ],
+      "skipFlag": "fouille1OK"
     },
     {
       "desc": "Carré de fouille 4",
@@ -662,7 +685,7 @@
           "positionY": 0,
           "dist": 0,
           "type": "manipulation",
-          "actionId": 7,
+          "actionId": 44,
           "mirror": "SPECIFIC",
           "timeout": -1
         }
@@ -705,11 +728,23 @@
           "positionY": 0,
           "dist": 0,
           "type": "manipulation",
-          "actionId": 7,
+          "actionId": 22,
+          "mirror": "SPECIFIC",
+          "timeout": -1
+        },
+        {
+          "desc": "Carré 5",
+          "id": 4,
+          "positionX": 0,
+          "positionY": 0,
+          "dist": 0,
+          "type": "manipulation",
+          "actionId": 23,
           "mirror": "SPECIFIC",
           "timeout": -1
         }
-      ]
+      ],
+      "skipFlag": "fouille4OK"
     },
     {
       "desc": "Carré de fouille 6",
@@ -748,11 +783,23 @@
           "positionY": 0,
           "dist": 0,
           "type": "manipulation",
-          "actionId": 7,
+          "actionId": 22,
+          "mirror": "SPECIFIC",
+          "timeout": -1
+        },
+        {
+          "desc": "Carré 6",
+          "id": 4,
+          "positionX": 0,
+          "positionY": 0,
+          "dist": 0,
+          "type": "manipulation",
+          "actionId": 23,
           "mirror": "SPECIFIC",
           "timeout": -1
         }
-      ]
+      ],
+      "skipFlag": "fouille4OK"
     },
     {
       "desc": "Carré de fouille 7",
@@ -791,11 +838,23 @@
           "positionY": 0,
           "dist": 0,
           "type": "manipulation",
-          "actionId": 7,
+          "actionId": 22,
+          "mirror": "SPECIFIC",
+          "timeout": -1
+        },
+        {
+          "desc": "Carré 7",
+          "id": 4,
+          "positionX": 0,
+          "positionY": 0,
+          "dist": 0,
+          "type": "manipulation",
+          "actionId": 23,
           "mirror": "SPECIFIC",
           "timeout": -1
         }
-      ]
+      ],
+      "skipFlag": "fouille4KO"
     },
     {
       "desc": "Rangement",
@@ -1407,7 +1466,18 @@
           "positionY": 0,
           "dist": 0,
           "type": "manipulation",
-          "actionId": 8,
+          "actionId": 24,
+          "mirror": "SPECIFIC",
+          "timeout": -1
+        },
+        {
+          "desc": "Carré 2",
+          "id": 4,
+          "positionX": 0,
+          "positionY": 0,
+          "dist": 0,
+          "type": "manipulation",
+          "actionId": 25,
           "mirror": "SPECIFIC",
           "timeout": -1
         }
@@ -1450,11 +1520,23 @@
           "positionY": 0,
           "dist": 0,
           "type": "manipulation",
-          "actionId": 8,
+          "actionId": 24,
+          "mirror": "SPECIFIC",
+          "timeout": -1
+        },
+        {
+          "desc": "Carré 3",
+          "id": 4,
+          "positionX": 0,
+          "positionY": 0,
+          "dist": 0,
+          "type": "manipulation",
+          "actionId": 25,
           "mirror": "SPECIFIC",
           "timeout": -1
         }
-      ]
+      ],
+      "skipFlag": "fouille1OK"
     },
     {
       "desc": "Carré de fouille 4",
@@ -1493,7 +1575,7 @@
           "positionY": 0,
           "dist": 0,
           "type": "manipulation",
-          "actionId": 8,
+          "actionId": 45,
           "mirror": "SPECIFIC",
           "timeout": -1
         }
@@ -1536,11 +1618,23 @@
           "positionY": 0,
           "dist": 0,
           "type": "manipulation",
-          "actionId": 8,
+          "actionId": 24,
+          "mirror": "SPECIFIC",
+          "timeout": -1
+        },
+        {
+          "desc": "Carré 5",
+          "id": 4,
+          "positionX": 0,
+          "positionY": 0,
+          "dist": 0,
+          "type": "manipulation",
+          "actionId": 25,
           "mirror": "SPECIFIC",
           "timeout": -1
         }
-      ]
+      ],
+      "skipFlag": "fouille4OK"
     },
     {
       "desc": "Carré de fouille 6",
@@ -1579,11 +1673,23 @@
           "positionY": 0,
           "dist": 0,
           "type": "manipulation",
-          "actionId": 8,
+          "actionId": 24,
+          "mirror": "SPECIFIC",
+          "timeout": -1
+        },
+        {
+          "desc": "Carré 6",
+          "id": 4,
+          "positionX": 0,
+          "positionY": 0,
+          "dist": 0,
+          "type": "manipulation",
+          "actionId": 25,
           "mirror": "SPECIFIC",
           "timeout": -1
         }
-      ]
+      ],
+      "skipFlag": "fouille4OK"
     },
     {
       "desc": "Carré de fouille 7",
@@ -1622,11 +1728,23 @@
           "positionY": 0,
           "dist": 0,
           "type": "manipulation",
-          "actionId": 8,
+          "actionId": 24,
+          "mirror": "SPECIFIC",
+          "timeout": -1
+        },
+        {
+          "desc": "Carré 7",
+          "id": 4,
+          "positionX": 0,
+          "positionY": 0,
+          "dist": 0,
+          "type": "manipulation",
+          "actionId": 25,
           "mirror": "SPECIFIC",
           "timeout": -1
         }
-      ]
+      ],
+      "skipFlag": "fouille4KO"
     },
     {
       "desc": "Rangement",

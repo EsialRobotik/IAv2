@@ -14,6 +14,7 @@ public class Objectif {
     public int points;
     public int priorite;
     public List<Tache> taches;
+    public String skipFlag;
 
     public Objectif(String desc, int id, int points, int priorite, List<Tache> taches) {
         this.desc = desc;
@@ -21,6 +22,15 @@ public class Objectif {
         this.points = points;
         this.priorite = priorite;
         this.taches = taches;
+    }
+
+    public Objectif(String desc, int id, int points, int priorite, List<Tache> taches, String skipFlag) {
+        this.desc = desc;
+        this.id = id;
+        this.points = points;
+        this.priorite = priorite;
+        this.taches = taches;
+        this.skipFlag = skipFlag;
     }
 
     public Objectif() {
@@ -71,6 +81,7 @@ public class Objectif {
                 ",\n\t\t\tpoints=" + points +
                 ",\n\t\t\tpriorite=" + priorite +
                 ",\n\t\t\ttaches=" + taches +
+                ",\n\t\t\tskipFLag=" + skipFlag +
                 "\n\t\t)";
     }
 }

@@ -41,12 +41,27 @@ public class TaskList extends ArrayList<Tache> {
         this.add(task);
         return mirrorTaskList.add(mirrorTask, task.getId());
     }
+
     public Objectif generateObjectif(String name, int id, int score, int priority) {
         return new Objectif(name, id, score, priority, this);
     }
 
+    public Objectif generateObjectif(String name, int id, int score, int priority, String skipFlag) {
+        return new Objectif(name, id, score, priority, this, skipFlag);
+    }
+
     public Objectif generateMirrorObjectif(String name, int id, int score, int priority) {
         Objectif objectif = new Objectif(name, id, score, priority, null);
+        try {
+            objectif.generateMirror(this, this.mirrorTaskList == null ? new ArrayList<>() : this.mirrorTaskList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return objectif;
+    }
+
+    public Objectif generateMirrorObjectif(String name, int id, int score, int priority, String skipFlag) {
+        Objectif objectif = new Objectif(name, id, score, priority, null, skipFlag);
         try {
             objectif.generateMirror(this, this.mirrorTaskList == null ? new ArrayList<>() : this.mirrorTaskList);
         } catch (Exception e) {
