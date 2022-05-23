@@ -2,7 +2,6 @@ package actions.reflexive;
 
 import actions.ActionReflexiveAbstract;
 import actions.a2022.ActionFileBinder;
-import manager.CommunicationManager;
 
 public class FenwickBlue extends ActionReflexiveAbstract {
 
@@ -12,31 +11,43 @@ public class FenwickBlue extends ActionReflexiveAbstract {
 
     @Override
     public void execute() {
+        logger.info("Start action " + this.getClass());
+        if (finished) {
+            logger.info("Action already finished " + this.getClass());
+            return;
+        }
 
-    }
-
-    @Override
-    public boolean finished() {
-        return false;
-    }
-
-    @Override
-    public void resetActionState() {
-
-    }
-
-    @Override
-    public void setData(String data) {
-
-    }
-
-    @Override
-    public void setCommunicationManager(CommunicationManager communicationManager) {
-
-    }
-
-    @Override
-    public String getActionFlag() {
-        return null;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                executeSubActions(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_IN.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_POMPE_SUCK.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_HAUTEUR_PILE_1.ordinal());
+                // wait to suck
+                try {
+                    Thread.sleep(250);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                executeSubActions(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_HAUTEUR_TOP.ordinal());
+                try {
+                    Thread.sleep(50);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                executeSubActions(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_OUT.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_HAUTEUR_LACHER.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_POMPE_RELEASE.ordinal());
+                // wait to release
+                try {
+                    Thread.sleep(350);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                executeSubActions(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_HAUTEUR_TOP.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_IN.ordinal());
+                finished = true;
+            }
+        }).start();
     }
 }

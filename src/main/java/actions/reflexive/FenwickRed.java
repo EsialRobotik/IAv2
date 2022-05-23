@@ -20,6 +20,7 @@ public class FenwickRed extends ActionReflexiveAbstract {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                executeSubActions(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_IN.ordinal());
                 executeSubActions(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_POMPE_SUCK.ordinal());
                 executeSubActions(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_HAUTEUR_PILE_3.ordinal());
                 // wait to suck
