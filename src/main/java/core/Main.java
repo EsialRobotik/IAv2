@@ -14,6 +14,7 @@ import api.gpio.ColorDetector;
 import api.gpio.Tirette;
 import api.lcd.LCD;
 import api.log.LoggerFactory;
+import api.qik.Qik;
 import asserv.AsservInterface;
 import asserv.Position;
 import com.google.gson.Gson;
@@ -177,6 +178,9 @@ public class Main {
                 case "test-lift":
                     Main.testLift();
                     break;
+                case "test-qik":
+                    Main.testQik();
+                    break;
                 case "hotspot":
                     Main.testHotspot();
                     break;
@@ -218,7 +222,8 @@ public class Main {
         System.out.println("\t- pathfinding : Test le calcul de pathfinding");
         System.out.println("\t- coupe-off : Danse de la coupe off");
         System.out.println("\t- config-ax12 : Lance l'utilitaire de configuration des AX12");
-        System.out.println("\t- test-lift : Lance une console de test de l'ascenseur et de lasondes carrés de fouille de la grosse Princesse 2022");
+        System.out.println("\t- test-lift : Lance une console de test de l'ascenseur et de la sonde des carrés de fouille de la grosse Princesse 2022");
+        System.out.println("\t- test-qik : Lance une console de test de la qik");
         System.out.println("\t- hotspot : Test la communication socket via le hotspot");
         System.out.println("\t- camera : Test la camera");
         System.out.println("\t- actions : Test des actions");
@@ -480,6 +485,42 @@ public class Main {
                         System.out.println(liftProbe2022.fetchLiftPosition()+"mm");
                     } else if (cmd.startsWith("g") && cmd.length() > 1) {
                         liftProbe2022.setLiftPosition(Integer.parseInt(cmd.substring(1)));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                System.out.print(">");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void testQik() {
+        try {
+            Gson gson = new Gson();
+            Reader reader = Files.newBufferedReader(Paths.get(configFilePath));
+            JsonObject configRootNode = gson.fromJson(reader, JsonObject.class);
+
+            Qik qik = new Qik(configRootNode.get("actions").getAsJsonObject().get("qik").getAsJsonObject());
+
+            Scanner in = new Scanner(System.in);
+            String cmd;
+            System.out.println("Commandes :\n  exit: quitter\n  f: firmware version");
+            System.out.println("  m0<vitesse> : vitesse moteur 0 -127 à +128\n  m1<vitesse> : vitesse moteur 1 -127 à +128");
+            System.out.print(">");
+            while((cmd = in.nextLine()) != null) {
+                try {
+                    if (cmd.startsWith("exit")) {
+                        break;
+                    } else if (cmd.equals("f")) {
+                        System.out.println(qik.getFirmwareVersion());
+                    } else if (cmd.startsWith("m0")) {
+                        qik.setM0Speed(Integer.parseInt(cmd.substring(2)));
+                    } else if (cmd.startsWith("m1")) {
+                        qik.setM1Speed(Integer.parseInt(cmd.substring(2)));
+                    } else if (cmd.equals("e")) {
+                        System.out.println(qik.getErrors());
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

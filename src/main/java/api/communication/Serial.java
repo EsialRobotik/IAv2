@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.BitSet;
 
 /**
  * Communication serie
@@ -101,6 +102,15 @@ public class Serial {
             logger.error("Serial " + serialPort + " write fail : " + e.getMessage());
         }
     }
+
+    public void write(int value) {
+        try {
+            serial.write(intToUnsignedByte(value));
+            serial.flush();
+        } catch (IOException e) {
+            logger.error("Serial " + serialPort + " write fail : " + e.getMessage());
+        }
+    }
     
     /**
      * Ajoute des listeners écoutant la liaison série
@@ -143,4 +153,32 @@ public class Serial {
         }
     }
 
+    /**
+     *
+     * @param val
+     * @return
+     * @throws IllegalArgumentException Si la valeur donnée n'est pas comprise entre 0 et 255
+     */
+    public static byte intToUnsignedByte(int val) throws IllegalArgumentException {
+        if (val < 0 || val > 255) {
+            throw new IllegalArgumentException("La valeur doit être comprise entre 0 et 255 : "+val);
+        }
+
+        if(val == 0) {
+            return 0;
+        }
+        BitSet bs = new BitSet(8);
+        int vals[] = new int[]{1, 2, 4, 8, 16, 32, 64, 128};
+
+        for(int i=vals.length-1; i>=0; i--) {
+            if (val >= vals[i]) {
+                val -= vals[i];
+                bs.set(i, true);
+            } else {
+                bs.set(i, false);
+            }
+        }
+
+        return bs.toByteArray()[0];
+    }
 }
