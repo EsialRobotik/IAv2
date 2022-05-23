@@ -164,10 +164,6 @@ public class Main {
                     // Test shell
                     Main.testShell();
                     break;
-                case "actionneur":
-                    // Test actionneurs
-                    Main.testActionneurs();
-                    break;
                 case "pathfinding":
                     Main.testPathfinding();
                     break;
@@ -187,6 +183,9 @@ public class Main {
                 case "camera":
                     Main.camera();
                     break;
+                case "actions":
+                    Main.testActions();
+                    break;
                 case "funny-action":
                     Main.funnyAction();
                     break;
@@ -197,25 +196,6 @@ public class Main {
             printUsage();
             return;
         }
-    }
-
-    private static void camera() throws IOException {
-        logger.info("Start camera test");
-        Camera camera = new Camera();
-        logger.info("Camera initialised");
-        File picture = camera.takePicture("test-image.jpg");
-        logger.info("Picture took");
-        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-        Mat inputImage = Imgcodecs.imread(picture.getName());
-        logger.info("input image converted as matrix");
-        List<Mat> corners = new ArrayList<>();
-        Mat markerIds = new Mat();
-        Dictionary dictionary = Aruco.getPredefinedDictionary(Aruco.DICT_4X4_100);
-        // DetectorParameters parameters = DetectorParameters.create();
-        logger.info("Start markers detection");
-        Aruco.detectMarkers(inputImage, dictionary, corners, markerIds);
-        logger.info("Detection complete");
-        System.out.println(markerIds);
     }
 
     private static void printUsage() {
@@ -235,13 +215,13 @@ public class Main {
         System.out.println("\t- interrupteur : Test interrupteurs");
         System.out.println("\t- lcd : Test de l'écran LCD");
         System.out.println("\t- shell : Test du shell (lance une capture de la caméra et une analyse Aruco)");
-        System.out.println("\t- actionneur : Test de l'init des actionneurs");
-        System.out.println("\t- pathfinding : Test le calcul de pathfinding\n");
-        System.out.println("\t- coupe-off : Danse de la coupe off\n");
-        System.out.println("\t- config-ax12 : Lance l'utilitaire de configuration des AX12\n");
-        System.out.println("\t- test-lift : Lance une console de test de l'ascenseur et de lasondes carrés de fouille de la grosse Princesse 2022\n");
-        System.out.println("\t- hotspot : Test la communication socket via le hotspot\n");
-        System.out.println("\t- camera : Test la camera\n");
+        System.out.println("\t- pathfinding : Test le calcul de pathfinding");
+        System.out.println("\t- coupe-off : Danse de la coupe off");
+        System.out.println("\t- config-ax12 : Lance l'utilitaire de configuration des AX12");
+        System.out.println("\t- test-lift : Lance une console de test de l'ascenseur et de lasondes carrés de fouille de la grosse Princesse 2022");
+        System.out.println("\t- hotspot : Test la communication socket via le hotspot");
+        System.out.println("\t- camera : Test la camera");
+        System.out.println("\t- actions : Test des actions");
         System.out.println("\t- funny-action : Test de la funny action en utilisant l'interrupteur de couleur comme déclencheur\n");
 
         System.out.println("configFile : chemin du fichier de configuration à utiliser. Par defaut, './config.json'\n");
@@ -355,10 +335,6 @@ public class Main {
             System.out.print("["+p.x+","+p.y+"],");
         }
         System.out.println("]");
-    }
-
-    private static void testActionneurs() throws IOException, AX12LinkException {
-
     }
 
     private static void coupeOffDance() throws IOException, AX12LinkException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
@@ -513,6 +489,50 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private static void testActions() throws IOException, ClassNotFoundException, InvocationTargetException, AX12LinkException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+        logger.info("Start actions test");
+
+        //Load of the configuration first
+        ConfigurationManager configurationManager = new ConfigurationManager();
+        configurationManager.loadConfiguration(configFilePath, ConfigurationManager.CONFIG_ACTIONNEUR);
+
+        while (true) {
+            Scanner in = new Scanner(System.in);
+            String actionId;
+            System.out.println("Id de l'action à exécuter (voir ActionFileBinder)");
+            System.out.print(">");
+            while((actionId = in.nextLine()) != null) {
+                configurationManager.getActionSupervisor().executeCommand(Integer.parseInt(actionId));
+                while (!configurationManager.getActionSupervisor().isLastExecutionFinished()) {
+                    try {
+                        Thread.sleep(10);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+    }
+
+    private static void camera() throws IOException {
+        logger.info("Start camera test");
+        Camera camera = new Camera();
+        logger.info("Camera initialised");
+        File picture = camera.takePicture("test-image.jpg");
+        logger.info("Picture took");
+        System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+        Mat inputImage = Imgcodecs.imread(picture.getName());
+        logger.info("input image converted as matrix");
+        List<Mat> corners = new ArrayList<>();
+        Mat markerIds = new Mat();
+        Dictionary dictionary = Aruco.getPredefinedDictionary(Aruco.DICT_4X4_100);
+        // DetectorParameters parameters = DetectorParameters.create();
+        logger.info("Start markers detection");
+        Aruco.detectMarkers(inputImage, dictionary, corners, markerIds);
+        logger.info("Detection complete");
+        System.out.println(markerIds);
     }
 
     public static void funnyAction() throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
