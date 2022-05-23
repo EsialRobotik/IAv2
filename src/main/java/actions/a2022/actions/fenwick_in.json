@@ -16,8 +16,8 @@
                 {
                     "actionId": "actionPosition",
                     "ax12Id": 7,
-                    "rawAngle": 210,
-                    "readOnlyAngleDegrees": 61.58357771260997
+                    "rawAngle": 230,
+                    "readOnlyAngleDegrees": 67.44868035190616
                 }
             ]
         }
