@@ -1,1 +1,25 @@
-{}
+{
+    "actionPools": [
+        {
+            "actions": [
+                {
+                    "actionId": "actionBehaviour",
+                    "ax12Id": 7,
+                    "speed": 300,
+                    "acceleration": 60,
+                    "compliance": 2
+                }
+            ]
+        },
+        {
+            "actions": [
+                {
+                    "actionId": "actionPosition",
+                    "ax12Id": 7,
+                    "rawAngle": 210,
+                    "readOnlyAngleDegrees": 61.58357771260997
+                }
+            ]
+        }
+    ]
+}
