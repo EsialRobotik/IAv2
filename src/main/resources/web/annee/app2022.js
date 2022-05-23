@@ -30,7 +30,7 @@ $( function() {
             .fail(reject);
         });
     }
-    
+
     const afficherErreur = function(message) {
         $.toast({
             heading: 'Erreur',
@@ -40,7 +40,7 @@ $( function() {
             position: 'top-left',
         });
     }
-    
+
     const afficherMessage = function(message) {
         $.toast({
             heading: 'Info',
@@ -50,7 +50,7 @@ $( function() {
             position: 'top-left',
         });
     }
-    
+
     const handleAjaxError = function(response) {
         if (response.responseJSON) {
             afficherErreur(response.responseJSON.error || JSON.stringify(response.responseJSON));
@@ -61,30 +61,30 @@ $( function() {
         }
         console.error(response);
     }
-    
+
     const getFirstItem = function() {
         return $("#listeActions").find(".actions-item.active").get(0);
     }
-    
+
     const getCurrentPlayingItem = function() {
         return $("#listeActions").find(".actions-item.playing").get(0);
     };
-    
+
     const scrollToElement = function(elt) {
         $([document.documentElement, document.body]).stop().animate({
             scrollTop: elt.offset().top - elt.height()
         }, 300);   
     }
-    
+
     const playItemAsync = function(e, autoScroll) {
         $("#listeActions .actions-item").removeClass("playing");
         const elt = $(e);
         elt.addClass("playing");
-        
+
         if (autoScroll) {
             scrollToElement(elt);
         }
-        
+
         return doajax('post', '/api/play', {
             'actionPools': [
                 {
@@ -93,29 +93,29 @@ $( function() {
             ]
         });
     };
-    
+
     const playItem = function(e) {
         playItemAsync(e).catch(handleAjaxError);
     }
-    
+
     const playFirstItemAsync = function() {
         let item = getFirstItem();
         if (item) {
             return playItemAsync(item, true);
         }
     }
-    
+
     const playCurrentItemAsync = function() {
         let item = getCurrentPlayingItem();
         if (!item) {
             item = getFirstItem();
         }
-        
+
         if (item) {
             return playItemAsync(item, true);
         }
     }
-    
+
     const playPreviousItemAsync = function() {
         let item = getCurrentPlayingItem();
         if (!item) {
@@ -123,16 +123,16 @@ $( function() {
         } else {
             item = $(item).prev('.actions-item.active').get(0);
         }
-        
+
         if (item) {
             return playItemAsync(item, true);
         }
     };
-    
+
     const playPreviousItem = function() {
         playPreviousItemAsync().catch(handleAjaxError);
     }
-    
+
     const playNextItemAsync = function () {
         let item = getCurrentPlayingItem();
         if (!item) {
@@ -140,16 +140,16 @@ $( function() {
         } else {
             item = $(item).next('.actions-item.active').get(0);
         }
-        
+
         if (item) {
             return playItemAsync(item, true);
         }
     };
-    
+
     const playNextItem = function() {
         playNextItemAsync().catch(handleAjaxError);
     }
-    
+
     const playNextUntilEndOrStopAsync = function() {
         if (!isAutoPlaying) {
             return;
@@ -159,15 +159,15 @@ $( function() {
             setIsAutoPlaying(false);
             return;
         }
-        
+
         promise.then(() => {
             playNextUntilEndOrStopAsync();
         }).catch(handleAjaxError);
     }
-    
+
     const playAllFromCurrent = function() {
         setIsAutoPlaying(true);
-        
+
         const promise = playCurrentItemAsync();
         if (promise) {
             promise.then(() => {
@@ -177,25 +177,25 @@ $( function() {
             setIsAutoPlaying(false);
         }
     }
-    
+
     const playFirstItem = function() {
         setIsAutoPlaying(false);
         playFirstItemAsync().catch(handleAjaxError);
     };
-    
+
     const stopPlaying = function() {
         if (!isAutoPlaying) {
             $("#listeActions .actions-item").removeClass("playing");
         }
         setIsAutoPlaying(false);
     }
-    
+
     const deleteAllItems = function() {
         $("#listeActions .actions-item").each((index, item) => {
             item.remove();
         });
     }
-    
+
     const newActionPool = function(title, setActive) {
         const elt = $('<li class="ui-state-default actions-item"><div class="actions-item__header"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>' + title + '</div></li>');
         addToolsElements(elt);
@@ -204,20 +204,20 @@ $( function() {
         }
         return elt;
     }
-    
+
     const actionPoolToModel = function(actionPool) {
         const actions = [];
         actionPool.find('.action-subitem').each((index, action) => {
             const a = actionToModel($(action));
-            
+
             if (a !== undefined) {
                 actions.push(a);
             }
         });;
-        
+
         return actions;
     }
-    
+
     const actionToModel = function(action) {
         if (action.hasClass('action-subitem__ax12')) {
             return {
@@ -227,7 +227,7 @@ $( function() {
               "readOnlyAngleDegrees": parseFloat(action.find('input').val())
             };
         }
-        
+
         if (action.hasClass('action-subitem__serialflag')) {
             return {
                 "actionId": "actionSerialFlag",
@@ -475,13 +475,12 @@ $( function() {
     }
 
     const getAx12IdsToRecord = function(all = false) {
-        axs = [];
-        binding = [9, 14, 17, 16, 7, 2]; // Sonde gauche/droite, bras gauche/droit, fourhce ascenseur
-        [0, 1, 2, 3, 4, 5].forEach(function(num) {
-            if (all || $(".actions-records").find(".actions-records__ax12 input[id=princess_ax12_"+(num+1)+"]").prop('checked')) {
-                axs = axs.concat(binding[num]);
+        const axs = [];
+        $('[data-ax12-id]').each((idx, elt) => {
+            if (all || elt.checked) {
+                axs.push(elt.dataset['ax12Id']);
             }
-        })
+        });
         return axs;
     }
 
@@ -725,18 +724,18 @@ $( function() {
     $(".actions-records").find(".actions-records__json .ui-icon-refresh").parent().click(loadFileList);
     $(".actions-records").find(".actions-records__json .ui-icon-arrowthick-1-e").parent().click(loadSelectedJsonFile);
     $(".actions-records").find(".actions-records__json .ui-icon-arrowthickstop-1-n").parent().click(uploadJsonFile);
-    
+
     // Rejeux des actions
     $(".actions-controls .ui-icon-arrowrefresh-1-w").parent().click(playFirstItem);
     $(".actions-controls .ui-icon-play").parent().click(playAllFromCurrent);
     $(".actions-controls .ui-icon-seek-start").parent().click(playPreviousItem);
     $(".actions-controls .ui-icon-seek-end").parent().click(playNextItem);
     $(".actions-controls .ui-icon-stop").parent().click(stopPlaying);
-    
+
     // Gestion du Json
     $("#btn_parser").click(() => loadFromRawJson($("#jsonInput").val()));
     $(".actions-records__json .actions-records__json_filename").val('empty.json');
-    
+
     // Tout le JS s'est bien exécuté ? Retrait du message qui dit que non
     $(".js-load-checker").css("display", "none");
 } );
