@@ -36,7 +36,7 @@ public class UltraSoundManager {
 
     public UltraSoundManager(DetectionInterface detectionInterface, int windowSize, Table table, MovementManager movementManager) {
         this.windowSize = windowSize;
-        this.detection = new boolean[4][windowSize];
+        this.detection = new boolean[detectionInterface.getUltraSoundSensorCount()][windowSize];
         LoggerFactory.init(Level.TRACE);
         this.logger = LoggerFactory.getLogger(UltraSoundManager.class);
 
@@ -45,13 +45,17 @@ public class UltraSoundManager {
         this.table = table;
 
         this.posFrontLeft = this.detectionInterface.getUltrasoundFrontLeft().getPosition();
-        this.posFront = this.detectionInterface.getUltrasoundFront().getPosition();
+        if (detectionInterface.getUltraSoundSensorCount() == 4) {
+            this.posFront = this.detectionInterface.getUltrasoundFront().getPosition();
+        }
         this.posFrontRight = this.detectionInterface.getUltrasoundFrontRight().getPosition();
         this.posBack = this.detectionInterface.getUltrasoundBack().getPosition();
 
         this.thresholdMap = new HashMap<>();
         this.thresholdMap.put("FrontLeft", this.detectionInterface.getUltrasoundFrontLeft().getThreshold());
-        this.thresholdMap.put("Front", this.detectionInterface.getUltrasoundFront().getThreshold());
+        if (detectionInterface.getUltraSoundSensorCount() == 4) {
+            this.thresholdMap.put("Front", this.detectionInterface.getUltrasoundFront().getThreshold());
+        }
         this.thresholdMap.put("FrontRight", this.detectionInterface.getUltrasoundFrontRight().getThreshold());
         this.thresholdMap.put("Back", this.detectionInterface.getUltrasoundBack().getThreshold());
     }
@@ -94,23 +98,26 @@ public class UltraSoundManager {
                 }
 
                 //front middle
-                if (pull[1] < thresholdMap.get("Front")) {
-                    Position pos = getObstaclePosition(position, posFront, pull[1]);
-                    logger.debug("Ultrasound Avant milieu : " + pull[1]);
-                    if (this.mustStop(pos)) {
-                        tempDetection[1] = true;
-                        logger.info("Ultrasound Avant milieu : STOP (" + pos.getX() + "," + pos.getY() + ")");
-                    } else {
-                        logger.info("Ultrasound Avant milieu : IGNORER (" + pos.getX() + "," + pos.getY() + ")");
+                if (detectionInterface.getUltraSoundSensorCount() == 4) {
+                    if (pull[1] < thresholdMap.get("Front")) {
+                        Position pos = getObstaclePosition(position, posFront, pull[1]);
+                        logger.debug("Ultrasound Avant milieu : " + pull[1]);
+                        if (this.mustStop(pos)) {
+                            tempDetection[1] = true;
+                            logger.info("Ultrasound Avant milieu : STOP (" + pos.getX() + "," + pos.getY() + ")");
+                        } else {
+                            logger.info("Ultrasound Avant milieu : IGNORER (" + pos.getX() + "," + pos.getY() + ")");
+                        }
                     }
                 }
 
                 //front right
-                if (pull[2] < thresholdMap.get("FrontRight")) {
-                    Position pos = getObstaclePosition(position, posFrontRight, pull[2]);
-                    logger.debug("Ultrasound Avant droit : " + pull[2]);
+                int pullId = detectionInterface.getUltraSoundSensorCount() == 4 ? 2 : 1;
+                if (pull[pullId] < thresholdMap.get("FrontRight")) {
+                    Position pos = getObstaclePosition(position, posFrontRight, pull[pullId]);
+                    logger.debug("Ultrasound Avant droit : " + pull[pullId]);
                     if (this.mustStop(pos)) {
-                        tempDetection[2] = true;
+                        tempDetection[pullId] = true;
                         logger.info("Ultrasound Avant droit : STOP (" + pos.getX() + "," + pos.getY() + ")");
                     } else {
                         logger.info("Ultrasound Avant droit : IGNORER (" + pos.getX() + "," + pos.getY() + ")");
@@ -118,11 +125,12 @@ public class UltraSoundManager {
                 }
 
                 //back middle
-                if (pull[3] < thresholdMap.get("Back")) {
-                    Position pos = getObstaclePosition(position, posBack, pull[3]);
-                    logger.debug("Ultrasound Arriere : " + pull[3]);
+                pullId = detectionInterface.getUltraSoundSensorCount() == 4 ? 3 : 2;
+                if (pull[pullId] < thresholdMap.get("Back")) {
+                    Position pos = getObstaclePosition(position, posBack, pull[pullId]);
+                    logger.debug("Ultrasound Arriere : " + pull[pullId]);
                     if (this.mustStop(pos)) {
-                        tempDetection[3] = true;
+                        tempDetection[pullId] = true;
                         logger.info("Ultrasound Arriere : STOP (" + pos.getX() + "," + pos.getY() + ")");
                     } else {
                         logger.info("Ultrasound Arriere : IGNORER (" + pos.getX() + "," + pos.getY() + ")");
@@ -155,26 +163,34 @@ public class UltraSoundManager {
                 final long[] pull = detectionInterface.ultraSoundDetection();
                 Position position = movementManager.getPosition();
 
-                if(sensorCount>0) {
+                if (sensorCount == 4) {
                     //First one is front left
                     Position pos = getObstaclePosition(position, posFrontLeft, pull[0]);
                     System.out.println("Ultrasound Avant gauche : " + pull[0] + " = " + pos.getX() + "," + pos.getY());
 
-                    if(sensorCount>1) {
-                        //front middle
-                        pos = getObstaclePosition(position, posFront, pull[1]);
-                        System.out.println("Ultrasound Avant milieu : " + pull[1] + " = " + pos.getX() + "," + pos.getY());
-                    }
-                    if(sensorCount>2) {
-                        //front right
-                        pos = getObstaclePosition(position, posFrontRight, pull[2]);
-                        System.out.println("Ultrasound Avant droit : " + pull[2] + " = " + pos.getX() + "," + pos.getY());
-                    }
-                    if(sensorCount>3) {
-                        //back middle
-                        pos = getObstaclePosition(position, posBack, pull[3]);
-                        System.out.println("Ultrasound Arriere : " + pull[3] + " = " + pos.getX() + "," + pos.getY());
-                    }
+                    //front middle
+                    pos = getObstaclePosition(position, posFront, pull[1]);
+                    System.out.println("Ultrasound Avant milieu : " + pull[1] + " = " + pos.getX() + "," + pos.getY());
+
+                    //front right
+                    pos = getObstaclePosition(position, posFrontRight, pull[2]);
+                    System.out.println("Ultrasound Avant droit : " + pull[2] + " = " + pos.getX() + "," + pos.getY());
+
+                    //back middle
+                    pos = getObstaclePosition(position, posBack, pull[3]);
+                    System.out.println("Ultrasound Arriere : " + pull[3] + " = " + pos.getX() + "," + pos.getY());
+                } else if (sensorCount == 3) {
+                    //First one is front left
+                    Position pos = getObstaclePosition(position, posFrontLeft, pull[0]);
+                    System.out.println("Ultrasound Avant gauche : " + pull[0] + " = " + pos.getX() + "," + pos.getY());
+
+                    //front middle
+                    pos = getObstaclePosition(position, posFrontRight, pull[1]);
+                    System.out.println("Ultrasound Avant droit : " + pull[1] + " = " + pos.getX() + "," + pos.getY());
+
+                    //front right
+                    pos = getObstaclePosition(position, posBack, pull[2]);
+                    System.out.println("Ultrasound Arriere : " + pull[2] + " = " + pos.getX() + "," + pos.getY());
                 }
                 System.out.println("################################################");
                 for (int i = 0; i < tempDetection.length; i++) {

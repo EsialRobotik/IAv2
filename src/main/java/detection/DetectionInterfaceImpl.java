@@ -21,15 +21,14 @@ public class DetectionInterfaceImpl implements DetectionInterface {
     private List<UltraSoundInterface> srfList;
 
     public DetectionInterfaceImpl(JsonObject ultrasoundObject) {
+        srfList = new ArrayList<>();
         if (ultrasoundObject.get("type").getAsString().equals("srf04")) {
-            srfList = new ArrayList<>();
             JsonArray gpioPairArray = ultrasoundObject.getAsJsonArray("gpioList");
             for (JsonElement e : gpioPairArray) {
                 JsonObject temp = e.getAsJsonObject();
                 GPioPair pair = new GPioPair(temp.get("in").getAsInt(), temp.get("out").getAsInt());
                 srfList.add(new SRF04(pair, temp.get("x").getAsInt(), temp.get("y").getAsInt(), temp.get("angle").getAsInt(), temp.get("threshold").getAsInt()));
             }
-
             System.out.println("Creation done : SRF04");
 
         } else if (ultrasoundObject.get("type").getAsString().equals("srf08")) {
@@ -49,14 +48,10 @@ public class DetectionInterfaceImpl implements DetectionInterface {
                         temp.get("threshold").getAsInt()
                 ));
             }
-
-            srfList = new ArrayList<UltraSoundInterface>();
             for (SRF08Config config : srf08ConfList) {
                 srfList.add(new SRF08(config));
             }
-
             System.out.println("Creation done : SRF08");
-
         }
     }
 
@@ -72,12 +67,12 @@ public class DetectionInterfaceImpl implements DetectionInterface {
 
     @Override
     public UltraSoundInterface getUltrasoundFrontRight() {
-        return this.srfList.get(2);
+        return this.srfList.get(srfList.size() == 4 ? 2 : 1);
     }
 
     @Override
     public UltraSoundInterface getUltrasoundBack() {
-        return this.srfList.get(3);
+        return this.srfList.get(srfList.size() == 4 ? 3 : 2);
     }
 
     public void startDetection() {
