@@ -17,12 +17,14 @@ public class ActionSerial implements ActionExecutor {
 
     public ActionSerial(Serial serial, String serialCommand) {
         logger = LoggerFactory.getLogger(ActionSerial.class);
+        logger.info("ActionSerial init for command : " + serialCommand);
         this.serial = serial;
         this.serial.addReaderListeners((SerialDataEventListener) serialDataEvent -> {
             try {
                 String serialBuffer = serialDataEvent.getAsciiString();
                 if (serialBuffer != null && serialBuffer.trim().equals("ok")) {
                     finished = true;
+                    logger.info("ActionSerial command " + serialCommand + " finished");
                 } else {
                     logger.debug("ActionSerial returned : " + serialBuffer);
                 }
@@ -39,6 +41,7 @@ public class ActionSerial implements ActionExecutor {
         if (finished) {
             return;
         }
+        logger.info("ActionSerial execute command : " + serialCommand);
 
         new Thread(new Runnable() {
             @Override
