@@ -79,6 +79,26 @@ task deploySmallPrincess {
     }
 }
 
+task fetchActionsBigPrincess {
+    doLast {
+        ssh.run {
+            session(remotes.bigPrincessPi) {
+                get from: 'IA/actions/', into: 'src/main/java/actions/a2022/'
+            }
+        }
+    }
+}
+
+task fetchActionSmallPrincess {
+    doLast {
+        ssh.run {
+            session(remotes.smallPrincessPi) {
+                get from: 'IA/actions/', into: 'src/main/java/actions/a2022/'
+            }
+        }
+    }
+}
+
 repositories {
     mavenCentral()
     maven { url 'https://jitpack.io' }
