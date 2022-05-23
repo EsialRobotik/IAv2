@@ -448,23 +448,22 @@ public class Main {
             Reader reader = Files.newBufferedReader(Paths.get(configFilePath));
             JsonObject configRootNode = gson.fromJson(reader, JsonObject.class);
             JsonObject configObject = configRootNode.get("actions").getAsJsonObject();
+            JsonObject configAx12 = configObject.get("ax12").getAsJsonObject();
 
-            if(configObject.has("serie")) {
-                SerialPort sp = AX12LinkSerial.getSerialPort(configObject.get("serie").getAsString());
+            SerialPort sp = AX12LinkSerial.getSerialPort(configAx12.get("serie").getAsString());
 
-                if (sp == null) {
-                    throw new RuntimeException("Aucun port série "+" trouvé !");
-                }
-
-                boolean combineRxTx = configObject.has("combineRxTx") && configObject.get("combineRxTx").getAsBoolean();
-                AX12LinkSerial ax12Link = new AX12LinkSerial(sp, configObject.get("baud").getAsInt(), combineRxTx);
-                File dataDir = new File(configObject.get("dataDir").getAsString()).getCanonicalFile();
-
-                File webRootDir = new File("webRootDir");
-                webRootDir.mkdir();
-                ResourcesManager.mountHtmlDir(webRootDir);
-                new AX12Http(webRootDir, dataDir, ax12Link);
+            if (sp == null) {
+                throw new RuntimeException("Aucun port série "+" trouvé !");
             }
+
+            boolean combineRxTx = configAx12.has("combineRxTx") && configObject.get("combineRxTx").getAsBoolean();
+            AX12LinkSerial ax12Link = new AX12LinkSerial(sp, configAx12.get("baud").getAsInt(), combineRxTx);
+            File dataDir = new File(configObject.get("dataDir").getAsString()).getCanonicalFile();
+
+            File webRootDir = new File("webRootDir");
+            webRootDir.mkdir();
+            ResourcesManager.mountHtmlDir(webRootDir);
+            new AX12Http(webRootDir, dataDir, ax12Link);
         } catch (AX12LinkException |IOException e) {
             e.printStackTrace();
         }
