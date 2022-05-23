@@ -33,6 +33,7 @@ import pathfinding.table.astar.Astar;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -67,11 +68,11 @@ public class ConfigurationManager {
     private ActionFileBinder actionFileBinder;
     private FunnyActionDescription funnyActionDescription;
 
-    public void loadConfiguration(String path) throws IOException, AX12LinkException {
+    public void loadConfiguration(String path) throws IOException, AX12LinkException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         this.loadConfiguration(path,CONFIG_NOMINAL);
     }
 
-    public void loadConfiguration(String path, int config) throws IOException, AX12LinkException {
+    public void loadConfiguration(String path, int config) throws IOException, AX12LinkException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         Logger logger = LoggerFactory.getLogger(ConfigurationManager.class);
 
         Gson gson = new Gson();

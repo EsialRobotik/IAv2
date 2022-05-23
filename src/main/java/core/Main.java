@@ -34,6 +34,7 @@ import utils.web.ResourcesManager;
 import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -52,7 +53,7 @@ public class Main {
 
     public static Logger logger = null;
 
-    public Main(boolean stepByStep) throws IOException, InterruptedException, AX12LinkException {
+    public Main(boolean stepByStep) throws IOException, InterruptedException, AX12LinkException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         //Load of the configuration first
         ConfigurationManager configurationManager = new ConfigurationManager();
         configurationManager.loadConfiguration(configFilePath);
@@ -240,7 +241,7 @@ public class Main {
         System.out.println("configFile : chemin du fichier de configuration à utiliser. Par defaut, './config.json'\n");
     }
 
-    private static void testDetection() throws IOException, InterruptedException, AX12LinkException {
+    private static void testDetection() throws IOException, InterruptedException, AX12LinkException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         //Load of the configuration first
         ConfigurationManager configurationManager = new ConfigurationManager();
         configurationManager.loadConfiguration(configFilePath, ConfigurationManager.CONFIG_TEST_DETECTION);
@@ -253,7 +254,7 @@ public class Main {
         }
     }
 
-    private static void testInterrupteurs() throws IOException, InterruptedException, AX12LinkException {
+    private static void testInterrupteurs() throws IOException, InterruptedException, AX12LinkException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         //Load of the configuration first
         ConfigurationManager configurationManager = new ConfigurationManager();
         configurationManager.loadConfiguration(configFilePath, ConfigurationManager.CONFIG_TEST_INTERRUPTEURS);
@@ -267,7 +268,7 @@ public class Main {
         }
     }
 
-    private static void testLcd() throws IOException, InterruptedException, AX12LinkException {
+    private static void testLcd() throws IOException, InterruptedException, AX12LinkException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         //Load of the configuration first
         ConfigurationManager configurationManager = new ConfigurationManager();
         configurationManager.loadConfiguration(configFilePath, ConfigurationManager.CONFIG_TEST_LCD);
@@ -294,7 +295,7 @@ public class Main {
         System.out.println("Resultat en " + (System.currentTimeMillis() - time) + "ms");
     }
 
-    private static void testPathfinding() throws InterruptedException, IOException, AX12LinkException {
+    private static void testPathfinding() throws InterruptedException, IOException, AX12LinkException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         System.out.println("testPathfinding");
         //Load of the configuration first
         ConfigurationManager configurationManager = new ConfigurationManager();
@@ -354,7 +355,7 @@ public class Main {
 
     }
 
-    private static void coupeOffDance() throws IOException, AX12LinkException {
+    private static void coupeOffDance() throws IOException, AX12LinkException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         //Load of the configuration first
         ConfigurationManager configurationManager = new ConfigurationManager();
         configurationManager.loadConfiguration(configFilePath , ConfigurationManager.CONFIG_COUPEOFF);
@@ -469,8 +470,7 @@ public class Main {
         }
     }
 
-    public static void funnyAction()
-    {
+    public static void funnyAction() throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         ConfigurationManager configurationManager = new ConfigurationManager();
         try {
             configurationManager.loadConfiguration(configFilePath);
