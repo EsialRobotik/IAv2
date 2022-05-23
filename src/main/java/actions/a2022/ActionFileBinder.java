@@ -69,6 +69,12 @@ public class ActionFileBinder implements ActionInterface {
 		PASSPASS_AX_SWITCH("passpass_switch.json"), // 36
 		PASSPASS_AX_PUT("passpass_put.json"), // 37
 		PASSPASS_AX_PUT_RELEASE("passpass_put_release.json"), // 38
+
+		FENWICK_SONDES("s", false, "serial"), // 39
+		FENWICK_SONDE_DROITE_OUT("fenwick_sonde_droite_out.json"), // 40
+		FENWICK_SONDE_DROITE_IN("fenwick_sonde_droite_in.json"), // 41
+		FENWICK_SONDE_GAUCHE_OUT("fenwick_sonde_gauche_out.json"), // 42
+		FENWICK_SONDE_GAUCHE_IN("fenwick_sonde_gauche_in.json"), // 43
 		;
 
 		public static final String ACTION_AX12 = "ax12";

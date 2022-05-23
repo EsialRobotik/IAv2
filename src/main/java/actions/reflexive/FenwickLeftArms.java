@@ -2,7 +2,6 @@ package actions.reflexive;
 
 import actions.ActionReflexiveAbstract;
 import actions.a2022.ActionFileBinder;
-import manager.CommunicationManager;
 
 public class FenwickLeftArms extends ActionReflexiveAbstract {
 
@@ -12,27 +11,20 @@ public class FenwickLeftArms extends ActionReflexiveAbstract {
 
     @Override
     public void execute() {
-
-    }
-
-    @Override
-    public boolean finished() {
-        return false;
-    }
-
-    @Override
-    public void resetActionState() {
-
-    }
-
-    @Override
-    public void setData(String data) {
-
-    }
-
-    @Override
-    public void setCommunicationManager(CommunicationManager communicationManager) {
-
+        logger.info("Start action " + this.getClass());
+        if (finished) {
+            logger.info("Action already finished " + this.getClass());
+            return;
+        }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                executeSubActions(ActionFileBinder.ActionFile.FENWICK_SONDE_GAUCHE_OUT.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.FENWICK_SONDES.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.FENWICK_SONDE_GAUCHE_IN.ordinal());
+                finished = true;
+            }
+        }).start();
     }
 
     @Override
