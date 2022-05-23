@@ -55,6 +55,7 @@ public class ResourcesManager {
             "annee/2021.html",
             "annee/2021_pmi.html",
             "annee/2022.html",
+            "annee/2022_pmi.html",
             "annee/app2019.js",
             "annee/app2020.js",
             "annee/app2022.js",

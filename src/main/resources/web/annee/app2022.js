@@ -389,7 +389,7 @@ $( function() {
                     break;
                     case "actionSerialFlag":
                         actionSubitem = cloneTemplate("serialflag", {
-                            enable: action.serialFlagEnabled,
+                            enabled: action.serialFlagEnabled,
                             flag: action.serialFlagId
                         });
                     break;
@@ -634,8 +634,8 @@ $( function() {
     	})
     	.then((file) => {
     		loadFromJson(file.content);
-    		$(".actions-records__json_filename").val(name);
-    	}).catch(handleAjaxError);
+    	}).catch(handleAjaxError)
+    	.finally(() => $(".actions-records__json_filename").val(name));
     }
 
     const uploadJsonFile = function() {
