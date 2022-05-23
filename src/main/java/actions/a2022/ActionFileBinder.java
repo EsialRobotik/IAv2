@@ -7,6 +7,8 @@ import api.qik.Qik;
 import manager.CommunicationManager;
 
 import java.io.File;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 
 public class ActionFileBinder implements ActionInterface {
 	// TODO abstraire cette classe pour arrêté de copié / collé tout le temps !!!
@@ -44,26 +46,29 @@ public class ActionFileBinder implements ActionInterface {
 		PASSPASS_PUT_RELEASE("PasspassPutRelease", false, "reflexive"), // 15
 
 		FENWICK_ASCENSEUR_INIT("z", false, "serial"), // 16
-//		FENWICK_ASCENSEUR_HAUTEUR_TOP("g120", false, "serial"), // 17
-//		FENWICK_ASCENSEUR_HAUTEUR_PILE_3("g70", false, "serial"), // 18
-//		FENWICK_ASCENSEUR_HAUTEUR_PILE_2("g55", false, "serial"), // 19
-//		FENWICK_ASCENSEUR_HAUTEUR_PILE_1("g40", false, "serial"), // 20
 		FENWICK_ASCENSEUR_IN("fenwick_ascenseur_in.jon"), // 17
 		FENWICK_ASCENSEUR_OUT("fenwick_ascenseur_out.jon"), // 18
-		FENWICK_ASCENSEUR_POMPE("fenwick_ascenseur_pompe.jon"), // 19
-		FENWICK_BRAS_DROIT_OUT("fenwick_bras_droit_out.jon"), // 20
-		FENWICK_BRAS_DROIT_IN("fenwick_bras_droit_in.jon"), // 21
-		FENWICK_BRAS_GAUCHE_OUT("fenwick_bras_gauche_out.jon"), // 22
-		FENWICK_BRAS_GAUCHE_IN("fenwick_bras_gauche_in.jon"), // 23
+		FENWICK_ASCENSEUR_POMPE_SUCK("fenwick_ascenseur_pompe_suck.jon"), // 19
+		FENWICK_ASCENSEUR_POMPE_RELEASE("fenwick_ascenseur_pompe_release.jon"), // 20
+		FENWICK_BRAS_DROIT_OUT("fenwick_bras_droit_out.jon"), // 21
+		FENWICK_BRAS_DROIT_IN("fenwick_bras_droit_in.jon"), // 22
+		FENWICK_BRAS_GAUCHE_OUT("fenwick_bras_gauche_out.jon"), // 23
+		FENWICK_BRAS_GAUCHE_IN("fenwick_bras_gauche_in.jon"), // 24
 
-		PASSPASS_AX_GET_STATUE("passpass_get_statue.json"), // 9
-		PASSPASS_AX_PUT_FAKE("passpass_put_fake.json"), // 10
-		PASSPASS_AX_TAKE("passpass_take.json"), // 11
-		PASSPASS_AX_STORE("passpass_store.json"), // 12
-		PASSPASS_AX_UNSTORE("passpass_unstore.json"), // 13
-		PASSPASS_AX_SWITCH("passpass_switch.json"), // 13
-		PASSPASS_AX_PUT("passpass_put.json"), // 14
-		PASSPASS_AX_PUT_RELEASE("passpass_put_release.json"), // 15
+		FENWICK_ASCENSEUR_HAUTEUR_TOP("g120", false, "serial"), // 25
+		FENWICK_ASCENSEUR_HAUTEUR_PILE_3("g70", false, "serial"), // 26
+		FENWICK_ASCENSEUR_HAUTEUR_PILE_2("g55", false, "serial"), // 27
+		FENWICK_ASCENSEUR_HAUTEUR_PILE_1("g40", false, "serial"), // 28
+		FENWICK_ASCENSEUR_HAUTEUR_LACHER("g20", false, "serial"), // 29
+
+		PASSPASS_AX_GET_STATUE("passpass_get_statue.json"), // 30
+		PASSPASS_AX_PUT_FAKE("passpass_put_fake.json"), // 31
+		PASSPASS_AX_TAKE("passpass_take.json"), // 32
+		PASSPASS_AX_STORE("passpass_store.json"), // 33
+		PASSPASS_AX_UNSTORE("passpass_unstore.json"), // 34
+		PASSPASS_AX_SWITCH("passpass_switch.json"), // 35
+		PASSPASS_AX_PUT("passpass_put.json"), // 36
+		PASSPASS_AX_PUT_RELEASE("passpass_put_release.json"), // 37
 		;
 
 		public static final String ACTION_AX12 = "ax12";
@@ -94,14 +99,14 @@ public class ActionFileBinder implements ActionInterface {
 		}
 	}
 
-	public ActionFileBinder(AX12LinkSerial link, String dataDir, ActionCollection actionCollection) {
+	public ActionFileBinder(AX12LinkSerial link, String dataDir, ActionCollection actionCollection) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
 		this.dataDir = new File(dataDir);
 		this.actionCollection = actionCollection;
 		this.ax12Link = link;
 		loadFiles();
 	}
 
-	public ActionFileBinder(AX12LinkSerial link, String dataDir, ActionCollection actionCollection, Qik qikLink, Serial serialLink) {
+	public ActionFileBinder(AX12LinkSerial link, String dataDir, ActionCollection actionCollection, Qik qikLink, Serial serialLink) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
 		this.dataDir = new File(dataDir);
 		this.actionCollection = actionCollection;
 		this.ax12Link = link;
@@ -110,7 +115,7 @@ public class ActionFileBinder implements ActionInterface {
 		loadFiles();
 	}
 	
-	protected void loadFiles() {
+	protected void loadFiles() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
 		ax12Link.enableDtr(false);
 		ax12Link.enableRts(false);
 
@@ -118,11 +123,19 @@ public class ActionFileBinder implements ActionInterface {
 		actionsList = new ActionExecutor[files.length];
 
 		for (int i = 0; i < files.length; i++) {
-			if (files[i].type.equals(ActionFile.ACTION_AX12)) {
-				File f = new File(this.dataDir.getAbsolutePath() + File.separator + files[i].nomFichier);
-				actionsList[i] = new ActionAX12Json(ax12Link, f, files[i].instantReturn);
-			} else  {
-				// TODO
+			switch (files[i].type) {
+				case ActionFile.ACTION_AX12:
+					File f = new File(this.dataDir.getAbsolutePath() + File.separator + files[i].nomFichier);
+					actionsList[i] = new ActionAX12Json(ax12Link, f, files[i].instantReturn);
+					break;
+				case ActionFile.ACTION_SERIAL:
+					actionsList[i] = new ActionSerial(serialLink, files[i].nomFichier);
+					break;
+				case ActionFile.ACTION_REFLEXIVE:
+					Class<?> cl = Class.forName("actions.a2022." + files[i].nomFichier);
+					Constructor<?> cons = cl.getConstructor(ActionFileBinder.class);
+					actionsList[i] = (ActionExecutor) cons.newInstance(this);
+					break;
 			}
 		}
 	}
