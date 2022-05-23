@@ -83,36 +83,36 @@
             "gpioList": [
                 {
                     "desc": "Avant gauche",
-                    "in": 22,
-                    "out": 21,
-                    "x": 120,
+                    "in": 25,
+                    "out": 24,
+                    "x": 100,
                     "y": 105,
-                    "angle": 20,
+                    "angle": 30,
                     "threshold": 350
                 },
                 {
                     "desc": "Milieu",
-                    "in": 24,
-                    "out": 25,
-                    "x": 125,
+                    "in": 2,
+                    "out": 0,
+                    "x": 115,
                     "y": 0,
                     "angle": 0,
                     "threshold": 350
                 },
                 {
                     "desc": "Avant droit",
-                    "in": 2,
-                    "out": 0,
-                    "x": 120,
+                    "in": 13,
+                    "out": 12,
+                    "x": 100,
                     "y": -105,
-                    "angle": -20,
+                    "angle": -30,
                     "threshold": 350
                 },
                 {
                     "desc": "Arrière",
-                    "in": 12,
-                    "out": 13,
-                    "x": -125,
+                    "in": 22,
+                    "out": 21,
+                    "x": -110,
                     "y": 0,
                     "angle": 180,
                     "threshold": 280
