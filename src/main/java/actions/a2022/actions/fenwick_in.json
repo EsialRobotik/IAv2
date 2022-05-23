@@ -7,7 +7,7 @@
                     "ax12Id": 7,
                     "speed": 300,
                     "acceleration": 60,
-                    "compliance": 2
+                    "compliance": 1
                 }
             ]
         },
@@ -16,8 +16,8 @@
                 {
                     "actionId": "actionPosition",
                     "ax12Id": 7,
-                    "rawAngle": 230,
-                    "readOnlyAngleDegrees": 67.44868035190616
+                    "rawAngle": 240,
+                    "readOnlyAngleDegrees": 70.38123167155426
                 }
             ]
         }
