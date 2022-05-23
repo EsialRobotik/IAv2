@@ -46,14 +46,14 @@ public class ActionFileBinder implements ActionInterface {
 		PASSPASS_PUT_RELEASE("PasspassPutRelease", false, "reflexive"), // 15
 
 		FENWICK_ASCENSEUR_INIT("z", false, "serial"), // 16
-		FENWICK_ASCENSEUR_IN("fenwick_ascenseur_in.jon"), // 17
-		FENWICK_ASCENSEUR_OUT("fenwick_ascenseur_out.jon"), // 18
-		FENWICK_ASCENSEUR_POMPE_SUCK("fenwick_ascenseur_pompe_suck.jon"), // 19
-		FENWICK_ASCENSEUR_POMPE_RELEASE("fenwick_ascenseur_pompe_release.jon"), // 20
-		FENWICK_BRAS_DROIT_OUT("fenwick_bras_droit_out.jon"), // 21
-		FENWICK_BRAS_DROIT_IN("fenwick_bras_droit_in.jon"), // 22
-		FENWICK_BRAS_GAUCHE_OUT("fenwick_bras_gauche_out.jon"), // 23
-		FENWICK_BRAS_GAUCHE_IN("fenwick_bras_gauche_in.jon"), // 24
+		FENWICK_ASCENSEUR_IN("fenwick_ascenseur_in.json"), // 17
+		FENWICK_ASCENSEUR_OUT("fenwick_ascenseur_out.json"), // 18
+		FENWICK_ASCENSEUR_POMPE_SUCK("fenwick_ascenseur_pompe_suck.json"), // 19
+		FENWICK_ASCENSEUR_POMPE_RELEASE("fenwick_ascenseur_pompe_release.json"), // 20
+		FENWICK_BRAS_DROIT_OUT("fenwick_bras_droit_out.json"), // 21
+		FENWICK_BRAS_DROIT_IN("fenwick_bras_droit_in.json"), // 22
+		FENWICK_BRAS_GAUCHE_OUT("fenwick_bras_gauche_out.json"), // 23
+		FENWICK_BRAS_GAUCHE_IN("fenwick_bras_gauche_in.json"), // 24
 
 		FENWICK_ASCENSEUR_HAUTEUR_TOP("g120", false, "serial"), // 25
 		FENWICK_ASCENSEUR_HAUTEUR_PILE_3("g70", false, "serial"), // 26
@@ -132,7 +132,7 @@ public class ActionFileBinder implements ActionInterface {
 					actionsList[i] = new ActionSerial(serialLink, files[i].nomFichier);
 					break;
 				case ActionFile.ACTION_REFLEXIVE:
-					Class<?> cl = Class.forName("actions.a2022." + files[i].nomFichier);
+					Class<?> cl = Class.forName("actions.reflexive." + files[i].nomFichier);
 					Constructor<?> cons = cl.getConstructor(ActionFileBinder.class);
 					actionsList[i] = (ActionExecutor) cons.newInstance(this);
 					break;
