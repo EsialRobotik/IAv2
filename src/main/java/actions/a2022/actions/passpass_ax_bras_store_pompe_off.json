@@ -1,0 +1,39 @@
+{
+    "actionPools": [
+        {
+            "actions": [
+                {
+                    "actionId": "actionSerialFlag",
+                    "serialFlagId": "RTS",
+                    "serialFlagEnabled": false
+                }
+            ]
+        },
+        {
+            "actions": [
+                {
+                    "actionId": "actionSerialFlag",
+                    "serialFlagId": "DTR",
+                    "serialFlagEnabled": true
+                }
+            ]
+        },
+        {
+            "actions": [
+                {
+                    "actionId": "actionWaiting",
+                    "waitingTimeMs": 250
+                }
+            ]
+        },
+        {
+            "actions": [
+                {
+                    "actionId": "actionSerialFlag",
+                    "serialFlagId": "DTR",
+                    "serialFlagEnabled": false
+                }
+            ]
+        }
+    ]
+}

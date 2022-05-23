@@ -1,0 +1,32 @@
+{
+    "actionPools": [
+        {
+            "actions": [
+                {
+                    "actionId": "actionPosition",
+                    "ax12Id": 15,
+                    "rawAngle": 505,
+                    "readOnlyAngleDegrees": 148.09384164222874
+                },
+                {
+                    "actionId": "actionPosition",
+                    "ax12Id": 6,
+                    "rawAngle": 517,
+                    "readOnlyAngleDegrees": 151.61290322580646
+                },
+                {
+                    "actionId": "actionPosition",
+                    "ax12Id": 8,
+                    "rawAngle": 515,
+                    "readOnlyAngleDegrees": 151.02639296187684
+                },
+                {
+                    "actionId": "actionPosition",
+                    "ax12Id": 13,
+                    "rawAngle": 513,
+                    "readOnlyAngleDegrees": 150.4398826979472
+                }
+            ]
+        }
+    ]
+}
