@@ -148,7 +148,7 @@ public class ConfigurationManager {
                 }
                 Serial serialLink = null;
                 if (configObject.has("serial")) {
-                    JsonObject serialConfig = configObject.getAsJsonObject("serie");
+                    JsonObject serialConfig = configObject.getAsJsonObject("serial");
                     serialLink = new Serial(serialConfig.get("serie").getAsString(), serialConfig.get("baud").getAsInt());
                 }
                 String dataDir = configObject.get("dataDir").getAsString();
