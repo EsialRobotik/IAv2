@@ -12,6 +12,7 @@ public class ActionSerial implements ActionExecutor {
 
     private Serial serial;
     private String serialCommand;
+    private SerialDataEventListener serialDataEventListener;
     protected boolean finished;
     protected Logger logger;
 
@@ -19,29 +20,30 @@ public class ActionSerial implements ActionExecutor {
         logger = LoggerFactory.getLogger(ActionSerial.class);
         logger.info("ActionSerial init for command : " + serialCommand);
         this.serial = serial;
-        this.serial.addReaderListeners((SerialDataEventListener) serialDataEvent -> {
+        this.serialCommand = serialCommand;
+        serialDataEventListener = serialDataEvent -> {
             try {
                 String serialBuffer = serialDataEvent.getAsciiString();
                 if (serialBuffer != null && serialBuffer.trim().equals("ok")) {
                     finished = true;
+                    serial.removeReaderListeners(serialDataEventListener);
                     logger.info("ActionSerial command " + serialCommand + " finished");
-                } else {
-                    logger.debug("ActionSerial returned : " + serialBuffer);
                 }
             } catch (IOException e) {
                 logger.error("Echec de ActionSerial : " + e.getMessage());
             }
-        });
-        this.serialCommand = serialCommand;
+        };
         this.finished = false;
     }
 
     @Override
     public void execute() {
         if (finished) {
+            logger.info("ActionSerial finished command : " + serialCommand);
             return;
         }
         logger.info("ActionSerial execute command : " + serialCommand);
+        this.serial.addReaderListeners(serialDataEventListener);
 
         new Thread(new Runnable() {
             @Override
@@ -57,7 +59,9 @@ public class ActionSerial implements ActionExecutor {
     }
 
     @Override
-    public void resetActionState() {}
+    public void resetActionState() {
+        this.finished = false;
+    }
 
     @Override
     public void setData(String data) {}

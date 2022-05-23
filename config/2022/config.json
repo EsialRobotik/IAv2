@@ -74,11 +74,11 @@
         },
         "serial": {
             "comment": "Arduino",
-            "serie": "/dev/serial/by-path/platform-3f980000.usb-usb-0:1.2:1.0-port0",
+            "serie": "/dev/serial/by-id/usb-1a86_USB_Serial-if00-port0",
             "baud": 115200
         },
         "dataDir": "/home/pi/IA/actions/",
-        "init": [16, 25, 0],
+        "init": [17, 26, 0],
         "funnyAction": {
             "actionId": 12,
             "score": 10

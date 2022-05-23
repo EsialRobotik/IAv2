@@ -1,6 +1,8 @@
 package actions;
 
+import api.log.LoggerFactory;
 import manager.CommunicationManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 
@@ -14,8 +16,10 @@ public class ActionSupervisor {
     private ArrayList<Integer> initActionsId;
     private CommunicationManager communicationManager;
     private String actionFlag;
+    protected Logger logger;
 
     public ActionSupervisor(ActionInterface actionInterface, ArrayList<Integer> initActionsId) {
+        logger = LoggerFactory.getLogger(ActionSupervisor.class);
         this.actionInterface = actionInterface;
         this.initActionsId = initActionsId;
     }
@@ -29,6 +33,7 @@ public class ActionSupervisor {
     }
 
     public void executeCommand(int id) {
+        logger.info("Execute command " + id);
         actionFlag = null;
         currentActionExecutor = actionInterface.getActionExecutor(id);
         currentActionExecutor.resetActionState();
@@ -46,7 +51,9 @@ public class ActionSupervisor {
     }
 
     public void init() {
+        logger.info("Init actionneurs");
         for (int actionId : this.initActionsId) {
+            logger.info("Init action : " + actionId);
             this.executeCommand(actionId);
             while (!this.isLastExecutionFinished()) {
                 try {

@@ -41,34 +41,34 @@ public class ActionFileBinder implements ActionInterface {
 		PASSPASS_TAKE("PasspassTake", false, "reflexive"), // 11
 		PASSPASS_STORE("PasspassStore", false, "reflexive"), // 12
 		PASSPASS_UNSTORE("PasspassUnstore", false, "reflexive"), // 13
-		PASSPASS_SWITCH("PasspassSwitch", false, "reflexive"), // 13
-		PASSPASS_PUT("PasspassPut", false, "reflexive"), // 14
-		PASSPASS_PUT_RELEASE("PasspassPutRelease", false, "reflexive"), // 15
+		PASSPASS_SWITCH("PasspassSwitch", false, "reflexive"), // 14
+		PASSPASS_PUT("PasspassPut", false, "reflexive"), // 15
+		PASSPASS_PUT_RELEASE("PasspassPutRelease", false, "reflexive"), // 16
 
-		FENWICK_ASCENSEUR_INIT("z", false, "serial"), // 16
-		FENWICK_ASCENSEUR_IN("fenwick_ascenseur_in.json"), // 17
-		FENWICK_ASCENSEUR_OUT("fenwick_ascenseur_out.json"), // 18
-		FENWICK_ASCENSEUR_POMPE_SUCK("fenwick_ascenseur_pompe_suck.json"), // 19
-		FENWICK_ASCENSEUR_POMPE_RELEASE("fenwick_ascenseur_pompe_release.json"), // 20
-		FENWICK_BRAS_DROIT_OUT("fenwick_bras_droit_out.json"), // 21
-		FENWICK_BRAS_DROIT_IN("fenwick_bras_droit_in.json"), // 22
-		FENWICK_BRAS_GAUCHE_OUT("fenwick_bras_gauche_out.json"), // 23
-		FENWICK_BRAS_GAUCHE_IN("fenwick_bras_gauche_in.json"), // 24
+		FENWICK_ASCENSEUR_INIT("z", false, "serial"), // 17
+		FENWICK_ASCENSEUR_IN("fenwick_ascenseur_in.json"), // 18
+		FENWICK_ASCENSEUR_OUT("fenwick_ascenseur_out.json"), // 19
+		FENWICK_ASCENSEUR_POMPE_SUCK("fenwick_ascenseur_pompe_suck.json"), // 20
+		FENWICK_ASCENSEUR_POMPE_RELEASE("fenwick_ascenseur_pompe_release.json"), // 21
+		FENWICK_BRAS_DROIT_OUT("fenwick_bras_droit_out.json"), // 22
+		FENWICK_BRAS_DROIT_IN("fenwick_bras_droit_in.json"), // 23
+		FENWICK_BRAS_GAUCHE_OUT("fenwick_bras_gauche_out.json"), // 24
+		FENWICK_BRAS_GAUCHE_IN("fenwick_bras_gauche_in.json"), // 25
 
-		FENWICK_ASCENSEUR_HAUTEUR_TOP("g120", false, "serial"), // 25
-		FENWICK_ASCENSEUR_HAUTEUR_PILE_3("g70", false, "serial"), // 26
-		FENWICK_ASCENSEUR_HAUTEUR_PILE_2("g55", false, "serial"), // 27
-		FENWICK_ASCENSEUR_HAUTEUR_PILE_1("g40", false, "serial"), // 28
-		FENWICK_ASCENSEUR_HAUTEUR_LACHER("g20", false, "serial"), // 29
+		FENWICK_ASCENSEUR_HAUTEUR_TOP("g120", false, "serial"), // 26
+		FENWICK_ASCENSEUR_HAUTEUR_PILE_3("g70", false, "serial"), // 27
+		FENWICK_ASCENSEUR_HAUTEUR_PILE_2("g55", false, "serial"), // 28
+		FENWICK_ASCENSEUR_HAUTEUR_PILE_1("g40", false, "serial"), // 29
+		FENWICK_ASCENSEUR_HAUTEUR_LACHER("g20", false, "serial"), // 30
 
-		PASSPASS_AX_GET_STATUE("passpass_get_statue.json"), // 30
-		PASSPASS_AX_PUT_FAKE("passpass_put_fake.json"), // 31
-		PASSPASS_AX_TAKE("passpass_take.json"), // 32
-		PASSPASS_AX_STORE("passpass_store.json"), // 33
-		PASSPASS_AX_UNSTORE("passpass_unstore.json"), // 34
-		PASSPASS_AX_SWITCH("passpass_switch.json"), // 35
-		PASSPASS_AX_PUT("passpass_put.json"), // 36
-		PASSPASS_AX_PUT_RELEASE("passpass_put_release.json"), // 37
+		PASSPASS_AX_GET_STATUE("passpass_get_statue.json"), // 31
+		PASSPASS_AX_PUT_FAKE("passpass_put_fake.json"), // 32
+		PASSPASS_AX_TAKE("passpass_take.json"), // 33
+		PASSPASS_AX_STORE("passpass_store.json"), // 34
+		PASSPASS_AX_UNSTORE("passpass_unstore.json"), // 35
+		PASSPASS_AX_SWITCH("passpass_switch.json"), // 36
+		PASSPASS_AX_PUT("passpass_put.json"), // 37
+		PASSPASS_AX_PUT_RELEASE("passpass_put_release.json"), // 38
 		;
 
 		public static final String ACTION_AX12 = "ax12";
