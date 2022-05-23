@@ -7,7 +7,9 @@ import api.ax12.AX12LinkException;
 import api.ax12.AX12LinkSerial;
 import api.camera.Camera;
 import api.communication.HotspotSocket;
+import api.communication.Serial;
 import api.communication.Shell;
+import api.custom.LiftProbe2022;
 import api.gpio.ColorDetector;
 import api.gpio.Tirette;
 import api.lcd.LCD;
@@ -176,6 +178,9 @@ public class Main {
                 case "config-ax12":
                     Main.configAX12();
                     break;
+                case "test-lift":
+                    Main.testLift();
+                    break;
                 case "hotspot":
                     Main.testHotspot();
                     break;
@@ -234,6 +239,7 @@ public class Main {
         System.out.println("\t- pathfinding : Test le calcul de pathfinding\n");
         System.out.println("\t- coupe-off : Danse de la coupe off\n");
         System.out.println("\t- config-ax12 : Lance l'utilitaire de configuration des AX12\n");
+        System.out.println("\t- test-lift : Lance une console de test de l'ascenseur et de lasondes carrés de fouille de la grosse Princesse 2022\n");
         System.out.println("\t- hotspot : Test la communication socket via le hotspot\n");
         System.out.println("\t- camera : Test la camera\n");
         System.out.println("\t- funny-action : Test de la funny action en utilisant l'interrupteur de couleur comme déclencheur\n");
@@ -465,6 +471,46 @@ public class Main {
             ResourcesManager.mountHtmlDir(webRootDir);
             new AX12Http(webRootDir, dataDir, ax12Link);
         } catch (AX12LinkException |IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void testLift() {
+        try {
+            Gson gson = new Gson();
+            Reader reader = Files.newBufferedReader(Paths.get(configFilePath));
+            JsonObject configRootNode = gson.fromJson(reader, JsonObject.class);
+            JsonObject configObject = configRootNode.get("actions").getAsJsonObject();
+            JsonObject configSerial = configObject.get("serial").getAsJsonObject();
+
+            Serial serial = new Serial(configSerial.get("serie").getAsString(), configSerial.get("baud").getAsInt());
+            LiftProbe2022 liftProbe2022 = new LiftProbe2022(serial);
+
+            Scanner in = new Scanner(System.in);
+            String cmd;
+            System.out.println("Commandes :\n  exit\n  reset : home de l'ascenseur");
+            System.out.println("  a : affiche la hauteur de l'ascenseur\n  p : affiche le carré de fouille sondé");
+            System.out.println("  g<mm> : envoie l'ascenseur à la hauteur demandée");
+            System.out.print(">");
+            while((cmd = in.nextLine()) != null) {
+                try {
+                    if (cmd.startsWith("exit")) {
+                        break;
+                    } else if (cmd.startsWith("reset")) {
+                        liftProbe2022.makeLiftHome();
+                    } else if (cmd.equals("p")) {
+                        System.out.println(liftProbe2022.probeExcavations().name());
+                    } else if (cmd.equals("a")) {
+                        System.out.println(liftProbe2022.fetchLiftPosition()+"mm");
+                    } else if (cmd.startsWith("g") && cmd.length() > 1) {
+                        liftProbe2022.setLiftPosition(Integer.parseInt(cmd.substring(1)));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                System.out.print(">");
+            }
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
