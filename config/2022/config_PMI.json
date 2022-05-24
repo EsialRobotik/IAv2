@@ -25,12 +25,12 @@
         "combineRxTx": false,
         "serie": "/dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_066AFF575755846687215414-if02",
         "calage0": {
-            "x": 1150,
+            "x": 850,
             "y": 115,
             "theta": 1.5707963267948966192313216916398
         },
         "calage3000": {
-            "x": 1150,
+            "x": 850,
             "y": 2885,
             "theta": -1.5707963267948966192313216916398
         },
