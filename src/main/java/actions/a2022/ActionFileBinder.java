@@ -9,6 +9,8 @@ import manager.CommunicationManager;
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class ActionFileBinder implements ActionInterface {
 	// TODO abstraire cette classe pour arrêté de copié / collé tout le temps !!!
@@ -80,11 +82,16 @@ public class ActionFileBinder implements ActionInterface {
 		FENWICK_FOUILLE_GAUCHE_4("FenwickFouilleGauche4", false, "reflexive"), // 45
 
 		PASSPASS_AX_SWITCH_KISS("passpass_switch_kiss.json"), // 46
+
+		PASSPASS_VITRINE_ALLUMER("http://192.168.0.106:8000/test", true, "http") // 47
+
 		;
 
 		public static final String ACTION_AX12 = "ax12";
 		public static final String ACTION_SERIAL = "serial";
 		public static final String ACTION_REFLEXIVE = "reflexive";
+
+		public static final String ACTION_HTTP = "http";
 
 		public final String nomFichier;
 		public final boolean instantReturn;
@@ -145,6 +152,13 @@ public class ActionFileBinder implements ActionInterface {
 					Class<?> cl = Class.forName("actions.reflexive." + files[i].nomFichier);
 					Constructor<?> cons = cl.getConstructor(ActionFileBinder.class);
 					actionsList[i] = (ActionExecutor) cons.newInstance(this);
+					break;
+				case ActionFile.ACTION_HTTP:
+					try {
+						actionsList[i] = new ActionHttp(new URL(files[i].nomFichier));
+					} catch (MalformedURLException e) {
+						throw new RuntimeException(e);
+					}
 					break;
 			}
 		}
