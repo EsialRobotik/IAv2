@@ -78,19 +78,25 @@ public class MainOneRobot2022 {
         score = 20;
         TaskList deposeStatuette0 = new TaskList();
         deposeStatuette0.add(
-            new GoToAstar("Déplacement exposition", 300, 260)
+            new GoToAstar("Déplacement exposition", 400, 260, Tache.Mirror.SPECIFIC),
+            new GoToAstar("Déplacement exposition", 400, 2780, Tache.Mirror.SPECIFIC)
         );
         deposeStatuette0.add(
-            new GoTo("Déplacement exposition", 160, 260)
+            new Manipulation("On remonte le bras", ActionFileBinder.ActionFile.FENWICK_SOLO_ASCENSCEUR_AX_DROP_STATUETTE.ordinal())
         );
         deposeStatuette0.add(
-                new Face("Déplacement exposition", 0, 260)
+            new GoTo("Déplacement exposition", 200, 260, Tache.Mirror.SPECIFIC),
+            new GoTo("Déplacement exposition", 200, 2780, Tache.Mirror.SPECIFIC)
         );
         deposeStatuette0.add(
-                new SetSpeed("On ralentit", 50)
+            new Face("Déplacement exposition", 0, 260, Tache.Mirror.SPECIFIC),
+            new Face("Déplacement exposition", 0, 2780, Tache.Mirror.SPECIFIC)
         );
         deposeStatuette0.add(
-            new Go("Déplacement exposition", 10, 200)
+            new SetSpeed("On ralentit", 20)
+        );
+        deposeStatuette0.add(
+            new Go("Déplacement exposition", 20, 200)
         );
         deposeStatuette0.add(
             new Manipulation("Pose statuette", ActionFileBinder.ActionFile.FENWICK_SOLO_PUT_STATUETTE.ordinal())
