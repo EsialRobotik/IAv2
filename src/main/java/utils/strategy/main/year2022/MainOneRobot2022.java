@@ -84,7 +84,7 @@ public class MainOneRobot2022 {
             new GoTo("Déplacement exposition", 160, 260)
         );
         deposeStatuette0.add(
-            new Go("Déplacement exposition", 30, 500)
+            new Go("Déplacement exposition", 20, 200)
         );
         deposeStatuette0.add(
             new Face("Déplacement exposition", 0, 260)

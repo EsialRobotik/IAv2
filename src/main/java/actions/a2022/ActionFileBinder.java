@@ -83,7 +83,7 @@ public class ActionFileBinder implements ActionInterface {
 
 		PASSPASS_AX_SWITCH_KISS("passpass_switch_kiss.json"), // 46
 
-		PASSPASS_VITRINE_ALLUMER("http://192.168.0.106:8000/test", true, "http"), // 47
+		PASSPASS_VITRINE_ALLUMER("http://192.168.0.106:8000/light_on", true, "http"), // 47
 
 		FENWICK_SOLO_GET_STATUETTE("FenwickSoloGetStatuette", false, "reflexive"), // 48
 		FENWICK_SOLO_ASCENSCEUR_GET_STATUETTE("g125", false, "serial"), // 49
