@@ -6,6 +6,28 @@
                     "actionId": "actionSerialFlag",
                     "serialFlagId": "DTR",
                     "serialFlagEnabled": false
+                },
+                {
+                    "actionId": "actionSerialFlag",
+                    "serialFlagId": "RTS",
+                    "serialFlagEnabled": true
+                }
+            ]
+        },
+        {
+            "actions": [
+                {
+                    "actionId": "actionWaiting",
+                    "waitingTimeMs": 1000
+                }
+            ]
+        },
+        {
+            "actions": [
+                {
+                    "actionId": "actionSerialFlag",
+                    "serialFlagId": "RTS",
+                    "serialFlagEnabled": false
                 }
             ]
         }
