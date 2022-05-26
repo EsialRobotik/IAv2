@@ -49,8 +49,8 @@ public class MainOneRobot2022 {
                 new GoTo("Sortie de zone interdite", 600, 250)
         );
         recuperationStatuette0.add(
-            new GoToAstar("Placement chantier récupération statuette", 1500, 500, Tache.Mirror.SPECIFIC),
-            new GoToAstar("Placement chantier récupération statuette", 1500, 2500, Tache.Mirror.SPECIFIC)
+            new GoToAstar("Placement chantier récupération statuette", 1500, 400, Tache.Mirror.SPECIFIC),
+            new GoToAstar("Placement chantier récupération statuette", 1500, 2450, Tache.Mirror.SPECIFIC)
         );
         recuperationStatuette0.add(
             new GoTo("Placement chantier récupération statuette", 1560, 350, Tache.Mirror.SPECIFIC),
@@ -81,13 +81,10 @@ public class MainOneRobot2022 {
             new GoToAstar("Déplacement exposition", 300, 260)
         );
         deposeStatuette0.add(
-            new GoTo("Déplacement exposition", 150, 260)
+            new GoTo("Déplacement exposition", 160, 260)
         );
         deposeStatuette0.add(
             new Face("Déplacement exposition", 0, 260)
-        );
-        deposeStatuette0.add(
-            new Go("Déplacement exposition", 40, 500)
         );
         deposeStatuette0.add(
             new Manipulation("Pose statuette", ActionFileBinder.ActionFile.FENWICK_SOLO_PUT_STATUETTE.ordinal())
@@ -106,8 +103,8 @@ public class MainOneRobot2022 {
         score = 10;
         TaskList deposeFake0 =  new TaskList();
         deposeFake0.add(
-            new GoToAstar("Placement chantier dépose fake", 1500, 500, Tache.Mirror.SPECIFIC),
-            new GoToAstar("Placement chantier dépose fake", 1500, 2500, Tache.Mirror.SPECIFIC)
+            new GoToAstar("Placement chantier dépose fake", 1500, 400, Tache.Mirror.SPECIFIC),
+            new GoToAstar("Placement chantier dépose fake", 1500, 2450, Tache.Mirror.SPECIFIC)
         );
         deposeFake0.add(
             new GoTo("Placement chantier dépose fake", 1560, 350, Tache.Mirror.SPECIFIC),
@@ -136,10 +133,13 @@ public class MainOneRobot2022 {
         score = 5;
         TaskList carresFouille1_0 =  new TaskList();
         carresFouille1_0.add(
-            new GoToAstar("Placement Carré 1", 1760, 600)
+            new GoTo("Placement Carré 1", 1760, 600)
         );
         carresFouille1_0.add(
-            new GoTo("Placement Carré 1", 1810, 670)
+            new GoTo("Placement Carré 1", 1760, 1000)
+        );
+        carresFouille1_0.add(
+            new GoToBack("Placement Carré 1", 1810, 670)
         );
         carresFouille1_0.add(
             new Face("Alignement Carré 1", 1810, 3000)
@@ -200,7 +200,7 @@ public class MainOneRobot2022 {
         score = 20;
         TaskList rangement0 =  new TaskList();
         rangement0.add(
-            new GoToAstar("Mise en place rangement zone de fouille", 650, 200)
+            new GoToAstar("Mise en place rangement zone de fouille", 600, 310)
         );
         objectifsCouleur0.add(rangement0.generateObjectif("Rangement", objectifsCouleur0.size()+1, score, 1));
         objectifsCouleur3000.add(rangement0.generateMirrorObjectif("Rangement", objectifsCouleur3000.size()+1, score, 1));
