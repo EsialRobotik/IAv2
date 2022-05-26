@@ -29,6 +29,7 @@ public class AX12LinkSerial implements AX12Link {
 		this.combinedRxTx = combinedRxTx == null ? false : combinedRxTx;
 		try {
 			this.sp.setDTR(false);
+			this.sp.setRTS(false);
 			this.sp.setFlowControlMode(SerialPort.FLOWCONTROL_NONE);
 			//this.sp.setFlowControlMode(SerialPort.FLOWCONTROL_RTSCTS_OUT);
 			
