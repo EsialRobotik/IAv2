@@ -24,13 +24,13 @@
         "baud": 115200,
         "serie": "/dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_066FFF383133524157185717-if02",
         "calage0": {
-            "x": 250,
-            "y": 165,
+            "x": 210,
+            "y": 118,
             "theta": 1.5707963267948966192313216916398
         },
         "calage3000": {
-            "x": 250,
-            "y": 2835,
+            "x": 210,
+            "y": 2882,
             "theta": -1.5707963267948966192313216916398
         },
         "start0": [
@@ -40,6 +40,11 @@
             },
             {
                 "type": "goto",
+                "x": 600,
+                "y": 400
+            },
+            {
+                "type": "goto_reverse",
                 "x": 600,
                 "y": 200
             },
@@ -56,6 +61,11 @@
             },
             {
                 "type": "goto",
+                "x": 600,
+                "y": 2600
+            },
+            {
+                "type": "goto_reverse",
                 "x": 600,
                 "y": 2800
             },
@@ -78,7 +88,7 @@
             "baud": 115200
         },
         "dataDir": "/home/pi/IA/actions/",
-        "init": [17, 26, 0],
+        "init": [0],
         "funnyAction": {
             "actionId": 12,
             "score": 10
@@ -96,7 +106,7 @@
                     "x": 100,
                     "y": 105,
                     "angle": 30,
-                    "threshold": 350
+                    "threshold": 500
                 },
                 {
                     "desc": "Milieu",
@@ -105,7 +115,7 @@
                     "x": 115,
                     "y": 0,
                     "angle": 0,
-                    "threshold": 350
+                    "threshold": 500
                 },
                 {
                     "desc": "Avant droit",
@@ -114,7 +124,7 @@
                     "x": 100,
                     "y": -105,
                     "angle": -30,
-                    "threshold": 350
+                    "threshold": 500
                 },
                 {
                     "desc": "Arrière",
@@ -123,7 +133,7 @@
                     "x": -110,
                     "y": 0,
                     "angle": 180,
-                    "threshold": 280
+                    "threshold": 500
                 }
             ]
         },

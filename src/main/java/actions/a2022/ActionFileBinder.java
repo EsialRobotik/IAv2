@@ -85,6 +85,12 @@ public class ActionFileBinder implements ActionInterface {
 
 		PASSPASS_VITRINE_ALLUMER("http://192.168.0.106:8000/test", true, "http") // 47
 
+
+		FENWICK_SOLO_GET_STATUETTE("FenwickSoloGetStatuette", false, "reflexive"), // 47
+		FENWICK_SOLO_ASCENSCEUR_GET_STATUETTE("g95", false, "serial"), // 48
+		FENWICK_SOLO_PUT_STATUETTE("FenwickSoloPutStatuette", false, "reflexive"), // 49
+		FENWICK_SOLO_ASCENSCEUR_PUT_STATUETTE("g115", false, "serial"), // 48
+		FENWICK_SOLO_ASCENSCEUR_PUT_STATUETTE_BIS("g110", false, "serial"), // 48
 		;
 
 		public static final String ACTION_AX12 = "ax12";
