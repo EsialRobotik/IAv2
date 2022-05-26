@@ -46,7 +46,7 @@
             {
                 "type": "goto_reverse",
                 "x": 600,
-                "y": 200
+                "y": 250
             },
             {
                 "type": "face",
@@ -67,7 +67,7 @@
             {
                 "type": "goto_reverse",
                 "x": 600,
-                "y": 2800
+                "y": 2750
             },
             {
                 "type": "face",

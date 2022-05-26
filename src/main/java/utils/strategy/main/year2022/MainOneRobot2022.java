@@ -226,7 +226,7 @@ public class MainOneRobot2022 {
             Table table = new Table("config/2022/table0.tbl");
             table.loadJsonFromFile("config/2022/table.json");
             PathFinding pathFinding = new PathFinding(new Astar(table));
-            Position startPoint = new Position(600, 200, Math.PI / 2);
+            Position startPoint = new Position(600, 250, Math.PI / 2);
             StringBuilder stratSimu = new StringBuilder("[");
             stratSimu.append("{ \"task\":\"Position de départ\",\"command\":\"start\",\"position\":" + startPoint.toJson() + "},");
             for (Objectif objectif : strat.couleur0) {
@@ -254,7 +254,7 @@ public class MainOneRobot2022 {
             Table table = new Table("config/2022/table3000.tbl");
             table.loadJsonFromFile("config/2022/table.json");
             PathFinding pathFinding = new PathFinding(new Astar(table));
-            Position startPoint = new Position(600, 2800, -Math.PI / 2);
+            Position startPoint = new Position(600, 2750, -Math.PI / 2);
             StringBuilder stratSimu = new StringBuilder("[");
             stratSimu.append("{ \"task\":\"Position de départ\",\"command\":\"start\",\"position\":" + startPoint.toJson() + "},");
             for (Objectif objectif : strat.couleur3000) {
