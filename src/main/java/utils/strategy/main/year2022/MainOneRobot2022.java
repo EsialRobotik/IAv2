@@ -82,7 +82,7 @@ public class MainOneRobot2022 {
             new GoToAstar("Déplacement exposition", 400, 2780, Tache.Mirror.SPECIFIC)
         );
         deposeStatuette0.add(
-            new Manipulation("On remonte le bras", ActionFileBinder.ActionFile.FENWICK_SOLO_ASCENSCEUR_AX_DROP_STATUETTE.ordinal())
+            new Manipulation("On remonte le bras", ActionFileBinder.ActionFile.FENWICK_SOLO_ASCENSCEUR_GET_STATUETTE_TOP.ordinal())
         );
         deposeStatuette0.add(
             new GoTo("Déplacement exposition", 200, 260, Tache.Mirror.SPECIFIC),
