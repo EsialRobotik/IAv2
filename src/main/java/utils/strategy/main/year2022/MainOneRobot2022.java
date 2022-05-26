@@ -46,12 +46,15 @@ public class MainOneRobot2022 {
             new Go("Step de départ bizarre", 1)
         );
         recuperationStatuette0.add(
+                new GoTo("Sortie de zone interdite", 600, 250)
+        );
+        recuperationStatuette0.add(
             new GoToAstar("Placement chantier récupération statuette", 1500, 500, Tache.Mirror.SPECIFIC),
             new GoToAstar("Placement chantier récupération statuette", 1500, 2500, Tache.Mirror.SPECIFIC)
         );
         recuperationStatuette0.add(
-            new GoTo("Placement chantier récupération statuette", 1590, 320, Tache.Mirror.SPECIFIC),
-            new GoTo("Placement chantier récupération statuette", 1680, 2590, Tache.Mirror.SPECIFIC)
+            new GoTo("Placement chantier récupération statuette", 1560, 350, Tache.Mirror.SPECIFIC),
+            new GoTo("Placement chantier récupération statuette", 1650, 2560, Tache.Mirror.SPECIFIC)
         );
         recuperationStatuette0.add(
             new Face("Alignement récupération statuette", 1650, 260, Tache.Mirror.SPECIFIC),
@@ -107,8 +110,8 @@ public class MainOneRobot2022 {
             new GoToAstar("Placement chantier dépose fake", 1500, 2500, Tache.Mirror.SPECIFIC)
         );
         deposeFake0.add(
-            new GoTo("Placement chantier dépose fake", 1590, 320, Tache.Mirror.SPECIFIC),
-            new GoTo("Placement chantier dépose fake", 1680, 2590, Tache.Mirror.SPECIFIC)
+            new GoTo("Placement chantier dépose fake", 1560, 350, Tache.Mirror.SPECIFIC),
+            new GoTo("Placement chantier dépose fake", 1650, 2560, Tache.Mirror.SPECIFIC)
         );
         deposeFake0.add(
             new Face("Alignement dépose fake", 1650, 260, Tache.Mirror.SPECIFIC),
