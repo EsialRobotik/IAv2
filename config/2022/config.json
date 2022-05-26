@@ -24,19 +24,19 @@
         "baud": 115200,
         "serie": "/dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_066FFF383133524157185717-if02",
         "calage0": {
-            "x": 210,
-            "y": 118,
+            "x": 1025,
+            "y": 78,
             "theta": 1.5707963267948966192313216916398
         },
         "calage3000": {
-            "x": 210,
-            "y": 2882,
+            "x": 1025,
+            "y": 2922,
             "theta": -1.5707963267948966192313216916398
         },
         "start0": [
             {
                 "type": "go",
-                "dist": 100
+                "dist": 200
             },
             {
                 "type": "goto",
@@ -57,7 +57,7 @@
         "start3000": [
             {
                 "type": "go",
-                "dist": 100
+                "dist": 200
             },
             {
                 "type": "goto",

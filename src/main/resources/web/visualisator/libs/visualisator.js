@@ -651,9 +651,9 @@ function sleep(ms) {
 }
 
 function loadFiles() {
-    loadTable();
-    loadSimulatorStrat();
-    loadSimulatorStratPmi();
+    //loadTable();
+    //loadSimulatorStrat();
+    //loadSimulatorStratPmi();
     loadStratLog();
     loadStratLogPmi();
     loadTbl();

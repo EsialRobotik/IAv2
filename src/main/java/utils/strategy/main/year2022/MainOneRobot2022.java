@@ -84,13 +84,19 @@ public class MainOneRobot2022 {
             new GoTo("Déplacement exposition", 160, 260)
         );
         deposeStatuette0.add(
-            new Go("Déplacement exposition", 20, 200)
+                new Face("Déplacement exposition", 0, 260)
         );
         deposeStatuette0.add(
-            new Face("Déplacement exposition", 0, 260)
+                new SetSpeed("On ralentit", 50)
+        );
+        deposeStatuette0.add(
+            new Go("Déplacement exposition", 10, 200)
         );
         deposeStatuette0.add(
             new Manipulation("Pose statuette", ActionFileBinder.ActionFile.FENWICK_SOLO_PUT_STATUETTE.ordinal())
+        );
+        deposeStatuette0.add(
+                new SetSpeed("On remet bien", 100)
         );
         deposeStatuette0.add(
             new Go("Sortie exposition", -200)
@@ -133,7 +139,7 @@ public class MainOneRobot2022 {
          * carré rouge du côté de l’équipe n’est pas basculé;
          * Score = 5 * 4 + 5 = 25
          */
-        score = 5;
+        score = 0;
         TaskList carresFouille1_0 =  new TaskList();
         carresFouille1_0.add(
             new GoTo("Placement Carré 1", 1760, 600)
@@ -142,25 +148,25 @@ public class MainOneRobot2022 {
             new GoTo("Placement Carré 1", 1760, 1000)
         );
         carresFouille1_0.add(
-            new GoToBack("Placement Carré 1", 1830, 640)
+            new GoToBack("Placement Carré 1", 1800, 640)
         );
         carresFouille1_0.add(
-            new Face("Alignement Carré 1", 1830, 3000)
+            new Face("Alignement Carré 1", 1800, 3000)
         );
-        carresFouille1_0.add(
-            new Manipulation("Carré 1", ActionFileBinder.ActionFile.FENWICK_FOUILLE_DROITE_1.ordinal(), Tache.Mirror.SPECIFIC),
-            new Manipulation("Carré 1", ActionFileBinder.ActionFile.FENWICK_FOUILLE_GAUCHE_1.ordinal(), Tache.Mirror.SPECIFIC)
-        );
+//        carresFouille1_0.add(
+//            new Manipulation("Carré 1", ActionFileBinder.ActionFile.FENWICK_FOUILLE_DROITE_1.ordinal(), Tache.Mirror.SPECIFIC),
+//            new Manipulation("Carré 1", ActionFileBinder.ActionFile.FENWICK_FOUILLE_GAUCHE_1.ordinal(), Tache.Mirror.SPECIFIC)
+//        );
         objectifsCouleur0.add(carresFouille1_0.generateObjectif("Carré de fouille 1", objectifsCouleur0.size()+1, score, 1));
         objectifsCouleur3000.add(carresFouille1_0.generateMirrorObjectif("Carré de fouille 1", objectifsCouleur3000.size()+1, score, 1));
 
         score = 10; // On le retourne toujours, donc on compte le bonus ici
         TaskList carresFouille2_0 =  new TaskList();
         carresFouille2_0.add(
-            new GoTo("Placement Carré 2", 1830, 820)
+            new GoTo("Placement Carré 2", 1800, 820)
         );
         carresFouille2_0.add(
-            new Face("Alignement Carré 2", 1830, 3000)
+            new Face("Alignement Carré 2", 1800, 3000)
         );
         carresFouille2_0.add(
             new Manipulation("Carré 2", ActionFileBinder.ActionFile.FENWICK_BRAS_DROIT_OUT.ordinal(), Tache.Mirror.SPECIFIC),
@@ -170,30 +176,33 @@ public class MainOneRobot2022 {
             new Manipulation("Carré 2", ActionFileBinder.ActionFile.FENWICK_BRAS_DROIT_IN.ordinal(), Tache.Mirror.SPECIFIC),
             new Manipulation("Carré 2", ActionFileBinder.ActionFile.FENWICK_BRAS_GAUCHE_IN.ordinal(), Tache.Mirror.SPECIFIC)
         );
+        carresFouille2_0.add(
+                new GoTo("Sortie Carré 2", 1760, 1000)
+        );
         objectifsCouleur0.add(carresFouille2_0.generateObjectif("Carré de fouille 2", objectifsCouleur0.size()+1, score, 1));
         objectifsCouleur3000.add(carresFouille2_0.generateMirrorObjectif("Carré de fouille 2", objectifsCouleur3000.size()+1, score, 1));
 
-        score = 5;
-        TaskList carresFouille3_0 =  new TaskList();
-        carresFouille3_0.add(
-            new GoTo("Placement Carré 3", 1830, 1010)
-        );
-        carresFouille3_0.add(
-            new Face("Placement Carré 3", 1830, 3000)
-        );
-        carresFouille3_0.add(
-            new Manipulation("Carré 3", ActionFileBinder.ActionFile.FENWICK_BRAS_DROIT_OUT.ordinal(), Tache.Mirror.SPECIFIC),
-            new Manipulation("Carré 3", ActionFileBinder.ActionFile.FENWICK_BRAS_GAUCHE_OUT.ordinal(), Tache.Mirror.SPECIFIC)
-        );
-        carresFouille3_0.add(
-            new Manipulation("Carré 3", ActionFileBinder.ActionFile.FENWICK_BRAS_DROIT_IN.ordinal(), Tache.Mirror.SPECIFIC),
-            new Manipulation("Carré 3", ActionFileBinder.ActionFile.FENWICK_BRAS_GAUCHE_IN.ordinal(), Tache.Mirror.SPECIFIC)
-        );
-        carresFouille3_0.add(
-            new GoTo("Sortie Carré 3", 1780, 1200)
-        );
-        objectifsCouleur0.add(carresFouille3_0.generateObjectif("Carré de fouille 3", objectifsCouleur0.size()+1, score, 1, "fouille1OK"));
-        objectifsCouleur3000.add(carresFouille3_0.generateMirrorObjectif("Carré de fouille 3", objectifsCouleur3000.size()+1, score, 1, "fouille1OK"));
+//        score = 5;
+//        TaskList carresFouille3_0 =  new TaskList();
+//        carresFouille3_0.add(
+//            new GoTo("Placement Carré 3", 1830, 1010)
+//        );
+//        carresFouille3_0.add(
+//            new Face("Placement Carré 3", 1830, 3000)
+//        );
+//        carresFouille3_0.add(
+//            new Manipulation("Carré 3", ActionFileBinder.ActionFile.FENWICK_BRAS_DROIT_OUT.ordinal(), Tache.Mirror.SPECIFIC),
+//            new Manipulation("Carré 3", ActionFileBinder.ActionFile.FENWICK_BRAS_GAUCHE_OUT.ordinal(), Tache.Mirror.SPECIFIC)
+//        );
+//        carresFouille3_0.add(
+//            new Manipulation("Carré 3", ActionFileBinder.ActionFile.FENWICK_BRAS_DROIT_IN.ordinal(), Tache.Mirror.SPECIFIC),
+//            new Manipulation("Carré 3", ActionFileBinder.ActionFile.FENWICK_BRAS_GAUCHE_IN.ordinal(), Tache.Mirror.SPECIFIC)
+//        );
+//        carresFouille3_0.add(
+//            new GoTo("Sortie Carré 3", 1780, 1200)
+//        );
+//        objectifsCouleur0.add(carresFouille3_0.generateObjectif("Carré de fouille 3", objectifsCouleur0.size()+1, score, 1, "fouille1OK"));
+//        objectifsCouleur3000.add(carresFouille3_0.generateMirrorObjectif("Carré de fouille 3", objectifsCouleur3000.size()+1, score, 1, "fouille1OK"));
 
         /**
          * Rangement
@@ -203,7 +212,7 @@ public class MainOneRobot2022 {
         score = 20;
         TaskList rangement0 =  new TaskList();
         rangement0.add(
-            new GoToAstar("Mise en place rangement zone de fouille", 600, 310)
+            new GoTo("Mise en place rangement zone de fouille", 1500, 950)
         );
         objectifsCouleur0.add(rangement0.generateObjectif("Rangement", objectifsCouleur0.size()+1, score, 1));
         objectifsCouleur3000.add(rangement0.generateMirrorObjectif("Rangement", objectifsCouleur3000.size()+1, score, 1));
@@ -232,7 +241,7 @@ public class MainOneRobot2022 {
             Table table = new Table("config/2022/table0.tbl");
             table.loadJsonFromFile("config/2022/table.json");
             PathFinding pathFinding = new PathFinding(new Astar(table));
-            Position startPoint = new Position(600, 250, Math.PI / 2);
+            Position startPoint = new Position(600, 200, Math.PI / 2);
             StringBuilder stratSimu = new StringBuilder("[");
             stratSimu.append("{ \"task\":\"Position de départ\",\"command\":\"start\",\"position\":" + startPoint.toJson() + "},");
             for (Objectif objectif : strat.couleur0) {
@@ -260,7 +269,7 @@ public class MainOneRobot2022 {
             Table table = new Table("config/2022/table3000.tbl");
             table.loadJsonFromFile("config/2022/table.json");
             PathFinding pathFinding = new PathFinding(new Astar(table));
-            Position startPoint = new Position(600, 2750, -Math.PI / 2);
+            Position startPoint = new Position(600, 2800, -Math.PI / 2);
             StringBuilder stratSimu = new StringBuilder("[");
             stratSimu.append("{ \"task\":\"Position de départ\",\"command\":\"start\",\"position\":" + startPoint.toJson() + "},");
             for (Objectif objectif : strat.couleur3000) {
