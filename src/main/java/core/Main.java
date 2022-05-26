@@ -3,8 +3,11 @@ package core;
 import actions.ActionCollection;
 import actions.ActionExecutor;
 import actions.a2022.ActionFileBinder;
+import api.ax12.AX12;
+import api.ax12.AX12Exception;
 import api.ax12.AX12LinkException;
 import api.ax12.AX12LinkSerial;
+import api.ax12.value.AX12Position;
 import api.camera.Camera;
 import api.communication.HotspotSocket;
 import api.communication.Serial;
@@ -467,11 +470,26 @@ public class Main {
             Serial serial = new Serial(configSerial.get("serie").getAsString(), configSerial.get("baud").getAsInt());
             LiftProbe2022 liftProbe2022 = new LiftProbe2022(serial);
 
+            JsonObject configAx12 = configObject.get("ax12").getAsJsonObject();
+            SerialPort spax12 = AX12LinkSerial.getSerialPort(configAx12.get("serie").getAsString());
+            AX12 ax = null;
+            try {
+                ax = new AX12(2, new AX12LinkSerial(spax12, 115200));
+                ax.setCwComplianceSlope(150);
+                ax.setCwComplianceSlope(150);
+                ax.setServoSpeed(128);
+            } catch (AX12LinkException | AX12Exception e) {
+                throw new RuntimeException(e);
+            }
+
             Scanner in = new Scanner(System.in);
             String cmd;
+            boolean pump = false;
             System.out.println("Commandes :\n  exit\n  reset : home de l'ascenseur");
-            System.out.println("  a : affiche la hauteur de l'ascenseur\n  p : affiche le carré de fouille sondé");
-            System.out.println("  g<mm> : envoie l'ascenseur à la hauteur demandée");
+            System.out.println("  a : affiche la hauteur de l'ascenseur\n  s : affiche le carré de fouille sondé");
+            System.out.println("  g<mm> : envoie l'ascenseur à la hauteur demandée\n  ax: affiche l'angle de l'ax12");
+            System.out.println("  axoff: désactive le couple de l'ax12\n  ax<angle>: règle l'angle de l'ax en degrés");
+            System.out.println("  p: Allume ou éteint la pompe");
             System.out.print(">");
             while((cmd = in.nextLine()) != null) {
                 try {
@@ -479,12 +497,21 @@ public class Main {
                         break;
                     } else if (cmd.startsWith("reset")) {
                         liftProbe2022.makeLiftHome();
-                    } else if (cmd.equals("p")) {
+                    } else if (cmd.equals("s")) {
                         System.out.println(liftProbe2022.probeExcavations().name());
                     } else if (cmd.equals("a")) {
                         System.out.println(liftProbe2022.fetchLiftPosition()+"mm");
                     } else if (cmd.startsWith("g") && cmd.length() > 1) {
                         liftProbe2022.setLiftPosition(Integer.parseInt(cmd.substring(1)));
+                    } else if (cmd.equals("axoff")) {
+                        ax.disableTorque();
+                    } else if (cmd.equals("ax")) {
+                        System.out.println(ax.readServoPosition().getAngleAsDegrees());
+                    } else if (cmd.startsWith("ax")) {
+                        ax.setServoPosition(AX12Position.buildFromDegrees((double) Integer.parseInt(cmd.substring(2))));
+                    } else if (cmd.equals("p")) {
+                        pump = !pump;
+                        spax12.setDTR(pump);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
