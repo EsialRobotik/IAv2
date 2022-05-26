@@ -84,6 +84,9 @@ public class MainOneRobot2022 {
             new GoTo("Déplacement exposition", 160, 260)
         );
         deposeStatuette0.add(
+            new Go("Déplacement exposition", 30, 500)
+        );
+        deposeStatuette0.add(
             new Face("Déplacement exposition", 0, 260)
         );
         deposeStatuette0.add(
@@ -139,10 +142,10 @@ public class MainOneRobot2022 {
             new GoTo("Placement Carré 1", 1760, 1000)
         );
         carresFouille1_0.add(
-            new GoToBack("Placement Carré 1", 1810, 670)
+            new GoToBack("Placement Carré 1", 1830, 640)
         );
         carresFouille1_0.add(
-            new Face("Alignement Carré 1", 1810, 3000)
+            new Face("Alignement Carré 1", 1830, 3000)
         );
         carresFouille1_0.add(
             new Manipulation("Carré 1", ActionFileBinder.ActionFile.FENWICK_FOUILLE_DROITE_1.ordinal(), Tache.Mirror.SPECIFIC),
@@ -154,10 +157,10 @@ public class MainOneRobot2022 {
         score = 10; // On le retourne toujours, donc on compte le bonus ici
         TaskList carresFouille2_0 =  new TaskList();
         carresFouille2_0.add(
-            new GoTo("Placement Carré 2", 1810, 850)
+            new GoTo("Placement Carré 2", 1830, 820)
         );
         carresFouille2_0.add(
-            new Face("Alignement Carré 2", 1810, 3000)
+            new Face("Alignement Carré 2", 1830, 3000)
         );
         carresFouille2_0.add(
             new Manipulation("Carré 2", ActionFileBinder.ActionFile.FENWICK_BRAS_DROIT_OUT.ordinal(), Tache.Mirror.SPECIFIC),
@@ -173,10 +176,10 @@ public class MainOneRobot2022 {
         score = 5;
         TaskList carresFouille3_0 =  new TaskList();
         carresFouille3_0.add(
-            new GoTo("Placement Carré 3", 1810, 1040)
+            new GoTo("Placement Carré 3", 1830, 1010)
         );
         carresFouille3_0.add(
-            new Face("Placement Carré 3", 1810, 3000)
+            new Face("Placement Carré 3", 1830, 3000)
         );
         carresFouille3_0.add(
             new Manipulation("Carré 3", ActionFileBinder.ActionFile.FENWICK_BRAS_DROIT_OUT.ordinal(), Tache.Mirror.SPECIFIC),
