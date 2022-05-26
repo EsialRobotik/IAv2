@@ -31,7 +31,7 @@ public class FenwickSoloGetStatuette extends ActionReflexiveAbstract {
                     e.printStackTrace();
                 }
                 executeSubActions(ActionFileBinder.ActionFile.FENWICK_SOLO_ASCENSCEUR_GET_STATUETTE_TOP.ordinal());
-                executeSubActions(ActionFileBinder.ActionFile.FENWICK_SOLO_ASCENSCEUR_GET_STATUETTE_TOP.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.FENWICK_SOLO_ASCENSCEUR_AX_DROP_STATUETTE.ordinal());
                 finished = true;
             }
         }).start();

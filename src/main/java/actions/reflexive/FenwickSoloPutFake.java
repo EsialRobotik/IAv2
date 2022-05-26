@@ -20,6 +20,7 @@ public class FenwickSoloPutFake extends ActionReflexiveAbstract {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                executeSubActions(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_IN.ordinal());
                 executeSubActions(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_POMPE_SUCK.ordinal());
                 executeSubActions(ActionFileBinder.ActionFile.FENWICK_SOLO_ASCENSCEUR_GET_FAKE.ordinal());
                 try {

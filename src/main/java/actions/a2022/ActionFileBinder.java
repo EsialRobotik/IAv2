@@ -44,33 +44,33 @@ public class ActionFileBinder implements ActionInterface {
 		PASSPASS_STORE("PasspassStore", false, "reflexive"), // 12
 		PASSPASS_UNSTORE("PasspassUnstore", false, "reflexive"), // 13
 		PASSPASS_SWITCH("PasspassSwitch", false, "reflexive"), // 14
-		PASSPASS_PUT_RELEASE("PasspassPutRelease", false, "reflexive"), // 16
+		PASSPASS_PUT_RELEASE("PasspassPutRelease", false, "reflexive"), // 15
 
-		FENWICK_ASCENSEUR_INIT("z", false, "serial"), // 17
-		FENWICK_ASCENSEUR_IN("fenwick_ascenseur_in.json"), // 18
-		FENWICK_ASCENSEUR_OUT("fenwick_ascenseur_out.json"), // 19
-		FENWICK_ASCENSEUR_POMPE_SUCK("fenwick_ascenseur_pompe_suck.json"), // 20
-		FENWICK_ASCENSEUR_POMPE_RELEASE("fenwick_ascenseur_pompe_release.json"), // 21
-		FENWICK_BRAS_DROIT_OUT("fenwick_bras_droit_out.json"), // 22
-		FENWICK_BRAS_DROIT_IN("fenwick_bras_droit_in.json"), // 23
-		FENWICK_BRAS_GAUCHE_OUT("fenwick_bras_gauche_out.json"), // 24
-		FENWICK_BRAS_GAUCHE_IN("fenwick_bras_gauche_in.json"), // 25
+		FENWICK_ASCENSEUR_INIT("z", false, "serial"), // 16
+		FENWICK_ASCENSEUR_IN("fenwick_ascenseur_in.json"), // 17
+		FENWICK_ASCENSEUR_OUT("fenwick_ascenseur_out.json"), // 18
+		FENWICK_ASCENSEUR_POMPE_SUCK("fenwick_ascenseur_pompe_suck.json"), // 19
+		FENWICK_ASCENSEUR_POMPE_RELEASE("fenwick_ascenseur_pompe_release.json"), // 20
+		FENWICK_BRAS_DROIT_OUT("fenwick_bras_droit_out.json"), // 21
+		FENWICK_BRAS_DROIT_IN("fenwick_bras_droit_in.json"), // 22
+		FENWICK_BRAS_GAUCHE_OUT("fenwick_bras_gauche_out.json"), // 23
+		FENWICK_BRAS_GAUCHE_IN("fenwick_bras_gauche_in.json"), // 24
 
-		FENWICK_ASCENSEUR_HAUTEUR_TOP("g150", false, "serial"), // 26
-		FENWICK_ASCENSEUR_HAUTEUR_PILE_3("g55", false, "serial"), // 27
-		FENWICK_ASCENSEUR_HAUTEUR_PILE_2("g40", false, "serial"), // 28
-		FENWICK_ASCENSEUR_HAUTEUR_PILE_1("g25", false, "serial"), // 29
-		FENWICK_ASCENSEUR_HAUTEUR_LACHER("g5", false, "serial"), // 30
+		FENWICK_ASCENSEUR_HAUTEUR_TOP("g150", false, "serial"), // 25
+		FENWICK_ASCENSEUR_HAUTEUR_PILE_3("g55", false, "serial"), // 26
+		FENWICK_ASCENSEUR_HAUTEUR_PILE_2("g40", false, "serial"), // 27
+		FENWICK_ASCENSEUR_HAUTEUR_PILE_1("g25", false, "serial"), // 28
+		FENWICK_ASCENSEUR_HAUTEUR_LACHER("g5", false, "serial"), // 29
 
-		PASSPASS_AX_BRAS_POSE_OUT("passpass_ax_bras_pose_out.json"), // 31
-		PASSPASS_AX_BRAS_POSE_IN("passpass_ax_bras_pose_in.json"), // 32
-		PASSPASS_AX_BRAS_PRISE_TAKE_UP("passpass_ax_bras_prise_take_up.json"), // 33
-		PASSPASS_AX_BRAS_PRISE_TAKE_DOWN("passpass_ax_bras_prise_take_down.json"), // 34
-		PASSPASS_AX_BRAS_PRISE_STORE("passpass_ax_bras_prise_store.json"), // 35
+		PASSPASS_AX_BRAS_POSE_OUT("passpass_ax_bras_pose_out.json"), // 30
+		PASSPASS_AX_BRAS_POSE_IN("passpass_ax_bras_pose_in.json"), // 31
+		PASSPASS_AX_BRAS_PRISE_TAKE_UP("passpass_ax_bras_prise_take_up.json"), // 32
+		PASSPASS_AX_BRAS_PRISE_TAKE_DOWN("passpass_ax_bras_prise_take_down.json"), // 33
+		PASSPASS_AX_BRAS_PRISE_STORE("passpass_ax_bras_prise_store.json"), // 34
 
-		PASSPASS_AX_BRAS_STORE_OUT("passpass_ax_bras_store_out.json"), // 36
-		PASSPASS_AX_BRAS_STORE_IN("passpass_ax_bras_store_in.json"), // 37
-		PASSPASS_AX_BRAS_STORE_POMPE_ON("passpass_ax_bras_store_pompe_on.json"), // 38
+		PASSPASS_AX_BRAS_STORE_OUT("passpass_ax_bras_store_out.json"), // 35
+		PASSPASS_AX_BRAS_STORE_IN("passpass_ax_bras_store_in.json"), // 36
+		PASSPASS_AX_BRAS_STORE_POMPE_ON("passpass_ax_bras_store_pompe_on.json"), // 37
 		PASSPASS_AX_BRAS_STORE_POMPE_OFF("passpass_ax_bras_store_pompe_off.json"), // 38
 		PASSPASS_AX_SWITCH_FACE("passpass_switch_face.json"), // 39
 
@@ -86,12 +86,12 @@ public class ActionFileBinder implements ActionInterface {
 		PASSPASS_VITRINE_ALLUMER("http://192.168.0.106:8000/test", true, "http"), // 47
 
 		FENWICK_SOLO_GET_STATUETTE("FenwickSoloGetStatuette", false, "reflexive"), // 48
-		FENWICK_SOLO_ASCENSCEUR_GET_STATUETTE("g135", false, "serial"), // 49
+		FENWICK_SOLO_ASCENSCEUR_GET_STATUETTE("g125", false, "serial"), // 49
 		FENWICK_SOLO_PUT_STATUETTE("FenwickSoloPutStatuette", false, "reflexive"), // 50
 		FENWICK_SOLO_ASCENSCEUR_PUT_STATUETTE("g185", false, "serial"), // 51
 		FENWICK_SOLO_ASCENSCEUR_PUT_STATUETTE_BIS("g180", false, "serial"), // 52
 		FENWICK_SOLO_PUT_FAKE("FenwickSoloPutFake", false, "reflexive"), // 53
-		FENWICK_SOLO_ASCENSCEUR_GET_FAKE("g65", false, "serial"), // 54
+		FENWICK_SOLO_ASCENSCEUR_GET_FAKE("g55", false, "serial"), // 54
 		FENWICK_SOLO_ASCENSCEUR_DROP_FAKE("g80", false, "serial"), // 55
 		FENWICK_SOLO_ASCENSCEUR_DROP_FAKE_BIS("g75", false, "serial"), // 56
 		FENWICK_SOLO_ASCENSCEUR_GET_STATUETTE_TOP("g210", false, "serial"), // 57

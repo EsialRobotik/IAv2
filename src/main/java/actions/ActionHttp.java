@@ -26,7 +26,7 @@ public class ActionHttp implements ActionExecutor {
 
     @Override
     public boolean finished() {
-        return false;
+        return true;
     }
 
     @Override

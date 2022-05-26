@@ -75,13 +75,13 @@ public class MainOneRobot2022 {
         score = 20;
         TaskList deposeStatuette0 = new TaskList();
         deposeStatuette0.add(
-            new GoToAstar("Déplacement exposition", 300, 225)
+            new GoToAstar("Déplacement exposition", 300, 260)
         );
         deposeStatuette0.add(
-            new GoTo("Déplacement exposition", 150, 225)
+            new GoTo("Déplacement exposition", 150, 260)
         );
         deposeStatuette0.add(
-            new Face("Déplacement exposition", 0, 225)
+            new Face("Déplacement exposition", 0, 260)
         );
         deposeStatuette0.add(
             new Go("Déplacement exposition", 40, 500)
