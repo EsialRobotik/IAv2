@@ -75,18 +75,16 @@ public class MainOneRobot2022 {
         score = 20;
         TaskList deposeStatuette0 = new TaskList();
         deposeStatuette0.add(
-            new GoToAstar("Déplacement exposition", 300, 340, Tache.Mirror.SPECIFIC),
-            new GoToAstar("Déplacement exposition", 300, 2710, Tache.Mirror.SPECIFIC)
+            new GoToAstar("Déplacement exposition", 300, 225)
         );
         deposeStatuette0.add(
-                new GoTo("Déplacement exposition", 150, 340, Tache.Mirror.SPECIFIC),
-                new GoTo("Déplacement exposition", 150, 2710, Tache.Mirror.SPECIFIC)
+                new GoTo("Déplacement exposition", 150, 225)
         );
         deposeStatuette0.add(
                 new Go("Déplacement exposition", 30, 500)
         );
-        recuperationStatuette0.add(
-                new Manipulation("Prise statuette", ActionFileBinder.ActionFile.FENWICK_SOLO_PUT_STATUETTE.ordinal())
+        deposeStatuette0.add(
+                new Manipulation("Pose statuette", ActionFileBinder.ActionFile.FENWICK_SOLO_PUT_STATUETTE.ordinal())
         );
         deposeStatuette0.add(
                 new Go("Sortie exposition", -200)
@@ -114,7 +112,7 @@ public class MainOneRobot2022 {
                 new Face("Alignement dépose fake", 1750, 2660, Tache.Mirror.SPECIFIC)
         );
         deposeFake0.add(
-                new Manipulation("Dépose fake", ActionFileBinder.ActionFile.FENWICK_SOLO_GET_STATUETTE.ordinal())
+                new Manipulation("Dépose fake", ActionFileBinder.ActionFile.FENWICK_SOLO_PUT_FAKE.ordinal())
         );
         deposeFake0.add(
                 new Go("Sortie chantier", -100)
@@ -132,10 +130,13 @@ public class MainOneRobot2022 {
         score = 5;
         TaskList carresFouille1_0 =  new TaskList();
         carresFouille1_0.add(
-            new GoToAstar("Placement Carré 1", 1760, 670)
+            new GoToAstar("Placement Carré 1", 1760, 600)
         );
         carresFouille1_0.add(
-            new Face("Alignement Carré 1", 1760, 3000)
+                new GoTo("Placement Carré 1", 1810, 670)
+        );
+        carresFouille1_0.add(
+            new Face("Alignement Carré 1", 1810, 3000)
         );
         carresFouille1_0.add(
             new Manipulation("Carré 1", ActionFileBinder.ActionFile.FENWICK_FOUILLE_DROITE_1.ordinal(), Tache.Mirror.SPECIFIC),
@@ -147,10 +148,10 @@ public class MainOneRobot2022 {
         score = 10; // On le retourne toujours, donc on compte le bonus ici
         TaskList carresFouille2_0 =  new TaskList();
         carresFouille2_0.add(
-            new GoToAstar("Placement Carré 2", 1760, 850)
+            new GoTo("Placement Carré 2", 1810, 850)
         );
         carresFouille2_0.add(
-            new Face("Alignement Carré 2", 1760, 3000)
+            new Face("Alignement Carré 2", 1810, 3000)
         );
         carresFouille2_0.add(
             new Manipulation("Carré 2", ActionFileBinder.ActionFile.FENWICK_BRAS_DROIT_OUT.ordinal(), Tache.Mirror.SPECIFIC),
@@ -166,10 +167,10 @@ public class MainOneRobot2022 {
         score = 5;
         TaskList carresFouille3_0 =  new TaskList();
         carresFouille3_0.add(
-            new GoToAstar("Placement Carré 3", 1760, 1040)
+            new GoTo("Placement Carré 3", 1810, 1040)
         );
         carresFouille3_0.add(
-            new Face("Placement Carré 3", 1760, 3000)
+            new Face("Placement Carré 3", 1810, 3000)
         );
         carresFouille3_0.add(
             new Manipulation("Carré 3", ActionFileBinder.ActionFile.FENWICK_BRAS_DROIT_OUT.ordinal(), Tache.Mirror.SPECIFIC),
@@ -178,6 +179,9 @@ public class MainOneRobot2022 {
         carresFouille3_0.add(
             new Manipulation("Carré 3", ActionFileBinder.ActionFile.FENWICK_BRAS_DROIT_IN.ordinal(), Tache.Mirror.SPECIFIC),
             new Manipulation("Carré 3", ActionFileBinder.ActionFile.FENWICK_BRAS_GAUCHE_IN.ordinal(), Tache.Mirror.SPECIFIC)
+        );
+        carresFouille3_0.add(
+                new GoTo("Sortie Carré 3", 1780, 1200)
         );
         objectifsCouleur0.add(carresFouille3_0.generateObjectif("Carré de fouille 3", objectifsCouleur0.size()+1, score, 1, "fouille1OK"));
         objectifsCouleur3000.add(carresFouille3_0.generateMirrorObjectif("Carré de fouille 3", objectifsCouleur3000.size()+1, score, 1, "fouille1OK"));

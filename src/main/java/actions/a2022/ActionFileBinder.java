@@ -56,7 +56,7 @@ public class ActionFileBinder implements ActionInterface {
 		FENWICK_BRAS_GAUCHE_OUT("fenwick_bras_gauche_out.json"), // 24
 		FENWICK_BRAS_GAUCHE_IN("fenwick_bras_gauche_in.json"), // 25
 
-		FENWICK_ASCENSEUR_HAUTEUR_TOP("g135", false, "serial"), // 26
+		FENWICK_ASCENSEUR_HAUTEUR_TOP("g150", false, "serial"), // 26
 		FENWICK_ASCENSEUR_HAUTEUR_PILE_3("g55", false, "serial"), // 27
 		FENWICK_ASCENSEUR_HAUTEUR_PILE_2("g40", false, "serial"), // 28
 		FENWICK_ASCENSEUR_HAUTEUR_PILE_1("g25", false, "serial"), // 29
@@ -83,14 +83,19 @@ public class ActionFileBinder implements ActionInterface {
 
 		PASSPASS_AX_SWITCH_KISS("passpass_switch_kiss.json"), // 46
 
-		PASSPASS_VITRINE_ALLUMER("http://192.168.0.106:8000/test", true, "http") // 47
+		PASSPASS_VITRINE_ALLUMER("http://192.168.0.106:8000/test", true, "http"), // 47
 
-
-		FENWICK_SOLO_GET_STATUETTE("FenwickSoloGetStatuette", false, "reflexive"), // 47
-		FENWICK_SOLO_ASCENSCEUR_GET_STATUETTE("g95", false, "serial"), // 48
-		FENWICK_SOLO_PUT_STATUETTE("FenwickSoloPutStatuette", false, "reflexive"), // 49
-		FENWICK_SOLO_ASCENSCEUR_PUT_STATUETTE("g115", false, "serial"), // 48
-		FENWICK_SOLO_ASCENSCEUR_PUT_STATUETTE_BIS("g110", false, "serial"), // 48
+		FENWICK_SOLO_GET_STATUETTE("FenwickSoloGetStatuette", false, "reflexive"), // 48
+		FENWICK_SOLO_ASCENSCEUR_GET_STATUETTE("g135", false, "serial"), // 49
+		FENWICK_SOLO_PUT_STATUETTE("FenwickSoloPutStatuette", false, "reflexive"), // 50
+		FENWICK_SOLO_ASCENSCEUR_PUT_STATUETTE("g185", false, "serial"), // 51
+		FENWICK_SOLO_ASCENSCEUR_PUT_STATUETTE_BIS("g180", false, "serial"), // 52
+		FENWICK_SOLO_PUT_FAKE("FenwickSoloPutFake", false, "reflexive"), // 53
+		FENWICK_SOLO_ASCENSCEUR_GET_FAKE("g65", false, "serial"), // 54
+		FENWICK_SOLO_ASCENSCEUR_DROP_FAKE("g80", false, "serial"), // 55
+		FENWICK_SOLO_ASCENSCEUR_DROP_FAKE_BIS("g75", false, "serial"), // 56
+		FENWICK_SOLO_ASCENSCEUR_GET_STATUETTE_TOP("g210", false, "serial"), // 47
+		FENWICK_SOLO_ASCENSCEUR_AX_DROP_STATUETTE("fenwick_solo_ascensceur_ax_drop_statuette.json"), // 58
 		;
 
 		public static final String ACTION_AX12 = "ax12";

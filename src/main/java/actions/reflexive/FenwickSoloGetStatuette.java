@@ -21,6 +21,7 @@ public class FenwickSoloGetStatuette extends ActionReflexiveAbstract {
             @Override
             public void run() {
                 executeSubActions(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_HAUTEUR_TOP.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_OUT.ordinal());
                 executeSubActions(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_POMPE_SUCK.ordinal());
                 executeSubActions(ActionFileBinder.ActionFile.FENWICK_SOLO_ASCENSCEUR_GET_STATUETTE.ordinal());
                 // wait to suck
@@ -29,7 +30,8 @@ public class FenwickSoloGetStatuette extends ActionReflexiveAbstract {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                executeSubActions(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_HAUTEUR_TOP.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.FENWICK_SOLO_ASCENSCEUR_GET_STATUETTE_TOP.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.FENWICK_SOLO_ASCENSCEUR_GET_STATUETTE_TOP.ordinal());
                 finished = true;
             }
         }).start();
