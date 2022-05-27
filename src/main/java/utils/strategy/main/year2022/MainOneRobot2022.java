@@ -119,16 +119,16 @@ public class MainOneRobot2022 {
         score = 10;
         TaskList deposeFake0 =  new TaskList();
         deposeFake0.add(
-            new GoToAstar("Placement chantier dépose fake", 1500, 400, Tache.Mirror.SPECIFIC),
-            new GoToAstar("Placement chantier dépose fake", 1500, 2450, Tache.Mirror.SPECIFIC)
+            new GoToAstar("Placement chantier dépose fake", 1520, 420, Tache.Mirror.SPECIFIC),
+            new GoToAstar("Placement chantier dépose fake", 1520, 2470, Tache.Mirror.SPECIFIC)
         );
         deposeFake0.add(
-            new GoTo("Placement chantier dépose fake", 1560, 350, Tache.Mirror.SPECIFIC),
-            new GoTo("Placement chantier dépose fake", 1650, 2560, Tache.Mirror.SPECIFIC)
+            new GoTo("Placement chantier dépose fake", 1580, 370, Tache.Mirror.SPECIFIC),
+            new GoTo("Placement chantier dépose fake", 1670, 2580, Tache.Mirror.SPECIFIC)
         );
         deposeFake0.add(
-            new Face("Alignement dépose fake", 1650, 260, Tache.Mirror.SPECIFIC),
-            new Face("Alignement dépose fake", 1750, 2660, Tache.Mirror.SPECIFIC)
+            new Face("Alignement dépose fake", 1670, 280, Tache.Mirror.SPECIFIC),
+            new Face("Alignement dépose fake", 1770, 2680, Tache.Mirror.SPECIFIC)
         );
         deposeFake0.add(
             new Manipulation("Dépose fake", ActionFileBinder.ActionFile.FENWICK_SOLO_PUT_FAKE.ordinal())
@@ -160,10 +160,14 @@ public class MainOneRobot2022 {
         carresFouille1_0.add(
             new Face("Alignement Carré 1", 1800, 3000)
         );
-//        carresFouille1_0.add(
-//            new Manipulation("Carré 1", ActionFileBinder.ActionFile.FENWICK_FOUILLE_DROITE_1.ordinal(), Tache.Mirror.SPECIFIC),
-//            new Manipulation("Carré 1", ActionFileBinder.ActionFile.FENWICK_FOUILLE_GAUCHE_1.ordinal(), Tache.Mirror.SPECIFIC)
-//        );
+        carresFouille1_0.add(
+            new Manipulation("Carré 1", ActionFileBinder.ActionFile.FENWICK_SONDE_DROITE_OUT.ordinal(), Tache.Mirror.SPECIFIC),
+            new Manipulation("Carré 1", ActionFileBinder.ActionFile.FENWICK_SONDE_GAUCHE_OUT.ordinal(), Tache.Mirror.SPECIFIC)
+        );
+        carresFouille1_0.add(
+                new Manipulation("Carré 1", ActionFileBinder.ActionFile.FENWICK_SONDE_DROITE_IN.ordinal(), Tache.Mirror.SPECIFIC),
+                new Manipulation("Carré 1", ActionFileBinder.ActionFile.FENWICK_SONDE_GAUCHE_IN.ordinal(), Tache.Mirror.SPECIFIC)
+        );
         objectifsCouleur0.add(carresFouille1_0.generateObjectif("Carré de fouille 1", objectifsCouleur0.size()+1, score, 1));
         objectifsCouleur3000.add(carresFouille1_0.generateMirrorObjectif("Carré de fouille 1", objectifsCouleur3000.size()+1, score, 1));
 

@@ -33,6 +33,8 @@ public class FenwickSoloPutStatuette extends ActionReflexiveAbstract {
                 executeSubActions(ActionFileBinder.ActionFile.FENWICK_SOLO_ASCENSCEUR_PUT_STATUETTE_BIS.ordinal());
                 executeSubActions(ActionFileBinder.ActionFile.FENWICK_SOLO_ASCENSCEUR_PUT_STATUETTE.ordinal());
                 executeSubActions(ActionFileBinder.ActionFile.FENWICK_SOLO_ASCENSCEUR_PUT_STATUETTE_BIS.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.FENWICK_SOLO_ASCENSCEUR_PUT_STATUETTE.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.FENWICK_SOLO_ASCENSCEUR_PUT_STATUETTE_BIS.ordinal());
                 executeSubActions(ActionFileBinder.ActionFile.PASSPASS_VITRINE_ALLUMER.ordinal());
                 executeSubActions(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_IN.ordinal());
                 executeSubActions(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_HAUTEUR_TOP.ordinal());
