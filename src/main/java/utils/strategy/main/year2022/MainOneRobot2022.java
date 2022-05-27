@@ -96,7 +96,8 @@ public class MainOneRobot2022 {
             new SetSpeed("On ralentit", 20)
         );
         deposeStatuette0.add(
-            new Go("Déplacement exposition", 20, 200)
+            new GoTo("Déplacement exposition", 160, 260, Tache.Mirror.SPECIFIC),
+            new GoTo("Déplacement exposition", 160, 2780, Tache.Mirror.SPECIFIC)
         );
         deposeStatuette0.add(
             new Manipulation("Pose statuette", ActionFileBinder.ActionFile.FENWICK_SOLO_PUT_STATUETTE.ordinal())
