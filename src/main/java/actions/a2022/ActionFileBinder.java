@@ -96,6 +96,7 @@ public class ActionFileBinder implements ActionInterface {
 		FENWICK_SOLO_ASCENSCEUR_DROP_FAKE_BIS("g75", false, "serial"), // 56
 		FENWICK_SOLO_ASCENSCEUR_GET_STATUETTE_TOP("g210", false, "serial"), // 57
 		FENWICK_SOLO_ASCENSCEUR_AX_DROP_STATUETTE("fenwick_solo_ascensceur_ax_drop_statuette.json"), // 58
+		FENWICK_ASCENSEUR_OUT_FAKE("fenwick_ascenseur_out_fake.json"), // 59
 		;
 
 		public static final String ACTION_AX12 = "ax12";

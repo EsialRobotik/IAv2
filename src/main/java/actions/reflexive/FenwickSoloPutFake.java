@@ -29,7 +29,7 @@ public class FenwickSoloPutFake extends ActionReflexiveAbstract {
                     e.printStackTrace();
                 }
                 executeSubActions(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_HAUTEUR_TOP.ordinal());
-                executeSubActions(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_OUT.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_OUT_FAKE.ordinal());
                 executeSubActions(ActionFileBinder.ActionFile.FENWICK_SOLO_ASCENSCEUR_DROP_FAKE.ordinal());
                 executeSubActions(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_POMPE_RELEASE.ordinal());
                 try {
