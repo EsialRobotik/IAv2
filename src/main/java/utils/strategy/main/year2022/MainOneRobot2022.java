@@ -93,11 +93,14 @@ public class MainOneRobot2022 {
             new Face("Déplacement exposition", 0, 2780, Tache.Mirror.SPECIFIC)
         );
         deposeStatuette0.add(
+            new Manipulation("On place le bras", ActionFileBinder.ActionFile.FENWICK_SOLO_ASCENSCEUR_AX_DROP_STATUETTE.ordinal())
+        );
+        deposeStatuette0.add(
             new SetSpeed("On ralentit", 20)
         );
         deposeStatuette0.add(
-            new GoTo("Déplacement exposition", 160, 260, Tache.Mirror.SPECIFIC),
-            new GoTo("Déplacement exposition", 160, 2780, Tache.Mirror.SPECIFIC)
+            new GoTo("Déplacement final exposition", 150, 260, Tache.Mirror.SPECIFIC),
+            new GoTo("Déplacement final exposition", 150, 2780, Tache.Mirror.SPECIFIC)
         );
         deposeStatuette0.add(
             new Manipulation("Pose statuette", ActionFileBinder.ActionFile.FENWICK_SOLO_PUT_STATUETTE.ordinal())
@@ -159,14 +162,6 @@ public class MainOneRobot2022 {
         );
         carresFouille1_0.add(
             new Face("Alignement Carré 1", 1800, 3000)
-        );
-        carresFouille1_0.add(
-            new Manipulation("Carré 1", ActionFileBinder.ActionFile.FENWICK_SONDE_DROITE_OUT.ordinal(), Tache.Mirror.SPECIFIC),
-            new Manipulation("Carré 1", ActionFileBinder.ActionFile.FENWICK_SONDE_GAUCHE_OUT.ordinal(), Tache.Mirror.SPECIFIC)
-        );
-        carresFouille1_0.add(
-                new Manipulation("Carré 1", ActionFileBinder.ActionFile.FENWICK_SONDE_DROITE_IN.ordinal(), Tache.Mirror.SPECIFIC),
-                new Manipulation("Carré 1", ActionFileBinder.ActionFile.FENWICK_SONDE_GAUCHE_IN.ordinal(), Tache.Mirror.SPECIFIC)
         );
         objectifsCouleur0.add(carresFouille1_0.generateObjectif("Carré de fouille 1", objectifsCouleur0.size()+1, score, 1));
         objectifsCouleur3000.add(carresFouille1_0.generateMirrorObjectif("Carré de fouille 1", objectifsCouleur3000.size()+1, score, 1));
