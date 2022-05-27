@@ -122,16 +122,16 @@ public class MainOneRobot2022 {
         score = 10;
         TaskList deposeFake0 =  new TaskList();
         deposeFake0.add(
-            new GoToAstar("Placement chantier dépose fake", 1520, 420, Tache.Mirror.SPECIFIC),
-            new GoToAstar("Placement chantier dépose fake", 1520, 2470, Tache.Mirror.SPECIFIC)
+                new GoToAstar("Placement chantier dépose fake", 1500, 400, Tache.Mirror.SPECIFIC),
+                new GoToAstar("Placement chantier dépose fake", 1500, 2450, Tache.Mirror.SPECIFIC)
         );
         deposeFake0.add(
-            new GoTo("Placement chantier dépose fake", 1580, 370, Tache.Mirror.SPECIFIC),
-            new GoTo("Placement chantier dépose fake", 1670, 2580, Tache.Mirror.SPECIFIC)
+                new GoTo("Placement chantier dépose fake", 1580, 330, Tache.Mirror.SPECIFIC),
+                new GoTo("Placement chantier dépose fake", 1670, 2580, Tache.Mirror.SPECIFIC)
         );
         deposeFake0.add(
-            new Face("Alignement dépose fake", 1670, 280, Tache.Mirror.SPECIFIC),
-            new Face("Alignement dépose fake", 1770, 2680, Tache.Mirror.SPECIFIC)
+                new Face("Alignement dépose fake", 1670, 240, Tache.Mirror.SPECIFIC),
+                new Face("Alignement dépose fake", 1770, 2680, Tache.Mirror.SPECIFIC)
         );
         deposeFake0.add(
             new Manipulation("Dépose fake", ActionFileBinder.ActionFile.FENWICK_SOLO_PUT_FAKE.ordinal())
