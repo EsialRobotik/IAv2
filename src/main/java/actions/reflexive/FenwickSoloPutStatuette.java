@@ -20,6 +20,7 @@ public class FenwickSoloPutStatuette extends ActionReflexiveAbstract {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                executeSubActions(ActionFileBinder.ActionFile.FENWICK_IN_FAKE.ordinal());
                 executeSubActions(ActionFileBinder.ActionFile.FENWICK_SOLO_ASCENSCEUR_GET_STATUETTE_TOP.ordinal());
                 executeSubActions(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_POMPE_RELEASE.ordinal());
                 executeSubActions(ActionFileBinder.ActionFile.FENWICK_SOLO_ASCENSCEUR_PUT_STATUETTE.ordinal());
@@ -36,8 +37,8 @@ public class FenwickSoloPutStatuette extends ActionReflexiveAbstract {
                 executeSubActions(ActionFileBinder.ActionFile.FENWICK_SOLO_ASCENSCEUR_PUT_STATUETTE.ordinal());
                 executeSubActions(ActionFileBinder.ActionFile.FENWICK_SOLO_ASCENSCEUR_PUT_STATUETTE_BIS.ordinal());
                 executeSubActions(ActionFileBinder.ActionFile.PASSPASS_VITRINE_ALLUMER.ordinal());
-                executeSubActions(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_IN.ordinal());
-                executeSubActions(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_HAUTEUR_TOP.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.FENWICK_SOLO_ASCENSCEUR_GET_STATUETTE_TOP.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.FENWICK_IN.ordinal());
                 finished = true;
             }
         }).start();

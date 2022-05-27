@@ -99,8 +99,8 @@ public class MainOneRobot2022 {
             new SetSpeed("On ralentit", 20)
         );
         deposeStatuette0.add(
-            new GoTo("Déplacement final exposition", 150, 260, Tache.Mirror.SPECIFIC),
-            new GoTo("Déplacement final exposition", 150, 2780, Tache.Mirror.SPECIFIC)
+            new GoTo("Déplacement final exposition", 155, 260, Tache.Mirror.SPECIFIC),
+            new GoTo("Déplacement final exposition", 155, 2780, Tache.Mirror.SPECIFIC)
         );
         deposeStatuette0.add(
             new Manipulation("Pose statuette", ActionFileBinder.ActionFile.FENWICK_SOLO_PUT_STATUETTE.ordinal())
@@ -110,6 +110,12 @@ public class MainOneRobot2022 {
         );
         deposeStatuette0.add(
             new Go("Sortie exposition", -200)
+        );
+        deposeStatuette0.add(
+            new Manipulation("On range le bras", ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_HAUTEUR_TOP.ordinal())
+        );
+        deposeStatuette0.add(
+                new Manipulation("On range le bras", ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_IN.ordinal())
         );
         objectifsCouleur0.add(deposeStatuette0.generateObjectif("Dépose statuette", objectifsCouleur0.size()+1, score, 1));
         objectifsCouleur3000.add(deposeStatuette0.generateMirrorObjectif("Dépose statuette", objectifsCouleur3000.size()+1, score, 1));
