@@ -3,6 +3,7 @@ package actions.a2022;
 import actions.*;
 import api.ax12.AX12LinkSerial;
 import api.communication.Serial;
+import api.communication.SerialRxTx;
 import api.qik.Qik;
 import manager.CommunicationManager;
 
@@ -21,7 +22,7 @@ public class ActionFileBinder implements ActionInterface {
 	protected ActionCollection actionCollection;
 	protected CommunicationManager communicationManager;
 	protected Qik qikLink;
-	protected Serial serialLink;
+	protected SerialRxTx serialLink;
 
 	public enum ActionFile {
 		/**
@@ -136,7 +137,7 @@ public class ActionFileBinder implements ActionInterface {
 		loadFiles();
 	}
 
-	public ActionFileBinder(AX12LinkSerial link, String dataDir, ActionCollection actionCollection, Qik qikLink, Serial serialLink) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+	public ActionFileBinder(AX12LinkSerial link, String dataDir, ActionCollection actionCollection, Qik qikLink, SerialRxTx serialLink) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
 		this.dataDir = new File(dataDir);
 		this.actionCollection = actionCollection;
 		this.ax12Link = link;
@@ -215,7 +216,7 @@ public class ActionFileBinder implements ActionInterface {
 		return qikLink;
 	}
 
-	public Serial getSerialLink() {
+	public SerialRxTx getSerialLink() {
 		return serialLink;
 	}
 }

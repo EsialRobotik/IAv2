@@ -3,7 +3,9 @@ package actions.reflexive;
 import actions.ActionReflexiveAbstract;
 import actions.a2022.ActionFileBinder;
 import api.communication.Serial;
+import api.communication.SerialRxTx;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class FenwickFouilleDroite4 extends ActionReflexiveAbstract {
@@ -25,8 +27,13 @@ public class FenwickFouilleDroite4 extends ActionReflexiveAbstract {
             @Override
             public void run() {
                 executeSubActions(ActionFileBinder.ActionFile.FENWICK_SONDE_DROITE_OUT.ordinal());
-                Serial serial = actionFileBinder.getSerialLink();
-                Scanner scanner = new Scanner(serial.getInputStream());
+                SerialRxTx serial = actionFileBinder.getSerialLink();
+                Scanner scanner = null;
+                try {
+                    scanner = new Scanner(serial.getInputStream());
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
                 probeResult = scanner.nextLine().trim();
                 if (probeResult.equals("n") || probeResult.equals("p")) {
                     probeResult = "fouille4KO";

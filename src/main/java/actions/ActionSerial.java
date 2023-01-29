@@ -1,38 +1,26 @@
 package actions;
 
-import api.communication.Serial;
+
+import api.communication.SerialRxTx;
 import api.log.LoggerFactory;
-import com.pi4j.io.serial.SerialDataEventListener;
 import manager.CommunicationManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 public class ActionSerial implements ActionExecutor {
 
-    private Serial serial;
-    private String serialCommand;
-    private SerialDataEventListener serialDataEventListener;
+    private final SerialRxTx serial;
+    private final String serialCommand;
     protected boolean finished;
     protected Logger logger;
 
-    public ActionSerial(Serial serial, String serialCommand) {
+    public ActionSerial(SerialRxTx serial, String serialCommand) {
         logger = LoggerFactory.getLogger(ActionSerial.class);
         logger.info("ActionSerial init for command : " + serialCommand);
         this.serial = serial;
         this.serialCommand = serialCommand;
-        serialDataEventListener = serialDataEvent -> {
-            try {
-                String serialBuffer = serialDataEvent.getAsciiString();
-                if (serialBuffer != null && serialBuffer.trim().equals("ok")) {
-                    finished = true;
-                    serial.removeReaderListeners(serialDataEventListener);
-                    logger.info("ActionSerial command " + serialCommand + " finished");
-                }
-            } catch (IOException e) {
-                logger.error("Echec de ActionSerial : " + e.getMessage());
-            }
-        };
         this.finished = false;
     }
 
@@ -43,12 +31,29 @@ public class ActionSerial implements ActionExecutor {
             return;
         }
         logger.info("ActionSerial execute command : " + serialCommand);
-        this.serial.addReaderListeners(serialDataEventListener);
 
         new Thread(new Runnable() {
             @Override
             public void run() {
                 serial.write(serialCommand);
+                try {
+                    StringBuilder sb = new StringBuilder();
+                    InputStream is = serial.getInputStream();
+                    while (true) {
+                        if (is.available() > 0) {
+                            sb.append((char)is.read());
+                            String line = sb.toString().trim();
+                            if (line.equals("ok") || line.equals("err")) {
+                                logger.info("ActionSerial command " + serialCommand + " finished");
+                                break;
+                            }
+                        }
+                    }
+                } catch (IOException e) {
+                    logger.error("Echec de ActionSerial : " + e.getMessage());
+                } finally {
+                    finished = true;
+                }
             }
         }).start();
     }

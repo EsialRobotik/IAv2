@@ -8,6 +8,7 @@ import api.ax12.AX12LinkException;
 import api.ax12.AX12LinkSerial;
 import api.chrono.Chrono;
 import api.communication.Serial;
+import api.communication.SerialRxTx;
 import api.gpio.ColorDetector;
 import api.gpio.Tirette;
 import api.lcd.LCD;
@@ -82,7 +83,7 @@ public class ConfigurationManager {
         JsonObject configRootNode = gson.fromJson(reader, JsonObject.class);
 
         JsonObject configObject = configRootNode.get("asserv").getAsJsonObject();
-        if (config != CONFIG_PATHFINDING) {
+        if (config != CONFIG_PATHFINDING && config != CONFIG_ACTIONNEUR) {
             logger.info("AsservAPIConfiguration = " + configObject.toString());
             asserv = new Asserv(configObject);
             movementManager = new MovementManager(asserv);
@@ -146,10 +147,10 @@ public class ConfigurationManager {
                 if (configObject.has("qik")) {
                     qikLink = new Qik(configObject.getAsJsonObject("qik"));
                 }
-                Serial serialLink = null;
+                SerialRxTx serialLink = null;
                 if (configObject.has("serial")) {
                     JsonObject serialConfig = configObject.getAsJsonObject("serial");
-                    serialLink = new Serial(serialConfig.get("serie").getAsString(), serialConfig.get("baud").getAsInt());
+                    serialLink = new SerialRxTx(serialConfig.get("serie").getAsString(), serialConfig.get("baud").getAsInt());
                 }
                 String dataDir = configObject.get("dataDir").getAsString();
                 JsonArray initArray = configObject.getAsJsonArray("init");
