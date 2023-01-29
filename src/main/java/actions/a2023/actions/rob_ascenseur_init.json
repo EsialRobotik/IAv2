@@ -1,0 +1,14 @@
+[
+  {
+    "command": "z",
+    "comment": "home bas"
+  },
+  {
+    "command": "Z",
+    "comment": "home haut"
+  },
+  {
+    "command": "g40",
+    "comment": "hauteur à 40mm"
+  }
+]
