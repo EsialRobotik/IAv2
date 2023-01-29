@@ -572,13 +572,28 @@ public class Main {
             System.out.println("Id de l'action à exécuter (voir ActionFileBinder)");
             System.out.print(">");
             while((actionId = in.nextLine()) != null) {
-                configurationManager.getActionSupervisor().executeCommand(Integer.parseInt(actionId));
-                while (!configurationManager.getActionSupervisor().isLastExecutionFinished()) {
+                actionId = actionId.trim();
+                int actionIdOrdinal = -1;
+                try {
+                    actionIdOrdinal = Integer.parseInt(actionId);
+                } catch (NumberFormatException e) {
                     try {
-                        Thread.sleep(10);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+                        actionIdOrdinal = ActionFileBinder.ActionFile.valueOf(actionId).ordinal();
+                    } catch (IllegalArgumentException e2) {
+                        // rien
                     }
+                }
+                if (actionIdOrdinal > -1) {
+                    configurationManager.getActionSupervisor().executeCommand(actionIdOrdinal);
+                    while (!configurationManager.getActionSupervisor().isLastExecutionFinished()) {
+                        try {
+                            Thread.sleep(10);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                } else {
+                    System.out.println("Id non trouvé");
                 }
                 System.out.println("Id de l'action à exécuter (voir ActionFileBinder)");
                 System.out.print(">");
