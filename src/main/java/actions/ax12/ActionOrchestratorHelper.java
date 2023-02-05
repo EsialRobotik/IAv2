@@ -28,6 +28,7 @@ public class ActionOrchestratorHelper {
 		waitingTimeMs,
 		rawAngle,
 		readOnlyAngleDegrees,
+		angleDegrees,
 		ax12Id,
 		switchState,
 		pumpId,
@@ -319,22 +320,36 @@ public class ActionOrchestratorHelper {
 	}
 	
 	public static AX12PositionAction AX12PositionActionFromJson(JsonObject o, AX12Link ax12Link) {
+		AX12Position angle = null;
+		JsonPrimitive primAngle;
 		JsonElement eltAngle = o.get(JSON_KEYS.rawAngle.name());
+		JsonElement eltAngleDegrees = o.get(JSON_KEYS.angleDegrees.name());
 		JsonElement eltAx12Id = o.get(JSON_KEYS.ax12Id.name());
-		if (eltAngle == null || !eltAngle.isJsonPrimitive() || eltAx12Id == null || !eltAx12Id.isJsonPrimitive()) {
+		if (eltAx12Id == null || !eltAx12Id.isJsonPrimitive()) {
 			return null;
 		}
-		JsonPrimitive primAngle = eltAngle.getAsJsonPrimitive();
+		if (eltAngleDegrees != null && eltAngleDegrees.isJsonPrimitive()) {
+			primAngle = eltAngleDegrees.getAsJsonPrimitive();
+			if (primAngle.isNumber()) {
+				angle = AX12Position.buildFromDegrees(primAngle.getAsDouble());
+			}
+		}
+		// La valeur brute a la priorité sur la valeur en degrés si les 2 sont déclarées
+		if (eltAngle != null && eltAngle.isJsonPrimitive()) {
+			primAngle = eltAngle.getAsJsonPrimitive();
+			if (primAngle.isNumber()) {
+				angle = AX12Position.buildFromInt(primAngle.getAsInt());
+			}
+		}
+		if (angle == null) {
+			return null;
+		}
 		JsonPrimitive primAx12Id = eltAx12Id.getAsJsonPrimitive();
-		if (!primAngle.isNumber() || !primAx12Id.isNumber()) {
+		if (!primAx12Id.isNumber()) {
 			return null;
 		}
-	
 		try {
-			return new AX12PositionAction(
-					new AX12(primAx12Id.getAsInt(), ax12Link),
-					AX12Position.buildFromInt(primAngle.getAsInt())
-			);
+			return new AX12PositionAction(new AX12(primAx12Id.getAsInt(), ax12Link), angle);
 		} catch (IllegalArgumentException e ) {
 			e.printStackTrace();
 			return null;
