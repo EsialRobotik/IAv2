@@ -27,25 +27,22 @@ public class ActionFileBinder implements ActionInterface {
 		/**
 		 * Initialisation avant match
 		 */
-		INIT_ROB_PINCE("rob_pinces_init.json", true, ActionFile.ACTION_AX12),
-
-		INIT_ROB_ASCENSEUR("rob_ascenseur_init.json", false, ActionFile.ACTION_ASCENSEUR),
-
-		ROB_PINCE_MOBILE_RELACHER("rob_pince_mobile_relacher.json", false, ActionFile.ACTION_AX12),
 		ROB_PINCE_MOBILE_ATTRAPER("rob_pince_mobile_attraper.json", false, ActionFile.ACTION_AX12),
-		ROB_PINCE_FIXE_RELACHER("rob_pince_fixe_relacher.json", false, ActionFile.ACTION_AX12),
-		ROB_PINCE_FIXE_ATTRAPER("rob_pince_fixe_attraper.json", false, ActionFile.ACTION_AX12),
+		ROB_PINCE_MOBILE_RELACHER_SERRE("rob_pince_mobile_relacher_serre.json", false, ActionFile.ACTION_AX12),
+		ROB_PINCE_MOBILE_RELACHER_LARGE("rob_pince_mobile_relacher_large.json", false, ActionFile.ACTION_AX12),
+		ROB_PINCE_MOBILE_INIT("rob_pince_mobile_init.json", false, ActionFile.ACTION_AX12),
+		ROB_ASCENSEUR_INIT("rob_ascenseur_init.json", false, ActionFile.ACTION_ASCENSEUR),
+		ROB_ASCENSEUR_NIV1("rob_ascenseur_niv1.json", false, ActionFile.ACTION_ASCENSEUR),
+		ROB_ASCENSEUR_NIV3("rob_ascenseur_niv3.json", false, ActionFile.ACTION_ASCENSEUR),
 		ROB_ASCENSEUR_SOL("rob_ascenseur_sol.json", false, ActionFile.ACTION_ASCENSEUR),
-		ROB_ASCENSEUR_PREEMPILEMENT_3PARTS("rob_ascenseur_preempilement_3parts.json", false, ActionFile.ACTION_ASCENSEUR),
-		ROB_ASCENSEUR_PREEMPILEMENT_2PARTS("rob_ascenseur_preempilement_2parts.json", false, ActionFile.ACTION_ASCENSEUR),
-		ROB_ASCENSEUR_PREEMPILEMENT_1PARTS("rob_ascenseur_preempilement_1parts.json", false, ActionFile.ACTION_ASCENSEUR),
-		ROB_ASCENSEUR_EMPILEMENT_3PARTS("rob_ascenseur_empilement_3parts.json", false, ActionFile.ACTION_ASCENSEUR),
-		ROB_ASCENSEUR_EMPILEMENT_2PARTS("rob_ascenseur_empilement_2parts.json", false, ActionFile.ACTION_ASCENSEUR),
-		ROB_ASCENSEUR_EMPILEMENT_1PARTS("rob_ascenseur_empilement_1parts.json", false, ActionFile.ACTION_ASCENSEUR),
-		ROB_ASCENSEUR_PREDEPILMEENT("rob_ascenseur_predepilmeent.json", false, ActionFile.ACTION_ASCENSEUR),
-		ROB_ASCENSEUR_DEPILEMENT_1("rob_ascenseur_depilement_1.json", false, ActionFile.ACTION_ASCENSEUR),
+		ROB_ASCENSEUR_SOLMARGE("rob_ascenseur_solmarge.json", false, ActionFile.ACTION_ASCENSEUR),
 		EMPILER_PREMIER_GATEAU("rob_empiler_premier_gateau.json", false, ActionFile.ACTION_LIST),
 		EMPILER_GATEAU_SUIVANT("rob_empiler_gateau_suivant.json", false, ActionFile.ACTION_LIST),
+
+		ROB_DEMO("rob_test_empilement_2_gateaux.json", false, ActionFile.ACTION_LIST),
+
+		ROB_EMPILER_PREMIER_GATEAU("rob_empiler_premier_gateau.json", false, ActionFile.ACTION_LIST),
+		ROB_EMPILER_GATEAU_SUIVANT("rob_empiler_gateau_suivant.json", false, ActionFile.ACTION_LIST),
 		;
 
 		public static final String ACTION_AX12 = "ax12";
