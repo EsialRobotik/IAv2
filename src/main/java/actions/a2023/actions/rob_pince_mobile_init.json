@@ -5,8 +5,8 @@
         {
           "actionId": "actionBehaviour",
           "ax12Id": 12,
-          "speed": 190,
-          "acceleration": 50,
+          "speed": 180,
+          "acceleration": 70,
           "compliance": 1
         }
       ]

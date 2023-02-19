@@ -35,14 +35,15 @@ public class ActionFileBinder implements ActionInterface {
 		ROB_ASCENSEUR_NIV1("rob_ascenseur_niv1.json", false, ActionFile.ACTION_ASCENSEUR),
 		ROB_ASCENSEUR_NIV3("rob_ascenseur_niv3.json", false, ActionFile.ACTION_ASCENSEUR),
 		ROB_ASCENSEUR_SOL("rob_ascenseur_sol.json", false, ActionFile.ACTION_ASCENSEUR),
+		ROB_ASCENSEUR_SOL_BUTEE("rob_ascenseur_sol_butee.json", false, ActionFile.ACTION_ASCENSEUR),
 		ROB_ASCENSEUR_SOLMARGE("rob_ascenseur_solmarge.json", false, ActionFile.ACTION_ASCENSEUR),
-		EMPILER_PREMIER_GATEAU("rob_empiler_premier_gateau.json", false, ActionFile.ACTION_LIST),
-		EMPILER_GATEAU_SUIVANT("rob_empiler_gateau_suivant.json", false, ActionFile.ACTION_LIST),
-
-		ROB_DEMO("rob_test_empilement_2_gateaux.json", false, ActionFile.ACTION_LIST),
+		ROB_DEMO("rob_test_empilement_3_gateaux.json", false, ActionFile.ACTION_LIST),
 
 		ROB_EMPILER_PREMIER_GATEAU("rob_empiler_premier_gateau.json", false, ActionFile.ACTION_LIST),
 		ROB_EMPILER_GATEAU_SUIVANT("rob_empiler_gateau_suivant.json", false, ActionFile.ACTION_LIST),
+
+		ROB_DEPILER_TRANCHE("rob_depiler_tranche.json", false, ActionFile.ACTION_LIST),
+		ROB_DEPILER_TRANCHE_X9("rob_depiler_tranche_x9.json", false, ActionFile.ACTION_LIST),
 		;
 
 		public static final String ACTION_AX12 = "ax12";
