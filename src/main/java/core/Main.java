@@ -580,7 +580,12 @@ public class Main {
                     try {
                         actionIdOrdinal = ActionFileBinder.ActionFile.valueOf(actionId).ordinal();
                     } catch (IllegalArgumentException e2) {
-                        // rien
+                        // Peut être en upper case ?
+                        try {
+                            actionIdOrdinal = ActionFileBinder.ActionFile.valueOf(actionId.toUpperCase()).ordinal();
+                        } catch (IllegalArgumentException e3) {
+                            // tant pis
+                        }
                     }
                 }
                 if (actionIdOrdinal > -1) {
