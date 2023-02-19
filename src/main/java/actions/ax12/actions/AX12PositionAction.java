@@ -29,7 +29,7 @@ public class AX12PositionAction extends Action {
 	@Override
 	public boolean actionDone() {
 		try {
-			return !this.ax12.isMoving();
+			return Math.abs(this.ax12.readServoPosition().getAngleAsDegrees() - angle.getAngleAsDegrees()) < 1.5;
 		} catch (AX12LinkException | AX12Exception e) {
 			return false;
 		}

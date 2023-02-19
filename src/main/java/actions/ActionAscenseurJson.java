@@ -51,10 +51,11 @@ public class ActionAscenseurJson implements ActionExecutor {
             public void run() {
                 try {
                     InputStream is = serial.getInputStream();
-                    boolean hadError = false;
                     for (String cmd : commands) {
                         try {
+                            logger.info(ActionAscenseurJson.class.getName() + " white command <"+cmd+"> of " + filename);
                             serial.getOutputStream().write(cmd.getBytes());
+                            serial.getOutputStream().write('\n');
                             serial.getOutputStream().flush();
                             StringBuilder sb = new StringBuilder();
                             while (true) {
