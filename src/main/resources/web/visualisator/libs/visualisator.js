@@ -168,7 +168,7 @@ function radiansToDegrees(radians) {
  * Chargement de la table et affichage des zones interdites
  * @returns {boolean}
  */
-function loadTable(jsonTable) {
+function loadTable(jsonTable, flip = false) {
     margin = jsonTable.marge;
 
     // Zones interdites fixes
@@ -180,28 +180,28 @@ function loadTable(jsonTable) {
     var shape = new createjs.Shape();
     shape.graphics
         .beginFill('rgba(200,0,0,0.4)')
-        .drawRect(0, 0, 3000, jsonTable.marge);
+        .drawRect(0, 0, flip ? 2000 : 3000, jsonTable.marge);
     stage.addChild(shape);
 
     // Bordure bas
     shape = new createjs.Shape();
     shape.graphics
         .beginFill('rgba(200,0,0,0.4)')
-        .drawRect(0, 2000 - jsonTable.marge, 3000, 2000);
+        .drawRect(0, (flip ? 3000 : 2000) - jsonTable.marge, flip ? 2000 : 3000, flip ? 3000 : 2000);
     stage.addChild(shape);
 
     // Bordure gauche
     shape = new createjs.Shape();
     shape.graphics
         .beginFill('rgba(200,0,0,0.4)')
-        .drawRect(0, 0, jsonTable.marge, 2000);
+        .drawRect(0, 0, jsonTable.marge, flip ? 3000 : 2000);
     stage.addChild(shape);
 
     // Bordure droite
     shape = new createjs.Shape();
     shape.graphics
         .beginFill('rgba(200,0,0,0.4)')
-        .drawRect(3000 - jsonTable.marge, 0, 3000, 2000);
+        .drawRect((flip ? 2000 : 3000) - jsonTable.marge, 0, flip ? 2000 : 3000, flip ? 3000 : 2000);
     stage.addChild(shape);
 
     // Zones interdites mobiles
@@ -211,7 +211,17 @@ function loadTable(jsonTable) {
     stage.update();
 
     deleteZone('start0');
+    deleteZone('start0_1');
+    deleteZone('start0_2');
+    deleteZone('start0_3');
+    deleteZone('start0_4');
+    deleteZone('start0_5');
     deleteZone('start3000');
+    deleteZone('start3000_1');
+    deleteZone('start3000_2');
+    deleteZone('start3000_3');
+    deleteZone('start3000_4');
+    deleteZone('start3000_5');
 }
 
 /**

@@ -44,12 +44,16 @@ public class Objectif {
         this.generateMirror(tacheMirroir, new ArrayList<>());
     }
 
+    public void generateMirror(List<Tache> tacheMirroir, List<Tache> tacheSpecifique) throws Exception {
+        this.generateMirror(tacheMirroir, tacheSpecifique, 3000);
+    }
+
     /**
      * Génère les tâches mirroirs à partie d'une liste
      * @param tacheMirroir
      * @param tacheSpecifique
      */
-    public void generateMirror(List<Tache> tacheMirroir, List<Tache> tacheSpecifique) throws Exception {
+    public void generateMirror(List<Tache> tacheMirroir, List<Tache> tacheSpecifique, int mirrorSize) throws Exception {
         this.taches = new ArrayList<>();
 
         for (Tache tache : tacheMirroir) {
@@ -57,9 +61,9 @@ public class Objectif {
                 this.taches.add(tache);
             } else if (tache.mirror == Tache.Mirror.MIRRORY) {
                 Tache t = tache.clone();
-                t.positionY = 3000 - t.positionY;
+                t.positionY = mirrorSize - t.positionY;
                 if (t.itemId != null) {
-                    t.itemId = t.itemId.replace("0_", "3000_");
+                    t.itemId = t.itemId.replace("0_", mirrorSize + "_");
                 }
                 this.taches.add(t);
             }
