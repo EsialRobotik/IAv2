@@ -5,10 +5,17 @@ import java.util.ArrayList;
 public class TaskList extends ArrayList<Tache> {
 
     TaskList mirrorTaskList;
+    int mirrorSize = 0;
 
     public TaskList() {
         super();
         this.mirrorTaskList = new TaskList(false);
+    }
+
+    public TaskList(int mirrorSize) {
+        super();
+        this.mirrorTaskList = new TaskList(false);
+        this.mirrorSize = mirrorSize;
     }
 
     public TaskList(boolean withMirror) {
@@ -53,7 +60,7 @@ public class TaskList extends ArrayList<Tache> {
     public Objectif generateMirrorObjectif(String name, int id, int score, int priority) {
         Objectif objectif = new Objectif(name, id, score, priority, null);
         try {
-            objectif.generateMirror(this, this.mirrorTaskList == null ? new ArrayList<>() : this.mirrorTaskList);
+            objectif.generateMirror(this, this.mirrorTaskList == null ? new ArrayList<>() : this.mirrorTaskList, mirrorSize > 0 ? mirrorSize : 3000);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -63,7 +70,7 @@ public class TaskList extends ArrayList<Tache> {
     public Objectif generateMirrorObjectif(String name, int id, int score, int priority, String skipFlag) {
         Objectif objectif = new Objectif(name, id, score, priority, null, skipFlag);
         try {
-            objectif.generateMirror(this, this.mirrorTaskList == null ? new ArrayList<>() : this.mirrorTaskList);
+            objectif.generateMirror(this, this.mirrorTaskList == null ? new ArrayList<>() : this.mirrorTaskList, mirrorSize > 0 ? mirrorSize : 3000);
         } catch (Exception e) {
             e.printStackTrace();
         }

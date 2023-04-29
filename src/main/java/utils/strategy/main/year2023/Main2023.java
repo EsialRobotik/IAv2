@@ -11,6 +11,8 @@ import pathfinding.table.astar.Astar;
 import utils.strategy.Objectif;
 import utils.strategy.Strategie;
 import utils.strategy.Tache;
+import utils.strategy.TaskList;
+import utils.strategy.task.*;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -26,10 +28,62 @@ public class Main2023 {
         System.out.println("Génération de la stratégie");
 
         // Liste des objectifs de chaque côté
-        // 0 = Jaune, 3000 = Violet
+        // 0 = Bleu, 3000 = Vert
+        // Départ en 2800,1775,Pi
         List<Objectif> objectifsCouleur0 = new ArrayList<>();
         List<Objectif> objectifsCouleur3000 = new ArrayList<>();
         int score = 0;
+
+        // Récupération gateaux violet 2
+        TaskList recuperationGateauViolet2_0 =  new TaskList(2000);
+        recuperationGateauViolet2_0.add(
+            new Go("Step de départ bizarre", 1)
+        );
+        // todo init ramassage
+        recuperationGateauViolet2_0.add(
+            new GoTo("Récupération violet 2", 2630, 1775)
+        );
+        // todo lever gateaux
+        recuperationGateauViolet2_0.add(
+            new DeleteZone("Libération violet 2", "east_cake_purple_2", Tache.Mirror.SPECIFIC),
+            new DeleteZone("Libération violet 2", "west_cake_purple_2", Tache.Mirror.SPECIFIC)
+        );
+        objectifsCouleur0.add(recuperationGateauViolet2_0.generateObjectif("Violet 2", objectifsCouleur0.size()+1, score, 1));
+        objectifsCouleur3000.add(recuperationGateauViolet2_0.generateMirrorObjectif("Violet 2", objectifsCouleur3000.size()+1, score, 1));
+
+        // Récupération gateaux Jaune 2
+        TaskList recuperationGateauJaune2_0 =  new TaskList(2000);
+        recuperationGateauJaune2_0.add(
+                new GoTo("Récupération jaune 2", 2430, 1775)
+        );
+        // todo ramasser gateaux
+        // todo lever gateaux
+        recuperationGateauJaune2_0.add(
+            new DeleteZone("Libération jaune 2", "east_cake_yellow_2", Tache.Mirror.SPECIFIC),
+            new DeleteZone("Libération jaune 2", "west_cake_yellow_2", Tache.Mirror.SPECIFIC)
+        );
+        objectifsCouleur0.add(recuperationGateauJaune2_0.generateObjectif("Jaune 2", objectifsCouleur0.size()+1, score, 1));
+        objectifsCouleur3000.add(recuperationGateauJaune2_0.generateMirrorObjectif("Jaune 2", objectifsCouleur3000.size()+1, score, 1));
+
+        // Récupération gateaux Brun 2
+        TaskList recuperationGateauBrun2_0 =  new TaskList(2000);
+        recuperationGateauBrun2_0.add(
+                new GoToAstar("Récupération brun 2", 2200, 1275)
+        );
+        recuperationGateauBrun2_0.add(
+                new Face("Récupération brun 2", 0, 1275)
+        );
+        recuperationGateauBrun2_0.add(
+                new GoTo("Récupération brun 2", 2080, 1275)
+        );
+        // todo ramasser gateaux
+        // todo lever gateaux
+        recuperationGateauBrun2_0.add(
+            new DeleteZone("Libération brun 2", "east_cake_brown_2", Tache.Mirror.SPECIFIC),
+            new DeleteZone("Libération brun 2", "west_cake_brown_2", Tache.Mirror.SPECIFIC)
+        );
+        objectifsCouleur0.add(recuperationGateauBrun2_0.generateObjectif("Brun 2", objectifsCouleur0.size()+1, score, 1));
+        objectifsCouleur3000.add(recuperationGateauBrun2_0.generateMirrorObjectif("Brun 2", objectifsCouleur3000.size()+1, score, 1));
 
         // Création de la stratégie complète
         Strategie strat = new Strategie();
@@ -55,7 +109,7 @@ public class Main2023 {
             Table table = new Table("config/2023/table0.tbl");
             table.loadJsonFromFile("config/2023/table.json");
             PathFinding pathFinding = new PathFinding(new Astar(table));
-            Position startPoint = new Position(600, 200, Math.PI / 2);
+            Position startPoint = new Position(2800, 1775, Math.PI);
             StringBuilder stratSimu = new StringBuilder("[");
             stratSimu.append("{ \"task\":\"Position de départ\",\"command\":\"start\",\"position\":" + startPoint.toJson() + "},");
             for (Objectif objectif : strat.couleur0) {
@@ -80,10 +134,10 @@ public class Main2023 {
 
         System.out.println("Test de la strat 3000");
         try {
-            Table table = new Table("config/2023O/table3000.tbl");
+            Table table = new Table("config/2023/table3000.tbl");
             table.loadJsonFromFile("config/2023/table.json");
             PathFinding pathFinding = new PathFinding(new Astar(table));
-            Position startPoint = new Position(600, 2800, -Math.PI / 2);
+            Position startPoint = new Position(2800, 225, Math.PI);
             StringBuilder stratSimu = new StringBuilder("[");
             stratSimu.append("{ \"task\":\"Position de départ\",\"command\":\"start\",\"position\":" + startPoint.toJson() + "},");
             for (Objectif objectif : strat.couleur3000) {

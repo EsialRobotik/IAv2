@@ -16,16 +16,16 @@
           "y": 0
         },
         {
-          "x": 450,
+          "x": 420,
           "y": 0
         },
         {
-          "x": 450,
-          "y": 450
+          "x": 420,
+          "y": 420
         },
         {
           "x": 0,
-          "y": 450
+          "y": 420
         }
       ]
     },
@@ -37,19 +37,19 @@
       "points": [
         {
           "x": 0,
-          "y": 500
+          "y": 530
         },
         {
-          "x": 450,
-          "y": 500
+          "x": 420,
+          "y": 530
         },
         {
-          "x": 450,
-          "y": 950
+          "x": 420,
+          "y": 920
         },
         {
           "x": 0,
-          "y": 950
+          "y": 920
         }
       ]
     },
@@ -60,20 +60,20 @@
       "active": true,
       "points": [
         {
-          "x": 900,
+          "x": 930,
           "y": 0
         },
         {
-          "x": 1350,
+          "x": 1320,
           "y": 0
         },
         {
-          "x": 1350,
-          "y": 450
+          "x": 1320,
+          "y": 420
         },
         {
-          "x": 900,
-          "y": 450
+          "x": 930,
+          "y": 420
         }
       ]
     },
@@ -84,20 +84,20 @@
       "active": true,
       "points": [
         {
-          "x": 1650,
+          "x": 1680,
           "y": 0
         },
         {
-          "x": 2100,
+          "x": 2070,
           "y": 0
         },
         {
-          "x": 2100,
-          "y": 450
+          "x": 2070,
+          "y": 420
         },
         {
-          "x": 1650,
-          "y": 450
+          "x": 1680,
+          "y": 420
         }
       ]
     },
@@ -108,7 +108,7 @@
       "active": true,
       "points": [
         {
-          "x": 2550,
+          "x": 2580,
           "y": 0
         },
         {
@@ -117,11 +117,11 @@
         },
         {
           "x": 3000,
-          "y": 450
+          "y": 420
         },
         {
-          "x": 2550,
-          "y": 450
+          "x": 2580,
+          "y": 420
         }
       ]
     },
@@ -137,16 +137,16 @@
           "y": 2000
         },
         {
-          "x": 450,
+          "x": 420,
           "y": 2000
         },
         {
-          "x": 450,
-          "y": 1550
+          "x": 420,
+          "y": 1580
         },
         {
           "x": 0,
-          "y": 1550
+          "y": 1580
         }
       ]
     },
@@ -158,19 +158,19 @@
       "points": [
         {
           "x": 0,
-          "y": 1500
+          "y": 1470
         },
         {
-          "x": 450,
-          "y": 1500
+          "x": 420,
+          "y": 1470
         },
         {
-          "x": 450,
-          "y": 1050
+          "x": 420,
+          "y": 1080
         },
         {
           "x": 0,
-          "y": 1050
+          "y": 1080
         }
       ]
     },
@@ -181,20 +181,20 @@
       "active": true,
       "points": [
         {
-          "x": 900,
+          "x": 930,
           "y": 2000
         },
         {
-          "x": 1350,
+          "x": 1320,
           "y": 2000
         },
         {
-          "x": 1350,
-          "y": 1550
+          "x": 1320,
+          "y": 1580
         },
         {
-          "x": 900,
-          "y": 1550
+          "x": 930,
+          "y": 1580
         }
       ]
     },
@@ -205,20 +205,20 @@
       "active": true,
       "points": [
         {
-          "x": 1650,
+          "x": 1680,
           "y": 2000
         },
         {
-          "x": 2100,
+          "x": 2070,
           "y": 2000
         },
         {
-          "x": 2100,
-          "y": 1550
+          "x": 2070,
+          "y": 1580
         },
         {
-          "x": 1650,
-          "y": 1550
+          "x": 1680,
+          "y": 1580
         }
       ]
     },
@@ -229,7 +229,7 @@
       "active": true,
       "points": [
         {
-          "x": 2550,
+          "x": 2580,
           "y": 2000
         },
         {
@@ -238,11 +238,11 @@
         },
         {
           "x": 3000,
-          "y": 1550
+          "y": 1580
         },
         {
-          "x": 2550,
-          "y": 1550
+          "x": 2580,
+          "y": 1580
         }
       ]
     },
@@ -346,9 +346,9 @@
   ],
   "elementsJeu" : [
     {
-      "id": "0_cake_purple_1",
+      "id": "west_cake_purple_1",
       "forme" : "cercle",
-      "desc": "Gateau violet 0 - 1",
+      "desc": "Gateau violet ouest - 1",
       "active": true,
       "centre" :
       {
@@ -358,9 +358,9 @@
       "rayon": 60
     },
     {
-      "id": "0_cake_yellow_1",
+      "id": "west_cake_yellow_1",
       "forme" : "cercle",
-      "desc": "Gateau jaune 0 - 1",
+      "desc": "Gateau jaune ouest - 1",
       "active": true,
       "centre" :
       {
@@ -370,9 +370,9 @@
       "rayon": 60
     },
     {
-      "id": "0_cake_brown_1",
+      "id": "west_cake_brown_1",
       "forme" : "cercle",
-      "desc": "Gateau brun 0 - 1",
+      "desc": "Gateau brun ouest - 1",
       "active": true,
       "centre" :
       {
@@ -382,9 +382,9 @@
       "rayon": 60
     },
     {
-      "id": "0_cake_purple_2",
+      "id": "west_cake_purple_2",
       "forme" : "cercle",
-      "desc": "Gateau violet 0 - 2",
+      "desc": "Gateau violet ouest - 2",
       "active": true,
       "centre" :
       {
@@ -394,9 +394,9 @@
       "rayon": 60
     },
     {
-      "id": "0_cake_yellow_2",
+      "id": "west_cake_yellow_2",
       "forme" : "cercle",
-      "desc": "Gateau jaune 0 - 2",
+      "desc": "Gateau jaune ouest - 2",
       "active": true,
       "centre" :
       {
@@ -406,9 +406,9 @@
       "rayon": 60
     },
     {
-      "id": "0_cake_brown_2",
+      "id": "west_cake_brown_2",
       "forme" : "cercle",
-      "desc": "Gateau brun 0 - 2",
+      "desc": "Gateau brun ouest - 2",
       "active": true,
       "centre" :
       {
@@ -419,9 +419,9 @@
     },
 
     {
-      "id": "3000_cake_purple_1",
+      "id": "east_cake_purple_1",
       "forme" : "cercle",
-      "desc": "Gateau violet 3000 - 1",
+      "desc": "Gateau violet est - 1",
       "active": true,
       "centre" :
       {
@@ -431,9 +431,9 @@
       "rayon": 60
     },
     {
-      "id": "3000_cake_yellow_1",
+      "id": "east_cake_yellow_1",
       "forme" : "cercle",
-      "desc": "Gateau jaune 3000 - 1",
+      "desc": "Gateau jaune est - 1",
       "active": true,
       "centre" :
       {
@@ -443,9 +443,9 @@
       "rayon": 60
     },
     {
-      "id": "3000_cake_brown_1",
+      "id": "east_cake_brown_1",
       "forme" : "cercle",
-      "desc": "Gateau brun 3000 - 1",
+      "desc": "Gateau brun est - 1",
       "active": true,
       "centre" :
       {
@@ -455,9 +455,9 @@
       "rayon": 60
     },
     {
-      "id": "3000_cake_purple_2",
+      "id": "east_cake_purple_2",
       "forme" : "cercle",
-      "desc": "Gateau violet 3000 - 2",
+      "desc": "Gateau violet est - 2",
       "active": true,
       "centre" :
       {
@@ -467,9 +467,9 @@
       "rayon": 60
     },
     {
-      "id": "3000_cake_yellow_2",
+      "id": "east_cake_yellow_2",
       "forme" : "cercle",
-      "desc": "Gateau jaune 3000 - 2",
+      "desc": "Gateau jaune est - 2",
       "active": true,
       "centre" :
       {
@@ -479,9 +479,9 @@
       "rayon": 60
     },
     {
-      "id": "3000_cake_brown_2",
+      "id": "east_cake_brown_2",
       "forme" : "cercle",
-      "desc": "Gateau brun 3000 - 2",
+      "desc": "Gateau brun est - 2",
       "active": true,
       "centre" :
       {
