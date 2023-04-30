@@ -88,10 +88,10 @@
             "baud": 115200
         },
         "dataDir": "src/main/java/actions/a2023/actions",
-        "init": [18, 16, 25, 0, 3],
+        "init": [3, 4],
         "funnyAction": {
             "actionId": 12,
-            "score": 10
+            "score": 5
         }
     },
     "detection": {

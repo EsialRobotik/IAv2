@@ -212,13 +212,13 @@ function loadTable(jsonTable, flip = false) {
 
     deleteZone('start0');
     deleteZone('start0_1');
-    deleteZone('start0_2');
+//    deleteZone('start0_2');
     deleteZone('start0_3');
     deleteZone('start0_4');
     deleteZone('start0_5');
     deleteZone('start3000');
     deleteZone('start3000_1');
-    deleteZone('start3000_2');
+//    deleteZone('start3000_2');
     deleteZone('start3000_3');
     deleteZone('start3000_4');
     deleteZone('start3000_5');
