@@ -56,7 +56,9 @@ public class Tache implements Cloneable {
         @SerializedName("ajout")
         AJOUT("ajout"),
         @SerializedName("wait_chrono")
-        WAIT_CHRONO("wait_chrono")
+        WAIT_CHRONO("wait_chrono"),
+        @SerializedName("wait")
+        WAIT("wait")
         ;
 
         private final String text;

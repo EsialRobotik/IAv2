@@ -24,7 +24,8 @@ public class Step {
         SET_SPEED,
         SUPPRESSION,
         AJOUT,
-        WAIT_CHRONO
+        WAIT_CHRONO,
+        WAIT
     }
 
     private String desc;
@@ -91,6 +92,9 @@ public class Step {
                 this.itemId = configNode.get("itemId").getAsString();
             } else if (temp.equals("wait_chrono")) {
                 this.subType = SubType.WAIT_CHRONO;
+                this.timeout = configNode.get("timeout").getAsInt();
+            } else if (temp.equals("wait")) {
+                this.subType = SubType.WAIT;
                 this.timeout = configNode.get("timeout").getAsInt();
             }
 

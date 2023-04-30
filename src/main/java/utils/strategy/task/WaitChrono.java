@@ -18,7 +18,7 @@ public class WaitChrono extends Tache {
         this.endPoint = startPoint;
         return "{ " +
             "\"task\":\""+this.desc+"\"," +
-            "\"command\":\"speed#" + + this.dist + "\"," +
+            "\"command\":\"wait_chrono#" + + this.dist + "\"," +
             "\"position\":" + this.endPoint.toJson() +
         "},";
     }

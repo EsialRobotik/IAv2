@@ -246,6 +246,13 @@ public class MasterLoop {
         Step.Type type = currentStep.getActionType();
         if (type == Step.Type.DEPLACEMENT && currentStep.getSubType() == Step.SubType.WAIT_CHRONO) {
             return (currentStep.getTimeout() * 1000L) <= chrono.getTimeSinceBeginning();
+        } else if (type == Step.Type.DEPLACEMENT && currentStep.getSubType() == Step.SubType.WAIT) {
+            try {
+                Thread.sleep(currentStep.getTimeout());
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return true;
         } else if ((type == Step.Type.DEPLACEMENT) && movementManager.isLastOrderedMovementEnded()) {
             return true;
         } else if (type == Step.Type.MANIPULATION && actionSupervisor.isLastExecutionFinished()) {
