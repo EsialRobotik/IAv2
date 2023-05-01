@@ -148,18 +148,6 @@ public class MovementManager {
         return this.asservInterface.getMovementDirection();
     }
 
-    /**
-     * Lance la calage du robot
-     * @param isColor0 true si la couleur est pour le (x,y) en (0,0), false pour le (0,3000)
-     */
-    public void calage(boolean isColor0) {
-        try {
-            this.asservInterface.calage(isColor0);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
     public void goStart(boolean isColor0) {
         try {
             this.asservInterface.goStart(isColor0);

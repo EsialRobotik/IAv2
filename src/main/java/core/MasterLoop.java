@@ -274,17 +274,15 @@ public class MasterLoop {
         lcdDisplay.println(colorDetector.isColor0() ? TableColor.COLOR_0.toString() : TableColor.COLOR_3000.toString() + " ou reset ?");
         logger.info("Attente mise en place tirette pour init calage");
         lcdDisplay.println("Attente tirette init");
+
         tirette.waitForTirette(true);
         tirette.waitForTirette(false);
-        logger.info("Start calage bordure");
-        movementManager.calage(colorDetector.isColor0());
-        lcdDisplay.println("Initialisation OK");
-
         logger.info("Initialisation des actionneurs");
         actionSupervisor.init();
 
         lcdDisplay.println("Attente tirette GoStart");
         logger.info("Attente tirette mise en position de depart");
+
         tirette.waitForTirette(true);
         tirette.waitForTirette(false);
         logger.info("Start zone de depart");

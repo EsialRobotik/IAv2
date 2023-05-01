@@ -23,56 +23,92 @@
     "asserv": {
         "baud": 115200,
         "serie": "/dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_066FFF383133524157185717-if02",
-        "calage0": {
-            "x": 1025,
-            "y": 78,
-            "theta": 1.5707963267948966192313216916398
-        },
-        "calage3000": {
-            "x": 1025,
-            "y": 2922,
-            "theta": -1.5707963267948966192313216916398
-        },
         "start0": [
+            {
+                "type": "go_timed",
+                "dist": -200
+            },
+            {
+                "type": "set_x",
+                "value": 2855
+            },
+            {
+                "type": "set_theta",
+                "value": 3.14159265359
+            },
+            {
+                "type": "go",
+                "dist": 200
+            },
+            {
+                "type": "turn",
+                "dist": 90
+            },
+            {
+                "type": "go_timed",
+                "dist": -200
+            },
+            {
+                "type": "set_y",
+                "value": 1855
+            },
             {
                 "type": "go",
                 "dist": 200
             },
             {
                 "type": "goto",
-                "x": 600,
-                "y": 400
-            },
-            {
-                "type": "goto_reverse",
-                "x": 600,
-                "y": 200
+                "x": 2800,
+                "y": 1775
             },
             {
                 "type": "face",
-                "x": 600,
-                "y": 3000
+                "x": 0,
+                "y": 1775
             }
         ],
         "start3000": [
             {
+                "type": "go_timed",
+                "dist": -200
+            },
+            {
+                "type": "set_x",
+                "value": 2855
+            },
+            {
+                "type": "set_theta",
+                "value": 3.14159265359
+            },
+            {
+                "type": "go",
+                "dist": 200
+            },
+            {
+                "type": "turn",
+                "dist": -90
+            },
+            {
+                "type": "go_timed",
+                "dist": -200
+            },
+            {
+                "type": "set_y",
+                "value": 145
+            },
+            {
                 "type": "go",
                 "dist": 200
             },
             {
                 "type": "goto",
-                "x": 600,
-                "y": 2600
-            },
-            {
-                "type": "goto_reverse",
-                "x": 600,
-                "y": 2800
+                "x": 2800,
+                "y": 225
             },
             {
                 "type": "face",
-                "x": 600,
-                "y": 0
+                "x": 0,
+                "y": 225
             }
         ]
     },

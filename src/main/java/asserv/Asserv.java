@@ -350,19 +350,6 @@ public class Asserv implements AsservInterface {
     }
 
     @Override
-    public void calage(boolean isColor0) throws InterruptedException {
-        JsonObject calage = this.config.getAsJsonObject(isColor0 ? "calage0" : "calage3000");
-
-        // On effectue le calage grâce à une calle dans le coin côté N, sur le bord de la table
-        setOdometrie(
-            calage.get("x").getAsInt(),
-            calage.get("y").getAsInt(),
-            calage.get("theta").getAsDouble()
-        );
-        this.logger.info("Position setted");
-    }
-
-    @Override
     public void goStart(boolean isColor0) throws Exception {
         JsonArray start = this.config.getAsJsonArray(isColor0 ? "start0" : "start3000");
         for (JsonElement instruction : start) {
@@ -373,6 +360,19 @@ public class Asserv implements AsservInterface {
                 case "go":
                     go(temp.get("dist").getAsInt());
                     this.logger.info("Go " + temp.get("dist").getAsInt());
+                    break;
+                case "go_timed":
+                    setSpeed(25);
+                    go(temp.get("dist").getAsInt());
+                    Thread.sleep(2000);
+                    emergencyStop();
+                    emergencyReset();
+                    setSpeed(100);
+                    this.logger.info("Go " + temp.get("dist").getAsInt());
+                    break;
+                case "turn":
+                    turn(temp.get("dist").getAsInt());
+                    this.logger.info("Turn " + temp.get("dist").getAsInt());
                     break;
                 case "goto":
                     depart = new Position(temp.get("x").getAsInt(), temp.get("y").getAsInt());
@@ -388,6 +388,26 @@ public class Asserv implements AsservInterface {
                     Position alignement = new Position(temp.get("x").getAsInt(), temp.get("y").getAsInt());
                     this.logger.info("Goto " + alignement.toString());
                     face(alignement);
+                    break;
+                case "angle":
+                    this.logger.info("Enable regulator angle " + temp.get("enable").getAsBoolean());
+                    enableRegulatorAngle(temp.get("enable").getAsBoolean());
+                    break;
+                case "distance":
+                    this.logger.info("Enable regulator distance " + temp.get("enable").getAsBoolean());
+                    enableRegulatorDistance(temp.get("enable").getAsBoolean());
+                    break;
+                case "set_x":
+                    this.logger.info("Set odometrie X : " + temp.get("value").getAsInt());
+                    setOdometrieX(temp.get("value").getAsInt());
+                    break;
+                case "set_y":
+                    this.logger.info("Set odometrie Y : " + temp.get("value").getAsInt());
+                    setOdometrieY(temp.get("value").getAsInt());
+                    break;
+                case "set_theta":
+                    this.logger.info("Set odometrie Theta : " + temp.get("value").getAsDouble());
+                    setOdometrieTheta(temp.get("value").getAsDouble());
                     break;
                 default:
                     throw new Exception("Instruction inconnue " + temp);
