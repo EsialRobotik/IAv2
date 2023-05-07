@@ -1,0 +1,7 @@
+{
+  "actions": [
+    "COOKING_PRENDRE_CERISE",
+    "COOKING_DEPOSER_CERISE",
+    "COOKING_RANGER_BRAS"
+  ]
+}
