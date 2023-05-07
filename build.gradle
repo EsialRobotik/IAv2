@@ -21,14 +21,14 @@ sourceCompatibility = 1.8
 
 remotes {
     bigPrincessPi {
-        host = '192.168.0.101'
-        user = 'pi'
-        identity = file("${System.properties['user.home']}/.ssh/id_rsa")
+        host = bigPrincessPiSettingsHost
+        user = bigPrincessPiSettingsUser
+        identity = file(bigPrincessPiSettingsIdentityFile)
     }
     smallPrincessPi {
-        host = '192.168.0.105'
-        user = 'pi'
-        identity = file("${System.properties['user.home']}/.ssh/id_rsa")
+        host = smallPrincessPiSettingsHost
+        user = smallPrincessPiSettingsUser
+        identity = file(smallPrincessPiSettingsIdentityFile)
     }
 }
 

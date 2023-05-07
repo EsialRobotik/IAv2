@@ -3,10 +3,11 @@ IA Java V2
 
 # Installation et utilisation
 1. Cloner le dépôt
-2. Lancer la tâche gradle shadowJar pour générer le jar
-3. Modifier configCollection.json, config.json et table.tbl dans config/annee
-4. Copier / coller le jar et les fichiers de config (configCollection.json, config.json, table0.tbl et table3000.tbl) ou lancer la tâche deployPrincess pour envoyer le jar sur la rasp
-5. Enjoy
+2. Copier le fichier gradle.properties.dist en gradle.properties et configurer les variables
+3. Lancer la tâche gradle shadowJar pour générer le jar
+4. Modifier configCollection.json, config.json et table.tbl dans config/annee
+5. Copier / coller le jar et les fichiers de config (configCollection.json, config.json, table0.tbl et table3000.tbl) ou lancer la tâche deployPrincess pour envoyer le jar sur la rasp
+6. Enjoy
 
 PS : Pour utiliser les tache gradle de deploy, il faut modifier build.gradle
 
