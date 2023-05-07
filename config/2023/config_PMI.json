@@ -1,5 +1,5 @@
 {
-    "desc": "Configuration du robot PMI 2023 - Puking Princess",
+    "desc": "Configuration du robot PMI 2023 - Cherry Princess",
     "gpioColorSelector": 5,
     "gpioTirette": 4,
     "matchDuration": 100,

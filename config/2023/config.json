@@ -6,7 +6,7 @@
     "table0Path": "table0.tbl",
     "table3000Path": "table3000.tbl",
     "tableJsonPath": "table.json",
-    "commandFile": "config/2023/configCollection.json",
+    "commandFile": "configCollection.json",
     "lcd": {
         "type": "full",
         "i2cAddress": 81,
@@ -14,11 +14,11 @@
         "lineLength": 16
     },
     "loggerSocket": {
-        "active": false,
-        "host": "192.168.0.106",
+        "active": true,
+        "host": "192.168.0.103",
         "port": 4269,
         "logPort": 1664,
-        "who": "princesspi"
+        "who": "princess"
     },
     "asserv": {
         "baud": 115200,
