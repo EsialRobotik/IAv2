@@ -20,7 +20,7 @@ public class FileHandler extends AbstractHandler {
 	public FileHandler(AX12Http ax12Http, File dataDir) {
 		super(ax12Http);
 		if (!dataDir.isDirectory()) {
-			throw new IllegalArgumentException("File must be a directory");
+			throw new IllegalArgumentException("File "+dataDir.getAbsoluteFile()+" must be a directory. Est ce que le fichier config.json est pourri ?");
 		}
 		this.dataDir = dataDir;
 	}

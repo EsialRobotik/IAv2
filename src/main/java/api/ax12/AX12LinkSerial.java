@@ -15,7 +15,10 @@ public class AX12LinkSerial implements AX12Link {
 	private OutputStream os;
 	private InputStream is;
 	private boolean combinedRxTx;
-	
+
+	protected boolean dtrEnabled;
+	protected boolean rtsEnabled;
+
 	protected ArrayList<Byte> lecture;
 	
 	public AX12LinkSerial(SerialPort sp, int baudRate) throws AX12LinkException {
@@ -27,6 +30,8 @@ public class AX12LinkSerial implements AX12Link {
 		this.sp = sp;
 		this.lecture = new ArrayList<Byte>();
 		this.combinedRxTx = combinedRxTx == null ? false : combinedRxTx;
+		this.dtrEnabled = false;
+		this.rtsEnabled = false;
 		try {
 			this.sp.setDTR(false);
 			this.sp.setRTS(false);
@@ -179,12 +184,21 @@ public class AX12LinkSerial implements AX12Link {
 	@Override
 	public void enableDtr(boolean enable) {
 		sp.setDTR(enable);
+		this.dtrEnabled = enable;
 	}
 
+	public boolean isDtrEnabled() {
+		return this.dtrEnabled;
+	}
+
+	public boolean isRtsEnabled() {
+		return this.rtsEnabled;
+	}
 
 	@Override
 	public void enableRts(boolean enable) {
 		sp.setRTS(enable);
+		this.rtsEnabled = enable;
 	}
 
 
