@@ -81,6 +81,7 @@ public class CustomConfigurationFactory extends ConfigurationFactory {
                 appenderBuilder.add(builder.newFilter("MarkerFilter", Filter.Result.DENY,
                         Filter.Result.NEUTRAL).addAttribute("marker", "FLOW"));
                 builder.add(appenderBuilder);
+                System.out.println("Socket logger added");
             }
         }
 

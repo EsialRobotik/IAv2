@@ -272,7 +272,7 @@ public class Main {
         while (true) {
             lcd.println("Coucou " + i);
             i++;
-            Thread.sleep(500);
+            Thread.sleep(250);
         }
     }
 
