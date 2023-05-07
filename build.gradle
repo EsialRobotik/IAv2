@@ -43,7 +43,7 @@ shadowJar {
 }
 
 // SSH deploy
-task deployBigPrincess {
+task deployBigPrincess(dependsOn: ["shadowJar"]) {
     doLast {
         ssh.run {
             session(remotes.bigPrincessPi) {
@@ -61,7 +61,7 @@ task deployBigPrincess {
     }
 }
 
-task deploySmallPrincess {
+task deploySmallPrincess(dependsOn: ["shadowJar"]) {
     doLast {
         ssh.run {
             session(remotes.smallPrincessPi) {
