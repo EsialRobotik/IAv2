@@ -1,0 +1,24 @@
+{
+  "actionPools": [
+    {
+      "actions": [
+        {
+          "description": "On rentre l'avant bras",
+          "actionId": "actionPosition",
+          "ax12Id": 3,
+          "angleDegrees": 258
+        }
+      ]
+    },
+    {
+      "actions": [
+        {
+          "description": "On rentre le bras",
+          "actionId": "actionPosition",
+          "ax12Id": 1,
+          "angleDegrees": 115
+        }
+      ]
+    }
+  ]
+}

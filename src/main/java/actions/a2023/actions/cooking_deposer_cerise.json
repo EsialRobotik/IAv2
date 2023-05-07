@@ -1,0 +1,41 @@
+{
+  "actionPools": [
+    {
+      "actions": [
+        {
+          "description": "On détent le bras au maximum",
+          "actionId": "actionPosition",
+          "ax12Id": 1,
+          "angleDegrees": 156
+        }
+      ]
+    },
+    {
+      "actions": [
+        {
+          "description": "On sort l'avant bras",
+          "actionId": "actionPosition",
+          "ax12Id": 3,
+          "angleDegrees": 127
+        }
+      ]
+    },
+    {
+      "actions": [
+        {
+          "actionId": "actionSerialFlag",
+          "serialFlagId": "RTS",
+          "serialFlagEnabled": false
+        }
+      ]
+    },
+    {
+      "actions": [
+        {
+          "actionId": "actionWaiting",
+          "waitingTimeMs": 250
+        }
+      ]
+    }
+  ]
+}

@@ -44,6 +44,12 @@ public class ActionFileBinder implements ActionInterface {
 
 		ROB_DEPILER_TRANCHE("rob_depiler_tranche.json", false, ActionFile.ACTION_LIST),
 		ROB_DEPILER_TRANCHE_X9("rob_depiler_tranche_x9.json", false, ActionFile.ACTION_LIST),
+		COOKING_INIT_DEPOSE_CERISE("cooking_init_depose_cerise.json", false, ActionFile.ACTION_AX12),
+		COOKING_PRENDRE_CERISE("cooking_prendre_cerise.json", false, ActionFile.ACTION_AX12),
+		COOKING_DEPOSER_CERISE("cooking_deposer_cerise.json", false, ActionFile.ACTION_AX12),
+		COOKING_RANGER_BRAS("cooking_ranger_bras.json", false, ActionFile.ACTION_AX12),
+		COOKING_DEMO_DEPOSE_CERISE("cooking_demo_depose_cerise.json", false, ActionFile.ACTION_LIST),
+
 		;
 
 		public static final String ACTION_AX12 = "ax12";
