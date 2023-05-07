@@ -15,6 +15,7 @@ import org.apache.logging.log4j.Logger;
 import pathfinding.PathFinding;
 import pathfinding.table.Point;
 import pathfinding.table.TableColor;
+import pathfinding.table.shape.Circle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -223,7 +224,67 @@ public class MasterLoop {
                     movementManager.resumeAsserv();
                     somethingDetected = false;
                 } else {
-                    logger.debug("Detection NOK");
+                    if (currentStep.getSubType() == Step.SubType.GOTO_ASTAR && !astarLaunch) {
+                        Position[] obstaclePositions = this.detectionManager.getEmergencyDetectionPositions();
+                        List<Point> detectedPoints = new ArrayList<>();
+                        int detectedRadius = 200;
+                        if (movingForward) {
+                            if (detected[0]) {
+                                detectedPoints.addAll(pathFinding.getPointsFromShape(new Circle(
+                                    obstaclePositions[0].getX(),
+                                    obstaclePositions[0].getY(),
+                                    detectedRadius
+                                )));
+                            }
+                            if (detected[1]) {
+                                detectedPoints.addAll(pathFinding.getPointsFromShape(new Circle(
+                                    obstaclePositions[1].getX(),
+                                    obstaclePositions[1].getY(),
+                                    detectedRadius
+                                )));
+                            }
+                            if (detected[2]) {
+                                detectedPoints.addAll(pathFinding.getPointsFromShape(new Circle(
+                                    obstaclePositions[2].getX(),
+                                    obstaclePositions[2].getY(),
+                                    detectedRadius
+                                )));
+                            }
+                        } else if (!movingForward && detected[3]) {
+                            detectedPoints.addAll(pathFinding.getPointsFromShape(new Circle(
+                                obstaclePositions[3].getX(),
+                                obstaclePositions[3].getY(),
+                                detectedRadius
+                            )));
+                        }
+                        pathFinding.setDetectedPoints(detectedPoints);
+                        pathFinding.lockDetectedPoints();
+                        try {
+                            launchAstar(positionToPoint(currentStep.getEndPosition()));
+                            astarLaunch = true;
+                        } catch (Exception e) {
+                            logger.error(e.getMessage());
+                            astarLaunch = false;
+                        }
+                    }
+
+                    if (astarLaunch) { //We are computing a path let's check if it's ok now
+                        if (pathFinding.isComputationEnded()) {
+                            pathFinding.liberateDetectedPoints();
+                            movementManager.executeMovement(pathFinding.getLastComputedPath());
+                            astarLaunch = false;
+                            somethingDetected = false;
+                        } else {
+                            logger.debug("Waiting AStar");
+                        }
+                        try {
+                            Thread.sleep(10);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        logger.debug("Detection NOK");
+                    }
                 }
             }
             communicationManager.readFromServer();

@@ -24,11 +24,13 @@ public class PathFinding {
     private boolean computationStart;
     private boolean computationEnded;
     private List<Point> computedPath;
+    private List<Point> detectedPoints;
 
     public PathFinding(Astar astar) {
         this.astar = astar;
         computationEnded = true;
         computationStart = false;
+        detectedPoints = new ArrayList<>();
 
         for (Shape shape : this.astar.getTable().getElementsList().keySet()) {
             if (shape.isActive()) {
@@ -93,6 +95,30 @@ public class PathFinding {
         for (Point p : astar.getTable().findElementById(elementId)) {
             astar.setTemporaryAccessible(p.x, p.y, false);
         }
+    }
+
+    public List<Point> getDetectedPoints() {
+        return detectedPoints;
+    }
+
+    public void setDetectedPoints(List<Point> detectedPoints) {
+        this.detectedPoints = detectedPoints;
+    }
+
+    public void liberateDetectedPoints() {
+        for (Point p : this.detectedPoints) {
+            astar.setTemporaryAccessible(p.x, p.y, true);
+        }
+    }
+
+    public void lockDetectedPoints() {
+        for (Point p : this.detectedPoints) {
+            astar.setTemporaryAccessible(p.x, p.y, false);
+        }
+    }
+
+    public List<Point> getPointsFromShape(Shape shape) {
+        return astar.getTable().getPointsFromShape(shape);
     }
 
     public static void main(String[] args) throws Exception {

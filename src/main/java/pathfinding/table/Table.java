@@ -121,17 +121,7 @@ public class Table {
         elementsList = new HashMap<>();
         for (JsonElement jsonElement : rootElement.getAsJsonArray("elementsJeu")) {
             Shape shape = ShapeFactory.getShape(jsonElement.getAsJsonObject());
-            List<Point> points = new ArrayList<>();
-            boolean[][] temp = shape.drawShapeEdges(rectifiedXSize, rectifiedYSize, false);
-            temp = computeForbiddenAreaForElement(temp);
-            for (int i = rectifiedXSize; i <= rectifiedXSize * 2; i++) {
-                for (int j = rectifiedYSize; j <= rectifiedYSize * 2; j++) {
-                    if (temp[i][j]) {
-                        points.add(new Point(i - rectifiedXSize, j - rectifiedYSize));
-                    }
-                }
-            }
-            elementsList.put(shape, points);
+            elementsList.put(shape, getPointsFromShape(shape));
         }
 
         detectionIgnoreQuadrilaterium = new ArrayList<>();
@@ -415,7 +405,7 @@ public class Table {
     }
 
     public void printTable() {
-        for(int i = 0; i < forbiddenArea.length; ++i) {
+        for (int i = 0; i < forbiddenArea.length; ++i) {
             for(int j = 0; j < forbiddenArea[0].length; ++j){
                 System.out.print(forbiddenArea[i][j]?"x":"o");
             }
@@ -452,12 +442,9 @@ public class Table {
             bw = new BufferedWriter(fw);
             bw.write(this.getxSize() + " " + this.getySize() + "\n");
             bw.write(this.toString());
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
-
-        }
-        finally {
+        } finally {
             try {
                 if (bw != null) {
                     bw.close();
@@ -465,11 +452,9 @@ public class Table {
                 if (fw != null) {
                     fw.close();
                 }
-
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
-
         }
     }
 
@@ -505,6 +490,20 @@ public class Table {
             }
         }
         return false;
+    }
+
+    public List<Point> getPointsFromShape(Shape shape) {
+        List<Point> points = new ArrayList<>();
+        boolean[][] temp = shape.drawShapeEdges(rectifiedXSize, rectifiedYSize, false);
+        temp = computeForbiddenAreaForElement(temp);
+        for (int i = rectifiedXSize; i <= rectifiedXSize * 2; i++) {
+            for (int j = rectifiedYSize; j <= rectifiedYSize * 2; j++) {
+                if (temp[i][j]) {
+                    points.add(new Point(i - rectifiedXSize, j - rectifiedYSize));
+                }
+            }
+        }
+        return points;
     }
 
     public static void main(String[] args) throws IOException {
