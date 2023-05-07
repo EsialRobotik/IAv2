@@ -34,6 +34,7 @@ import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
 import pathfinding.PathFinding;
 import pathfinding.table.Point;
+import utils.ax12.AX12MainConsole;
 import utils.web.AX12Http;
 import utils.web.ResourcesManager;
 
@@ -175,8 +176,11 @@ public class Main {
                     // Danse de la coupe off
                     Main.coupeOffDance();
                     break;
-                case "config-ax12":
-                    Main.configAX12();
+                case "ax12-cli":
+                    Main.configAX12(false);
+                    break;
+                case "ax12-web":
+                    Main.configAX12(true);
                     break;
                 case "test-lift":
                     Main.testLift();
@@ -224,7 +228,8 @@ public class Main {
         System.out.println("\t- shell : Test du shell (lance une capture de la caméra et une analyse Aruco)");
         System.out.println("\t- pathfinding : Test le calcul de pathfinding");
         System.out.println("\t- coupe-off : Danse de la coupe off");
-        System.out.println("\t- config-ax12 : Lance l'utilitaire de configuration des AX12");
+        System.out.println("\t- ax12-cli : Lance l'utilitaire de config/test des AX12 en ligne de commande");
+        System.out.println("\t- ax12-web : Lance l'utilitaire web de config/test des AX12");
         System.out.println("\t- test-lift : Lance une console de test de l'ascenseur et de la sonde des carrés de fouille de la grosse Princesse 2022");
         System.out.println("\t- test-qik : Lance une console de test de la qik");
         System.out.println("\t- hotspot : Test la communication socket via le hotspot");
@@ -432,7 +437,7 @@ public class Main {
         }
     }
 
-    private static void configAX12() {
+    private static void configAX12(boolean modeWeb) {
         try {
             Gson gson = new Gson();
             Reader reader = Files.newBufferedReader(Paths.get(configFilePath));
@@ -443,17 +448,22 @@ public class Main {
             SerialPort sp = AX12LinkSerial.getSerialPort(configAx12.get("serie").getAsString());
 
             if (sp == null) {
-                throw new RuntimeException("Aucun port série "+" trouvé !");
+                throw new RuntimeException("Aucun port série "+configAx12.get("serie").getAsString()+" trouvé !");
             }
 
             boolean combineRxTx = configAx12.has("combineRxTx") && configObject.get("combineRxTx").getAsBoolean();
             AX12LinkSerial ax12Link = new AX12LinkSerial(sp, configAx12.get("baud").getAsInt(), combineRxTx);
-            File dataDir = new File(configObject.get("dataDir").getAsString()).getCanonicalFile();
 
-            File webRootDir = new File("webRootDir");
-            webRootDir.mkdir();
-            ResourcesManager.mountHtmlDir(webRootDir);
-            new AX12Http(webRootDir, dataDir, ax12Link);
+            if (modeWeb) {
+                File dataDir = new File(configObject.get("dataDir").getAsString()).getCanonicalFile();
+
+                File webRootDir = new File("webRootDir");
+                webRootDir.mkdir();
+                ResourcesManager.mountHtmlDir(webRootDir);
+                new AX12Http(webRootDir, dataDir, ax12Link);
+            } else {
+                (new AX12MainConsole(ax12Link)).mainLoop();
+            }
         } catch (AX12LinkException |IOException e) {
             e.printStackTrace();
         }
