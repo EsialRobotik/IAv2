@@ -488,7 +488,7 @@ function nextInstruction(auto = false) {
     if (stratSimulator) {
         playSimulatorInstruction(instruction, 'data', 'princess', auto);
     } else {
-        playLogInstruction(instruction, 'data', 'princess', auto);
+        playLogInstruction(instruction, 'princess', auto);
     }
     return false;
 }
@@ -508,7 +508,7 @@ function nextInstructionPmi(auto = false) {
     if (stratPmiSimulator) {
         playSimulatorInstruction(instruction, 'dataPmi', 'pmi', auto);
     } else {
-        playLogInstruction(instruction, 'dataPmi', 'pmi', auto);
+        playLogInstruction(instruction, 'pmi', auto);
     }
     return false;
 }
@@ -548,18 +548,21 @@ async function playSimulatorInstruction(instruction, divId, who, auto = false) {
     }
 }
 
-async function playLogInstruction(instruction, divId, who, auto = false) {
+async function playLogInstruction(instruction, who, auto = false) {
     var regexpTimestamp = /([0-9]{4}-[0-9]{2}-[0-9]{2}) ([0-9]{2}):([0-9]{2}):([0-9]{2}),([0-9]+) .+/;
     var parseTimestamp = regexpTimestamp.exec(instruction);
     var delta = undefined;
+    var divId;
     if (parseTimestamp != null) {
         var date = Date.parse(parseTimestamp[1] + 'T' + parseTimestamp[2] + ':' + parseTimestamp[3] + ':' + parseTimestamp[4] + '.' + parseTimestamp[5] + '+00:00');
         if (who === 'princess') {
             delta = date - timestampLog;
             timestampLog = date;
+            divId = 'data';
         } else {
             delta = date - timestampPmiLog;
             timestampPmiLog = date;
+            divId = 'dataPmi';
         }
     }
 
@@ -672,7 +675,7 @@ function loadFiles() {
 function connectSocket() {
     var socket = null;
     try {
-        socket = new WebSocket("ws://192.168.0.104:4269");
+        socket = new WebSocket("ws://192.168.0.103:4269");
     } catch (exception) {
         console.error(exception);
     }
@@ -695,7 +698,15 @@ function connectSocket() {
 
         // Lorsque le serveur envoi un message.
         this.onmessage = function (event) {
-            console.log("Message:", event.data);
+            var regexpLog = /([0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2},[0-9]+) \[([a-z]+)\](.+)/;
+            var parseLog = regexpLog.exec(event.data);
+            if (parseLog != null) {
+                playLogInstruction(parseLog[1] + ' ' + parseLog[3], parseLog[2], false);
+            } else {
+                var dataDiv = document.getElementById('data');
+                dataDiv.insertAdjacentHTML('beforeend', event.data + '<br>');
+                dataDiv.scrollTop = dataDiv.scrollHeight;
+            }
         };
 
         this.send("loggerListener");
