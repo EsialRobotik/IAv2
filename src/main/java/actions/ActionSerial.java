@@ -41,11 +41,16 @@ public class ActionSerial implements ActionExecutor {
                     InputStream is = serial.getInputStream();
                     while (true) {
                         if (is.available() > 0) {
-                            sb.append((char)is.read());
-                            String line = sb.toString().trim();
-                            if (line.equals("ok") || line.equals("err")) {
-                                logger.info("ActionSerial command " + serialCommand + " finished");
-                                break;
+                            char c = (char)is.read();
+                            if (c == '\n' || c == '\r') {
+                                sb.setLength(0);
+                            } else {
+                                sb.append(c);
+                                String line = sb.toString().trim();
+                                if (line.equals("ok") || line.equals("err")) {
+                                    logger.info("ActionSerial command " + serialCommand + " finished");
+                                    break;
+                                }
                             }
                         }
                     }

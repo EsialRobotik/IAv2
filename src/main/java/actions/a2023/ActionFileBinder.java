@@ -50,6 +50,19 @@ public class ActionFileBinder implements ActionInterface {
 		COOKING_RANGER_BRAS("cooking_ranger_bras.json", false, ActionFile.ACTION_AX12),
 		COOKING_DEMO_DEPOSE_CERISE("cooking_demo_depose_cerise.json", false, ActionFile.ACTION_LIST),
 
+		PUKING_INIT("puking_init.json", false, ActionFile.ACTION_LIST),
+		PUKING_FUNNY_ACTION_RESET("puking_funny_action_reset.json", false, ActionFile.ACTION_AX12),
+		PUKING_FUNNY_ACTION_TRIGGER("puking_funny_action_trigger.json", false, ActionFile.ACTION_AX12),
+		PUKING_TURBINE_POSITION_ASPIRATION_DROIT("puking_turbine_position_aspiration_droit.json", false, ActionFile.ACTION_AX12),
+		PUKING_TURBINE_POSITION_ASPIRATION_GAUCHE("puking_turbine_position_aspiration_gauche.json", false, ActionFile.ACTION_AX12),
+		PUKING_TURBINE_POSITION_CENTRE("puking_turbine_position_centre.json", false, ActionFile.ACTION_AX12),
+		PUKING_TURBINE_POSITION_SOUFFLER("puking_turbine_position_souffler.json", false, ActionFile.ACTION_AX12),
+		PUKING_TURBINE_MOTEUR_INIT("10", true, ActionFile.ACTION_SERIAL),
+		PUKING_TURBINE_MOTEUR_STOP("0", true, ActionFile.ACTION_SERIAL),
+		PUKING_TURBINE_MOTEUR_ASPIRER_MOYEN("25", true, ActionFile.ACTION_SERIAL),
+		PUKING_TURBINE_MOTEUR_ASPIRER_FORT("30", true, ActionFile.ACTION_SERIAL),
+		PUKING_TURBINE_MOTEUR_SOUFFLER_MOYEN("-25", true, ActionFile.ACTION_SERIAL),
+		PUKING_TURBINE_MOTEUR_SOUFFLER_FORT("-30", true, ActionFile.ACTION_SERIAL),
 		;
 
 		public static final String ACTION_AX12 = "ax12";
