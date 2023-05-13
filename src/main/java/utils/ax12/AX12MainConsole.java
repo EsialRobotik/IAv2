@@ -1,11 +1,11 @@
 package utils.ax12;
 
-import java.util.Scanner;
-
 import api.ax12.AX12;
 import api.ax12.AX12LinkSerial;
 import utils.ax12.cmds.AX12Cmd;
 import utils.ax12.cmds.AX12CmdException;
+
+import java.util.Scanner;
 
 /**
  * Pilotage des AX12 par la console
