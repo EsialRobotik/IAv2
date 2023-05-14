@@ -29,15 +29,25 @@ public class CommunicationManager {
     }
 
     public void sendDeleteZone(String zoneId) {
-        this.hotspotSocket.send("delete-zone#" + zoneId);
+        this.sendHotspotSocketData("delete-zone#" + zoneId);
     }
 
     public void sendAddZone(String zoneId) {
-        this.hotspotSocket.send("add-zone#" + zoneId);
+        this.sendHotspotSocketData("add-zone#" + zoneId);
     }
 
     public void sendActionData(int actionId, String data) {
-        this.hotspotSocket.send("action-data#" + actionId + "#" + data);
+        this.sendHotspotSocketData("action-data#" + actionId + "#" + data);
+    }
+
+    private void sendHotspotSocketData(String data) {
+        try {
+            this.logger.info("Send socket date : " + data);
+            this.hotspotSocket.send(data);
+        } catch (Exception e) {
+            this.logger.error("Socket error");
+            this.logger.error(e);
+        }
     }
 
     public void readFromServer() {
