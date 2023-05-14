@@ -205,24 +205,6 @@ public class Asserv implements AsservInterface {
      ******************************************************************************************************************/
 
     @Override
-    public void setOdometrieX(int x) {
-        logger.info("setOdometrieX : " + x);
-        serial.write("Osx" + x);
-    }
-
-    @Override
-    public void setOdometrieY(int y) {
-        logger.info("setOdometrieY : " + y);
-        serial.write("Osy" + y);
-    }
-
-    @Override
-    public void setOdometrieTheta(double theta) {
-        logger.info("setOdometrieTheta");
-        serial.write("Osa" + theta);
-    }
-
-    @Override
     public void setOdometrie(int x, int y, double theta) {
         logger.info("setOdometrie");
         serial.write("P" + x + "#" + y + "#" + theta);
@@ -362,13 +344,14 @@ public class Asserv implements AsservInterface {
                     this.logger.info("Go " + temp.get("dist").getAsInt());
                     break;
                 case "go_timed":
-                    setSpeed(25);
+                    this.logger.info("Go timed " + temp.get("dist").getAsInt());
+                    enableLowSpeed(true);
                     go(temp.get("dist").getAsInt());
                     Thread.sleep(2000);
                     emergencyStop();
                     emergencyReset();
-                    setSpeed(100);
-                    this.logger.info("Go " + temp.get("dist").getAsInt());
+                    enableLowSpeed(false);
+                    this.logger.info("Go timed end " + temp.get("dist").getAsInt());
                     break;
                 case "turn":
                     turn(temp.get("dist").getAsInt());
@@ -399,15 +382,11 @@ public class Asserv implements AsservInterface {
                     break;
                 case "set_x":
                     this.logger.info("Set odometrie X : " + temp.get("value").getAsInt());
-                    setOdometrieX(temp.get("value").getAsInt());
+                    setOdometrie(temp.get("value").getAsInt(), position.getY(), temp.get("theta").getAsDouble());
                     break;
                 case "set_y":
                     this.logger.info("Set odometrie Y : " + temp.get("value").getAsInt());
-                    setOdometrieY(temp.get("value").getAsInt());
-                    break;
-                case "set_theta":
-                    this.logger.info("Set odometrie Theta : " + temp.get("value").getAsDouble());
-                    setOdometrieTheta(temp.get("value").getAsDouble());
+                    setOdometrie(position.getX(), temp.get("value").getAsInt(), temp.get("theta").getAsDouble());
                     break;
                 default:
                     throw new Exception("Instruction inconnue " + temp);
