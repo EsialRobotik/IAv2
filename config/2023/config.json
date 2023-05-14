@@ -30,11 +30,8 @@
             },
             {
                 "type": "set_x",
-                "value": 2855
-            },
-            {
-                "type": "set_theta",
-                "value": 3.14159265359
+                "value": 2922,
+                "theta": 3.14159265359
             },
             {
                 "type": "go",
@@ -50,15 +47,16 @@
             },
             {
                 "type": "set_y",
-                "value": 1855
+                "value": 1922,
+                "theta": -1.57079632679
             },
             {
                 "type": "go",
-                "dist": 200
+                "dist": 300
             },
             {
                 "type": "goto",
-                "x": 2800,
+                "x": 2720,
                 "y": 1775
             },
             {
@@ -74,11 +72,8 @@
             },
             {
                 "type": "set_x",
-                "value": 2855
-            },
-            {
-                "type": "set_theta",
-                "value": 3.14159265359
+                "value": 2922,
+                "theta": 3.14159265359
             },
             {
                 "type": "go",
@@ -94,15 +89,16 @@
             },
             {
                 "type": "set_y",
-                "value": 145
+                "value": 78,
+                "theta": 1.57079632679
             },
             {
                 "type": "go",
-                "dist": 200
+                "dist": 300
             },
             {
                 "type": "goto",
-                "x": 2800,
+                "x": 2720,
                 "y": 225
             },
             {
@@ -124,16 +120,16 @@
             "baud": 115200
         },
         "dataDir": "/home/pi/IA/actions/",
-        "init": [3, 4],
+        "init": [],
         "funnyAction": {
-            "actionId": 12,
-            "score": 5
+            "actionId": -1,
+            "score": 0
         }
     },
     "detection": {
         "ultrasound": {
             "type": "srf04",
-            "windowSize": 2,
+            "windowSize": 3,
             "gpioList": [
                 {
                     "desc": "Avant gauche",
@@ -142,7 +138,7 @@
                     "x": 100,
                     "y": 105,
                     "angle": 30,
-                    "threshold": 500
+                    "threshold": 450
                 },
                 {
                     "desc": "Milieu",
@@ -151,7 +147,7 @@
                     "x": 115,
                     "y": 0,
                     "angle": 0,
-                    "threshold": 500
+                    "threshold": 450
                 },
                 {
                     "desc": "Avant droit",
@@ -160,7 +156,7 @@
                     "x": 100,
                     "y": -105,
                     "angle": -30,
-                    "threshold": 500
+                    "threshold": 450
                 },
                 {
                     "desc": "Arrière",
@@ -169,12 +165,9 @@
                     "x": -110,
                     "y": 0,
                     "angle": 180,
-                    "threshold": 500
+                    "threshold": 450
                 }
             ]
-        },
-        "lidar": {
-            "port": "/dev/serial/by-path/usb-FTDI_FT232R_USB_UART_A5XK3RJT-if00-port0"
         }
     }
 }

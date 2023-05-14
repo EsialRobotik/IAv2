@@ -31,11 +31,8 @@
             },
             {
                 "type": "set_x",
-                "value": 75
-            },
-            {
-                "type": "set_theta",
-                "value": 0
+                "value": 75,
+                "theta": 0
             },
             {
                 "type": "go",
@@ -51,7 +48,8 @@
             },
             {
                 "type": "set_y",
-                "value": 1090
+                "value": 1090,
+                "theta": 1.57079632679
             },
             {
                 "type": "go",
@@ -75,11 +73,8 @@
             },
             {
                 "type": "set_x",
-                "value": 75
-            },
-            {
-                "type": "set_theta",
-                "value": 0
+                "value": 75,
+                "theta": 0
             },
             {
                 "type": "go",
@@ -95,7 +90,8 @@
             },
             {
                 "type": "set_y",
-                "value": 910
+                "value": 910,
+                "theta": -1.57079632679
             },
             {
                 "type": "go",
