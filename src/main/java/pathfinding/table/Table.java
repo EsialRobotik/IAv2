@@ -513,11 +513,6 @@ public class Table {
             // A lancer directement depuis l'IDE pour générer la table
             Table table = new Table();
             ArrayList<String> zoneToSkip = new ArrayList<>();
-            zoneToSkip.add("start0_1");
-            zoneToSkip.add("start0_2");
-            zoneToSkip.add("start0_3");
-            zoneToSkip.add("start0_4");
-            zoneToSkip.add("start0_5");
             table.loadJsonFromFile("config/" + year + "/table.json", zoneToSkip);
 
             table.drawTable();
@@ -529,11 +524,6 @@ public class Table {
 
             table = new Table();
             zoneToSkip = new ArrayList<>();
-            zoneToSkip.add("start3000_1");
-            zoneToSkip.add("start3000_2");
-            zoneToSkip.add("start3000_3");
-            zoneToSkip.add("start3000_4");
-            zoneToSkip.add("start3000_5");
             table.loadJsonFromFile("config/" + year + "/table.json", zoneToSkip);
 
             table.drawTable();
