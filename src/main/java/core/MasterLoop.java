@@ -82,6 +82,7 @@ public class MasterLoop {
         boolean astarLaunch = false;
         boolean somethingDetected = false;
         boolean movingForward = false;
+        int blockedCount = 0;
 
         actionCollection.prepareActionList(colorDetector.isColor0());
         logger.info("ActionList size : " + actionCollection.getActionList().size());
@@ -109,6 +110,12 @@ public class MasterLoop {
         lcdDisplay.score(score);
 //        String remainingTime = chrono.toString();
         while (!interrupted) {
+            if (this.movementManager.getAsservStatus() != AsservInterface.AsservStatus.STATUS_BLOCKED) {
+                blockedCount = 0;
+            } else {
+                blockedCount++;
+                logger.warn("Asserv blocked " + blockedCount);
+            }
             if (!somethingDetected) {
                 // 1/ we check if we detect something
                 boolean[] detected = this.detectionManager.getEmergencyDetectionMap();
@@ -209,8 +216,11 @@ public class MasterLoop {
                                 communicationManager.sendAddZone(currentStep.getItemId());
                             }
                         }
+                    } else if (blockedCount > 25) {
+                        movementManager.haltAsserv(false);
+                        logger.error("Blocage asserve détecté, on stop tout !!");
+                        // todo gérer blocage via asservstatus
                     }
-                    // todo faut vérifier si la voie est libre, sinon on s'arrête et on recalcul
                 }
             } else { //We detect something last loop. let's check if we still see it, either let's resume the move
                 //If we want to put smart code, it's here
