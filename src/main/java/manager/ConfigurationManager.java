@@ -7,7 +7,6 @@ import actions.a2023.ActionFileBinder;
 import api.ax12.AX12LinkException;
 import api.ax12.AX12LinkSerial;
 import api.chrono.Chrono;
-import api.communication.Serial;
 import api.communication.SerialRxTx;
 import api.gpio.ColorDetector;
 import api.gpio.Tirette;
@@ -154,18 +153,22 @@ public class ConfigurationManager {
                 }
                 String dataDir = configObject.get("dataDir").getAsString();
                 JsonArray initArray = configObject.getAsJsonArray("init");
-                ArrayList<Integer> initActionsIds = new ArrayList<>();
+                ArrayList<String> initActions = new ArrayList<>();
                 for (JsonElement actionId : initArray) {
-                    initActionsIds.add(actionId.getAsInt());
+                    initActions.add(actionId.getAsString());
                 }
                 actionFileBinder = new ActionFileBinder(ax12Link, dataDir, actionCollection, qikLink, serialLink);
 
-                actionSupervisor = new ActionSupervisor(actionFileBinder, initActionsIds);
-                JsonObject funnyAction = configObject.getAsJsonObject("funnyAction");
-                funnyActionDescription = new FunnyActionDescription(
-                    funnyAction.get("actionId").getAsInt(),
-                    funnyAction.get("score").getAsInt()
-                );
+                actionSupervisor = new ActionSupervisor(actionFileBinder, initActions);
+                if (configObject.has("funnyAction")) {
+                    JsonObject funnyAction = configObject.getAsJsonObject("funnyAction");
+                    funnyActionDescription = new FunnyActionDescription(
+                        ActionFileBinder.ActionFile.valueOf(funnyAction.get("actionId").getAsString()).ordinal(),
+                        funnyAction.get("score").getAsInt()
+                    );
+                } else {
+                    funnyActionDescription = new FunnyActionDescription(-1, 0);
+                }
             }
         }
 

@@ -124,11 +124,7 @@
             "baud": 115200
         },
         "dataDir": "/home/pi/IA/actions/",
-        "init": [],
-        "funnyAction": {
-            "actionId": -1,
-            "score": 0
-        }
+        "init": ["COOKING_INIT"]
     },
     "detection": {
         "ultrasound": {

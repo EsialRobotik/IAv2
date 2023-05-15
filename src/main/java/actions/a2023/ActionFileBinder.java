@@ -184,7 +184,11 @@ public class ActionFileBinder implements ActionInterface {
 
 	@Override
 	public int funnyAction(FunnyActionDescription funnyActionDescription) {
-		return 0;
+		if (funnyActionDescription.actionId > -1) {
+			ActionExecutor actionExecutor = this.getActionExecutor(funnyActionDescription.actionId);
+			actionExecutor.execute();
+		}
+		return funnyActionDescription.score;
 	}
 
 	@Override
