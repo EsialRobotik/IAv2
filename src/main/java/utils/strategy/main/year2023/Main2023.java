@@ -1,5 +1,6 @@
 package utils.strategy.main.year2023;
 
+import actions.a2023.ActionFileBinder;
 import api.log.LoggerFactory;
 import asserv.Position;
 import com.google.gson.Gson;
@@ -39,18 +40,18 @@ public class Main2023 {
         recuperationGateauViolet2.add(
             new Go("Step de départ bizarre", 1)
         );
-//        recuperationGateauViolet2.add(
-//            new Manipulation("Init pince", ActionFileBinder.ActionFile.ROB_PINCE_MOBILE_RELACHER_LARGE.ordinal())
-//        );
-//        recuperationGateauViolet2.add(
-//            new Manipulation("Init ascenceur", ActionFileBinder.ActionFile.ROB_ASCENSEUR_INIT.ordinal())
-//        );
+        recuperationGateauViolet2.add(
+            new Manipulation("Init pince", ActionFileBinder.ActionFile.ROB_PINCE_MOBILE_RELACHER_LARGE.ordinal())
+        );
+        recuperationGateauViolet2.add(
+            new Manipulation("Init ascenceur", ActionFileBinder.ActionFile.ROB_ASCENSEUR_SOLMARGE.ordinal())
+        );
         recuperationGateauViolet2.add(
             new GoTo("Récupération violet 2", 2630, 1775)
         );
-//        recuperationGateauViolet2.add(
-//            new Manipulation("Prise violet 2", ActionFileBinder.ActionFile.ROB_EMPILER_PREMIER_GATEAU.ordinal())
-//        );
+        recuperationGateauViolet2.add(
+            new Manipulation("Prise violet 2", ActionFileBinder.ActionFile.ROB_EMPILER_PREMIER_GATEAU.ordinal())
+        );
         recuperationGateauViolet2.add(
             new DeleteZone("Libération violet 2", "east_cake_purple_2", Tache.Mirror.SPECIFIC),
             new DeleteZone("Libération violet 2", "west_cake_purple_2", Tache.Mirror.SPECIFIC)
@@ -66,9 +67,9 @@ public class Main2023 {
         recuperationGateauJaune2.add(
             new Face("Récupération jaune 2", 0, 1775)
         );
-//        recuperationGateauJaune2.add(
-//            new Manipulation("Prise jaune 2", ActionFileBinder.ActionFile.ROB_EMPILER_GATEAU_SUIVANT.ordinal())
-//        );
+        recuperationGateauJaune2.add(
+            new Manipulation("Prise jaune 2", ActionFileBinder.ActionFile.ROB_EMPILER_GATEAU_SUIVANT.ordinal())
+        );
         recuperationGateauJaune2.add(
             new DeleteZone("Libération jaune 2", "east_cake_yellow_2", Tache.Mirror.SPECIFIC),
             new DeleteZone("Libération jaune 2", "west_cake_yellow_2", Tache.Mirror.SPECIFIC)
@@ -93,9 +94,9 @@ public class Main2023 {
         recuperationGateauBrun2.add(
             new Face("Récupération brun 2", 0, 1275)
         );
-//        recuperationGateauBrun2.add(
-//                new Manipulation("Prise brun 2", ActionFileBinder.ActionFile.ROB_EMPILER_GATEAU_SUIVANT.ordinal())
-//        );
+        recuperationGateauBrun2.add(
+                new Manipulation("Prise brun 2", ActionFileBinder.ActionFile.ROB_EMPILER_GATEAU_SUIVANT.ordinal())
+        );
         recuperationGateauBrun2.add(
             new DeleteZone("Libération brun 2", "east_cake_brown_2", Tache.Mirror.SPECIFIC),
             new DeleteZone("Libération brun 2", "west_cake_brown_2", Tache.Mirror.SPECIFIC)
@@ -147,27 +148,27 @@ public class Main2023 {
         deposeGateauxAssiette2.add(
             new Face("Assiette 2 - Position largage 1", 0, 1240)
         );
-//        deposeGateauxAssiette2.add(
-//            new Manipulation("Assiette 2 - Depilement 1", ActionFileBinder.ActionFile.ROB_DEPILER_TRANCHE.ordinal())
-//        );
+        deposeGateauxAssiette2.add(
+            new Manipulation("Assiette 2 - Depilement 1", ActionFileBinder.ActionFile.ROB_DEPILER_TRANCHE.ordinal())
+        );
         deposeGateauxAssiette2.add(
             new GoToBack("Assiette 2 - Position largage 2", 350, 1240)
         );
         deposeGateauxAssiette2.add(
             new Face("Assiette 2 - Position largage 2", 0, 1240)
         );
-//        deposeGateauxAssiette2.add(
-//            new Manipulation("Assiette 2 - Depilement 2", ActionFileBinder.ActionFile.ROB_DEPILER_TRANCHE.ordinal())
-//        );
+        deposeGateauxAssiette2.add(
+            new Manipulation("Assiette 2 - Depilement 2", ActionFileBinder.ActionFile.ROB_DEPILER_TRANCHE.ordinal())
+        );
         deposeGateauxAssiette2.add(
             new GoToBack("Assiette 2 - Position largage 3", 450, 1240)
         );
         deposeGateauxAssiette2.add(
             new Face("Assiette 2 - Position largage 3", 0, 1240)
         );
-//        deposeGateauxAssiette2.add(
-//            new Manipulation("Assiette 2 - Depilement 3", ActionFileBinder.ActionFile.ROB_DEPILER_TRANCHE.ordinal())
-//        );
+        deposeGateauxAssiette2.add(
+            new Manipulation("Assiette 2 - Depilement 3", ActionFileBinder.ActionFile.ROB_DEPILER_TRANCHE.ordinal())
+        );
         deposeGateauxAssiette2.add(
             new GoToBack("Libération assiette 2", 650, 1240)
         );
@@ -190,29 +191,29 @@ public class Main2023 {
         deposeGateauxAssiette3.add(
             new Face("Assiette 3 - Position largage 1", 1100, 2000)
         );
-//        deposeGateauxAssiette3.add(
-//            new Manipulation("Assiette 3 - Depilement 1", ActionFileBinder.ActionFile.ROB_DEPILER_TRANCHE.ordinal())
-//        );
+        deposeGateauxAssiette3.add(
+            new Manipulation("Assiette 3 - Depilement 1", ActionFileBinder.ActionFile.ROB_DEPILER_TRANCHE.ordinal())
+        );
         deposeGateauxAssiette3.add(
             new GoToBack("Assiette 3 - Position largage 2", 1100, 1650)
         );
         deposeGateauxAssiette3.add(
             new Face("Assiette 3 - Position largage 2", 1100, 2000)
         );
-//        deposeGateauxAssiette3.add(
-//            new Manipulation("Assiette 3 - Depilement 2", ActionFileBinder.ActionFile.ROB_DEPILER_TRANCHE.ordinal())
-//        );
+        deposeGateauxAssiette3.add(
+            new Manipulation("Assiette 3 - Depilement 2", ActionFileBinder.ActionFile.ROB_DEPILER_TRANCHE.ordinal())
+        );
         deposeGateauxAssiette3.add(
             new GoToBack("Assiette 3 - Position largage 3", 1100, 1550)
         );
         deposeGateauxAssiette3.add(
             new Face("Assiette 3 - Position largage 3", 1100, 2000)
         );
-//        deposeGateauxAssiette3.add(
-//            new Manipulation("Assiette 3 - Depilement 3", ActionFileBinder.ActionFile.ROB_DEPILER_TRANCHE.ordinal())
-//        );
         deposeGateauxAssiette3.add(
-            new GoToBack("Libération assiette 3", 1100, 1450)
+            new Manipulation("Assiette 3 - Depilement 3", ActionFileBinder.ActionFile.ROB_DEPILER_TRANCHE.ordinal())
+        );
+        deposeGateauxAssiette3.add(
+            new GoToBack("Libération assiette 3", 1100, 1350)
         );
         deposeGateauxAssiette3.add(
             new AddZone("Blocage assiette 3", "start0_3", Tache.Mirror.SPECIFIC),
@@ -237,32 +238,38 @@ public class Main2023 {
         deposeGateauxAssiette4.add(
             new Face("Assiette 4 - Position largage 1", 1750, 0)
         );
-//        deposeGateauxAssiette4.add(
-//            new Manipulation("Assiette 4 - Depilement 1", ActionFileBinder.ActionFile.ROB_DEPILER_TRANCHE.ordinal())
-//        );
+        deposeGateauxAssiette4.add(
+            new Manipulation("Assiette 4 - Depilement 1", ActionFileBinder.ActionFile.ROB_DEPILER_TRANCHE.ordinal())
+        );
         deposeGateauxAssiette4.add(
             new GoToBack("Assiette 4 - Position largage 2", 1750, 350)
         );
         deposeGateauxAssiette4.add(
             new Face("Assiette 4 - Position largage 2", 1750, 0)
         );
-//        deposeGateauxAssiette4.add(
-//            new Manipulation("Assiette 4 - Depilement 2", ActionFileBinder.ActionFile.ROB_DEPILER_TRANCHE.ordinal())
-//        );
+        deposeGateauxAssiette4.add(
+            new Manipulation("Assiette 4 - Depilement 2", ActionFileBinder.ActionFile.ROB_DEPILER_TRANCHE.ordinal())
+        );
         deposeGateauxAssiette4.add(
             new GoToBack("Assiette 4 - Position largage 3", 1750, 450)
         );
         deposeGateauxAssiette4.add(
             new Face("Assiette 4 - Position largage 3", 1750, 0)
         );
-//        deposeGateauxAssiette4.add(
-//            new Manipulation("Assiette 4 - Depilement 3", ActionFileBinder.ActionFile.ROB_DEPILER_TRANCHE.ordinal())
-//        );
+        deposeGateauxAssiette4.add(
+            new Manipulation("Assiette 4 - Depilement 3", ActionFileBinder.ActionFile.ROB_DEPILER_TRANCHE.ordinal())
+        );
         deposeGateauxAssiette4.add(
             new GoToBack("Libération assiette 4", 1750, 600)
         );
         deposeGateauxAssiette4.add(
             new GoTo("Libération assiette 4", 1600, 600)
+        );
+        deposeGateauxAssiette4.add(
+            new Manipulation("Rangement pince", ActionFileBinder.ActionFile.ROB_ASCENSEUR_NIV3.ordinal())
+        );
+        deposeGateauxAssiette4.add(
+            new Manipulation("Rangement pince", ActionFileBinder.ActionFile.ROB_PINCE_MOBILE_RELACHER_LARGE.ordinal())
         );
         objectifsCouleur0.add(deposeGateauxAssiette4.generateObjectif("assiette 4", objectifsCouleur0.size()+1, score, 1));
         objectifsCouleur3000.add(deposeGateauxAssiette4.generateMirrorObjectif("assiette 4", objectifsCouleur3000.size()+1, score, 1));
@@ -272,7 +279,7 @@ public class Main2023 {
         score = 15;
         TaskList finirPlat1 =  new TaskList(2000);
         finirPlat1.add(
-            new GoToAstar("Go attente assiette 1", 2550, 1400)
+            new GoToAstar("Go attente assiette 1", 2800, 1300)
         );
         finirPlat1.add(
             new WaitChrono("Wait 90s", 90)

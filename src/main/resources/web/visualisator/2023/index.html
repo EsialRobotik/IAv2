@@ -27,17 +27,23 @@
     <div class="formBlock">
         <fieldset>
             <legend>Configuration</legend>
-            <div>
-                <button onclick="loadTable(jsonTable, true)">Table</button>
-            </div>
-            <div>
-                <button onclick="loadSimulatorStrat(strategyBig0)">Strat Big 0</button>
-                <button onclick="loadSimulatorStrat(strategyBig3000)">Strat Big 2000</button>
-            </div>
-            <div>
-                <button onclick="loadSimulatorStratPmi(strategySmall0)">Strat Small 0</button>
-                <button onclick="loadSimulatorStratPmi(strategySmall3000)">Strat Small 2000</button>
-            </div>
+            <table>
+                <tr>
+                    <th>Princess</th>
+                    <th>PMI</th>
+                    <th>Autre</th>
+                </tr>
+                <tr>
+                    <td><button onclick="loadSimulatorStrat(strategyBig0)">Strat 0</button></td>
+                    <td><button onclick="loadSimulatorStratPmi(strategySmall0)">Strat 0</button></td>
+                    <td><button onclick="loadTable(jsonTable, true)">Table</button></td>
+                </tr>
+                <tr>
+                    <td><button onclick="loadSimulatorStrat(strategyBig3000)">Strat 2000</button></td>
+                    <td><button onclick="loadSimulatorStratPmi(strategySmall3000)">Strat 2000</button></td>
+                    <td></td>
+                </tr>
+            </table>
         </fieldset>
     </div>
 
