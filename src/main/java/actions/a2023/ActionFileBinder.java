@@ -65,6 +65,8 @@ public class ActionFileBinder implements ActionInterface {
 		PUKING_TURBINE_MOTEUR_SOUFFLER_FORT("-30", false, ActionFile.ACTION_SERIAL),
 		PUKING_SOUFFLER_PREMIERE_BOUBOULE("puking_souffler_premiere_bouboule.json", false, ActionFile.ACTION_LIST),
 		PUKING_SOUFFLER_TOUTES_LES_BOUBOULE("puking_souffler_toutes_les_bouboules.json", false, ActionFile.ACTION_LIST),
+		PUKING_STOCKER_BOUBOULE("puking_stocker_bouboules.json", false, ActionFile.ACTION_LIST),
+		PUKING_DESTOCKER_BOUBOULE("puking_destocker_bouboules.json", false, ActionFile.ACTION_LIST),
 
 		DELAY_250_MS("250", false, ActionFile.ACTION_DELAY),
 		DELAY_500_MS("500", false, ActionFile.ACTION_DELAY),
