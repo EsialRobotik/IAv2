@@ -1,0 +1,7 @@
+{
+  "actions": [
+    "PUKING_TURBINE_MOTEUR_SOUFFLER_FORT",
+    "DELAY_1000_MS",
+    "PUKING_TURBINE_MOTEUR_STOP",
+  ]
+}
