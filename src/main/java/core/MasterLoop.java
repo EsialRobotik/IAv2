@@ -292,7 +292,9 @@ public class MasterLoop {
                         if (pathFinding.isComputationEnded()) {
                             logger.info("AStar computation finished");
                             pathFinding.liberateDetectedPoints();
-                            movementManager.executeMovement(pathFinding.getLastComputedPath());
+                            if (pathFinding.getLastComputedPath().size() > 0) {
+                                movementManager.executeMovement(pathFinding.getLastComputedPath());
+                            }
                             astarLaunch = false;
                             somethingDetected = false;
                         } else {
