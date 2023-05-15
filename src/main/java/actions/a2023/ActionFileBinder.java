@@ -57,12 +57,16 @@ public class ActionFileBinder implements ActionInterface {
 		PUKING_TURBINE_POSITION_ASPIRATION_GAUCHE("puking_turbine_position_aspiration_gauche.json", false, ActionFile.ACTION_AX12),
 		PUKING_TURBINE_POSITION_CENTRE("puking_turbine_position_centre.json", false, ActionFile.ACTION_AX12),
 		PUKING_TURBINE_POSITION_SOUFFLER("puking_turbine_position_souffler.json", false, ActionFile.ACTION_AX12),
-		PUKING_TURBINE_MOTEUR_INIT("10", true, ActionFile.ACTION_SERIAL),
-		PUKING_TURBINE_MOTEUR_STOP("0", true, ActionFile.ACTION_SERIAL),
-		PUKING_TURBINE_MOTEUR_ASPIRER_MOYEN("25", true, ActionFile.ACTION_SERIAL),
-		PUKING_TURBINE_MOTEUR_ASPIRER_FORT("30", true, ActionFile.ACTION_SERIAL),
-		PUKING_TURBINE_MOTEUR_SOUFFLER_MOYEN("-25", true, ActionFile.ACTION_SERIAL),
-		PUKING_TURBINE_MOTEUR_SOUFFLER_FORT("-30", true, ActionFile.ACTION_SERIAL),
+		PUKING_TURBINE_MOTEUR_INIT("10", false, ActionFile.ACTION_SERIAL),
+		PUKING_TURBINE_MOTEUR_STOP("0", false, ActionFile.ACTION_SERIAL),
+		PUKING_TURBINE_MOTEUR_ASPIRER_MOYEN("25", false, ActionFile.ACTION_SERIAL),
+		PUKING_TURBINE_MOTEUR_ASPIRER_FORT("30", false, ActionFile.ACTION_SERIAL),
+		PUKING_TURBINE_MOTEUR_SOUFFLER_MOYEN("-25", false, ActionFile.ACTION_SERIAL),
+		PUKING_TURBINE_MOTEUR_SOUFFLER_FORT("-30", false, ActionFile.ACTION_SERIAL),
+
+		DELAY_250_MS("250", false, ActionFile.ACTION_DELAY),
+		DELAY_500_MS("500", false, ActionFile.ACTION_DELAY),
+		DELAY_1000_MS("1000", false, ActionFile.ACTION_DELAY),
 		;
 
 		public static final String ACTION_AX12 = "ax12";
@@ -75,6 +79,8 @@ public class ActionFileBinder implements ActionInterface {
 		public static final String ACTION_LIST = "subroutine";
 
 		public static final String ACTION_HTTP = "http";
+
+		public static final String ACTION_DELAY = "delay";
 
 		public final String nomFichier;
 		public final boolean instantReturn;
@@ -148,6 +154,9 @@ public class ActionFileBinder implements ActionInterface {
 					} catch (MalformedURLException e) {
 						throw new RuntimeException(e);
 					}
+					break;
+				case ActionFile.ACTION_DELAY:
+					actionsList[i] = new ActionDelay(files[i].nomFichier);
 					break;
 			}
 		}
