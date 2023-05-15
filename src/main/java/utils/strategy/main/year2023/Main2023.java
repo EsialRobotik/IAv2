@@ -214,6 +214,10 @@ public class Main2023 {
         deposeGateauxAssiette3.add(
             new GoToBack("Libération assiette 3", 1100, 1450)
         );
+        deposeGateauxAssiette3.add(
+            new AddZone("Blocage assiette 3", "start0_3", Tache.Mirror.SPECIFIC),
+            new AddZone("Blocage assiette 3", "start3000_3", Tache.Mirror.SPECIFIC)
+        );
         objectifsCouleur0.add(deposeGateauxAssiette3.generateObjectif("assiette 3", objectifsCouleur0.size()+1, score, 1));
         objectifsCouleur3000.add(deposeGateauxAssiette3.generateMirrorObjectif("assiette 3", objectifsCouleur3000.size()+1, score, 1));
 
@@ -268,7 +272,13 @@ public class Main2023 {
         score = 15;
         TaskList finirPlat1 =  new TaskList(2000);
         finirPlat1.add(
-            new GoToAstar("Go assiette 1", 2500, 1500)
+            new GoToAstar("Go attente assiette 1", 2550, 1400)
+        );
+        finirPlat1.add(
+            new WaitChrono("Wait 90s", 90)
+        );
+        finirPlat1.add(
+            new GoTo("Go assiette 1", 2550, 1500)
         );
         objectifsCouleur0.add(finirPlat1.generateObjectif("roues dans le plats", objectifsCouleur0.size()+1, score, 1));
         objectifsCouleur3000.add(finirPlat1.generateMirrorObjectif("roues dans le plats", objectifsCouleur3000.size()+1, score, 1));

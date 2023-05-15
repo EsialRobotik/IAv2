@@ -104,6 +104,55 @@
   ],
   "elementsJeu" : [
     {
+      "id": "start3000_3",
+      "forme": "polygone",
+      "desc": "Depart Vert 3",
+      "active": false,
+      "points": [
+        {
+          "x": 930,
+          "y": 0
+        },
+        {
+          "x": 1320,
+          "y": 0
+        },
+        {
+          "x": 1320,
+          "y": 420
+        },
+        {
+          "x": 930,
+          "y": 420
+        }
+      ]
+    },
+    {
+      "id": "start0_3",
+      "forme": "polygone",
+      "desc": "Depart Bleu 3",
+      "active": false,
+      "points": [
+        {
+          "x": 930,
+          "y": 2000
+        },
+        {
+          "x": 1320,
+          "y": 2000
+        },
+        {
+          "x": 1320,
+          "y": 1580
+        },
+        {
+          "x": 930,
+          "y": 1580
+        }
+      ]
+    },
+
+    {
       "id": "west_cake_purple_1",
       "forme" : "cercle",
       "desc": "Gateau violet ouest - 1",

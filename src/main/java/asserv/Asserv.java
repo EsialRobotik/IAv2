@@ -362,7 +362,7 @@ public class Asserv implements AsservInterface {
                     this.logger.info("Goto " + depart.toString());
                     goTo(depart);
                     break;
-                case "goto_reverse":
+                case "goto_back":
                     depart = new Position(temp.get("x").getAsInt(), temp.get("y").getAsInt());
                     this.logger.info("Goto " + depart.toString());
                     goToReverse(depart);

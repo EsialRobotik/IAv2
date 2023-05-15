@@ -35,11 +35,15 @@
             },
             {
                 "type": "go",
-                "dist": 200
+                "dist": 202
             },
             {
                 "type": "turn",
                 "dist": 90
+            },
+            {
+                "type": "go",
+                "dist": -400
             },
             {
                 "type": "go_timed",
@@ -55,7 +59,7 @@
                 "dist": 300
             },
             {
-                "type": "goto",
+                "type": "goto_back",
                 "x": 2720,
                 "y": 1775
             },
@@ -129,7 +133,7 @@
     "detection": {
         "ultrasound": {
             "type": "srf04",
-            "windowSize": 3,
+            "windowSize": 2,
             "gpioList": [
                 {
                     "desc": "Avant gauche",
@@ -138,7 +142,7 @@
                     "x": 100,
                     "y": 105,
                     "angle": 30,
-                    "threshold": 450
+                    "threshold": 550
                 },
                 {
                     "desc": "Milieu",
@@ -147,7 +151,7 @@
                     "x": 115,
                     "y": 0,
                     "angle": 0,
-                    "threshold": 450
+                    "threshold": 550
                 },
                 {
                     "desc": "Avant droit",
@@ -156,7 +160,7 @@
                     "x": 100,
                     "y": -105,
                     "angle": -30,
-                    "threshold": 450
+                    "threshold": 550
                 },
                 {
                     "desc": "Arrière",
@@ -165,7 +169,7 @@
                     "x": -110,
                     "y": 0,
                     "angle": 180,
-                    "threshold": 450
+                    "threshold": 550
                 }
             ]
         }

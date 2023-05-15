@@ -34,17 +34,82 @@ public class MainPmi2023 {
         List<Objectif> objectifsCouleur3000 = new ArrayList<>();
         int score = 0;
 
+        // Ejection premièrecherry bouboule
+        TaskList vidangeDepart =  new TaskList(2000);
+        // TODO vider première boule
+        vidangeDepart.add(
+            new Go("On quitte le bord", -250)
+        );
+        objectifsCouleur0.add(vidangeDepart.generateObjectif("Vidange depart", objectifsCouleur0.size()+1, score, 1));
+        objectifsCouleur3000.add(vidangeDepart.generateMirrorObjectif("Vidange depart", objectifsCouleur3000.size()+1, score, 1));
+
+        // Aspiration des cerises sud
+        TaskList aspirationsSud =  new TaskList(2000);
+        aspirationsSud.add(
+            new DeleteZone("Libération violet 2", "east_cake_purple_2", Tache.Mirror.SPECIFIC),
+            new DeleteZone("Libération violet 2", "west_cake_purple_2", Tache.Mirror.SPECIFIC)
+        );
+
+        aspirationsSud.add(
+            new DeleteZone("Libération jaune 2", "east_cake_yellow_2", Tache.Mirror.SPECIFIC),
+            new DeleteZone("Libération jaune 2", "west_cake_yellow_2", Tache.Mirror.SPECIFIC)
+        );
+        aspirationsSud.add(
+            new DeleteZone("Libération brun 2", "east_cake_brown_2", Tache.Mirror.SPECIFIC),
+            new DeleteZone("Libération brun 2", "west_cake_brown_2", Tache.Mirror.SPECIFIC)
+        );
+        aspirationsSud.add(
+            new DeleteZone("Libération brun 1", "east_cake_brown_1", Tache.Mirror.SPECIFIC),
+            new DeleteZone("Libération brun 1", "west_cake_brown_1", Tache.Mirror.SPECIFIC)
+        );
+
+        aspirationsSud.add(
+            new GoToAstar("Position aspiration", 2650, 1180)
+        );
+        aspirationsSud.add(
+            new Face("Position aspiration", 3000, 1180)
+        );
+        // TODO start aspiration
+        aspirationsSud.add(
+            new SetSpeed("Reduction de vitesse", 25)
+        );
+        for (int i = 1; i < 10; i++) {
+            aspirationsSud.add(new GoTo("Position aspiration", 2650 + i * 30, 1180));
+            aspirationsSud.add(new Face("Position aspiration", 3000, 1180));
+            aspirationsSud.add(new Wait("On laisse le temps", 200));
+        }
+        // TODO stop aspiration
+        aspirationsSud.add(
+            new SetSpeed("Vitesse normale", 100)
+        );
+        aspirationsSud.add(
+            new GoToBack("Sortie aspiration", 2600, 1180)
+        );
+        objectifsCouleur0.add(aspirationsSud.generateObjectif("Cherry bouboule sud", objectifsCouleur0.size()+1, score, 1));
+        objectifsCouleur3000.add(aspirationsSud.generateMirrorObjectif("Cherry bouboule sud", objectifsCouleur3000.size()+1, score, 1));
+
+        // On va se faire vomir
+        TaskList evacuationCherryBouboule =  new TaskList(2000);
+        evacuationCherryBouboule.add(
+            new GoToAstar("Position vidage bouboule", 2800, 1775)
+        );
+        evacuationCherryBouboule.add(
+            new Face("Alignement vidage bouboule", 3000, 1775)
+        );
+        evacuationCherryBouboule.add(
+            new Go("Position vomie", 100)
+        );
+        evacuationCherryBouboule.add(
+            new GoToBack("Sortie vomie", 2800, 1775)
+        );
+        // todo vidange
+        objectifsCouleur0.add(evacuationCherryBouboule.generateObjectif("Vomie sud", objectifsCouleur0.size()+1, score, 1));
+        objectifsCouleur3000.add(evacuationCherryBouboule.generateMirrorObjectif("Vomie sud", objectifsCouleur3000.size()+1, score, 1));
+
         // Aspiration des cerises nord
         TaskList aspirationsNord =  new TaskList(2000);
         aspirationsNord.add(
-            new DeleteZone("Libération assiette 2", "start0_2", Tache.Mirror.SPECIFIC),
-            new DeleteZone("Libération assiette 2", "start3000_2", Tache.Mirror.SPECIFIC)
-        );
-        aspirationsNord.add(
-            new Go("Step de départ bizarre", 1)
-        );
-        aspirationsNord.add(
-            new GoTo("Position aspiration", 450, 1180)
+            new GoToAstar("Position aspiration", 450, 1180)
         );
         aspirationsNord.add(
             new Face("Position aspiration", 0, 1180)
@@ -58,7 +123,8 @@ public class MainPmi2023 {
         );
         for (int i = 1; i < 10; i++) {
             aspirationsNord.add(new GoTo("Position aspiration", 350 - i * 30, 1180));
-            aspirationsNord.add(new Wait("On laisse le temps", 1000));
+            aspirationsNord.add(new Face("Position aspiration", 0, 1180));
+            aspirationsNord.add(new Wait("On laisse le temps", 200));
         }
         // TODO stop aspiration
         aspirationsNord.add(
@@ -67,70 +133,33 @@ public class MainPmi2023 {
         aspirationsNord.add(
             new GoToBack("Sortie aspiration", 450, 1180)
         );
-        objectifsCouleur0.add(aspirationsNord.generateObjectif("Violet 2", objectifsCouleur0.size()+1, score, 1));
-        objectifsCouleur3000.add(aspirationsNord.generateMirrorObjectif("Violet 2", objectifsCouleur3000.size()+1, score, 1));
-
-        // Aspiration des cerises est
-        TaskList aspirationsEst =  new TaskList(2000);
-        aspirationsEst.add(
-            new GoToAstar("Position aspiration", 1100, 1800)
-        );
-        aspirationsEst.add(
-            new GoTo("Position aspiration", 1200, 1805)
-        );
-        aspirationsEst.add(
-            new Face("Position aspiration", 3000, 1805)
-        );
-        aspirationsEst.add(
-            new GoTo("Position aspiration", 1300, 1805)
-        );
-        // TODO start aspiration
-        aspirationsEst.add(
-            new SetSpeed("Reduction de vitesse", 25)
-        );
-        for (int i = 1; i < 10; i++) {
-            aspirationsEst.add(new GoTo("Position aspiration", 1300 + i * 30, 1805));
-            aspirationsEst.add(new Wait("On laisse le temps", 1000));
-        }
-        // TODO stop aspiration
-        aspirationsEst.add(
-            new SetSpeed("Vitesse normale", 100)
-        );
-        aspirationsEst.add(
-            new GoToBack("Sortie aspiration", 1200, 1805)
-        );
-        aspirationsEst.add(
-            new GoTo("Sortie aspiration", 1100, 1800)
-        );
-        objectifsCouleur0.add(aspirationsEst.generateObjectif("Violet 2", objectifsCouleur0.size()+1, score, 1));
-        objectifsCouleur3000.add(aspirationsEst.generateMirrorObjectif("Violet 2", objectifsCouleur3000.size()+1, score, 1));
+        objectifsCouleur0.add(aspirationsNord.generateObjectif("Cherry bouboule nord", objectifsCouleur0.size()+1, score, 1));
+        objectifsCouleur3000.add(aspirationsNord.generateMirrorObjectif("Cherry bouboule nord", objectifsCouleur3000.size()+1, score, 1));
 
         // On va se faire vomir
-        TaskList evacuationCherryBouboule =  new TaskList(2000);
-        evacuationCherryBouboule.add(
-            new DeleteZone("Libération violet 2", "east_cake_purple_2", Tache.Mirror.SPECIFIC),
-            new DeleteZone("Libération violet 2", "west_cake_purple_2", Tache.Mirror.SPECIFIC)
+        TaskList evacuationCherryBouboule2 =  new TaskList(2000);
+        aspirationsSud.add(
+            new AddZone("Blocage assiette 3", "start0_3", Tache.Mirror.SPECIFIC),
+            new AddZone("Blocage assiette 3", "start3000_3", Tache.Mirror.SPECIFIC)
         );
-        evacuationCherryBouboule.add(
-            new DeleteZone("Libération jaune 2", "east_cake_yellow_2", Tache.Mirror.SPECIFIC),
-            new DeleteZone("Libération jaune 2", "west_cake_yellow_2", Tache.Mirror.SPECIFIC)
+        evacuationCherryBouboule2.add(
+            new GoToAstar("Position vidage bouboule", 2500, 1775)
         );
-        evacuationCherryBouboule.add(
-            new DeleteZone("Libération brun 2", "east_cake_brown_2", Tache.Mirror.SPECIFIC),
-            new DeleteZone("Libération brun 2", "west_cake_brown_2", Tache.Mirror.SPECIFIC)
+        evacuationCherryBouboule2.add(
+            new Face("Alignement vidage bouboule", 0, 1775)
         );
-        evacuationCherryBouboule.add(
-            new GoToAstar("Position vidage bouboule", 2800, 1775)
+        evacuationCherryBouboule2.add(
+            new GoTo("Position vidage bouboule", 2800, 1775)
         );
-        evacuationCherryBouboule.add(
+        evacuationCherryBouboule2.add(
             new Face("Alignement vidage bouboule", 3000, 1775)
         );
-        evacuationCherryBouboule.add(
-            new Go("Position finale", 100)
+        evacuationCherryBouboule2.add(
+            new Go("Position vomie", 100)
         );
         // todo vidange
-        objectifsCouleur0.add(evacuationCherryBouboule.generateObjectif("Violet 2", objectifsCouleur0.size()+1, score, 1));
-        objectifsCouleur3000.add(evacuationCherryBouboule.generateMirrorObjectif("Violet 2", objectifsCouleur3000.size()+1, score, 1));
+        objectifsCouleur0.add(evacuationCherryBouboule2.generateObjectif("Vomie nord", objectifsCouleur0.size()+1, score, 1));
+        objectifsCouleur3000.add(evacuationCherryBouboule2.generateMirrorObjectif("Vomie nord", objectifsCouleur3000.size()+1, score, 1));
 
         // Création de la stratégie complète
         Strategie strat = new Strategie();
@@ -156,7 +185,7 @@ public class MainPmi2023 {
             Table table = new Table("config/2023/table0.tbl");
             table.loadJsonFromFile("config/2023/table.json");
             PathFinding pathFinding = new PathFinding(new Astar(table));
-            Position startPoint = new Position(220, 1300, 0);
+            Position startPoint = new Position(2900, 1775, 0);
             StringBuilder stratSimu = new StringBuilder("[");
             stratSimu.append("{ \"task\":\"Position de départ\",\"command\":\"start\",\"position\":" + startPoint.toJson() + "},");
             for (Objectif objectif : strat.couleur0) {
@@ -184,7 +213,7 @@ public class MainPmi2023 {
             Table table = new Table("config/2023/table3000.tbl");
             table.loadJsonFromFile("config/2023/table.json");
             PathFinding pathFinding = new PathFinding(new Astar(table));
-            Position startPoint = new Position(90, 1300, 0);
+            Position startPoint = new Position(2900, 225, 0);
             StringBuilder stratSimu = new StringBuilder("[");
             stratSimu.append("{ \"task\":\"Position de départ\",\"command\":\"start\",\"position\":" + startPoint.toJson() + "},");
             for (Objectif objectif : strat.couleur3000) {

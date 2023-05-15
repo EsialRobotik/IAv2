@@ -31,8 +31,8 @@
             },
             {
                 "type": "set_x",
-                "value": 75,
-                "theta": 0
+                "value": 2925,
+                "theta": 3.14159265359
             },
             {
                 "type": "go",
@@ -48,22 +48,22 @@
             },
             {
                 "type": "set_y",
-                "value": 1090,
-                "theta": 1.57079632679
+                "value": 1925,
+                "theta": -1.57079632679
             },
             {
                 "type": "go",
-                "dist": 200
+                "dist": 150
             },
             {
-                "type": "goto",
-                "x": 220,
-                "y": 1300
+                "type": "goto_back",
+                "x": 2900,
+                "y": 1775
             },
             {
                 "type": "face",
-                "x": 3000,
-                "y": 1300
+                "x": 0,
+                "y": 1775
             }
         ],
         "start3000": [
@@ -73,8 +73,8 @@
             },
             {
                 "type": "set_x",
-                "value": 75,
-                "theta": 0
+                "value": 2925,
+                "theta": 3.14159265359
             },
             {
                 "type": "go",
@@ -90,22 +90,22 @@
             },
             {
                 "type": "set_y",
-                "value": 910,
-                "theta": -1.57079632679
+                "value": 75,
+                "theta": 1.57079632679
             },
             {
                 "type": "go",
-                "dist": 200
+                "dist": 150
             },
             {
                 "type": "goto",
-                "x": 220,
-                "y": 700
+                "x": 2900,
+                "y": 225
             },
             {
                 "type": "face",
                 "x": 3000,
-                "y": 700
+                "y": 225
             }
         ]
     },
@@ -140,7 +140,7 @@
                     "x": 80,
                     "y": 130,
                     "angle": 45,
-                    "threshold": 350
+                    "threshold": 550
                 },
                 {
                     "desc": "Avant milieu (0x73)",
@@ -150,7 +150,7 @@
                     "x": 80,
                     "y": 0,
                     "angle": 0,
-                    "threshold": 350
+                    "threshold": 550
                 },
                 {
                     "desc": "Avant droit (0x74)",
@@ -160,7 +160,7 @@
                     "x": 80,
                     "y": -135,
                     "angle": -45,
-                    "threshold": 350
+                    "threshold": 550
                 },
                 {
                     "desc": "Arrière (0x71)",
@@ -170,7 +170,7 @@
                     "x": -80,
                     "y": 0,
                     "angle": 180,
-                    "threshold": 350
+                    "threshold": 550
                 }
             ]
         }

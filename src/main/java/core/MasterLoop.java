@@ -116,10 +116,10 @@ public class MasterLoop {
                 blockedCount++;
                 logger.warn("Asserv blocked " + blockedCount);
             }
+            logger.debug("## DEBUG - somethingDetected : " + somethingDetected);
             if (!somethingDetected) {
                 // 1/ we check if we detect something
                 boolean[] detected = this.detectionManager.getEmergencyDetectionMap();
-                //System.out.println(Arrays.toString(detected));
                 if (detected[0] || detected[1] || detected[2] || detected[3]) {
                     //We detect something, we get the movement direction and we check if we detect it in the right side
                     AsservInterface.MovementDirection direction = this.movementManager.getMovementDirection();
@@ -141,12 +141,15 @@ public class MasterLoop {
                         movingForward = false;
                         somethingDetected = true;
                         continue;
+                    } else {
+                        logger.info("Il y a un truc mais on ne bouge pas");
                     }
                 }
 
                 // 2/ Check if the current step Status
                 if (astarLaunch) { //We are computing a path let's check if it's ok now
                     if (pathFinding.isComputationEnded()) {
+                        logger.info("AStar finished");
                         movementManager.executeMovement(pathFinding.getLastComputedPath());
                         astarLaunch = false;
                     }
@@ -220,6 +223,8 @@ public class MasterLoop {
                         movementManager.haltAsserv(false);
                         logger.error("Blocage asserve détecté, on stop tout !!");
                         // todo gérer blocage via asservstatus
+                    } else {
+                        logger.debug("## DEBUG - MainLoop, on attends");
                     }
                 }
             } else { //We detect something last loop. let's check if we still see it, either let's resume the move
@@ -234,7 +239,9 @@ public class MasterLoop {
                     movementManager.resumeAsserv();
                     somethingDetected = false;
                 } else {
+                    // todo bloque si astar ne peux pas résoudre, prévoir un retry ?
                     if (currentStep.getSubType() == Step.SubType.GOTO_ASTAR && !astarLaunch) {
+                        logger.info("Try to use AStar");
                         Position[] obstaclePositions = this.detectionManager.getEmergencyDetectionPositions();
                         List<Point> detectedPoints = new ArrayList<>();
                         int detectedRadius = 200;
@@ -270,16 +277,20 @@ public class MasterLoop {
                         pathFinding.setDetectedPoints(detectedPoints);
                         pathFinding.lockDetectedPoints();
                         try {
+                            logger.info("Start AStar computation");
                             launchAstar(positionToPoint(currentStep.getEndPosition()));
                             astarLaunch = true;
                         } catch (Exception e) {
                             logger.error(e.getMessage());
                             astarLaunch = false;
                         }
+                    } else {
+                        logger.debug("On ne peux pas utiliser AStar");
                     }
 
                     if (astarLaunch) { //We are computing a path let's check if it's ok now
                         if (pathFinding.isComputationEnded()) {
+                            logger.info("AStar computation finished");
                             pathFinding.liberateDetectedPoints();
                             movementManager.executeMovement(pathFinding.getLastComputedPath());
                             astarLaunch = false;
