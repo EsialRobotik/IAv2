@@ -91,7 +91,7 @@ public class MainPmi2023 {
             aspirationsSud.add(new Wait("On laisse le temps", 200));
             if (i == 5) {
                 aspirationsSud.add(
-                    new Manipulation("Stockage bouboule sud", ActionFileBinder.ActionFile.PUKING_STOCKER_BOUBOULE.ordinal())
+                    new Manipulation("Stockage bouboule sud", ActionFileBinder.ActionFile.PUKING_STOCKER_BOUBOULES.ordinal())
                 );
                 aspirationsSud.add(
                     new Manipulation("Aspiration cherry bouboule sud", ActionFileBinder.ActionFile.PUKING_TURBINE_MOTEUR_ASPIRER_FORT.ordinal())
@@ -132,13 +132,13 @@ public class MainPmi2023 {
             new GoToBack("Sortie vomie", 2800, 1775)
         );
         evacuationCherryBouboule.add(
-            new Manipulation("Vomie sud 1", ActionFileBinder.ActionFile.PUKING_SOUFFLER_TOUTES_LES_BOUBOULE.ordinal())
+            new Manipulation("Vomie sud 1", ActionFileBinder.ActionFile.PUKING_SOUFFLER_TOUTES_LES_BOUBOULES.ordinal())
         );
         evacuationCherryBouboule.add(
-            new Manipulation("Vomie sud reserve", ActionFileBinder.ActionFile.PUKING_DESTOCKER_BOUBOULE.ordinal())
+            new Manipulation("Vomie sud reserve", ActionFileBinder.ActionFile.PUKING_DESTOCKER_BOUBOULES.ordinal())
         );
         evacuationCherryBouboule.add(
-            new Manipulation("Vomie sud 2", ActionFileBinder.ActionFile.PUKING_SOUFFLER_TOUTES_LES_BOUBOULE.ordinal())
+            new Manipulation("Vomie sud 2", ActionFileBinder.ActionFile.PUKING_SOUFFLER_TOUTES_LES_BOUBOULES.ordinal())
         );
         objectifsCouleur0.add(evacuationCherryBouboule.generateObjectif("Vomie sud", objectifsCouleur0.size()+1, score, 1));
         objectifsCouleur3000.add(evacuationCherryBouboule.generateMirrorObjectif("Vomie sud", objectifsCouleur3000.size()+1, score, 1));
@@ -170,7 +170,7 @@ public class MainPmi2023 {
             aspirationsNord.add(new Wait("On laisse le temps", 200));
             if (i == 5) {
                 aspirationsNord.add(
-                    new Manipulation("Stockage bouboule nord", ActionFileBinder.ActionFile.PUKING_STOCKER_BOUBOULE.ordinal())
+                    new Manipulation("Stockage bouboule nord", ActionFileBinder.ActionFile.PUKING_STOCKER_BOUBOULES.ordinal())
                 );
                 aspirationsNord.add(
                     new Manipulation("Aspiration cherry bouboule nord", ActionFileBinder.ActionFile.PUKING_TURBINE_MOTEUR_ASPIRER_FORT.ordinal())
@@ -218,13 +218,13 @@ public class MainPmi2023 {
             new Go("Position vomie", 100)
         );
         evacuationCherryBouboule2.add(
-            new Manipulation("Vomie nord 1", ActionFileBinder.ActionFile.PUKING_SOUFFLER_TOUTES_LES_BOUBOULE.ordinal())
+            new Manipulation("Vomie nord 1", ActionFileBinder.ActionFile.PUKING_SOUFFLER_TOUTES_LES_BOUBOULES.ordinal())
         );
         evacuationCherryBouboule2.add(
-            new Manipulation("Vomie nord reserve", ActionFileBinder.ActionFile.PUKING_DESTOCKER_BOUBOULE.ordinal())
+            new Manipulation("Vomie nord reserve", ActionFileBinder.ActionFile.PUKING_DESTOCKER_BOUBOULES.ordinal())
         );
         evacuationCherryBouboule2.add(
-            new Manipulation("Vomie nord 2", ActionFileBinder.ActionFile.PUKING_SOUFFLER_TOUTES_LES_BOUBOULE.ordinal())
+            new Manipulation("Vomie nord 2", ActionFileBinder.ActionFile.PUKING_SOUFFLER_TOUTES_LES_BOUBOULES.ordinal())
         );
         objectifsCouleur0.add(evacuationCherryBouboule2.generateObjectif("Vomie nord", objectifsCouleur0.size()+1, score, 1));
         objectifsCouleur3000.add(evacuationCherryBouboule2.generateMirrorObjectif("Vomie nord", objectifsCouleur3000.size()+1, score, 1));

@@ -163,7 +163,7 @@ public class ConfigurationManager {
                 if (configObject.has("funnyAction")) {
                     JsonObject funnyAction = configObject.getAsJsonObject("funnyAction");
                     funnyActionDescription = new FunnyActionDescription(
-                        ActionFileBinder.ActionFile.valueOf(funnyAction.get("actionId").getAsString()).ordinal(),
+                        ActionFileBinder.ActionFile.valueOf(funnyAction.get("action").getAsString()).ordinal(),
                         funnyAction.get("score").getAsInt()
                     );
                 } else {

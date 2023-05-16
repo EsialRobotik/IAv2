@@ -121,10 +121,10 @@
             "baud": 115200
         },
         "dataDir": "/home/pi/IA/actions/",
-        "init": ["PUCKING_INIT"],
+        "init": ["PUKING_INIT"],
         "funnyAction": {
             "action": "PUKING_FUNNY_ACTION_TRIGGER",
-            "score": 0
+            "score": 5
         }
     },
     "detection": {
