@@ -4,19 +4,17 @@
       "actions": [
         {
           "actionId": "actionBehaviour",
+          "ax12Id": 1,
+          "speed": 255,
+          "acceleration": 40,
+          "compliance": 1
+        },
+        {
+          "actionId": "actionBehaviour",
           "ax12Id": 12,
           "speed": 180,
           "acceleration": 70,
           "compliance": 1
-        }
-      ]
-    },
-    {
-      "actions": [
-        {
-          "actionId": "actionPosition",
-          "ax12Id": 12,
-          "angleDegrees": 135
         }
       ]
     }
