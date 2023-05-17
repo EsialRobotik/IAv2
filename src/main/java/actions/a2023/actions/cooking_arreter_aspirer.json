@@ -1,0 +1,13 @@
+{
+  "actionPools": [
+    {
+      "actions": [
+        {
+          "actionId": "actionSerialFlag",
+          "serialFlagId": "RTS",
+          "serialFlagEnabled": false
+        }
+      ]
+    }
+  ]
+}

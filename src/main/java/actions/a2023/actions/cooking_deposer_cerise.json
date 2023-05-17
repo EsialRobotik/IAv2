@@ -6,7 +6,7 @@
           "description": "On détent le bras au maximum",
           "actionId": "actionPosition",
           "ax12Id": 1,
-          "angleDegrees": 156
+          "angleDegrees": 150
         }
       ]
     },
@@ -16,7 +16,7 @@
           "description": "On sort l'avant bras",
           "actionId": "actionPosition",
           "ax12Id": 3,
-          "angleDegrees": 127
+          "angleDegrees": 120
         }
       ]
     },
