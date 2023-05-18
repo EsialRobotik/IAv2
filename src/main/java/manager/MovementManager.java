@@ -85,8 +85,8 @@ public class MovementManager {
             for (Point point : trajectory.subList(1, trajectory.size() - 2)) {
                 gotoQueue.add(point);
                 if (isMatchStarted) {
-                    //this.asservInterface.goToChain(new Position(point.x, point.y));
-                    this.asservInterface.goTo(new Position(point.x, point.y));
+                    this.asservInterface.goToChain(new Position(point.x, point.y));
+//                    this.asservInterface.goTo(new Position(point.x, point.y));
                     try {
                         Thread.sleep(10);
                     } catch (InterruptedException e) {

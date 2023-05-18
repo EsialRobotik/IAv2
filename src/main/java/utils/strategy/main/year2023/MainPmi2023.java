@@ -40,6 +40,9 @@ public class MainPmi2023 {
         score = 10;
         TaskList vidangeDepart =  new TaskList(2000);
         vidangeDepart.add(
+            new Wait("On attends 2s", 2000)
+        );
+        vidangeDepart.add(
             new Manipulation("Souffler premiere bouboule", ActionFileBinder.ActionFile.PUKING_SOUFFLER_PREMIERE_BOUBOULE.ordinal())
         );
         vidangeDepart.add(
@@ -144,90 +147,90 @@ public class MainPmi2023 {
         objectifsCouleur3000.add(evacuationCherryBouboule.generateMirrorObjectif("Vomie sud", objectifsCouleur3000.size()+1, score, 1));
 
         // Aspiration des cerises nord
-        TaskList aspirationsNord =  new TaskList(2000);
-        aspirationsNord.add(
-            new GoToAstar("Position aspiration", 450, 1180)
-        );
-        aspirationsNord.add(
-            new Face("Position aspiration", 0, 1180)
-        );
-        aspirationsNord.add(
-            new GoTo("Position aspiration", 350, 1180)
-        );
-        aspirationsNord.add(
-            new Manipulation("Aspiration cherry bouboule nord", ActionFileBinder.ActionFile.PUKING_TURBINE_MOTEUR_ASPIRER_FORT.ordinal())
-        );
-        aspirationsNord.add(
-            new Manipulation("Aspiration cherry bouboule nord", ActionFileBinder.ActionFile.PUKING_TURBINE_POSITION_ASPIRATION_GAUCHE.ordinal(), Tache.Mirror.SPECIFIC),
-            new Manipulation("Aspiration cherry bouboule nord", ActionFileBinder.ActionFile.PUKING_TURBINE_POSITION_ASPIRATION_DROIT.ordinal(), Tache.Mirror.SPECIFIC)
-        );
-        aspirationsNord.add(
-            new SetSpeed("Reduction de vitesse", 25)
-        );
-        for (int i = 1; i < 10; i++) {
-            aspirationsNord.add(new GoTo("Position aspiration", 350 - i * 30, 1180));
-            aspirationsNord.add(new Face("Position aspiration", 0, 1180));
-            aspirationsNord.add(new Wait("On laisse le temps", 200));
-            if (i == 5) {
-                aspirationsNord.add(
-                    new Manipulation("Stockage bouboule nord", ActionFileBinder.ActionFile.PUKING_STOCKER_BOUBOULES.ordinal())
-                );
-                aspirationsNord.add(
-                    new Manipulation("Aspiration cherry bouboule nord", ActionFileBinder.ActionFile.PUKING_TURBINE_MOTEUR_ASPIRER_FORT.ordinal())
-                );
-                aspirationsNord.add(
-                    new Manipulation("Aspiration cherry bouboule nord", ActionFileBinder.ActionFile.PUKING_TURBINE_POSITION_ASPIRATION_GAUCHE.ordinal(), Tache.Mirror.SPECIFIC),
-                    new Manipulation("Aspiration cherry bouboule nord", ActionFileBinder.ActionFile.PUKING_TURBINE_POSITION_ASPIRATION_DROIT.ordinal(), Tache.Mirror.SPECIFIC)
-                );
-            }
-        }
-        aspirationsNord.add(
-            new Manipulation("Fin aspiration nord", ActionFileBinder.ActionFile.PUKING_TURBINE_POSITION_CENTRE.ordinal())
-        );
-        aspirationsNord.add(
-            new Manipulation("Fin aspiration nord", ActionFileBinder.ActionFile.PUKING_TURBINE_MOTEUR_STOP.ordinal())
-        );
-        aspirationsNord.add(
-            new SetSpeed("Vitesse normale", 100)
-        );
-        aspirationsNord.add(
-            new GoToBack("Sortie aspiration", 450, 1180)
-        );
-        objectifsCouleur0.add(aspirationsNord.generateObjectif("Cherry bouboule nord", objectifsCouleur0.size()+1, score, 1));
-        objectifsCouleur3000.add(aspirationsNord.generateMirrorObjectif("Cherry bouboule nord", objectifsCouleur3000.size()+1, score, 1));
-
-        // On va se faire vomir
-        TaskList evacuationCherryBouboule2 =  new TaskList(2000);
-        aspirationsSud.add(
-            new AddZone("Blocage assiette 3", "start0_3", Tache.Mirror.SPECIFIC),
-            new AddZone("Blocage assiette 3", "start3000_3", Tache.Mirror.SPECIFIC)
-        );
-        evacuationCherryBouboule2.add(
-            new GoToAstar("Position vidage bouboule", 2500, 1775)
-        );
-        evacuationCherryBouboule2.add(
-            new Face("Alignement vidage bouboule", 0, 1775)
-        );
-        evacuationCherryBouboule2.add(
-            new GoTo("Position vidage bouboule", 2800, 1775)
-        );
-        evacuationCherryBouboule2.add(
-            new Face("Alignement vidage bouboule", 3000, 1775)
-        );
-        evacuationCherryBouboule2.add(
-            new Go("Position vomie", 100)
-        );
-        evacuationCherryBouboule2.add(
-            new Manipulation("Vomie nord 1", ActionFileBinder.ActionFile.PUKING_SOUFFLER_TOUTES_LES_BOUBOULES.ordinal())
-        );
-        evacuationCherryBouboule2.add(
-            new Manipulation("Vomie nord reserve", ActionFileBinder.ActionFile.PUKING_DESTOCKER_BOUBOULES.ordinal())
-        );
-        evacuationCherryBouboule2.add(
-            new Manipulation("Vomie nord 2", ActionFileBinder.ActionFile.PUKING_SOUFFLER_TOUTES_LES_BOUBOULES.ordinal())
-        );
-        objectifsCouleur0.add(evacuationCherryBouboule2.generateObjectif("Vomie nord", objectifsCouleur0.size()+1, score, 1));
-        objectifsCouleur3000.add(evacuationCherryBouboule2.generateMirrorObjectif("Vomie nord", objectifsCouleur3000.size()+1, score, 1));
+//        TaskList aspirationsNord =  new TaskList(2000);
+//        aspirationsNord.add(
+//            new GoToAstar("Position aspiration", 450, 1180)
+//        );
+//        aspirationsNord.add(
+//            new Face("Position aspiration", 0, 1180)
+//        );
+//        aspirationsNord.add(
+//            new GoTo("Position aspiration", 350, 1180)
+//        );
+//        aspirationsNord.add(
+//            new Manipulation("Aspiration cherry bouboule nord", ActionFileBinder.ActionFile.PUKING_TURBINE_MOTEUR_ASPIRER_FORT.ordinal())
+//        );
+//        aspirationsNord.add(
+//            new Manipulation("Aspiration cherry bouboule nord", ActionFileBinder.ActionFile.PUKING_TURBINE_POSITION_ASPIRATION_GAUCHE.ordinal(), Tache.Mirror.SPECIFIC),
+//            new Manipulation("Aspiration cherry bouboule nord", ActionFileBinder.ActionFile.PUKING_TURBINE_POSITION_ASPIRATION_DROIT.ordinal(), Tache.Mirror.SPECIFIC)
+//        );
+//        aspirationsNord.add(
+//            new SetSpeed("Reduction de vitesse", 25)
+//        );
+//        for (int i = 1; i < 10; i++) {
+//            aspirationsNord.add(new GoTo("Position aspiration", 350 - i * 30, 1180));
+//            aspirationsNord.add(new Face("Position aspiration", 0, 1180));
+//            aspirationsNord.add(new Wait("On laisse le temps", 200));
+//            if (i == 5) {
+//                aspirationsNord.add(
+//                    new Manipulation("Stockage bouboule nord", ActionFileBinder.ActionFile.PUKING_STOCKER_BOUBOULES.ordinal())
+//                );
+//                aspirationsNord.add(
+//                    new Manipulation("Aspiration cherry bouboule nord", ActionFileBinder.ActionFile.PUKING_TURBINE_MOTEUR_ASPIRER_FORT.ordinal())
+//                );
+//                aspirationsNord.add(
+//                    new Manipulation("Aspiration cherry bouboule nord", ActionFileBinder.ActionFile.PUKING_TURBINE_POSITION_ASPIRATION_GAUCHE.ordinal(), Tache.Mirror.SPECIFIC),
+//                    new Manipulation("Aspiration cherry bouboule nord", ActionFileBinder.ActionFile.PUKING_TURBINE_POSITION_ASPIRATION_DROIT.ordinal(), Tache.Mirror.SPECIFIC)
+//                );
+//            }
+//        }
+//        aspirationsNord.add(
+//            new Manipulation("Fin aspiration nord", ActionFileBinder.ActionFile.PUKING_TURBINE_POSITION_CENTRE.ordinal())
+//        );
+//        aspirationsNord.add(
+//            new Manipulation("Fin aspiration nord", ActionFileBinder.ActionFile.PUKING_TURBINE_MOTEUR_STOP.ordinal())
+//        );
+//        aspirationsNord.add(
+//            new SetSpeed("Vitesse normale", 100)
+//        );
+//        aspirationsNord.add(
+//            new GoToBack("Sortie aspiration", 450, 1180)
+//        );
+//        objectifsCouleur0.add(aspirationsNord.generateObjectif("Cherry bouboule nord", objectifsCouleur0.size()+1, score, 1));
+//        objectifsCouleur3000.add(aspirationsNord.generateMirrorObjectif("Cherry bouboule nord", objectifsCouleur3000.size()+1, score, 1));
+//
+//        // On va se faire vomir
+//        TaskList evacuationCherryBouboule2 =  new TaskList(2000);
+//        aspirationsSud.add(
+//            new AddZone("Blocage assiette 3", "start0_3", Tache.Mirror.SPECIFIC),
+//            new AddZone("Blocage assiette 3", "start3000_3", Tache.Mirror.SPECIFIC)
+//        );
+//        evacuationCherryBouboule2.add(
+//            new GoToAstar("Position vidage bouboule", 2500, 1775)
+//        );
+//        evacuationCherryBouboule2.add(
+//            new Face("Alignement vidage bouboule", 0, 1775)
+//        );
+//        evacuationCherryBouboule2.add(
+//            new GoTo("Position vidage bouboule", 2800, 1775)
+//        );
+//        evacuationCherryBouboule2.add(
+//            new Face("Alignement vidage bouboule", 3000, 1775)
+//        );
+//        evacuationCherryBouboule2.add(
+//            new Go("Position vomie", 100)
+//        );
+//        evacuationCherryBouboule2.add(
+//            new Manipulation("Vomie nord 1", ActionFileBinder.ActionFile.PUKING_SOUFFLER_TOUTES_LES_BOUBOULES.ordinal())
+//        );
+//        evacuationCherryBouboule2.add(
+//            new Manipulation("Vomie nord reserve", ActionFileBinder.ActionFile.PUKING_DESTOCKER_BOUBOULES.ordinal())
+//        );
+//        evacuationCherryBouboule2.add(
+//            new Manipulation("Vomie nord 2", ActionFileBinder.ActionFile.PUKING_SOUFFLER_TOUTES_LES_BOUBOULES.ordinal())
+//        );
+//        objectifsCouleur0.add(evacuationCherryBouboule2.generateObjectif("Vomie nord", objectifsCouleur0.size()+1, score, 1));
+//        objectifsCouleur3000.add(evacuationCherryBouboule2.generateMirrorObjectif("Vomie nord", objectifsCouleur3000.size()+1, score, 1));
 
         // Création de la stratégie complète
         Strategie strat = new Strategie();

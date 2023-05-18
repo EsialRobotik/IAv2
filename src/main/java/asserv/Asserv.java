@@ -217,7 +217,7 @@ public class Asserv implements AsservInterface {
     @Override
     public void enableLowSpeed(boolean enable) {
         logger.info("enableLowSpeed : " + enable);
-        serial.write(enable ? "S25" : "S100");
+        serial.write(enable ? "S15" : "S100");
     }
 
     @Override
@@ -346,11 +346,13 @@ public class Asserv implements AsservInterface {
                 case "go_timed":
                     this.logger.info("Go timed " + temp.get("dist").getAsInt());
                     enableLowSpeed(true);
+                    Thread.sleep(150);
                     go(temp.get("dist").getAsInt());
                     Thread.sleep(2000);
                     emergencyStop();
                     emergencyReset();
                     enableLowSpeed(false);
+                    Thread.sleep(150);
                     this.logger.info("Go timed end " + temp.get("dist").getAsInt());
                     break;
                 case "turn":

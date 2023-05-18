@@ -35,7 +35,7 @@
             },
             {
                 "type": "go",
-                "dist": 202
+                "dist": 400
             },
             {
                 "type": "turn",
@@ -81,7 +81,7 @@
             },
             {
                 "type": "go",
-                "dist": 202
+                "dist": 400
             },
             {
                 "type": "turn",
@@ -142,7 +142,7 @@
                     "x": 100,
                     "y": 105,
                     "angle": 30,
-                    "threshold": 550
+                    "threshold": 600
                 },
                 {
                     "desc": "Milieu",
@@ -151,7 +151,7 @@
                     "x": 115,
                     "y": 0,
                     "angle": 0,
-                    "threshold": 550
+                    "threshold": 600
                 },
                 {
                     "desc": "Avant droit",
@@ -160,7 +160,7 @@
                     "x": 100,
                     "y": -105,
                     "angle": -30,
-                    "threshold": 550
+                    "threshold": 600
                 },
                 {
                     "desc": "Arrière",
@@ -169,7 +169,7 @@
                     "x": -110,
                     "y": 0,
                     "angle": 180,
-                    "threshold": 550
+                    "threshold": 600
                 }
             ]
         }

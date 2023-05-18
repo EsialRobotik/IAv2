@@ -13,8 +13,7 @@ import utils.strategy.Objectif;
 import utils.strategy.Strategie;
 import utils.strategy.Tache;
 import utils.strategy.TaskList;
-import utils.strategy.task.Manipulation;
-import utils.strategy.task.Wait;
+import utils.strategy.task.*;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -45,6 +44,15 @@ public class MainPmiHomologation2023 {
         );
         vidangeDepart.add(
             new Manipulation("Souffler premiere bouboule", ActionFileBinder.ActionFile.PUKING_SOUFFLER_PREMIERE_BOUBOULE.ordinal())
+        );
+        vidangeDepart.add(
+            new Go("homolo", -200)
+        );
+        vidangeDepart.add(
+            new GoTo("homolo", 2700, 1200)
+        );
+        vidangeDepart.add(
+            new GoToBack("homolo", 2700, 1700)
         );
         objectifsCouleur0.add(vidangeDepart.generateObjectif("Vidange depart", objectifsCouleur0.size()+1, score, 1));
         objectifsCouleur3000.add(vidangeDepart.generateMirrorObjectif("Vidange depart", objectifsCouleur3000.size()+1, score, 1));

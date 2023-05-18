@@ -121,16 +121,12 @@
             "baud": 115200
         },
         "dataDir": "/home/pi/IA/actions/",
-        "init": ["PUKING_INIT"],
-        "funnyAction": {
-            "action": "PUKING_FUNNY_ACTION_TRIGGER",
-            "score": 5
-        }
+        "init": ["PUKING_INIT"]
     },
     "detection": {
         "ultrasound": {
             "type": "srf08",
-            "windowSize": 2,
+            "windowSize": 1,
             "i2cConfigList": [
                 {
                     "desc": "Avant gauche (0x70)",

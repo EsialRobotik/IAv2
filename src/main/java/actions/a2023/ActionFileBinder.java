@@ -30,6 +30,7 @@ public class ActionFileBinder implements ActionInterface {
 		ROB_PINCE_MOBILE_ATTRAPER("rob_pince_mobile_attraper.json", false, ActionFile.ACTION_AX12),
 		ROB_PINCE_MOBILE_RELACHER_SERRE("rob_pince_mobile_relacher_serre.json", false, ActionFile.ACTION_AX12),
 		ROB_PINCE_MOBILE_RELACHER_LARGE("rob_pince_mobile_relacher_large.json", false, ActionFile.ACTION_AX12),
+		ROB_PINCE_MOBILE_OUVRIR_XLARGE("rob_pince_mobile_ouvrir_xlarge.json", false, ActionFile.ACTION_AX12),
 		ROB_ASCENSEUR_INIT("rob_ascenseur_init.json", false, ActionFile.ACTION_ASCENSEUR),
 		ROB_ASCENSEUR_INIT_TOUT_EN_HAUT("rob_ascenseur_init_tout_en_haut.json", false, ActionFile.ACTION_ASCENSEUR),
 		ROB_ASCENSEUR_NIV1("rob_ascenseur_niv1.json", false, ActionFile.ACTION_ASCENSEUR),

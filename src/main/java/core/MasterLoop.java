@@ -115,7 +115,7 @@ public class MasterLoop {
                 blockedCount++;
                 logger.warn("Asserv blocked " + blockedCount);
             }
-            logger.debug("## DEBUG - somethingDetected : " + somethingDetected);
+//            logger.debug("## DEBUG - somethingDetected : " + somethingDetected);
             if (!somethingDetected) {
                 // 1/ we check if we detect something
                 boolean[] detected = this.detectionManager.getEmergencyDetectionMap();
@@ -223,7 +223,7 @@ public class MasterLoop {
                         logger.error("Blocage asserve détecté, on stop tout !!");
                         // todo gérer blocage via asservstatus
                     } else {
-                        logger.debug("## DEBUG - MainLoop, on attends");
+//                        logger.debug("## DEBUG - MainLoop, on attends");
                     }
                 }
             } else { //We detect something last loop. let's check if we still see it, either let's resume the move
