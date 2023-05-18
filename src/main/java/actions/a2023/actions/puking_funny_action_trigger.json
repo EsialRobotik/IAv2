@@ -5,25 +5,17 @@
         {
           "actionId": "actionPosition",
           "ax12Id": 6,
-          "angleDegrees": 150
-        }
-      ]
-    },
-    {
-      "actions": [
+          "angleDegrees": 245
+        },
         {
           "actionId": "actionPosition",
           "ax12Id": 10,
-          "angleDegrees": 150
-        }
-      ]
-    },
-    {
-      "actions": [
+          "angleDegrees": 231
+        },
         {
           "actionId": "actionPosition",
           "ax12Id": 15,
-          "angleDegrees": 150
+          "angleDegrees": 236
         }
       ]
     }
