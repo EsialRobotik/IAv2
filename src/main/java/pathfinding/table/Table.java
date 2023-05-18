@@ -143,8 +143,12 @@ public class Table {
                 jsonElement.getAsJsonObject().get("x4").getAsInt(),
                 jsonElement.getAsJsonObject().get("y4").getAsInt()
             ));
-            detectionIgnoreQuadrilaterium.add(points);
+            addPointsToDetectionIgnoreQuadrilaterium(points);
         }
+    }
+
+    public void addPointsToDetectionIgnoreQuadrilaterium(List<Point> points) {
+        detectionIgnoreQuadrilaterium.add(points);
     }
 
     public int getxSize(){

@@ -126,7 +126,7 @@
     "detection": {
         "ultrasound": {
             "type": "srf08",
-            "windowSize": 2,
+            "windowSize": 1,
             "i2cConfigList": [
                 {
                     "desc": "Avant gauche (0x70)",
@@ -136,7 +136,7 @@
                     "x": 80,
                     "y": 130,
                     "angle": 45,
-                    "threshold": 550
+                    "threshold": 400
                 },
                 {
                     "desc": "Avant milieu (0x73)",
@@ -146,7 +146,7 @@
                     "x": 80,
                     "y": 0,
                     "angle": 0,
-                    "threshold": 550
+                    "threshold": 600
                 },
                 {
                     "desc": "Avant droit (0x74)",
@@ -156,7 +156,7 @@
                     "x": 80,
                     "y": -130,
                     "angle": -45,
-                    "threshold": 550
+                    "threshold": 400
                 },
                 {
                     "desc": "Arrière (0x71)",
@@ -166,7 +166,7 @@
                     "x": -40,
                     "y": 0,
                     "angle": 180,
-                    "threshold": 550
+                    "threshold": 600
                 }
             ]
         }

@@ -207,10 +207,13 @@ public class MasterLoop {
                                 communicationManager.sendAddZone(currentStep.getItemId());
                             }
                         }
-                    } else if (this.movementManager.getAsservStatus() == AsservInterface.AsservStatus.STATUS_BLOCKED) {
+                    } else if (this.movementManager.getAsservStatus() == AsservInterface.AsservStatus.STATUS_BLOCKED
+                        && (currentStep.getSubType() != Step.SubType.GO || currentStep.getTimeout() == 0)) {
                         movementManager.haltAsserv(true);
                         logger.error("Blocage asserve détecté, on stop tout !!");
-                        // todo gérer blocage via asservstatus
+                        // todo gérer blocage via asservstatus et les infps des moteurs pour avoir une parade au blocage
+                        //  idée en vrac : si 2 moteurs positif, faut reculer, si négatif, avancer, si différent,
+                        //  tourner un peu dans l'autre sens et se dégager
                     }
                 }
             } else { //We detect something last loop. let's check if we still see it, either let's resume the move

@@ -62,7 +62,7 @@ public class MainHomologation2023 {
         // Récupération gateaux Jaune 2
         TaskList recuperationGateauJaune2 =  new TaskList(2000);
         recuperationGateauJaune2.add(
-            new GoTo("Récupération jaune 2", 2420, 1775)
+            new GoTo("Récupération jaune 2", 2430, 1775)
         );
         recuperationGateauJaune2.add(
             new Face("Récupération jaune 2", 0, 1775)
@@ -80,7 +80,7 @@ public class MainHomologation2023 {
             new Manipulation("Prise jaune 2", ActionFileBinder.ActionFile.ROB_ASCENSEUR_SOL_BUTEE.ordinal())
         );
         recuperationGateauJaune2.add(
-            new GoTo("Prise jaune 2", 2400, 1775)
+            new GoTo("Prise jaune 2", 2420, 1775)
         );
         recuperationGateauJaune2.add(
             new Manipulation("Prise jaune 2", ActionFileBinder.ActionFile.ROB_PINCE_MOBILE_ATTRAPER.ordinal())
@@ -95,56 +95,124 @@ public class MainHomologation2023 {
         objectifsCouleur0.add(recuperationGateauJaune2.generateObjectif("Jaune 2", objectifsCouleur0.size()+1, score, 1));
         objectifsCouleur3000.add(recuperationGateauJaune2.generateMirrorObjectif("Jaune 2", objectifsCouleur3000.size()+1, score, 1));
 
-        // Marquage homologation
-        score = 6 + 15;
-        TaskList recuperationGateauBrun2 =  new TaskList(2000);
-        recuperationGateauBrun2.add(
-            new GoTo("homolo 1", 1200, 1775)
+        // Dépose gateaux assiette 3
+        // Score : (tranche (1) + cerise (3) = 4) * 3
+        score = (1 + 3) * 3;
+        TaskList deposeGateauxAssiette3 =  new TaskList(2000);
+        deposeGateauxAssiette3.add(
+            new GoToAstar("Go assiette 3", 1100, 1550)
         );
-        recuperationGateauBrun2.add(
-            new Face("homolo 1", 0, 1775)
+        deposeGateauxAssiette3.add(
+            new Face("Alignement assiette 3", 1100, 2000)
         );
-        recuperationGateauBrun2.add(
-            new Manipulation("homolo 1", ActionFileBinder.ActionFile.ROB_ASCENSEUR_SOL.ordinal())
+        deposeGateauxAssiette3.add(
+            new GoTo("Assiette 3 - Position largage 1", 1100, 1750)
         );
-        recuperationGateauBrun2.add(
-            new Manipulation("homolo 1", ActionFileBinder.ActionFile.ROB_ASCENSEUR_SOL_BUTEE.ordinal())
+        deposeGateauxAssiette3.add(
+            new Face("Assiette 3 - Position largage 1", 1100, 2000)
         );
-        recuperationGateauBrun2.add(
-            new Manipulation("homolo 1", ActionFileBinder.ActionFile.ROB_PINCE_MOBILE_RELACHER_LARGE.ordinal())
+        deposeGateauxAssiette3.add(
+            new Manipulation("Assiette 3 - Depilement 1", ActionFileBinder.ActionFile.ROB_DEPILER_TRANCHE.ordinal())
         );
-        recuperationGateauBrun2.add(
-            new Manipulation("homolo 1", ActionFileBinder.ActionFile.ROB_ASCENSEUR_NIV3.ordinal())
+        deposeGateauxAssiette3.add(
+            new GoToBack("Assiette 3 - Position largage 2", 1100, 1650)
         );
-        recuperationGateauBrun2.add(
-            new Manipulation("homolo 1", ActionFileBinder.ActionFile.ROB_PINCE_MOBILE_ATTRAPER.ordinal())
+        deposeGateauxAssiette3.add(
+            new Face("Assiette 3 - Position largage 2", 1100, 2000)
         );
-        recuperationGateauBrun2.add(
-            new Manipulation("homolo 1", ActionFileBinder.ActionFile.ROB_ASCENSEUR_HAUT.ordinal())
+        deposeGateauxAssiette3.add(
+            new Manipulation("Assiette 3 - Depilement 2", ActionFileBinder.ActionFile.ROB_DEPILER_TRANCHE.ordinal())
         );
-        recuperationGateauBrun2.add(
-            new GoToBack("homolo 2", 1400, 1775)
+        deposeGateauxAssiette3.add(
+            new GoToBack("Assiette 3 - Position largage 3", 1100, 1550)
         );
-        recuperationGateauBrun2.add(
-            new Face("homolo 2", 0, 1775)
+        deposeGateauxAssiette3.add(
+            new Face("Assiette 3 - Position largage 3", 1100, 2000)
         );
-        recuperationGateauBrun2.add(
-            new Manipulation("homolo 2", ActionFileBinder.ActionFile.ROB_ASCENSEUR_SOL.ordinal())
+        deposeGateauxAssiette3.add(
+            new Manipulation("Assiette 3 - Depilement 3", ActionFileBinder.ActionFile.ROB_DEPILER_TRANCHE.ordinal())
         );
-        recuperationGateauBrun2.add(
-            new Manipulation("homolo 2", ActionFileBinder.ActionFile.ROB_ASCENSEUR_SOL_BUTEE.ordinal())
+        deposeGateauxAssiette3.add(
+            new GoToBack("Libération assiette 3", 1100, 1350)
         );
-        recuperationGateauBrun2.add(
-            new Manipulation("homolo 2", ActionFileBinder.ActionFile.ROB_PINCE_MOBILE_RELACHER_LARGE.ordinal())
+        deposeGateauxAssiette3.add(
+            new AddZone("Blocage assiette 3", "start0_3", Tache.Mirror.SPECIFIC),
+            new AddZone("Blocage assiette 3", "start3000_3", Tache.Mirror.SPECIFIC)
         );
-        recuperationGateauBrun2.add(
-            new GoToBack("homolo 2", 1600, 1775)
+        deposeGateauxAssiette3.add(
+            new DeleteZone("Libération brun 1", "east_cake_brown_1", Tache.Mirror.SPECIFIC),
+            new DeleteZone("Libération brun 1", "west_cake_brown_1", Tache.Mirror.SPECIFIC)
         );
-        recuperationGateauBrun2.add(
-            new GoTo("les roues dans l'assiette", 2500, 1775)
+        objectifsCouleur0.add(deposeGateauxAssiette3.generateObjectif("assiette 3", objectifsCouleur0.size()+1, score, 1));
+        objectifsCouleur3000.add(deposeGateauxAssiette3.generateMirrorObjectif("assiette 3", objectifsCouleur3000.size()+1, score, 1));
+
+        // Dépose gateaux assiette 4
+        // Score : (tranche (1) + cerise (3) = 4) * 3
+        score = (1 + 3) * 3;
+        TaskList deposeGateauxAssiette4 =  new TaskList(2000);
+        deposeGateauxAssiette4.add(
+            new GoToAstar("Go assiette 4", 1750, 450)
         );
-        objectifsCouleur0.add(recuperationGateauBrun2.generateObjectif("Brun 2", objectifsCouleur0.size()+1, score, 1));
-        objectifsCouleur3000.add(recuperationGateauBrun2.generateMirrorObjectif("Brun 2", objectifsCouleur3000.size()+1, score, 1));
+        deposeGateauxAssiette4.add(
+            new Face("Alignement assiette 4", 1750, 0)
+        );
+        deposeGateauxAssiette4.add(
+            new GoTo("Assiette 4 - Position largage 1", 1750, 250)
+        );
+        deposeGateauxAssiette4.add(
+            new Face("Assiette 4 - Position largage 1", 1750, 0)
+        );
+        deposeGateauxAssiette4.add(
+            new Manipulation("Assiette 4 - Depilement 1", ActionFileBinder.ActionFile.ROB_DEPILER_TRANCHE.ordinal())
+        );
+        deposeGateauxAssiette4.add(
+            new GoToBack("Assiette 4 - Position largage 2", 1750, 350)
+        );
+        deposeGateauxAssiette4.add(
+            new Face("Assiette 4 - Position largage 2", 1750, 0)
+        );
+        deposeGateauxAssiette4.add(
+            new Manipulation("Assiette 4 - Depilement 2", ActionFileBinder.ActionFile.ROB_DEPILER_TRANCHE.ordinal())
+        );
+        deposeGateauxAssiette4.add(
+            new GoToBack("Assiette 4 - Position largage 3", 1750, 450)
+        );
+        deposeGateauxAssiette4.add(
+            new Face("Assiette 4 - Position largage 3", 1750, 0)
+        );
+        deposeGateauxAssiette4.add(
+            new Manipulation("Assiette 4 - Depilement 3", ActionFileBinder.ActionFile.ROB_DEPILER_TRANCHE.ordinal())
+        );
+        deposeGateauxAssiette4.add(
+            new GoToBack("Libération assiette 4", 1750, 600)
+        );
+        deposeGateauxAssiette4.add(
+            new GoTo("Libération assiette 4", 1600, 600)
+        );
+        deposeGateauxAssiette4.add(
+            new Manipulation("Rangement pince", ActionFileBinder.ActionFile.ROB_ASCENSEUR_NIV3.ordinal())
+        );
+        deposeGateauxAssiette4.add(
+            new Manipulation("Rangement pince", ActionFileBinder.ActionFile.ROB_PINCE_MOBILE_RELACHER_LARGE.ordinal())
+        );
+        objectifsCouleur0.add(deposeGateauxAssiette4.generateObjectif("assiette 4", objectifsCouleur0.size()+1, score, 1));
+        objectifsCouleur3000.add(deposeGateauxAssiette4.generateMirrorObjectif("assiette 4", objectifsCouleur3000.size()+1, score, 1));
+
+        // Les roues dans le plat 1
+        // Score = 15 (pour les 2 robots)
+        score = 15;
+        TaskList finirPlat1 =  new TaskList(2000);
+        finirPlat1.add(
+            new GoToAstar("Go attente assiette 1", 2800, 1300)
+        );
+        finirPlat1.add(
+            new WaitChrono("Wait 90s", 90)
+        );
+        finirPlat1.add(
+            new GoTo("Go assiette 1", 2550, 1500)
+        );
+        objectifsCouleur0.add(finirPlat1.generateObjectif("roues dans le plats", objectifsCouleur0.size()+1, score, 1));
+        objectifsCouleur3000.add(finirPlat1.generateMirrorObjectif("roues dans le plats", objectifsCouleur3000.size()+1, score, 1));
 
         // Création de la stratégie complète
         Strategie strat = new Strategie();

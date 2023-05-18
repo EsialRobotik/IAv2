@@ -59,6 +59,16 @@
                 "dist": 350
             },
             {
+                "type": "goto",
+                "x": 2522,
+                "y": 1775
+            },
+            {
+                "type": "face",
+                "x": 0,
+                "y": 1775
+            },
+            {
                 "type": "goto_back",
                 "x": 2720,
                 "y": 1775
@@ -105,6 +115,16 @@
                 "dist": 350
             },
             {
+                "type": "goto",
+                "x": 2522,
+                "y": 225
+            },
+            {
+                "type": "face",
+                "x": 0,
+                "y": 225
+            },
+            {
                 "type": "goto_back",
                 "x": 2720,
                 "y": 225
@@ -142,7 +162,7 @@
                     "x": 100,
                     "y": 105,
                     "angle": 30,
-                    "threshold": 600
+                    "threshold": 500
                 },
                 {
                     "desc": "Milieu",
@@ -151,7 +171,7 @@
                     "x": 115,
                     "y": 0,
                     "angle": 0,
-                    "threshold": 600
+                    "threshold": 500
                 },
                 {
                     "desc": "Avant droit",
@@ -160,7 +180,7 @@
                     "x": 100,
                     "y": -105,
                     "angle": -30,
-                    "threshold": 600
+                    "threshold": 500
                 },
                 {
                     "desc": "Arrière",
@@ -169,7 +189,7 @@
                     "x": -110,
                     "y": 0,
                     "angle": 180,
-                    "threshold": 600
+                    "threshold": 500
                 }
             ]
         }

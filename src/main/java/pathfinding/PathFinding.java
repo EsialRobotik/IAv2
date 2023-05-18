@@ -59,6 +59,9 @@ public class PathFinding {
                 for(Point p : simplePath) {
                     computedPath.add(new Point(p.getX() * 10, p.getY() * 10));
                 }
+                if (computedPath.size() > 0) {
+                    computedPath.set(computedPath.size() - 1, end);
+                }
                 computationEnded = true;
                 computationStart = false;
             }
