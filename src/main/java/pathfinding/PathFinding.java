@@ -124,6 +124,10 @@ public class PathFinding {
         return astar.getTable().getPointsFromShape(shape);
     }
 
+    public void addPointsToDetectionIgnoreQuadrilaterium(List<Point> points) {
+        astar.getTable().addPointsToDetectionIgnoreQuadrilaterium(points);
+    }
+
     public static void main(String[] args) throws Exception {
         LoggerFactory.init(Level.TRACE);
         Logger logger = LoggerFactory.getLogger(PathFinding.class);

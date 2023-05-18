@@ -143,6 +143,10 @@ public class MainHomologation2023 {
             new DeleteZone("Libération brun 1", "east_cake_brown_1", Tache.Mirror.SPECIFIC),
             new DeleteZone("Libération brun 1", "west_cake_brown_1", Tache.Mirror.SPECIFIC)
         );
+        deposeGateauxAssiette3.add(
+            new AddIgnoraDetectionZone("Ignore détection zone de départ", "2550;1550;2550;2000;3000;2000;3000;1550", Tache.Mirror.SPECIFIC),
+            new AddIgnoraDetectionZone("Ignore détection zone de départ", "2550;0;2550;450;3000;450;3000;0", Tache.Mirror.SPECIFIC)
+        );
         objectifsCouleur0.add(deposeGateauxAssiette3.generateObjectif("assiette 3", objectifsCouleur0.size()+1, score, 1));
         objectifsCouleur3000.add(deposeGateauxAssiette3.generateMirrorObjectif("assiette 3", objectifsCouleur3000.size()+1, score, 1));
 

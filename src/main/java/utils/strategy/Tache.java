@@ -15,7 +15,9 @@ public class Tache implements Cloneable {
         @SerializedName("manipulation")
         MANIPULATION("manipulation"),
         @SerializedName("element")
-        ELEMENT("element")
+        ELEMENT("element"),
+        @SerializedName("ignore_detection")
+        IGNORE_DETECTION("ignore_detection")
         ;
 
         private final String text;

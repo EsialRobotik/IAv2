@@ -206,6 +206,19 @@ public class MasterLoop {
                                 pathFinding.lockElementById(currentStep.getItemId());
                                 communicationManager.sendAddZone(currentStep.getItemId());
                             }
+                        } else if (currentStep.getActionType() == Step.Type.IGNORE_DETECTION) {
+                            List<Point> points = new ArrayList<>();
+                            String[] coordinates = currentStep.getItemId().split(";");
+                            points.add(new Point(Integer.parseInt(coordinates[0]), Integer.parseInt(coordinates[1])));
+                            points.add(new Point(Integer.parseInt(coordinates[2]), Integer.parseInt(coordinates[3])));
+                            points.add(new Point(Integer.parseInt(coordinates[4]), Integer.parseInt(coordinates[5])));
+                            points.add(new Point(Integer.parseInt(coordinates[6]), Integer.parseInt(coordinates[7])));
+                            if (currentStep.getSubType() == Step.SubType.AJOUT) {
+                                logger.info("Ajout d'une zone de non détection : " + points);
+                                pathFinding.addPointsToDetectionIgnoreQuadrilaterium(points);
+                            } else if (currentStep.getSubType() == Step.SubType.SUPPRESSION) {
+                                // todo
+                            }
                         }
                     } else if (this.movementManager.getAsservStatus() == AsservInterface.AsservStatus.STATUS_BLOCKED
                         && (currentStep.getSubType() != Step.SubType.GO || currentStep.getTimeout() == 0)) {

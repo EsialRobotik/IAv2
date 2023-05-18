@@ -118,6 +118,10 @@ public class MainPmiHomologation2023 {
         aspirationsSud.add(
             new GoToBack("Sortie aspiration", 2600, 1170)
         );
+        aspirationsSud.add(
+            new AddIgnoraDetectionZone("Ignore détection zone de départ", "2550;1550;2550;2000;3000;2000;3000;1550", Tache.Mirror.SPECIFIC),
+            new AddIgnoraDetectionZone("Ignore détection zone de départ", "2550;0;2550;450;3000;450;3000;0", Tache.Mirror.SPECIFIC)
+        );
         objectifsCouleur0.add(aspirationsSud.generateObjectif("Cherry bouboule sud", objectifsCouleur0.size()+1, score, 1));
         objectifsCouleur3000.add(aspirationsSud.generateMirrorObjectif("Cherry bouboule sud", objectifsCouleur3000.size()+1, score, 1));
 
