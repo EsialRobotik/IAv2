@@ -162,7 +162,7 @@
                     "x": 100,
                     "y": 105,
                     "angle": 30,
-                    "threshold": 500
+                    "threshold": 400
                 },
                 {
                     "desc": "Milieu",
@@ -180,7 +180,7 @@
                     "x": 100,
                     "y": -105,
                     "angle": -30,
-                    "threshold": 500
+                    "threshold": 400
                 },
                 {
                     "desc": "Arrière",
