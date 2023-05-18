@@ -81,7 +81,6 @@ public class MasterLoop {
         boolean astarLaunch = false;
         boolean somethingDetected = false;
         boolean movingForward = false;
-        int blockedCount = 0;
 
         actionCollection.prepareActionList(colorDetector.isColor0());
         logger.info("ActionList size : " + actionCollection.getActionList().size());
@@ -107,15 +106,7 @@ public class MasterLoop {
         movementManager.executeStepDeplacement(currentStep);
 
         lcdDisplay.score(score);
-//        String remainingTime = chrono.toString();
         while (!interrupted) {
-            if (this.movementManager.getAsservStatus() != AsservInterface.AsservStatus.STATUS_BLOCKED) {
-                blockedCount = 0;
-            } else {
-                blockedCount++;
-                logger.warn("Asserv blocked " + blockedCount);
-            }
-//            logger.debug("## DEBUG - somethingDetected : " + somethingDetected);
             if (!somethingDetected) {
                 // 1/ we check if we detect something
                 boolean[] detected = this.detectionManager.getEmergencyDetectionMap();
@@ -140,8 +131,6 @@ public class MasterLoop {
                         movingForward = false;
                         somethingDetected = true;
                         continue;
-                    } else {
-//                        logger.info("Il y a un truc mais on ne bouge pas");
                     }
                 }
 
@@ -218,12 +207,10 @@ public class MasterLoop {
                                 communicationManager.sendAddZone(currentStep.getItemId());
                             }
                         }
-                    } else if (blockedCount > 25) {
-                        movementManager.haltAsserv(false);
+                    } else if (this.movementManager.getAsservStatus() == AsservInterface.AsservStatus.STATUS_BLOCKED) {
+                        movementManager.haltAsserv(true);
                         logger.error("Blocage asserve détecté, on stop tout !!");
                         // todo gérer blocage via asservstatus
-                    } else {
-//                        logger.debug("## DEBUG - MainLoop, on attends");
                     }
                 }
             } else { //We detect something last loop. let's check if we still see it, either let's resume the move
