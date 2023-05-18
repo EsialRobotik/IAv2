@@ -123,7 +123,7 @@ public class MasterLoop {
                     //We detect something, we get the movement direction and we check if we detect it in the right side
                     AsservInterface.MovementDirection direction = this.movementManager.getMovementDirection();
 
-                    if (direction.equals(AsservInterface.MovementDirection.FORWARD)
+                    if (direction != null && direction.equals(AsservInterface.MovementDirection.FORWARD)
                             && (detected[0] || detected[1] || detected[2])) {
                         logger.info("C'est devant, faut s'arrêter");
                         //We detect something. That's horrible
@@ -132,7 +132,7 @@ public class MasterLoop {
                         somethingDetected = true;
                         continue;
 
-                    } else if (direction.equals(AsservInterface.MovementDirection.BACKWARD)
+                    } else if (direction != null && direction.equals(AsservInterface.MovementDirection.BACKWARD)
                             && detected[3]) {
                         logger.info("C'est derrière, faut s'arrêter");
                         // something is sneaking on us, grab the rocket launcher
@@ -141,7 +141,7 @@ public class MasterLoop {
                         somethingDetected = true;
                         continue;
                     } else {
-                        logger.info("Il y a un truc mais on ne bouge pas");
+//                        logger.info("Il y a un truc mais on ne bouge pas");
                     }
                 }
 

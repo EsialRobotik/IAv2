@@ -71,7 +71,7 @@ public class MainHomologation2023 {
             new Manipulation("Prise jaune 2", ActionFileBinder.ActionFile.ROB_PINCE_MOBILE_RELACHER_LARGE.ordinal())
         );
         recuperationGateauJaune2.add(
-            new GoToBack("Prise jaune 2", 2390, 1775)
+            new GoToBack("Prise jaune 2", 2450, 1775)
         );
         recuperationGateauJaune2.add(
             new Manipulation("Prise jaune 2", ActionFileBinder.ActionFile.ROB_ASCENSEUR_SOL.ordinal())
@@ -80,7 +80,7 @@ public class MainHomologation2023 {
             new Manipulation("Prise jaune 2", ActionFileBinder.ActionFile.ROB_ASCENSEUR_SOL_BUTEE.ordinal())
         );
         recuperationGateauJaune2.add(
-            new GoTo("Prise jaune 2", 2440, 1775)
+            new GoTo("Prise jaune 2", 2400, 1775)
         );
         recuperationGateauJaune2.add(
             new Manipulation("Prise jaune 2", ActionFileBinder.ActionFile.ROB_PINCE_MOBILE_ATTRAPER.ordinal())
@@ -96,7 +96,7 @@ public class MainHomologation2023 {
         objectifsCouleur3000.add(recuperationGateauJaune2.generateMirrorObjectif("Jaune 2", objectifsCouleur3000.size()+1, score, 1));
 
         // Marquage homologation
-        score = 6;
+        score = 6 + 15;
         TaskList recuperationGateauBrun2 =  new TaskList(2000);
         recuperationGateauBrun2.add(
             new GoTo("homolo 1", 1200, 1775)
@@ -138,7 +138,10 @@ public class MainHomologation2023 {
             new Manipulation("homolo 2", ActionFileBinder.ActionFile.ROB_PINCE_MOBILE_RELACHER_LARGE.ordinal())
         );
         recuperationGateauBrun2.add(
-            new GoToBack("homolo 2", 1200, 1775)
+            new GoToBack("homolo 2", 1600, 1775)
+        );
+        recuperationGateauBrun2.add(
+            new GoTo("les roues dans l'assiette", 2500, 1775)
         );
         objectifsCouleur0.add(recuperationGateauBrun2.generateObjectif("Brun 2", objectifsCouleur0.size()+1, score, 1));
         objectifsCouleur3000.add(recuperationGateauBrun2.generateMirrorObjectif("Brun 2", objectifsCouleur3000.size()+1, score, 1));

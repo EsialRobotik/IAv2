@@ -217,7 +217,7 @@ public class Asserv implements AsservInterface {
     @Override
     public void enableLowSpeed(boolean enable) {
         logger.info("enableLowSpeed : " + enable);
-        serial.write(enable ? "S15" : "S100");
+        serial.write(enable ? "S25" : "S100");
     }
 
     @Override
@@ -334,6 +334,8 @@ public class Asserv implements AsservInterface {
     @Override
     public void goStart(boolean isColor0) throws Exception {
         JsonArray start = this.config.getAsJsonArray(isColor0 ? "start0" : "start3000");
+        enableLowSpeed(true);
+        Thread.sleep(150);
         for (JsonElement instruction : start) {
             JsonObject temp = instruction.getAsJsonObject();
             logger.debug(temp.toString());
@@ -345,14 +347,11 @@ public class Asserv implements AsservInterface {
                     break;
                 case "go_timed":
                     this.logger.info("Go timed " + temp.get("dist").getAsInt());
-                    enableLowSpeed(true);
-                    Thread.sleep(150);
                     go(temp.get("dist").getAsInt());
                     Thread.sleep(2000);
                     emergencyStop();
-                    emergencyReset();
-                    enableLowSpeed(false);
                     Thread.sleep(150);
+                    emergencyReset();
                     this.logger.info("Go timed end " + temp.get("dist").getAsInt());
                     break;
                 case "turn":
@@ -395,6 +394,8 @@ public class Asserv implements AsservInterface {
             }
             waitForAsserv();
         }
+        enableLowSpeed(false);
+        Thread.sleep(150);
         this.logger.info("goStart finished");
     }
 }

@@ -56,13 +56,13 @@
                 "dist": 150
             },
             {
-                "type": "goto_back",
-                "x": 2900,
+                "type": "goto",
+                "x": 2850,
                 "y": 1775
             },
             {
                 "type": "face",
-                "x": 0,
+                "x": 3000,
                 "y": 1775
             }
         ],
@@ -99,7 +99,7 @@
             },
             {
                 "type": "goto",
-                "x": 2900,
+                "x": 2850,
                 "y": 225
             },
             {
@@ -126,7 +126,7 @@
     "detection": {
         "ultrasound": {
             "type": "srf08",
-            "windowSize": 1,
+            "windowSize": 2,
             "i2cConfigList": [
                 {
                     "desc": "Avant gauche (0x70)",
@@ -154,7 +154,7 @@
                     "maxAnalogGain": 31,
                     "range": 13,
                     "x": 80,
-                    "y": -135,
+                    "y": -130,
                     "angle": -45,
                     "threshold": 550
                 },
@@ -163,7 +163,7 @@
                     "address": 113,
                     "maxAnalogGain": 31,
                     "range": 13,
-                    "x": -80,
+                    "x": -40,
                     "y": 0,
                     "angle": 180,
                     "threshold": 550
