@@ -23,7 +23,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainPmiHomologation2023 {
+public class MainPmiSerie2023 {
 
     public static void main(String... arg) throws Exception {
         System.out.println("Génération de la stratégie");
@@ -40,7 +40,7 @@ public class MainPmiHomologation2023 {
         score = 5 + 5;
         TaskList vidangeDepart =  new TaskList(2000);
         vidangeDepart.add(
-            new Go("On recule pour souffler", -200)
+            new Go("On recule pour souffler", -20)
         );
         vidangeDepart.add(
             new Face("Alignement tir", 3000, 1775)
@@ -72,12 +72,19 @@ public class MainPmiHomologation2023 {
 
         // Aspiration des cerises sud
         score = 0;
+        int coordY = 1160;
         TaskList aspirationsSud =  new TaskList(2000);
         aspirationsSud.add(
-            new GoToAstar("Position aspiration", 2650, 1170)
+            new GoToAstar("Position aspiration", 2550, coordY)
         );
         aspirationsSud.add(
-            new Face("Position aspiration", 3000, 1170)
+            new Face("Position aspiration", 3000, coordY)
+        );
+        aspirationsSud.add(
+            new GoTo("Position aspiration", 2650, coordY)
+        );
+        aspirationsSud.add(
+            new Face("Position aspiration", 3000, coordY)
         );
         aspirationsSud.add(
             new Manipulation("Aspiration cherry bouboule sud", ActionFileBinder.ActionFile.PUKING_TURBINE_MOTEUR_ASPIRER_FORT.ordinal())
@@ -89,9 +96,9 @@ public class MainPmiHomologation2023 {
         aspirationsSud.add(
             new SetSpeed("Reduction de vitesse", 25)
         );
-        for (int i = 1; i < 10; i++) {
-            aspirationsSud.add(new GoTo("Position aspiration", 2650 + i * 30, 1170));
-            aspirationsSud.add(new Face("Position aspiration", 3000, 1170));
+        for (int i = 0; i < 8; i++) {
+            aspirationsSud.add(new GoTo("Position aspiration", 2650 + i * 30, coordY));
+            aspirationsSud.add(new Face("Position aspiration", 3000, coordY));
             aspirationsSud.add(new Wait("On laisse le temps", 200));
             if (i == 4) {
                 aspirationsSud.add(
@@ -116,11 +123,7 @@ public class MainPmiHomologation2023 {
             new SetSpeed("Vitesse normale", 100)
         );
         aspirationsSud.add(
-            new GoToBack("Sortie aspiration", 2600, 1170)
-        );
-        aspirationsSud.add(
-            new AddIgnoraDetectionZone("Ignore détection zone de départ", "2550;1550;2550;2000;3000;2000;3000;1550", Tache.Mirror.SPECIFIC),
-            new AddIgnoraDetectionZone("Ignore détection zone de départ", "2550;0;2550;450;3000;450;3000;0", Tache.Mirror.SPECIFIC)
+            new GoToBack("Sortie aspiration", 2600, coordY)
         );
         objectifsCouleur0.add(aspirationsSud.generateObjectif("Cherry bouboule sud", objectifsCouleur0.size()+1, score, 1));
         objectifsCouleur3000.add(aspirationsSud.generateMirrorObjectif("Cherry bouboule sud", objectifsCouleur3000.size()+1, score, 1));
@@ -134,16 +137,19 @@ public class MainPmiHomologation2023 {
             new Face("Alignement vidage bouboule", 3000, 1775)
         );
         evacuationCherryBouboule.add(
-            new Go("Position vomie", 100)
+            new GoTo("Alignement vidage bouboule", 2850, 1775)
         );
         evacuationCherryBouboule.add(
-            new GoToBack("Sortie vomie", 2800, 1775)
+            new Face("Alignement vidage bouboule", 3000, 1775)
         );
         evacuationCherryBouboule.add(
             new Manipulation("Vomie sud 1", ActionFileBinder.ActionFile.PUKING_SOUFFLER_TOUTES_LES_BOUBOULES.ordinal())
         );
         evacuationCherryBouboule.add(
             new Manipulation("Vomie sud reserve", ActionFileBinder.ActionFile.PUKING_DESTOCKER_BOUBOULES.ordinal())
+        );
+        evacuationCherryBouboule.add(
+            new Wait("Attente second batch vomie", 1000)
         );
         evacuationCherryBouboule.add(
             new Manipulation("Vomie sud 2", ActionFileBinder.ActionFile.PUKING_SOUFFLER_TOUTES_LES_BOUBOULES.ordinal())

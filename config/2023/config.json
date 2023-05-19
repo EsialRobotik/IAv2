@@ -59,6 +59,10 @@
                 "dist": 350
             },
             {
+                "type": "speed",
+                "value": 50
+            },
+            {
                 "type": "goto",
                 "x": 2522,
                 "y": 1775
@@ -107,12 +111,16 @@
             },
             {
                 "type": "set_y",
-                "value": 1922,
+                "value": 78,
                 "theta": 1.57079632679
             },
             {
                 "type": "go",
                 "dist": 350
+            },
+            {
+                "type": "speed",
+                "value": 50
             },
             {
                 "type": "goto",
@@ -189,7 +197,7 @@
                     "x": -110,
                     "y": 0,
                     "angle": 180,
-                    "threshold": 500
+                    "threshold": 300
                 }
             ]
         }

@@ -389,6 +389,10 @@ public class Asserv implements AsservInterface {
                     this.logger.info("Set odometrie Y : " + temp.get("value").getAsInt());
                     setOdometrie(position.getX(), temp.get("value").getAsInt(), temp.get("theta").getAsDouble());
                     break;
+                case "speed":
+                    this.logger.info("Set speed " + temp.get("value").getAsInt());
+                    setSpeed(temp.get("value").getAsInt());
+                    break;
                 default:
                     throw new Exception("Instruction inconnue " + temp);
             }

@@ -56,8 +56,17 @@
                 "dist": 150
             },
             {
+                "type": "speed",
+                "value": 50
+            },
+            {
+                "type": "face",
+                "x": 3000,
+                "y": 1775
+            },
+            {
                 "type": "goto",
-                "x": 2850,
+                "x": 2870,
                 "y": 1775
             },
             {
@@ -98,8 +107,17 @@
                 "dist": 150
             },
             {
+                "type": "speed",
+                "value": 50
+            },
+            {
+                "type": "face",
+                "x": 3000,
+                "y": 225
+            },
+            {
                 "type": "goto",
-                "x": 2850,
+                "x": 2870,
                 "y": 225
             },
             {
@@ -121,7 +139,11 @@
             "baud": 115200
         },
         "dataDir": "/home/pi/IA/actions/",
-        "init": ["PUKING_INIT"]
+        "init": ["PUKING_INIT"],
+        "funnyAction": {
+            "action": "PUKING_FUNNY_ACTION_TRIGGER",
+            "score": 5
+        }
     },
     "detection": {
         "ultrasound": {
@@ -146,7 +168,7 @@
                     "x": 80,
                     "y": 0,
                     "angle": 0,
-                    "threshold": 600
+                    "threshold": 500
                 },
                 {
                     "desc": "Avant droit (0x74)",
@@ -166,7 +188,7 @@
                     "x": -40,
                     "y": 0,
                     "angle": 180,
-                    "threshold": 600
+                    "threshold": 300
                 }
             ]
         }

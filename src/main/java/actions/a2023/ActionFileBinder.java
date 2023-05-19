@@ -56,7 +56,8 @@ public class ActionFileBinder implements ActionInterface {
 
 		PUKING_INIT("puking_init.json", false, ActionFile.ACTION_LIST),
 		PUKING_FUNNY_ACTION_RESET("puking_funny_action_reset.json", false, ActionFile.ACTION_AX12),
-		PUKING_FUNNY_ACTION_TRIGGER("puking_funny_action_trigger.json", false, ActionFile.ACTION_AX12),
+		PUKING_FUNNY_ACTION_AX("puking_funny_action_ax.json", false, ActionFile.ACTION_AX12),
+		PUKING_FUNNY_ACTION_TRIGGER("puking_funny_action_trigger.json", false, ActionFile.ACTION_LIST),
 		PUKING_TURBINE_POSITION_ASPIRATION_DROIT("puking_turbine_position_aspiration_droit.json", false, ActionFile.ACTION_AX12),
 		PUKING_TURBINE_POSITION_ASPIRATION_GAUCHE("puking_turbine_position_aspiration_gauche.json", false, ActionFile.ACTION_AX12),
 		PUKING_TURBINE_POSITION_CENTRE("puking_turbine_position_centre.json", false, ActionFile.ACTION_AX12),

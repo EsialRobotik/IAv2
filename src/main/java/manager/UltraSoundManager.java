@@ -253,8 +253,8 @@ public class UltraSoundManager {
     }
 
     public boolean mustStop(Position position) {
-        return position.getX() > 10 && position.getX() < (table.getxSize() - 10)
-            && position.getY() > 10 && position.getY() < (table.getySize() - 10)
+        return position.getX() > 50 && position.getX() < (table.getxSize() - 50)
+            && position.getY() > 50 && position.getY() < (table.getySize() - 50)
             && !this.table.isPointInDetectionIgnoreZone(new Point(position));
     }
 
