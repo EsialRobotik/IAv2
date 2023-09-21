@@ -66,7 +66,7 @@
             },
             {
                 "type": "goto",
-                "x": 2870,
+                "x": 2850,
                 "y": 1775
             },
             {
@@ -117,7 +117,7 @@
             },
             {
                 "type": "goto",
-                "x": 2870,
+                "x": 2850,
                 "y": 225
             },
             {
@@ -158,7 +158,7 @@
                     "x": 80,
                     "y": 130,
                     "angle": 45,
-                    "threshold": 400
+                    "threshold": 200
                 },
                 {
                     "desc": "Avant milieu (0x73)",
@@ -168,7 +168,7 @@
                     "x": 80,
                     "y": 0,
                     "angle": 0,
-                    "threshold": 500
+                    "threshold": 250
                 },
                 {
                     "desc": "Avant droit (0x74)",
@@ -178,7 +178,7 @@
                     "x": 80,
                     "y": -130,
                     "angle": -45,
-                    "threshold": 400
+                    "threshold": 200
                 },
                 {
                     "desc": "Arrière (0x71)",
@@ -188,7 +188,7 @@
                     "x": -40,
                     "y": 0,
                     "angle": 180,
-                    "threshold": 300
+                    "threshold": 200
                 }
             ]
         }
