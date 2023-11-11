@@ -23,10 +23,3 @@ Configurer le fichier en fonction du contenu du robot
 
 ## configCollection.json
 Vous pouvez l'écrire à la main pour les courageux, ou utiliser le générateur de strat
-
-# Simulateur
-1. Créer une nouvelle version du simulateur en copiant le précédent
-2. Mettre à jour le SVG
-3. Mettre à jour les png des robots
-4. Placer les robots en position de départ dans la fonction init de index.html (attention, les axes X/Y sont inversés)
-5. Compléter le fichier variables.js avec le retour du simulateur de stratégie (ou à la main pour les premiers tests)
