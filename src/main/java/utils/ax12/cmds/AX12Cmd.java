@@ -1,6 +1,6 @@
 package utils.ax12.cmds;
 
-import utils.ax12.AX12MainConsole;
+import utils.ax12.Ax12MainConsole;
 
 import java.lang.reflect.Constructor;
 import java.util.*;
@@ -10,7 +10,7 @@ public abstract class AX12Cmd {
     private static final Map<String, AX12CmdDescription> commandes;
     static {
         commandes = new HashMap<String, AX12CmdDescription>();
-        commandes.put("help", new AX12CmdDescription(AX12CmdHelp.class, "help", "Affiche la liste des commandes disponibles"));
+        commandes.put("help", new AX12CmdDescription(Ax12CmdHelp.class, "help", "Affiche la liste des commandes disponibles"));
         commandes.put("uart", new AX12CmdDescription(AX12CmdUarts.class, "uart", "Manipulation de l'UART"));
         commandes.put("dtr", new AX12CmdDescription(DTRCmd.class, "dtr", "Lit ou écrit le DTR de l'UART"));
         commandes.put("rts", new AX12CmdDescription(RTSCmd.class, "rts", "Lit ou écrit le RTS de l'UART"));
@@ -112,7 +112,7 @@ public abstract class AX12Cmd {
      * @param cli
      * @throws AX12CmdException
      */
-    public abstract void executeCmd(AX12MainConsole cli) throws AX12CmdException;
+    public abstract void executeCmd(Ax12MainConsole cli) throws AX12CmdException;
 
     /**
      * Indique commande utiliser la commande
@@ -149,7 +149,7 @@ public abstract class AX12Cmd {
         return commandes.get(cmd);
     }
 
-    protected void thowsNoAx12Exception(AX12MainConsole cli) throws AX12CmdException {
+    protected void thowsNoAx12Exception(Ax12MainConsole cli) throws AX12CmdException {
         if (cli.getCurrentAx12() == null) {
             throw new AX12CmdException("Aucun AX12 n'est défini");
         }

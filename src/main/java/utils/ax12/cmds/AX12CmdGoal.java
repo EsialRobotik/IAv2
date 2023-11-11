@@ -3,7 +3,7 @@ package utils.ax12.cmds;
 import api.ax12.AX12Exception;
 import api.ax12.AX12LinkException;
 import api.ax12.value.AX12Position;
-import utils.ax12.AX12MainConsole;
+import utils.ax12.Ax12MainConsole;
 
 /**
  * Lit ou écrit la position de l'AX12
@@ -20,7 +20,7 @@ public class AX12CmdGoal extends AX12Cmd {
     }
 
     @Override
-    public void executeCmd(AX12MainConsole cli) throws AX12CmdException {
+    public void executeCmd(Ax12MainConsole cli) throws AX12CmdException {
         try {
             if (goal == null) {
                 AX12Position position = cli.getCurrentAx12().readServoPosition();

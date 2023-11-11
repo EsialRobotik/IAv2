@@ -1,6 +1,6 @@
 package utils.ax12.cmds;
 
-import utils.ax12.AX12MainConsole;
+import utils.ax12.Ax12MainConsole;
 
 public class RTSCmd extends AX12Cmd {
 
@@ -14,7 +14,7 @@ public class RTSCmd extends AX12Cmd {
         allumer = null;
     }
     @Override
-    public void executeCmd(AX12MainConsole cli) throws AX12CmdException {
+    public void executeCmd(Ax12MainConsole cli) throws AX12CmdException {
         if (allumer == null) {
             System.out.println("DTR : "+(cli.getAx12SerialCommunicator().isRtsEnabled() ? "1" : "0"));
         } else {

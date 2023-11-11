@@ -5,12 +5,12 @@ import api.ax12.AX12Exception;
 import api.ax12.AX12Link;
 import api.ax12.AX12LinkException;
 import api.ax12.value.AX12Position;
-import utils.ax12.AX12MainConsole;
+import utils.ax12.Ax12MainConsole;
 
 public class Ax12CmdScan extends AX12Cmd {
 
     @Override
-    public void executeCmd(AX12MainConsole cli) throws AX12CmdException {
+    public void executeCmd(Ax12MainConsole cli) throws AX12CmdException {
         AX12Link link = cli.getAx12SerialCommunicator();
 
         System.out.println("Scan adresse 0 à 63...");

@@ -1,14 +1,14 @@
 package utils.ax12.cmds;
 
-import utils.ax12.AX12MainConsole;
+import utils.ax12.Ax12MainConsole;
 
-public class AX12CmdHelp extends AX12Cmd {
+public class Ax12CmdHelp extends AX12Cmd {
 
-    public AX12CmdHelp() {
+    public Ax12CmdHelp() {
     }
 
     @Override
-    public void executeCmd(AX12MainConsole cli) throws AX12CmdException {
+    public void executeCmd(Ax12MainConsole cli) throws AX12CmdException {
         StringBuffer sb = new StringBuffer("Liste des commandes :\n");
         for (AX12CmdDescription desc : AX12Cmd.getAvailableCommands()) {
             sb.append(" - ");

@@ -34,7 +34,7 @@ import org.opencv.core.Mat;
 import org.opencv.imgcodecs.Imgcodecs;
 import pathfinding.PathFinding;
 import pathfinding.table.Point;
-import utils.ax12.AX12MainConsole;
+import utils.ax12.Ax12MainConsole;
 import utils.web.AX12Http;
 import utils.web.ResourcesManager;
 
@@ -462,7 +462,7 @@ public class Main {
                 ResourcesManager.mountHtmlDir(webRootDir);
                 new AX12Http(webRootDir, dataDir, ax12Link);
             } else {
-                (new AX12MainConsole(ax12Link)).mainLoop();
+                (new Ax12MainConsole(ax12Link)).mainLoop();
             }
         } catch (AX12LinkException |IOException e) {
             e.printStackTrace();

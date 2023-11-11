@@ -2,7 +2,7 @@ package utils.ax12.cmds;
 
 import api.ax12.AX12Exception;
 import api.ax12.AX12LinkException;
-import utils.ax12.AX12MainConsole;
+import utils.ax12.Ax12MainConsole;
 
 public class AX12CmdAddress extends AX12Cmd {
 
@@ -23,7 +23,7 @@ public class AX12CmdAddress extends AX12Cmd {
     }
 
     @Override
-    public void executeCmd(AX12MainConsole cli) throws AX12CmdException {
+    public void executeCmd(Ax12MainConsole cli) throws AX12CmdException {
         this.thowsNoAx12Exception(cli);
         if (cmd == null) {
             if (address == null) {

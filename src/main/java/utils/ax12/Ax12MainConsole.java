@@ -12,13 +12,13 @@ import utils.ax12.cmds.AX12CmdException;
  * @author gryttix
  *
  */
-public class AX12MainConsole {
+public class Ax12MainConsole {
 
     private AX12 ax12;
     private boolean continueMainLoop;
     private AX12LinkSerial sc;
 
-    public AX12MainConsole(AX12LinkSerial ax12link) {
+    public Ax12MainConsole(AX12LinkSerial ax12link) {
         sc = ax12link;
         ax12 = new AX12(1, sc);
     }
