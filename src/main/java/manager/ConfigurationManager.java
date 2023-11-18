@@ -7,7 +7,6 @@ import actions.a2023.ActionFileBinder;
 import api.ax12.AX12LinkException;
 import api.ax12.AX12LinkSerial;
 import api.chrono.Chrono;
-import api.communication.Serial;
 import api.communication.SerialRxTx;
 import api.gpio.ColorDetector;
 import api.gpio.Tirette;

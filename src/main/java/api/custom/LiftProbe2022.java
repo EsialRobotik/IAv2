@@ -1,6 +1,6 @@
 package api.custom;
 
-import api.communication.Serial;
+import api.communication.SerialDevice;
 
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -19,14 +19,14 @@ public class LiftProbe2022 {
         NON_RECONNU,
     }
 
-    protected Serial serial;
+    protected SerialDevice serialDevice;
     protected Scanner inScanner;
     protected OutputStreamWriter outWriter;
 
-    public LiftProbe2022(Serial serial) {
-        this.serial = serial;
-        this.inScanner = new Scanner(serial.getInputStream());
-        this.outWriter = new OutputStreamWriter(serial.getOutputStream());
+    public LiftProbe2022(SerialDevice serialDevice) {
+        this.serialDevice = serialDevice;
+        this.inScanner = new Scanner(serialDevice.getInputStream());
+        this.outWriter = new OutputStreamWriter(serialDevice.getOutputStream());
     }
 
     protected String sendCommandAndWaitResult(String cmd) throws IOException {

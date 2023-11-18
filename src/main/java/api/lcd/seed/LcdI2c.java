@@ -1,6 +1,6 @@
 package api.lcd.seed;
 
-import api.communication.I2C;
+import api.communication.I2CDevice;
 import api.lcd.LCD;
 import api.lcd.seed.constants.*;
 import api.log.LoggerFactory;
@@ -14,7 +14,7 @@ import org.apache.logging.log4j.Logger;
  */
 public class LcdI2c implements LCD {
 
-    private I2C i2cDevice;
+    private I2CDevice i2cDevice;
     private Logger logger;
 
     public static final int I2C_LCD_ADDRESS = 0x51; //Device address configuration, the default value is 0x51.
@@ -31,7 +31,7 @@ public class LcdI2c implements LCD {
     public LcdI2c(int i2cAddress) {
         this.logger = LoggerFactory.getLogger(LcdI2c.class);
         logger.info(String.format("Initializing 128x64px LCD on I2C address 0x%02X", i2cAddress));
-        this.i2cDevice = new I2C(i2cAddress);
+        this.i2cDevice = new I2CDevice(i2cAddress);
 
         try {
             Thread.sleep(1000);

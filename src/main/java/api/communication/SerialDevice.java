@@ -1,5 +1,6 @@
 package api.communication;
 
+import api.Pi4JContext;
 import api.log.LoggerFactory;
 import com.pi4j.io.serial.*;
 import org.apache.logging.log4j.Logger;
@@ -11,16 +12,15 @@ import java.util.BitSet;
 
 /**
  * Communication serie
- *
  * Communication série pour une communication pi via Pi4J
- * @see <a href="http://pi4j.com/example/serial.html">Pi4J Serial Example</a>
+ * @see <a href="https://pi4j.com/documentation/io-examples/serial/">Pi4J Serial</a>
  */
-public class Serial {
+public class SerialDevice {
 
     /**
      * Pi4J Serial
      */
-    protected com.pi4j.io.serial.Serial serial;
+    protected Serial serial;
 
     /**
      * Port série
@@ -37,23 +37,26 @@ public class Serial {
      * @param serialPort Nom du port série (ex : /dev/ttyUSB0 ou /dev/ttyAMA0
      * @param baudRate Baud rate
      */
-    public Serial(String serialPort, Baud baudRate) {
-        logger = LoggerFactory.getLogger(Serial.class);
-
+    public SerialDevice(String serialPort, Baud baudRate) {
+        logger = LoggerFactory.getLogger(SerialDevice.class);
         logger.info("Serial " + serialPort + " init at baud " + baudRate.getValue());
         this.serialPort = serialPort;
-        SerialConfig serialConfig = new SerialConfig();
-        serialConfig.device(serialPort)
+        var pi4j = Pi4JContext.getInstance();
+        this.serial = pi4j.create(
+            Serial.newConfigBuilder(pi4j)
                 .baud(baudRate)
-                .dataBits(DataBits._8)
+                .dataBits_8()
                 .parity(Parity.NONE)
                 .stopBits(StopBits._1)
-                .flowControl(FlowControl.NONE);
-
-        serial = SerialFactory.createInstance();
+                .flowControl(FlowControl.NONE)
+                .id(serialPort)
+                .device(serialPort)
+                .provider("pigpio-serial")
+                .build()
+        );
         try {
-            serial.open(serialConfig);
-        } catch (IOException e) {
+            serial.open();
+        } catch (Exception e) {
             logger.error("Serial " + serialPort + " init fail at baud " + baudRate.getValue() + " : " + e.getMessage());
         }
     }
@@ -63,15 +66,27 @@ public class Serial {
      * @param serialPort Nom du port série (ex : /dev/ttyUSB0 ou /dev/ttyAMA0
      * @param baudRate Baud rate
      */
-    public Serial(String serialPort, int baudRate) {
-        logger = LoggerFactory.getLogger(Serial.class);
+    public SerialDevice(String serialPort, int baudRate) {
+        logger = LoggerFactory.getLogger(SerialDevice.class);
 
         logger.info("Serial " + serialPort + " init at baud " + baudRate);
         this.serialPort = serialPort;
-        serial = SerialFactory.createInstance();
+        var pi4j = Pi4JContext.getInstance();
+        this.serial = pi4j.create(
+            Serial.newConfigBuilder(pi4j)
+                .baud(baudRate)
+                .dataBits_8()
+                .parity(Parity.NONE)
+                .stopBits(StopBits._1)
+                .flowControl(FlowControl.NONE)
+                .id(serialPort)
+                .device(serialPort)
+                .provider("pigpio-serial")
+                .build()
+        );
         try {
-            serial.open(serialPort, baudRate);
-        } catch (IOException e) {
+            serial.open();
+        } catch (Exception e) {
             logger.error("Serial " + serialPort + " init fail at baud " + baudRate + " : " + e.getMessage());
         }
     }
@@ -83,22 +98,9 @@ public class Serial {
     public void write(String string) {
         try {
             logger.info("Serial " + serialPort + " write : " + string);
-            serial.writeln(string);
-        } catch (IOException e) {
-            logger.error("Serial " + serialPort + " write fail : " + e.getMessage());
-        }
-    }
-
-    /**
-     * Envoie une string sur la liaison série
-     * @param bytes bytes à envoyer
-     */
-    public void write(byte[] bytes) {
-        try {
-            logger.info("Serial " + serialPort + " write "+bytes.length+" byte(s)");
-            serial.write(bytes);
-            serial.flush();
-        } catch (IOException e) {
+            serial.write(string + "\r\n");
+            // writeln not exists anymire, \r\n could be wrong
+        } catch (Exception e) {
             logger.error("Serial " + serialPort + " write fail : " + e.getMessage());
         }
     }
@@ -106,35 +108,14 @@ public class Serial {
     public void write(int value) {
         try {
             serial.write(intToUnsignedByte(value));
-            serial.flush();
-        } catch (IOException e) {
+            // flush not exist anymore, can be an issue
+        } catch (Exception e) {
             logger.error("Serial " + serialPort + " write fail : " + e.getMessage());
         }
     }
-    
-    /**
-     * Ajoute des listeners écoutant la liaison série
-     * @param serialDataEventListeners Listeners écoutant la liaison série
-     * @see <a href="http://pi4j.com/example/serial.html">Pi4J Serial Example</a>
-     */
-    public void addReaderListeners(SerialDataEventListener... serialDataEventListeners) {
-        serial.addListener(serialDataEventListeners);
-    }
 
-    /**
-     * Supprime des listeners
-     * @param serialDataEventListeners Listeners à supprimer
-     */
-    public void removeReaderListeners(SerialDataEventListener... serialDataEventListeners) {
-        serial.removeListener(serialDataEventListeners);
-    }
-
-    public void setDTR(boolean b) {
-        try {
-            serial.setDTR(b);
-        } catch (IllegalStateException | IOException e) {
-            e.printStackTrace();
-        }
+    public Serial getSerial() {
+        return serial;
     }
 
     public InputStream getInputStream() {
@@ -148,7 +129,7 @@ public class Serial {
     public void close() {
         try {
             serial.close();
-        } catch (IllegalStateException | IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

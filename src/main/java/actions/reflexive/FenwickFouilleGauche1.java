@@ -2,7 +2,6 @@ package actions.reflexive;
 
 import actions.ActionReflexiveAbstract;
 import actions.a2022.ActionFileBinder;
-import api.communication.Serial;
 import api.communication.SerialRxTx;
 
 import java.io.IOException;

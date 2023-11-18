@@ -1,15 +1,16 @@
 package asserv;
 
-import api.communication.Serial;
+import api.communication.SerialDevice;
 import api.log.LoggerFactory;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.pi4j.io.serial.Baud;
-import com.pi4j.io.serial.SerialDataEventListener;
+import com.pi4j.io.serial.Serial;
 import org.apache.logging.log4j.Logger;
 
-import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 
 /**
  * Implémentation de l'asservissement pour raspberry
@@ -19,7 +20,7 @@ public class Asserv implements AsservInterface {
     /**
      * Port série pour communiquer avec l'asserv
      */
-    protected Serial serial;
+    protected SerialDevice serialDevice;
 
     /**
      * Position du robot
@@ -63,17 +64,8 @@ public class Asserv implements AsservInterface {
         logger = LoggerFactory.getLogger(Asserv.class);
 
         logger.info("Initialisation de la liason série de l'asserv, port =  " + serialPort + ", baudRate = " + baudRate.getValue());
-        serial = new Serial(serialPort, baudRate);
-        serial.addReaderListeners((SerialDataEventListener) serialDataEvent -> {
-            try {
-                String serialBuffer = serialDataEvent.getAsciiString();
-                logger.trace("Position : " + serialBuffer);
-                parseAsservPosition(serialBuffer);
-            } catch (IOException e) {
-                logger.error("Echec du parsing de la position : " + e.getMessage());
-            }
-        });
-
+        serialDevice = new SerialDevice(serialPort, baudRate);
+        startSerialReader();
         position = new Position(0, 0);
     }
 
@@ -85,17 +77,8 @@ public class Asserv implements AsservInterface {
         Baud baudRate = Baud.getInstance(config.get("baud").getAsInt());
 
         this.logger.info("Initialisation de la liason série de l'asserv, port =  " + serialPort + ", baudRate = " + baudRate.getValue());
-        this.serial = new Serial(serialPort, baudRate);
-        this.serial.addReaderListeners((SerialDataEventListener) serialDataEvent -> {
-            try {
-                String serialBuffer = serialDataEvent.getAsciiString();
-                this.logger.trace("Position : " + serialBuffer);
-                parseAsservPosition(serialBuffer);
-            } catch (IOException e) {
-                this.logger.error("Echec du parsing de la position : " + e.getMessage());
-            }
-        });
-
+        this.serialDevice = new SerialDevice(serialPort, baudRate);
+        startSerialReader();
         this.position = new Position(0, 0);
     }
 
@@ -106,20 +89,20 @@ public class Asserv implements AsservInterface {
     @Override
     public void initialize() {
         logger.info("init");
-        serial.write("I");
+        serialDevice.write("I");
     }
 
     @Override
     public void stop() {
         logger.info("stop");
-        serial.write("M0");
+        serialDevice.write("M0");
     }
 
     @Override
     public void emergencyStop() {
         logger.info("emergencyStop");
         asservStatus = AsservStatus.STATUS_HALTED;
-        serial.write("h");
+        serialDevice.write("h");
         direction = MovementDirection.NONE;
     }
 
@@ -127,7 +110,7 @@ public class Asserv implements AsservInterface {
     public void emergencyReset() {
         logger.info("emergencyReset");
         asservStatus = AsservStatus.STATUS_IDLE;
-        serial.write("r");
+        serialDevice.write("r");
     }
 
     @Override
@@ -138,7 +121,7 @@ public class Asserv implements AsservInterface {
             statusCountdown = 2;
         }
         direction = dist > 0 ? MovementDirection.FORWARD : MovementDirection.BACKWARD;
-        serial.write("v" + dist);
+        serialDevice.write("v" + dist);
     }
 
     @Override
@@ -149,7 +132,7 @@ public class Asserv implements AsservInterface {
             statusCountdown = 2;
         }
         direction = MovementDirection.NONE;
-        serial.write("t" + degree);
+        serialDevice.write("t" + degree);
     }
 
     /*******************************************************************************************************************
@@ -164,7 +147,7 @@ public class Asserv implements AsservInterface {
             statusCountdown = 2;
         }
         direction = MovementDirection.FORWARD;
-        serial.write("g" + position.getX() + "#" + position.getY());
+        serialDevice.write("g" + position.getX() + "#" + position.getY());
     }
 
     @Override
@@ -175,7 +158,7 @@ public class Asserv implements AsservInterface {
             statusCountdown = 2;
         }
         direction = MovementDirection.FORWARD;
-        serial.write("e" + position.getX() + "#" + position.getY());
+        serialDevice.write("e" + position.getX() + "#" + position.getY());
     }
 
     @Override
@@ -186,7 +169,7 @@ public class Asserv implements AsservInterface {
             statusCountdown = 2;
         }
         direction = MovementDirection.BACKWARD;
-        serial.write("b" + position.getX() + "#" + position.getY());
+        serialDevice.write("b" + position.getX() + "#" + position.getY());
     }
 
     @Override
@@ -197,7 +180,7 @@ public class Asserv implements AsservInterface {
             statusCountdown = 2;
         }
         direction = MovementDirection.NONE;
-        serial.write("f" + position.getX() + "#" + position.getY());
+        serialDevice.write("f" + position.getX() + "#" + position.getY());
     }
 
     /*******************************************************************************************************************
@@ -207,25 +190,25 @@ public class Asserv implements AsservInterface {
     @Override
     public void setOdometrieX(int x) {
         logger.info("setOdometrieX : " + x);
-        serial.write("Osx" + x);
+        serialDevice.write("Osx" + x);
     }
 
     @Override
     public void setOdometrieY(int y) {
         logger.info("setOdometrieY : " + y);
-        serial.write("Osy" + y);
+        serialDevice.write("Osy" + y);
     }
 
     @Override
     public void setOdometrieTheta(double theta) {
         logger.info("setOdometrieTheta");
-        serial.write("Osa" + theta);
+        serialDevice.write("Osa" + theta);
     }
 
     @Override
     public void setOdometrie(int x, int y, double theta) {
         logger.info("setOdometrie");
-        serial.write("P" + x + "#" + y + "#" + theta);
+        serialDevice.write("P" + x + "#" + y + "#" + theta);
     }
 
     /*******************************************************************************************************************
@@ -235,43 +218,86 @@ public class Asserv implements AsservInterface {
     @Override
     public void enableLowSpeed(boolean enable) {
         logger.info("enableLowSpeed : " + enable);
-        serial.write(enable ? "S25" : "S100");
+        serialDevice.write(enable ? "S25" : "S100");
     }
 
     @Override
     public void setSpeed(int pct) {
         logger.info("setSpeed " + pct + "%");
-        serial.write("S" + pct);
+        serialDevice.write("S" + pct);
     }
 
     @Override
     public void enableRegulatorAngle(boolean enable) {
         logger.info("enableRegulatorAngle : " + enable);
-        serial.write(enable ? "Rae" : "Rad");
+        serialDevice.write(enable ? "Rae" : "Rad");
     }
 
     @Override
     public void resetRegulatorAngle() {
         logger.info("resetRegulatorAngle");
-        serial.write("Rar");
+        serialDevice.write("Rar");
     }
 
     @Override
     public void enableRegulatorDistance(boolean enable) {
         logger.info("enableRegulatorDistance : " + enable);
-        serial.write(enable ? "Rde" : "Rdd");
+        serialDevice.write(enable ? "Rde" : "Rdd");
     }
 
     @Override
     public void resetRegulatorDistance() {
         logger.info("resetRegulatorDistance");
-        serial.write("Rdr");
+        serialDevice.write("Rdr");
     }
 
     @Override
     public void enableMotors(boolean enable) {
         logger.info("enable motors " + enable);
-        serial.write("M" + (enable ? 1 : 0));
+        serialDevice.write("M" + (enable ? 1 : 0));
+    }
+
+    private void startSerialReader() {
+        Thread serialReaderThread = new Thread(() -> {
+            // We use a buffered reader to handle the data received from the serial port
+            BufferedReader br = new BufferedReader(new InputStreamReader(this.serialDevice.getInputStream()));
+            Serial serial = this.serialDevice.getSerial();
+
+            try {
+                // Data from the asserv is recieved in lines
+                String line = "";
+
+                // Read data
+                while (true) {
+                    // First we need to check if there is data available to read.
+                    // The read() command for pigio-serial is a NON-BLOCKING call,
+                    // in contrast to typical java input streams.
+                    var available = serial.available();
+                    if (available > 0) {
+                        for (int i = 0; i < available; i++) {
+                            byte b = (byte) br.read();
+                            if (b < 32) {
+                                // All non-string bytes are handled as line breaks
+                                if (!line.isEmpty()) {
+                                    // Here we should add code to parse the data to a GPS data object
+                                    this.logger.trace("Position : " + line);
+                                    parseAsservPosition(line);
+                                    line = "";
+                                }
+                            } else {
+                                line += (char) b;
+                            }
+                        }
+                    } else {
+                        Thread.sleep(10);
+                    }
+                }
+            } catch (Exception e) {
+                this.logger.error("Error reading data from serial: " + e.getMessage());
+            }
+        }, "SerialReader");
+        serialReaderThread.setDaemon(true);
+        serialReaderThread.start();
     }
 
     /**

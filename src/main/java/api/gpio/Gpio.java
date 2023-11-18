@@ -1,23 +1,20 @@
 package api.gpio;
 
-import com.pi4j.io.gpio.GpioPinDigital;
-import com.pi4j.io.gpio.PinPullResistance;
-import com.pi4j.io.gpio.PinState;
+import com.pi4j.io.gpio.digital.Digital;
 
 /**
  * Gpio abstract class
- *
  * Représentation des GPIOs pour une gpio pi via la libraire Pi4J
  * Attention, le mapping de PI4J ne correspond pas à ce que l'on trouve habituellement en cherche le pinout d'une gpio !
- * @see <a href="http://pi4j.com/usage.html">Pi4J Usage</a>
- * @see <a href="http://pi4j.com/pins/model-3b-rev1.html">Raspberry Pi 3 Model B - Pin numbering</a>
+ * @see <a href="https://pi4j.com/documentation/build-io/">Pi4J Usage</a>
+ * @see <a href="https://pi4j.com/getting-started/understanding-the-pins/">Pin numbering</a>
  */
 public abstract class Gpio {
 
     /**
      * Pi4J GPIO
      */
-    protected GpioPinDigital gpioPinDigital;
+    protected Digital gpioPinDigital;
 
     /**
      * Vérifie si l'état du GPIO est haut
@@ -34,13 +31,4 @@ public abstract class Gpio {
     public boolean isLow() {
         return gpioPinDigital.isLow();
     }
-
-    /**
-     * Désactive le GPIO
-     * @param finalStateLow Etat final de la pin, true pour bas, false pour haut
-     */
-    public void shutdown(boolean finalStateLow) {
-        gpioPinDigital.setShutdownOptions(true, finalStateLow ? PinState.LOW : PinState.HIGH, PinPullResistance.OFF);
-    }
-
 }

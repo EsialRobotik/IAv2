@@ -2,7 +2,6 @@ package actions.a2022;
 
 import actions.*;
 import api.ax12.AX12LinkSerial;
-import api.communication.Serial;
 import api.communication.SerialRxTx;
 import api.qik.Qik;
 import manager.CommunicationManager;

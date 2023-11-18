@@ -10,7 +10,7 @@ import api.ax12.AX12LinkSerial;
 import api.ax12.value.AX12Position;
 import api.camera.Camera;
 import api.communication.HotspotSocket;
-import api.communication.Serial;
+import api.communication.SerialDevice;
 import api.communication.Shell;
 import api.custom.LiftProbe2022;
 import api.gpio.ColorDetector;
@@ -477,8 +477,8 @@ public class Main {
             JsonObject configObject = configRootNode.get("actions").getAsJsonObject();
             JsonObject configSerial = configObject.get("serial").getAsJsonObject();
 
-            Serial serial = new Serial(configSerial.get("serie").getAsString(), configSerial.get("baud").getAsInt());
-            LiftProbe2022 liftProbe2022 = new LiftProbe2022(serial);
+            SerialDevice serialDevice = new SerialDevice(configSerial.get("serie").getAsString(), configSerial.get("baud").getAsInt());
+            LiftProbe2022 liftProbe2022 = new LiftProbe2022(serialDevice);
 
             JsonObject configAx12 = configObject.get("ax12").getAsJsonObject();
             SerialPort spax12 = AX12LinkSerial.getSerialPort(configAx12.get("serie").getAsString());

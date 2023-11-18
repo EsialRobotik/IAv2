@@ -1,6 +1,6 @@
 package api.qik;
 
-import api.communication.Serial;
+import api.communication.SerialDevice;
 import api.log.LoggerFactory;
 import asserv.Asserv;
 import com.google.gson.JsonObject;
@@ -126,7 +126,7 @@ public class Qik {
     /**
      * Serial link
      */
-    protected Serial serial;
+    protected SerialDevice serialDevice;
 
     /**
      * Logger
@@ -140,8 +140,8 @@ public class Qik {
         Baud baudRate = Baud.getInstance(config.get("baud").getAsInt());
 
         this.logger.info("Initialisation de la liaison série Qik, port =  " + serialPort + ", baudRate = " + baudRate.getValue());
-        this.serial = new Serial(serialPort, baudRate);
-        this.serial.write(0xAA); // permet à la Qik de détecter la vitesse de communication entre 1200 et 38400 bps
+        this.serialDevice = new SerialDevice(serialPort, baudRate);
+        this.serialDevice.write(0xAA); // permet à la Qik de détecter la vitesse de communication entre 1200 et 38400 bps
     }
 
     /**
@@ -149,8 +149,8 @@ public class Qik {
      * '1' ou '2')
      */
     public char getFirmwareVersion() throws IOException {
-        serial.write(QIK_GET_FIRMWARE_VERSION);
-        return (char) serial.getInputStream().read();
+        serialDevice.write(QIK_GET_FIRMWARE_VERSION);
+        return (char) serialDevice.getInputStream().read();
     }
 
     /**
@@ -205,8 +205,8 @@ public class Qik {
      * @throws IOException
      */
     public int getErrors() throws IOException {
-        serial.write(QIK_GET_ERROR_BYTE);
-        return serial.getInputStream().read();
+        serialDevice.write(QIK_GET_ERROR_BYTE);
+        return serialDevice.getInputStream().read();
     }
 
     /**
@@ -216,9 +216,9 @@ public class Qik {
      * @throws IOException
      */
     public int getConfigurationParameter(int parameter) throws IOException {
-        serial.write(QIK_GET_CONFIGURATION_PARAMETER);
-        serial.write(parameter);
-        return serial.getInputStream().read();
+        serialDevice.write(QIK_GET_CONFIGURATION_PARAMETER);
+        serialDevice.write(parameter);
+        return serialDevice.getInputStream().read();
     }
 
     /**
@@ -229,12 +229,12 @@ public class Qik {
      * @throws IOException
      */
     public int setConfigurationParameter(int parameter, int value) throws IOException {
-        serial.write(QIK_SET_CONFIGURATION_PARAMETER);
-        serial.write(parameter);
-        serial.write(value);
-        serial.write(0x55);
-        serial.write(0x2A);
-        return serial.getInputStream().read();
+        serialDevice.write(QIK_SET_CONFIGURATION_PARAMETER);
+        serialDevice.write(parameter);
+        serialDevice.write(value);
+        serialDevice.write(0x55);
+        serialDevice.write(0x2A);
+        return serialDevice.getInputStream().read();
     }
 
     /**
@@ -258,11 +258,11 @@ public class Qik {
 
         if (speed > 127) {
             // 8-bit mode: actual speed is (speed + 128)
-            serial.write(reverse ? QIK_MOTOR_M0_REVERSE_8_BIT : QIK_MOTOR_M0_FORWARD_8_BIT);
-            serial.write(speed - 128);
+            serialDevice.write(reverse ? QIK_MOTOR_M0_REVERSE_8_BIT : QIK_MOTOR_M0_FORWARD_8_BIT);
+            serialDevice.write(speed - 128);
         } else {
-            serial.write(reverse ? QIK_MOTOR_M0_REVERSE : QIK_MOTOR_M0_FORWARD);
-            serial.write(speed);
+            serialDevice.write(reverse ? QIK_MOTOR_M0_REVERSE : QIK_MOTOR_M0_FORWARD);
+            serialDevice.write(speed);
         }
     }
 
@@ -287,11 +287,11 @@ public class Qik {
 
         if (speed > 127) {
             // 8-bit mode: actual speed is (speed + 128)
-            serial.write(reverse ? QIK_MOTOR_M1_REVERSE_8_BIT : QIK_MOTOR_M1_FORWARD_8_BIT);
-            serial.write(speed - 128);
+            serialDevice.write(reverse ? QIK_MOTOR_M1_REVERSE_8_BIT : QIK_MOTOR_M1_FORWARD_8_BIT);
+            serialDevice.write(speed - 128);
         } else {
-            serial.write(reverse ? QIK_MOTOR_M1_REVERSE : QIK_MOTOR_M1_FORWARD);
-            serial.write(speed);
+            serialDevice.write(reverse ? QIK_MOTOR_M1_REVERSE : QIK_MOTOR_M1_FORWARD);
+            serialDevice.write(speed);
         }
     }
 
@@ -320,7 +320,7 @@ public class Qik {
      * @throws IOException
      */
     public void setM0Coast() throws IOException {
-        serial.write(QIK_2S9V1_MOTOR_M0_COAST);
+        serialDevice.write(QIK_2S9V1_MOTOR_M0_COAST);
     }
 
     /**
@@ -332,7 +332,7 @@ public class Qik {
      * @throws IOException
      */
     public void setM1Coast() throws IOException {
-        serial.write(QIK_2S9V1_MOTOR_M1_COAST);
+        serialDevice.write(QIK_2S9V1_MOTOR_M1_COAST);
     }
 
     /**

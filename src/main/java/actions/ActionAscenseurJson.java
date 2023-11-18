@@ -1,6 +1,5 @@
 package actions;
 
-import api.communication.Serial;
 import api.communication.SerialRxTx;
 import api.log.LoggerFactory;
 import com.google.gson.JsonElement;
@@ -8,14 +7,12 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
-import com.pi4j.io.serial.SerialDataEventListener;
 import manager.CommunicationManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class ActionAscenseurJson implements ActionExecutor {
 

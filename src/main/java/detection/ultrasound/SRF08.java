@@ -1,6 +1,6 @@
 package detection.ultrasound;
 
-import api.communication.I2C;
+import api.communication.I2CDevice;
 import api.log.LoggerFactory;
 import asserv.Position;
 import org.apache.logging.log4j.Level;
@@ -15,7 +15,7 @@ public class SRF08 implements UltraSoundInterface {
 
     private static long TIMEOUT = 65; // If no change after 65ms, it's a timeout
 
-    private I2C i2cDevice;
+    private I2CDevice i2cDevice;
     private Logger logger;
     private SRF08Config currentConfig;
 
@@ -178,7 +178,7 @@ public class SRF08 implements UltraSoundInterface {
                     " and range = "             + currentConfig.range           +
                     " used as : "               + currentConfig.description);
 
-        this.i2cDevice = new I2C(currentConfig.i2cAddress);
+        this.i2cDevice = new I2CDevice(currentConfig.i2cAddress);
         this.init();
     }
 

@@ -1,15 +1,11 @@
 package api.gpio;
 
-import com.pi4j.io.gpio.*;
-import com.pi4j.io.gpio.event.GpioPinListenerDigital;
-import com.pi4j.io.gpio.impl.PinImpl;
-import com.pi4j.util.CommandArgumentParser;
-
-import java.util.EnumSet;
+import api.Pi4JContext;
+import com.pi4j.io.gpio.digital.DigitalInput;
+import com.pi4j.io.gpio.digital.PullResistance;
 
 /**
  * Raspberry GPIO Input wrapper
- *
  * Crée un GPIO en entrée
  */
 public class GpioInput extends Gpio {
@@ -20,44 +16,16 @@ public class GpioInput extends Gpio {
      * @param pullUp true pour un GPIO en pull up, false pour du pull in
      */
     public GpioInput(int gpioPin, boolean pullUp) {
-        final GpioController gpio = GpioFactory.getInstance();
-
-        Pin pin = new PinImpl(RaspiGpioProvider.NAME,
-                gpioPin,
-                "GPIO " + gpioPin,
-                EnumSet.of(PinMode.DIGITAL_INPUT, PinMode.DIGITAL_OUTPUT, PinMode.SOFT_PWM_OUTPUT),
-                PinPullResistance.all(),
-                EnumSet.allOf(PinEdge.class));
-        PinPullResistance pull = CommandArgumentParser.getPinPullResistance(
-                pullUp ? PinPullResistance.PULL_UP : PinPullResistance.PULL_DOWN  // default pin pull resistance if no pull argument found
-        );
-        gpioPinDigital =  gpio.provisionDigitalInputPin(pin, pull);
+        var pi4j = Pi4JContext.getInstance();
+        var config = DigitalInput.newConfigBuilder(pi4j)
+                .id("input" + gpioPin)
+                .name("input" + gpioPin)
+                .address(gpioPin)
+                .pull(pullUp ? PullResistance.PULL_UP : PullResistance.PULL_DOWN)
+                .debounce(0L)
+                .provider("pigpio-digital-input");
+        gpioPinDigital= pi4j.create(config);
     }
-
-    /**
-     * Ajoute des listeners
-     * @param listeners GPIO listeners
-     */
-    public void addListener(GpioPinListenerDigital... listeners) {
-        ((GpioPinDigitalInput)gpioPinDigital).addListener(listeners);
-    }
-
-    /**
-     * Supprime des listeners
-     * @param listeners GPIO listeners
-     */
-    public void removeListener(GpioPinListenerDigital... listeners) {
-        ((GpioPinDigitalInput)gpioPinDigital).removeListener(listeners);
-    }
-
-    /**
-     * Supprime tous les listeners
-     */
-    public void removeAllListener() {
-        ((GpioPinDigitalInput)gpioPinDigital).removeAllListeners();
-    }
-
-    // On ajoute les triggers ou pas ? c'est des events liés à l'état d'une autre pin
 
     public static void main(String args[]) throws InterruptedException {
         GpioInput input = new GpioInput(4, false); // Tirette

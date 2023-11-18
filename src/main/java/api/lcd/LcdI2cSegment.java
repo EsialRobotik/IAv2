@@ -1,6 +1,6 @@
 package api.lcd;
 
-import api.communication.I2C;
+import api.communication.I2CDevice;
 import api.log.LoggerFactory;
 import org.apache.logging.log4j.Logger;
 
@@ -12,7 +12,7 @@ import org.apache.logging.log4j.Logger;
  */
 public class LcdI2cSegment implements LCD {
 
-    private I2C i2cDevice;
+    private I2CDevice i2cDevice;
     private Logger logger;
 
     // Default address and line counts
@@ -86,7 +86,7 @@ public class LcdI2cSegment implements LCD {
                 + "on I2C address " + String.format("0x%X", i2cAddress));
         this.lines = new String[lineCount];
         this.lineLength = lineLength;
-        this.i2cDevice = new I2C(i2cAddress);
+        this.i2cDevice = new I2CDevice(i2cAddress);
 
         i2cWrite(0x3);
         i2cWrite(0x3);

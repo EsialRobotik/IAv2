@@ -2,13 +2,10 @@ package api.lidar.link;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 
-import api.communication.Serial;
+import api.communication.SerialDevice;
 import api.lidar.utils.LidarHelper;
 import com.pi4j.io.serial.Baud;
-import gnu.io.SerialPort;
-import gnu.io.UnsupportedCommOperationException;
 
 /**
  * Proxy pour accéder au port de communication du Lidar
@@ -18,12 +15,12 @@ import gnu.io.UnsupportedCommOperationException;
  */
 public class RpLidarLink {
 
-	protected Serial serial;
+	protected SerialDevice serialDevice;
 	protected InputStream in;
 
 	public RpLidarLink(String sp) throws IOException {
-		this.serial = new Serial(sp, Baud._115200);
-		this.in = this.serial.getInputStream();
+		this.serialDevice = new SerialDevice(sp, Baud._115200);
+		this.in = this.serialDevice.getInputStream();
 	}
 	
 	/**
@@ -42,7 +39,7 @@ public class RpLidarLink {
 	}
 
 	public void write(byte[] b) throws IOException {
-		this.serial.write(b);
+		//this.serialDevice.write(b);
 	}
 
 	/**
@@ -52,7 +49,7 @@ public class RpLidarLink {
 	 * @throws IOException
 	 */
 	public void enableRotation(boolean enable) {
-		this.serial.setDTR(!enable);
+		//this.serialDevice.setDTR(!enable);
 	}
 	
 	/**
