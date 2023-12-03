@@ -270,7 +270,7 @@ public class Asserv implements AsservInterface {
                 // Read data
                 while (true) {
                     // First we need to check if there is data available to read.
-                    // The read() command for pigio-serial is a NON-BLOCKING call,
+                    // The read() command for pigpio-serial is a NON-BLOCKING call,
                     // in contrast to typical java input streams.
                     int available = serial.available();
                     if (available > 0) {

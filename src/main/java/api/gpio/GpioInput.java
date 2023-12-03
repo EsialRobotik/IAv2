@@ -24,8 +24,7 @@ public class GpioInput extends Gpio {
                 .name("input" + gpioPin)
                 .address(gpioPin)
                 .pull(pullUp ? PullResistance.PULL_UP : PullResistance.PULL_DOWN)
-                .debounce(0L)
-                .provider("pigpio-digital-input");
+                .debounce(0L);
         gpioPinDigital= pi4j.create(config);
     }
 

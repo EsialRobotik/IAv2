@@ -24,8 +24,7 @@ public class GpioOutput extends Gpio {
                 .name("output" + gpioPin)
                 .address(gpioPin)
                 .shutdown(initialLow ? DigitalState.LOW : DigitalState.HIGH)
-                .initial(initialLow ? DigitalState.LOW : DigitalState.HIGH)
-                .provider("pigpio-digital-output");
+                .initial(initialLow ? DigitalState.LOW : DigitalState.HIGH);
         gpioPinDigital = pi4j.create(config);
     }
 

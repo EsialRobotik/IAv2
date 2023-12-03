@@ -40,17 +40,14 @@ public class I2CDevice {
         logger = LoggerFactory.getLogger(I2CDevice.class);
         this.deviceAddress = deviceAddress;
         Context pi4j = Pi4JContext.getInstance();
-        I2CProvider i2CProvider = pi4j.provider("pigpio-i2c");
-        I2CConfig i2cConfig = I2C
-            .newConfigBuilder(pi4j)
-            .id("" + deviceAddress)
-            .bus(1)
-            .device(deviceAddress)
-            .build();
-
         try {
             logger.info(String.format("I2C 0x%02X init", deviceAddress));
-            i2CDevice = i2CProvider.create(i2cConfig);
+            i2CDevice = pi4j.create(I2C.newConfigBuilder(pi4j)
+                    .id("" + deviceAddress)
+                    .name("" + deviceAddress)
+                    .bus(1)
+                    .device(deviceAddress)
+                    .build());
         } catch (Exception e) {
             logger.error(String.format("I2C 0x%02X init fail : " + e.getMessage(), deviceAddress));
         }

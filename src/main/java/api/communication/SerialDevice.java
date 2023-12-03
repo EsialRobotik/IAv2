@@ -52,7 +52,6 @@ public class SerialDevice {
                 .flowControl(FlowControl.NONE)
                 .id(serialPort)
                 .device(serialPort)
-                .provider("pigpio-serial")
                 .build()
         );
         try {
@@ -82,7 +81,6 @@ public class SerialDevice {
                 .flowControl(FlowControl.NONE)
                 .id(serialPort)
                 .device(serialPort)
-                .provider("pigpio-serial")
                 .build()
         );
         try {
