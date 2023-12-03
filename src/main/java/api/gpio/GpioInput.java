@@ -1,7 +1,9 @@
 package api.gpio;
 
 import api.Pi4JContext;
+import com.pi4j.context.Context;
 import com.pi4j.io.gpio.digital.DigitalInput;
+import com.pi4j.io.gpio.digital.DigitalInputConfigBuilder;
 import com.pi4j.io.gpio.digital.PullResistance;
 
 /**
@@ -16,8 +18,8 @@ public class GpioInput extends Gpio {
      * @param pullUp true pour un GPIO en pull up, false pour du pull in
      */
     public GpioInput(int gpioPin, boolean pullUp) {
-        var pi4j = Pi4JContext.getInstance();
-        var config = DigitalInput.newConfigBuilder(pi4j)
+        Context pi4j = Pi4JContext.getInstance();
+        DigitalInputConfigBuilder config = DigitalInput.newConfigBuilder(pi4j)
                 .id("input" + gpioPin)
                 .name("input" + gpioPin)
                 .address(gpioPin)

@@ -2,6 +2,7 @@ package api.communication;
 
 import api.Pi4JContext;
 import api.log.LoggerFactory;
+import com.pi4j.context.Context;
 import com.pi4j.io.i2c.I2C;
 import com.pi4j.io.i2c.I2CConfig;
 import com.pi4j.io.i2c.I2CProvider;
@@ -38,7 +39,7 @@ public class I2CDevice {
     public I2CDevice(int deviceAddress) {
         logger = LoggerFactory.getLogger(I2CDevice.class);
         this.deviceAddress = deviceAddress;
-        var pi4j = Pi4JContext.getInstance();
+        Context pi4j = Pi4JContext.getInstance();
         I2CProvider i2CProvider = pi4j.provider("pigpio-i2c");
         I2CConfig i2cConfig = I2C
             .newConfigBuilder(pi4j)

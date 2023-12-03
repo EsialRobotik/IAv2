@@ -1,7 +1,9 @@
 package api.gpio;
 
 import api.Pi4JContext;
+import com.pi4j.context.Context;
 import com.pi4j.io.gpio.digital.DigitalOutput;
+import com.pi4j.io.gpio.digital.DigitalOutputConfigBuilder;
 import com.pi4j.io.gpio.digital.DigitalState;
 
 /**
@@ -16,8 +18,8 @@ public class GpioOutput extends Gpio {
      * @param initialLow Etat initiale de la pin, true pour bas, false pour haut
      */
     public GpioOutput(int gpioPin, boolean initialLow) {
-        var pi4j = Pi4JContext.getInstance();
-        var config = DigitalOutput.newConfigBuilder(pi4j)
+        Context pi4j = Pi4JContext.getInstance();
+        DigitalOutputConfigBuilder config = DigitalOutput.newConfigBuilder(pi4j)
                 .id("output" + gpioPin)
                 .name("output" + gpioPin)
                 .address(gpioPin)

@@ -2,6 +2,7 @@ package api.communication;
 
 import api.Pi4JContext;
 import api.log.LoggerFactory;
+import com.pi4j.context.Context;
 import com.pi4j.io.serial.*;
 import org.apache.logging.log4j.Logger;
 
@@ -41,7 +42,7 @@ public class SerialDevice {
         logger = LoggerFactory.getLogger(SerialDevice.class);
         logger.info("Serial " + serialPort + " init at baud " + baudRate.getValue());
         this.serialPort = serialPort;
-        var pi4j = Pi4JContext.getInstance();
+        Context pi4j = Pi4JContext.getInstance();
         this.serial = pi4j.create(
             Serial.newConfigBuilder(pi4j)
                 .baud(baudRate)
@@ -71,7 +72,7 @@ public class SerialDevice {
 
         logger.info("Serial " + serialPort + " init at baud " + baudRate);
         this.serialPort = serialPort;
-        var pi4j = Pi4JContext.getInstance();
+        Context pi4j = Pi4JContext.getInstance();
         this.serial = pi4j.create(
             Serial.newConfigBuilder(pi4j)
                 .baud(baudRate)
