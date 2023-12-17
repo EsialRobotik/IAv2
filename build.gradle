@@ -49,17 +49,20 @@ tasks.named("build") {
 }
 
 // SSH deploy
-task deployBigPrincess(dependsOn: ["build"]) {
+tasks.register("deployBigPrincess") {
+    dependsOn("build")
     doLast {
         ssh.run {
             session(remotes.bigPrincessPi) {
                 put from: projectHome + '/build/distribution/', into: 'IA'
-                put from: projectHome + '/config/2023/config.json', into: 'IA'
-                put from: projectHome + '/config/2023/configCollection.json', into: 'IA'
-                put from: projectHome + '/config/2023/table.json', into: 'IA'
-                put from: projectHome + '/config/2023/table0.tbl', into: 'IA'
-                put from: projectHome + '/config/2023/table3000.tbl', into: 'IA'
+                put from: projectHome + '/config/' + year + '/config.json', into: 'IA'
+                put from: projectHome + '/config/' + year + '/configCollection.json', into: 'IA'
+                put from: projectHome + '/config/' + year + '/table.json', into: 'IA'
+                put from: projectHome + '/config/' + year + '/table0.tbl', into: 'IA'
+                put from: projectHome + '/config/' + year + '/table3000.tbl', into: 'IA'
                 put from: projectHome + '/src/main/java/esialrobotik/ia/actions/a2023/actions/', into: 'IA'
+                execute 'sudo mv IA/distribution/* IA/'
+                execute 'sudo rm -rf IA/distribution'
                 execute 'sudo rm -rf IA/webRootDir/*'
                 execute 'sudo sync'
             }
@@ -67,17 +70,20 @@ task deployBigPrincess(dependsOn: ["build"]) {
     }
 }
 
-task deploySmallPrincess(dependsOn: ["build"]) {
+tasks.register("deploySmallPrincess") {
+    dependsOn("build")
     doLast {
         ssh.run {
             session(remotes.smallPrincessPi) {
-                put from: 'build/libs/esialrobotik.ia-3.0-all.jar', into: 'IA'
-                put from: 'config/2023/config_PMI.json', into: 'IA/config.json'
-                put from: 'config/2023/configCollectionPmi.json', into: 'IA'
-                put from: 'config/2023/table.json', into: 'IA'
-                put from: 'config/2023/table0.tbl', into: 'IA'
-                put from: 'config/2023/table3000.tbl', into: 'IA'
-                put from: 'src/main/java/esialrobotik.ia.actions/a2023/esialrobotik.ia.actions/', into: 'IA'
+                put from: projectHome + '/build/distribution/', into: 'IA'
+                put from: projectHome + '/config/' + year + '/config_PMI.json', into: 'IA/config.json'
+                put from: projectHome + '/config/' + year + '/configCollectionPmi.json', into: 'IA'
+                put from: projectHome + '/config/' + year + '/table.json', into: 'IA'
+                put from: projectHome + '/config/' + year + '/table0.tbl', into: 'IA'
+                put from: projectHome + '/config/' + year + '/table3000.tbl', into: 'IA'
+                put from: projectHome + '/src/main/java/esialrobotik/ia/actions/a2023/actions/', into: 'IA'
+                execute 'sudo mv IA/distribution/* IA/'
+                execute 'sudo rm -rf IA/distribution'
                 execute 'sudo rm -rf IA/webRootDir/*'
                 execute 'sudo sync'
             }
@@ -85,7 +91,7 @@ task deploySmallPrincess(dependsOn: ["build"]) {
     }
 }
 
-task fetchActionsBigPrincess {
+tasks.register("fetchActionsBigPrincess") {
     doLast {
         ssh.run {
             session(remotes.bigPrincessPi) {
@@ -95,7 +101,7 @@ task fetchActionsBigPrincess {
     }
 }
 
-task fetchActionSmallPrincess {
+tasks.register("fetchActionSmallPrincess") {
     doLast {
         ssh.run {
             session(remotes.smallPrincessPi) {
