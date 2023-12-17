@@ -1,0 +1,46 @@
+package esialrobotik.ia.actions.reflexive;
+
+import esialrobotik.ia.actions.ActionReflexiveAbstract;
+import esialrobotik.ia.actions.a2022.ActionFileBinder;
+
+public class FenwickSoloPutStatuette extends ActionReflexiveAbstract {
+
+    public FenwickSoloPutStatuette(ActionFileBinder actionFileBinder) {
+        super(actionFileBinder);
+    }
+
+    @Override
+    public void execute() {
+        logger.info("Start action " + this.getClass());
+        if (finished) {
+            logger.info("Action already finished " + this.getClass());
+            return;
+        }
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                executeSubActions(ActionFileBinder.ActionFile.FENWICK_IN_FAKE.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.FENWICK_SOLO_ASCENSCEUR_GET_STATUETTE_TOP.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_POMPE_RELEASE.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.FENWICK_SOLO_ASCENSCEUR_PUT_STATUETTE.ordinal());
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                executeSubActions(ActionFileBinder.ActionFile.FENWICK_SOLO_ASCENSCEUR_PUT_STATUETTE_BIS.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.FENWICK_SOLO_ASCENSCEUR_PUT_STATUETTE.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.FENWICK_SOLO_ASCENSCEUR_PUT_STATUETTE_BIS.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.FENWICK_SOLO_ASCENSCEUR_PUT_STATUETTE.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.FENWICK_SOLO_ASCENSCEUR_PUT_STATUETTE_BIS.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.FENWICK_SOLO_ASCENSCEUR_PUT_STATUETTE.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.FENWICK_SOLO_ASCENSCEUR_PUT_STATUETTE_BIS.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.PASSPASS_VITRINE_ALLUMER.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.FENWICK_SOLO_ASCENSCEUR_GET_STATUETTE_TOP.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.FENWICK_IN.ordinal());
+                finished = true;
+            }
+        }).start();
+    }
+}
