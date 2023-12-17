@@ -29,6 +29,7 @@ import com.pi4j.util.Console;
 import gnu.io.SerialPort;
 import esialrobotik.ia.manager.ConfigurationManager;
 import esialrobotik.ia.manager.DetectionManager;
+import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Logger;
 import esialrobotik.ia.pathfinding.PathFinding;
 import esialrobotik.ia.pathfinding.table.Point;
@@ -104,27 +105,7 @@ public class Main {
     }
 
     public static void main(String[] args) throws Exception {
-        var pi4j = Pi4J.newAutoContext();
-        var buttonConfig = DigitalInput.newConfigBuilder(pi4j)
-                .id("button")
-                .name("Press button")
-                .address(24)
-                .pull(PullResistance.PULL_DOWN)
-                .debounce(3000L)
-                .provider("pigpio-digital-input");
-        var button = pi4j.create(buttonConfig);
-        button.addListener(e -> {
-            if (e.state() == DigitalState.LOW) {
-                System.out.println("Button was pressed !!!");
-            }
-        });
-
-        while (true) {
-            Thread.sleep(100);
-        }
-
-
-        /*if (args.length >= 2) {
+        if (args.length >= 2) {
 
             if (args.length == 3 ) {
                 configFilePath = args[2];
@@ -220,7 +201,7 @@ public class Main {
             System.out.println("L'IA attends 2 arguments pour demarrer");
             printUsage();
             return;
-        }*/
+        }
     }
 
     private static void printUsage() {

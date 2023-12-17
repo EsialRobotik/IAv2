@@ -43,6 +43,7 @@ public class I2CDevice {
                     .name("" + deviceAddress)
                     .bus(1)
                     .device(deviceAddress)
+                    .provider("pigpio-i2c")
                     .build());
         } catch (Exception e) {
             logger.error(String.format("I2C 0x%02X init fail : " + e.getMessage(), deviceAddress));

@@ -1,5 +1,7 @@
 package esialrobotik.ia.api.gpio;
 
+import com.pi4j.Pi4J;
+import com.pi4j.io.gpio.digital.DigitalState;
 import esialrobotik.ia.api.Pi4JContext;
 import com.pi4j.context.Context;
 import com.pi4j.io.gpio.digital.DigitalInput;
@@ -24,7 +26,8 @@ public class GpioInput extends Gpio {
                 .name("input" + gpioPin)
                 .address(gpioPin)
                 .pull(pullUp ? PullResistance.PULL_UP : PullResistance.PULL_DOWN)
-                .debounce(0L);
+                .debounce(0L)
+                .provider("pigpio-digital-input");
         gpioPinDigital= pi4j.create(config);
     }
 
