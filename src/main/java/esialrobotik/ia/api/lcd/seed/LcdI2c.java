@@ -47,7 +47,8 @@ public class LcdI2c implements LCD {
     public void println(String str) {
         logger.info("Print : " + str);
         int Y_Present = i2cDevice.read(LcdRegAddress.CharYPosRegAddr.address);
-        int fontIndex = i2cDevice.read(LcdRegAddress.FontModeRegAddr.address) & 0x0f;
+        int fontIndex = i2cDevice.read(LcdRegAddress.FontModeRegAddr.address);
+        fontIndex = fontIndex & 0x0f;
         if (Y_Present + 2 * fontYsizeTab[fontIndex] <= I2C_LCD_Y_SIZE_MAX) {
             this.dispStringAt(str,0, fontYsizeTab[fontIndex] + Y_Present);
         } else {
@@ -59,7 +60,7 @@ public class LcdI2c implements LCD {
     @Override
     public void clear() {
         logger.info("Clear screen");
-        this.cleanAll((byte) LcdColorSort.WHITE.value);
+        this.cleanAll(LcdColorSort.WHITE.value);
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {
@@ -326,7 +327,7 @@ public class LcdI2c implements LCD {
         i2cDevice.write(LcdRegAddress.DeviceAddressRegAddr.address, buf);
     }
 
-    private void cleanAll(byte color)
+    private void cleanAll(int color)
     {
         int buf;
         buf = i2cDevice.read(LcdRegAddress.DisplayConfigRegAddr.address);

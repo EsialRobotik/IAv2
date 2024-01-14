@@ -49,9 +49,9 @@ public enum LcdRegAddress {
     ContrastConfigRegAddr (131),
     DeviceAddressRegAddr (132);
 
-    public byte address;
+    public int address;
 
     LcdRegAddress(int address) {
-        this.address = (byte)address;
+        this.address = address;
     }
 }

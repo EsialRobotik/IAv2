@@ -154,23 +154,22 @@ public class SRF08 implements UltraSoundInterface {
 
         currentConfig.description = config.description;
 
-
-        if(config.i2cAddress > 0x77 || config.i2cAddress < 0x70) {
+        if (config.i2cAddress > 0x77 || config.i2cAddress < 0x70) {
             logger.error("Given I2C address is not within given range [0x70 : 0x77] : " + config.range + ". Default value used instead : " + DEFAULT_I2C_ADDRESS);
-        }else {
+        } else {
             currentConfig.i2cAddress = config.i2cAddress;
         }
 
-        if(config.maxAnalogGain > 31) {
+        if (config.maxAnalogGain > 31) {
             logger.error("Given analog Gain is too high : " + config.maxAnalogGain + ". Dafault value used instead : MAX_ANALOG_GAIN_1025 = " + MAX_ANALOG_GAIN_1025);
-        }else{
+        } else{
             currentConfig.maxAnalogGain = config.maxAnalogGain;
         }
 
-        if(config.range > 255) {
+        if (config.range > 255) {
             logger.error("Given range is too high : " + config.range + ". Default value used instead : RANGE_VALUE_11008MM = " + RANGE_VALUE_11008MM);
             currentConfig.range = RANGE_VALUE_11008MM;
-        }else{
+        } else{
             currentConfig.range = config.range;
         }
         logger.info("Initializing SRF08 on I2C address " + String.format("0x%X", currentConfig.i2cAddress) +

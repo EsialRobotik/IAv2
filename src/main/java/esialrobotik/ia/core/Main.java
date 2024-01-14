@@ -1,5 +1,8 @@
 package esialrobotik.ia.core;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.pi4j.io.serial.Baud;
 import esialrobotik.ia.actions.ActionCollection;
 import esialrobotik.ia.actions.ActionExecutor;
 import esialrobotik.ia.actions.a2023.ActionFileBinder;
@@ -17,25 +20,19 @@ import esialrobotik.ia.api.gpio.Tirette;
 import esialrobotik.ia.api.lcd.LCD;
 import esialrobotik.ia.api.log.LoggerFactory;
 import esialrobotik.ia.api.qik.Qik;
+import esialrobotik.ia.asserv.Asserv;
 import esialrobotik.ia.asserv.AsservInterface;
 import esialrobotik.ia.asserv.Position;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.pi4j.Pi4J;
-import com.pi4j.io.gpio.digital.DigitalInput;
-import com.pi4j.io.gpio.digital.DigitalState;
-import com.pi4j.io.gpio.digital.PullResistance;
-import com.pi4j.util.Console;
-import gnu.io.SerialPort;
 import esialrobotik.ia.manager.ConfigurationManager;
 import esialrobotik.ia.manager.DetectionManager;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.Logger;
 import esialrobotik.ia.pathfinding.PathFinding;
 import esialrobotik.ia.pathfinding.table.Point;
 import esialrobotik.ia.utils.ax12.Ax12MainConsole;
 import esialrobotik.ia.utils.web.AX12Http;
 import esialrobotik.ia.utils.web.ResourcesManager;
+import gnu.io.SerialPort;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
@@ -151,7 +148,7 @@ public class Main {
                     // Exécution normal de l'IA en step by step
                     new Main(true);
                     break;
-                case "esialrobotik.ia.detection":
+                case "detection":
                     // Test de la détection
                     Main.testDetection();
                     break;
@@ -167,8 +164,12 @@ public class Main {
                     // Test shell
                     Main.testShell();
                     break;
-                case "esialrobotik.ia.pathfinding":
+                case "pathfinding":
                     Main.testPathfinding();
+                    break;
+                case "asserv":
+                    // Test asserv connexion
+                    Main.testAsserv();
                     break;
                 case "coupe-off":
                     // Danse de la coupe off
@@ -189,7 +190,7 @@ public class Main {
                 case "hotspot":
                     Main.testHotspot();
                     break;
-                case "esialrobotik.ia.actions":
+                case "actions":
                     Main.testActions();
                     break;
                 case "funny-action":
@@ -265,7 +266,6 @@ public class Main {
         //Load of the configuration first
         ConfigurationManager configurationManager = new ConfigurationManager();
         configurationManager.loadConfiguration(configFilePath, ConfigurationManager.CONFIG_TEST_LCD);
-
         LCD lcd = configurationManager.getLcdDisplay();
         int i = 0;
         while (true) {
@@ -273,6 +273,13 @@ public class Main {
             i++;
             Thread.sleep(250);
         }
+
+        //SRF08Config config = new SRF08Config(0x74, 31, 135, "fuu", 0, 0, 0, 350);
+        //SRF08 srf = new SRF08(config);
+        //while (true) {
+        //    Thread.sleep(250);
+        //    System.out.println(srf.getMeasure());
+        //}
     }
 
     private static void testShell() throws IOException, InterruptedException {
@@ -342,6 +349,17 @@ public class Main {
             System.out.print("["+p.x+","+p.y+"],");
         }
         System.out.println("]");
+    }
+
+    private static void testAsserv() throws IOException, ClassNotFoundException, InvocationTargetException, AX12LinkException, NoSuchMethodException, InstantiationException, IllegalAccessException, InterruptedException {
+        AsservInterface asserv = new Asserv(
+                "/dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_066FFF383133524157185717-if02",
+                Baud._115200
+        );
+        while (true) {
+            System.out.println(asserv.getPosition());
+            Thread.sleep(200);
+        }
     }
 
     private static void coupeOffDance() throws IOException, AX12LinkException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {

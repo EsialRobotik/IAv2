@@ -1,9 +1,9 @@
 package esialrobotik.ia.api.communication;
 
-import esialrobotik.ia.api.Pi4JContext;
-import esialrobotik.ia.api.log.LoggerFactory;
 import com.pi4j.context.Context;
 import com.pi4j.io.i2c.I2C;
+import esialrobotik.ia.api.Pi4JContext;
+import esialrobotik.ia.api.log.LoggerFactory;
 import org.apache.logging.log4j.Logger;
 
 /**
@@ -51,31 +51,13 @@ public class I2CDevice {
     }
 
     /**
-     * Constructeur
-     * @param deviceAddress Adresse du device (ex : 0x39)
-     */
-    public I2CDevice(byte deviceAddress) {
-        this((int) deviceAddress);
-    }
-
-    /**
      * Lit la valeur d'un registre du device via l'I2C
      * @param register Registre à lire
      * @return Valeur du registre
      */
-    public int read(byte register) {
+    public int read(int register) {
         try {
             return i2CDevice.readRegister(register);
-        } catch (Exception e) {
-            logger.error(String.format("I2C 0x%02X read register 0x%02X fail : " + e.getMessage(), deviceAddress, register));
-            return 0;
-        }
-    }
-
-    public int read(byte register, byte[] buffer, int bufferOffset, int size) {
-        try {
-
-            return i2CDevice.readRegister(register, buffer, bufferOffset,size);
         } catch (Exception e) {
             logger.error(String.format("I2C 0x%02X read register 0x%02X fail : " + e.getMessage(), deviceAddress, register));
             return 0;
@@ -91,6 +73,7 @@ public class I2CDevice {
             return 0;
         }
     }
+
     public int read(int address, byte[] buffer, int bufferOffset, int size) {
         try {
 
@@ -101,15 +84,15 @@ public class I2CDevice {
         }
     }
 
-    public void write(byte register, byte value) {
+    public void write(int register, byte value) {
         try {
-            i2CDevice.write(register, value);
+            i2CDevice.writeRegister(register, value);
         } catch (Exception e) {
             logger.error(String.format("I2C 0x%02X write register 0x%02X with value 0x%02X fail : " + e.getMessage(), deviceAddress, register , value));
         }
     }
 
-    public void write(byte register, byte[] data){
+    public void write(int register, byte[] data){
         try {
             i2CDevice.writeRegister(register, data);
         } catch (Exception e) {
