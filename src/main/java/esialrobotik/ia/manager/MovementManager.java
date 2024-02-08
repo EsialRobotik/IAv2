@@ -4,7 +4,7 @@ import esialrobotik.ia.actions.Step;
 import esialrobotik.ia.api.log.LoggerFactory;
 import esialrobotik.ia.asserv.AsservInterface;
 import esialrobotik.ia.asserv.Position;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
 import esialrobotik.ia.pathfinding.table.Point;
 
 import java.util.ArrayList;

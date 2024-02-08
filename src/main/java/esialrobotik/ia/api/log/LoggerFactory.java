@@ -1,16 +1,14 @@
 package esialrobotik.ia.api.log;
 
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.core.config.ConfigurationFactory;
+import org.slf4j.Logger;
+import org.slf4j.event.Level;
 
 public class LoggerFactory {
     private static boolean hasBeenInit = false;
 
     public static void init(final Level level) {
-        ConfigurationFactory.setConfigurationFactory(new CustomConfigurationFactory(level));
         hasBeenInit = true;
+        System.setProperty("org.slf4j.simpleLogger.defaultLogLevel", level.toString());
     }
 
 
@@ -18,10 +16,10 @@ public class LoggerFactory {
         if(!hasBeenInit){
             throw new RuntimeException("Log module hasn't been initialize.");
         }
-        return LogManager.getLogger(clazz);
+        return org.slf4j.LoggerFactory.getLogger(clazz.getName());
     }
 
     public static void shutdown() {
-        LogManager.shutdown();
+        // no-op
     }
 }

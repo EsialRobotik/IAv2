@@ -3,8 +3,8 @@ package esialrobotik.ia.detection.ultrasound;
 import esialrobotik.ia.api.communication.I2CDevice;
 import esialrobotik.ia.api.log.LoggerFactory;
 import esialrobotik.ia.asserv.Position;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.event.Level;
+import org.slf4j.Logger;
 
 /**
  * Created by goldensgui on 15/03/2020.

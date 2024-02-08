@@ -4,7 +4,7 @@ import esialrobotik.ia.actions.ActionExecutor;
 import esialrobotik.ia.actions.ActionSupervisor;
 import esialrobotik.ia.api.communication.HotspotSocket;
 import esialrobotik.ia.api.log.LoggerFactory;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
 import esialrobotik.ia.pathfinding.PathFinding;
 
 import java.net.URISyntaxException;

@@ -4,7 +4,7 @@ import esialrobotik.ia.api.communication.I2CDevice;
 import esialrobotik.ia.api.lcd.LCD;
 import esialrobotik.ia.api.lcd.seed.constants.*;
 import esialrobotik.ia.api.log.LoggerFactory;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
 
 /**
  * LCD 128x64px de SeedStudio

@@ -8,7 +8,7 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
 import esialrobotik.ia.manager.CommunicationManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -67,7 +67,7 @@ public class ActionAscenseurJson implements ActionExecutor {
                                 Thread.sleep(10);
                             }
                         } catch (IOException | InterruptedException e) {
-                            logger.error(e);
+                            logger.error("{}", e);
                         }
                     }
                     logger.info(ActionAscenseurJson.class.getName() + " all commands of " + filename + " finished");
@@ -103,11 +103,11 @@ public class ActionAscenseurJson implements ActionExecutor {
                     }
                 }
             } catch (JsonParseException e) {
-                logger.error(e);
+                logger.error("{}", e);
             }
             jr.close();
         } catch (IOException e) {
-            logger.error(e);
+            logger.error("{}", e);
         }
     }
 

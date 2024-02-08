@@ -9,8 +9,8 @@ import esialrobotik.ia.api.log.LoggerFactory;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import esialrobotik.ia.manager.CommunicationManager;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.event.Level;
+import org.slf4j.Logger;
 
 import java.io.IOException;
 

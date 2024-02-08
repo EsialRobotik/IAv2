@@ -5,7 +5,7 @@ import esialrobotik.ia.api.log.LoggerFactory;
 import esialrobotik.ia.asserv.Asserv;
 import com.google.gson.JsonObject;
 import com.pi4j.io.serial.Baud;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
 
 import java.io.IOException;
 

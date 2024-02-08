@@ -26,7 +26,7 @@ import esialrobotik.ia.detection.DetectionInterfaceImpl;
 import esialrobotik.ia.detection.lidar.LidarInterface;
 import esialrobotik.ia.detection.lidar.RpLidar;
 import gnu.io.SerialPort;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
 import esialrobotik.ia.pathfinding.PathFinding;
 import esialrobotik.ia.pathfinding.table.Table;
 import esialrobotik.ia.pathfinding.table.astar.Astar;

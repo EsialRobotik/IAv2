@@ -4,7 +4,7 @@ import esialrobotik.ia.api.log.LoggerFactory;
 import esialrobotik.ia.asserv.Position;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import org.apache.logging.log4j.Level;
+import org.slf4j.event.Level;
 import esialrobotik.ia.pathfinding.PathFinding;
 import esialrobotik.ia.pathfinding.table.Table;
 import esialrobotik.ia.pathfinding.table.astar.Astar;
@@ -150,7 +150,7 @@ public class MainPmi2023 {
             e.printStackTrace();
         }
 
-        LoggerFactory.init(Level.OFF);
+        LoggerFactory.init(Level.ERROR);
         System.out.println("Test de la strat 0");
         try {
             Table table = new Table("config/2023/table0.tbl");

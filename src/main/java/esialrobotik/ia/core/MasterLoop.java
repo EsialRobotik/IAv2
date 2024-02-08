@@ -11,7 +11,7 @@ import esialrobotik.ia.asserv.Position;
 import esialrobotik.ia.manager.CommunicationManager;
 import esialrobotik.ia.manager.DetectionManager;
 import esialrobotik.ia.manager.MovementManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
 import esialrobotik.ia.pathfinding.PathFinding;
 import esialrobotik.ia.pathfinding.table.Point;
 import esialrobotik.ia.pathfinding.table.TableColor;

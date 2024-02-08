@@ -31,8 +31,8 @@ import esialrobotik.ia.utils.ax12.Ax12MainConsole;
 import esialrobotik.ia.utils.web.AX12Http;
 import esialrobotik.ia.utils.web.ResourcesManager;
 import gnu.io.SerialPort;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.event.Level;
 
 import java.io.File;
 import java.io.IOException;

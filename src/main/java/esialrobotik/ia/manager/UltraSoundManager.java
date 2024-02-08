@@ -4,8 +4,8 @@ package esialrobotik.ia.manager;
 import esialrobotik.ia.api.log.LoggerFactory;
 import esialrobotik.ia.asserv.Position;
 import esialrobotik.ia.detection.DetectionInterface;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.event.Level;
+import org.slf4j.Logger;
 import esialrobotik.ia.pathfinding.table.Point;
 import esialrobotik.ia.pathfinding.table.Table;
 

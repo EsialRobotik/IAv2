@@ -3,7 +3,7 @@ package esialrobotik.ia.api.communication;
 import esialrobotik.ia.api.ax12.AX12LinkSerial;
 import esialrobotik.ia.api.log.LoggerFactory;
 import gnu.io.*;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
