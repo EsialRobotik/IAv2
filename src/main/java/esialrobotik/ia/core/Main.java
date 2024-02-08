@@ -160,6 +160,10 @@ public class Main {
                     // Test du LCD
                     Main.testLcd();
                     break;
+                case "log":
+                    // Test des logs
+                    Main.testLog();
+                    break;
                 case "shell":
                     // Test shell
                     Main.testShell();
@@ -221,6 +225,7 @@ public class Main {
         System.out.println("\t- esialrobotik.ia.detection : Test de la esialrobotik.ia.detection");
         System.out.println("\t- interrupteur : Test interrupteurs");
         System.out.println("\t- lcd : Test de l'écran LCD");
+        System.out.println("\t- log : Test des logs [Migration Log4j -> Slf4j]");
         System.out.println("\t- shell : Test du shell (lance une capture de la caméra et une analyse Aruco)");
         System.out.println("\t- esialrobotik.ia.pathfinding : Test le calcul de esialrobotik.ia.pathfinding");
         System.out.println("\t- coupe-off : Danse de la coupe off");
@@ -660,6 +665,14 @@ public class Main {
             Thread.sleep(500);
             i++;
         }
+    }
+
+    private static void testLog() {
+        Main.logger.error("Test error");
+        Main.logger.warn("Test warn");
+        Main.logger.info("Test info");
+        Main.logger.debug("Test debug");
+        Main.logger.trace("Test trace");
     }
 
     private static void waitForAsserv(AsservInterface asservInterface) {
