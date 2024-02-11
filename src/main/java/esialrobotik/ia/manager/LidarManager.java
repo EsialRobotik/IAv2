@@ -26,7 +26,7 @@ public class LidarManager {
         this.lidar = lidar;
         this.movementManager = movementManager;
 
-        LoggerFactory.init(Level.TRACE);
+        LoggerFactory.setDefaultLevel(Level.TRACE);
         logger = LoggerFactory.getLogger(LidarManager.class);
     }
 

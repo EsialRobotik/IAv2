@@ -96,7 +96,7 @@ public class PathFinding {
     }
 
     public static void main(String[] args) throws Exception {
-        LoggerFactory.init(Level.TRACE);
+        LoggerFactory.setDefaultLevel(Level.TRACE);
         Logger logger = LoggerFactory.getLogger(PathFinding.class);
         logger.info("init logger");
 

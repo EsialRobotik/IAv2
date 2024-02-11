@@ -120,16 +120,16 @@ public class Main {
                     printUsage();
                     return;
                 case "TRACE":
-                    LoggerFactory.init(Level.TRACE);
+                    LoggerFactory.setDefaultLevel(Level.TRACE);
                     break;
                 case "INFO":
-                    LoggerFactory.init(Level.INFO);
+                    LoggerFactory.setDefaultLevel(Level.INFO);
                     break;
                 case "DEBUG":
-                    LoggerFactory.init(Level.DEBUG);
+                    LoggerFactory.setDefaultLevel(Level.DEBUG);
                     break;
                 case "ERROR":
-                    LoggerFactory.init(Level.ERROR);
+                    LoggerFactory.setDefaultLevel(Level.ERROR);
                     break;
             }
             logger = LoggerFactory.getLogger(Main.class);

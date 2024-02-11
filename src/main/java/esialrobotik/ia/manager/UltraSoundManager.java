@@ -37,7 +37,7 @@ public class UltraSoundManager {
     public UltraSoundManager(DetectionInterface detectionInterface, int windowSize, Table table, MovementManager movementManager) {
         this.windowSize = windowSize;
         this.detection = new boolean[detectionInterface.getUltraSoundSensorCount()][windowSize];
-        LoggerFactory.init(Level.TRACE);
+        LoggerFactory.setDefaultLevel(Level.TRACE);
         this.logger = LoggerFactory.getLogger(UltraSoundManager.class);
 
         this.movementManager = movementManager;

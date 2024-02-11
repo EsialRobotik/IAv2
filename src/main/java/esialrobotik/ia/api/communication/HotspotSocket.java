@@ -70,7 +70,7 @@ public class HotspotSocket extends WebSocketClient {
     }
 
     public static void main(String[] args) throws Exception {
-        LoggerFactory.init(Level.TRACE);
+        LoggerFactory.setDefaultLevel(Level.TRACE);
         Logger logger = LoggerFactory.getLogger(HotspotSocket.class);
         logger.info("init logger");
 

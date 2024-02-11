@@ -314,7 +314,7 @@ public class SRF08 implements UltraSoundInterface {
     }
 
     public static void main(String args[]) throws InterruptedException {
-        LoggerFactory.init(Level.INFO);
+        LoggerFactory.setDefaultLevel(Level.INFO);
         System.out.println("Hello SRF08");
         SRF08 srf08FrontRight   = new SRF08(new SRF08Config(0x71, MAX_ANALOG_GAIN_1025, RANGE_VALUE_602MM,"FRight", 0, 0, 0, 0)); // Avant droit
         SRF08 srf08FrontMiddle  = new SRF08(new SRF08Config(0x72, MAX_ANALOG_GAIN_1025, RANGE_VALUE_602MM,"FMid", 0, 0, 0, 0)); // Avant milieu

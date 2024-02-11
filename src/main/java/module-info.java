@@ -53,5 +53,6 @@ module esialrobotik.ia {
     // allow access to classes in the following namespaces for Pi4J annotation processing
     opens esialrobotik.ia.api.gpio to com.pi4j;
     opens esialrobotik.ia.api.camera to com.pi4j;
+    opens esialrobotik.ia.api.log to com.pi4j;
     opens esialrobotik.ia.core to com.pi4j;
 }

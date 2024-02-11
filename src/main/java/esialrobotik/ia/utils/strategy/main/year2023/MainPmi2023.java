@@ -150,7 +150,7 @@ public class MainPmi2023 {
             e.printStackTrace();
         }
 
-        LoggerFactory.init(Level.ERROR);
+        LoggerFactory.setDefaultLevel(Level.ERROR);
         System.out.println("Test de la strat 0");
         try {
             Table table = new Table("config/2023/table0.tbl");

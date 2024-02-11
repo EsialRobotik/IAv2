@@ -280,7 +280,7 @@ public class MainPmi2021 {
 
         System.out.println("Test de la strat");
         try {
-            LoggerFactory.init(Level.ERROR);
+            LoggerFactory.setDefaultLevel(Level.ERROR);
             Table table = new Table("config/2021/table0.tbl");
             table.loadJsonFromFile("config/2021/table.json");
             PathFinding pathFinding = new PathFinding(new Astar(table));
