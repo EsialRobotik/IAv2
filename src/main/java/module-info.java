@@ -33,6 +33,10 @@ module esialrobotik.ia {
     requires org.slf4j;
     requires org.slf4j.simple;
 
+    requires java.logging;
+    requires jdk.unsupported;
+    requires java.desktop;
+
     uses com.pi4j.extension.Extension;
     uses com.pi4j.provider.Provider;
 
@@ -48,7 +52,6 @@ module esialrobotik.ia {
     requires jdk.httpserver;
     requires picam;
     requires rxtx;
-    requires java.desktop;
 
     // allow access to classes in the following namespaces for Pi4J annotation processing
     opens esialrobotik.ia.api.gpio to com.pi4j;
