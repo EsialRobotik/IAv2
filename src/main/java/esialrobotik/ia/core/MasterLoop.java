@@ -11,10 +11,10 @@ import esialrobotik.ia.asserv.Position;
 import esialrobotik.ia.manager.CommunicationManager;
 import esialrobotik.ia.manager.DetectionManager;
 import esialrobotik.ia.manager.MovementManager;
-import org.apache.logging.log4j.Logger;
 import esialrobotik.ia.pathfinding.PathFinding;
 import esialrobotik.ia.pathfinding.table.Point;
 import esialrobotik.ia.pathfinding.table.TableColor;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,17 +106,15 @@ public class MasterLoop {
         movementManager.executeStepDeplacement(currentStep);
 
         lcdDisplay.score(score);
-//        String remainingTime = chrono.toString();
         while (!interrupted) {
             if (!somethingDetected) {
                 // 1/ we check if we detect something
                 boolean[] detected = this.detectionManager.getEmergencyDetectionMap();
-                //System.out.println(Arrays.toString(detected));
                 if (detected[0] || detected[1] || detected[2] || detected[3]) {
                     //We detect something, we get the movement direction and we check if we detect it in the right side
                     AsservInterface.MovementDirection direction = this.movementManager.getMovementDirection();
 
-                    if (direction.equals(AsservInterface.MovementDirection.FORWARD)
+                    if (direction != null && direction.equals(AsservInterface.MovementDirection.FORWARD)
                             && (detected[0] || detected[1] || detected[2])) {
                         logger.info("C'est devant, faut s'arrêter");
                         //We detect something. That's horrible
@@ -125,7 +123,7 @@ public class MasterLoop {
                         somethingDetected = true;
                         continue;
 
-                    } else if (direction.equals(AsservInterface.MovementDirection.BACKWARD)
+                    } else if (direction != null && direction.equals(AsservInterface.MovementDirection.BACKWARD)
                             && detected[3]) {
                         logger.info("C'est derrière, faut s'arrêter");
                         // something is sneaking on us, grab the rocket launcher
@@ -139,6 +137,7 @@ public class MasterLoop {
                 // 2/ Check if the current step Status
                 if (astarLaunch) { //We are computing a path let's check if it's ok now
                     if (pathFinding.isComputationEnded()) {
+                        logger.info("AStar finished");
                         movementManager.executeMovement(pathFinding.getLastComputedPath());
                         astarLaunch = false;
                     }
@@ -207,9 +206,29 @@ public class MasterLoop {
                                 pathFinding.lockElementById(currentStep.getItemId());
                                 communicationManager.sendAddZone(currentStep.getItemId());
                             }
+                        } else if (currentStep.getActionType() == Step.Type.IGNORE_DETECTION) {
+                            // todo casse tout, à fix
+//                            List<Point> points = new ArrayList<>();
+//                            String[] coordinates = currentStep.getItemId().split(";");
+//                            points.add(new Point(Integer.parseInt(coordinates[0]), Integer.parseInt(coordinates[1])));
+//                            points.add(new Point(Integer.parseInt(coordinates[2]), Integer.parseInt(coordinates[3])));
+//                            points.add(new Point(Integer.parseInt(coordinates[4]), Integer.parseInt(coordinates[5])));
+//                            points.add(new Point(Integer.parseInt(coordinates[6]), Integer.parseInt(coordinates[7])));
+//                            if (currentStep.getSubType() == Step.SubType.AJOUT) {
+//                                logger.info("Ajout d'une zone de non détection : " + points);
+//                                pathFinding.addPointsToDetectionIgnoreQuadrilaterium(points);
+//                            } else if (currentStep.getSubType() == Step.SubType.SUPPRESSION) {
+//                                // todo
+//                            }
                         }
+                    } else if (this.movementManager.getAsservStatus() == AsservInterface.AsservStatus.STATUS_BLOCKED
+                        && (currentStep.getSubType() != Step.SubType.GO || currentStep.getTimeout() == 0)) {
+//                        movementManager.haltAsserv(true);
+//                        logger.error("Blocage asserve détecté, faut faire des trucs");
+                        // todo gérer blocage via asservstatus et les infps des moteurs pour avoir une parade au blocage
+                        //  idée en vrac : si 2 moteurs positif, faut reculer, si négatif, avancer, si différent,
+                        //  tourner un peu dans l'autre sens et se dégager
                     }
-                    // todo faut vérifier si la voie est libre, sinon on s'arrête et on recalcul
                 }
             } else { //We detect something last loop. let's check if we still see it, either let's resume the move
                 //If we want to put smart code, it's here
@@ -223,7 +242,75 @@ public class MasterLoop {
                     movementManager.resumeAsserv();
                     somethingDetected = false;
                 } else {
-                    logger.debug("Detection NOK");
+                    // todo bloque si astar ne peux pas résoudre, prévoir un retry ?
+//                    if (currentStep.getSubType() == Step.SubType.GOTO_ASTAR && !astarLaunch) {
+//                        logger.info("Try to use AStar");
+//                        Position[] obstaclePositions = this.detectionManager.getEmergencyDetectionPositions();
+//                        List<Point> detectedPoints = new ArrayList<>();
+//                        int detectedRadius = 200;
+//                        if (movingForward) {
+//                            if (detected[0]) {
+//                                detectedPoints.addAll(pathFinding.getPointsFromShape(new Circle(
+//                                    obstaclePositions[0].getX(),
+//                                    obstaclePositions[0].getY(),
+//                                    detectedRadius
+//                                )));
+//                            }
+//                            if (detected[1]) {
+//                                detectedPoints.addAll(pathFinding.getPointsFromShape(new Circle(
+//                                    obstaclePositions[1].getX(),
+//                                    obstaclePositions[1].getY(),
+//                                    detectedRadius
+//                                )));
+//                            }
+//                            if (detected[2]) {
+//                                detectedPoints.addAll(pathFinding.getPointsFromShape(new Circle(
+//                                    obstaclePositions[2].getX(),
+//                                    obstaclePositions[2].getY(),
+//                                    detectedRadius
+//                                )));
+//                            }
+//                        } else if (!movingForward && detected[3]) {
+//                            detectedPoints.addAll(pathFinding.getPointsFromShape(new Circle(
+//                                obstaclePositions[3].getX(),
+//                                obstaclePositions[3].getY(),
+//                                detectedRadius
+//                            )));
+//                        }
+//                        pathFinding.setDetectedPoints(detectedPoints);
+//                        pathFinding.lockDetectedPoints();
+//                        try {
+//                            logger.info("Start AStar computation");
+//                            launchAstar(positionToPoint(currentStep.getEndPosition()));
+//                            astarLaunch = true;
+//                        } catch (Exception e) {
+//                            logger.error(e.getMessage());
+//                            astarLaunch = false;
+//                        }
+//                    } else {
+//                        logger.debug("On ne peux pas utiliser AStar");
+//                    }
+//
+//                    if (astarLaunch) { //We are computing a path let's check if it's ok now
+//                        if (pathFinding.isComputationEnded()) {
+//                            logger.info("AStar computation finished");
+//                            pathFinding.liberateDetectedPoints();
+//                            if (pathFinding.getLastComputedPath().size() > 0) {
+//                                movementManager.executeMovement(pathFinding.getLastComputedPath());
+//                            }
+//                            astarLaunch = false;
+//                            somethingDetected = false;
+//                        } else {
+//                            logger.debug("Waiting AStar");
+//                        }
+//                        try {
+//                            Thread.sleep(10);
+//                        } catch (InterruptedException e) {
+//                            e.printStackTrace();
+//                        }
+//                    } else {
+//                        logger.debug("Detection NOK");
+//                    }
                 }
             }
             communicationManager.readFromServer();

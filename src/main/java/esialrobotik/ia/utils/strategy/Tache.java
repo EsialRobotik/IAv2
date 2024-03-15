@@ -1,7 +1,7 @@
 package esialrobotik.ia.utils.strategy;
 
-import esialrobotik.ia.asserv.Position;
 import com.google.gson.annotations.SerializedName;
+import esialrobotik.ia.asserv.Position;
 import esialrobotik.ia.pathfinding.PathFinding;
 
 /**
@@ -15,7 +15,9 @@ public class Tache implements Cloneable {
         @SerializedName("manipulation")
         MANIPULATION("manipulation"),
         @SerializedName("element")
-        ELEMENT("element")
+        ELEMENT("element"),
+        @SerializedName("ignore_detection")
+        IGNORE_DETECTION("ignore_detection")
         ;
 
         private final String text;

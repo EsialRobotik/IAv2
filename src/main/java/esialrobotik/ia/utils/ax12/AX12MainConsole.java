@@ -1,9 +1,9 @@
-package esialrobotik.ia.utils.ax12;
+package utils.ax12;
 
-import esialrobotik.ia.api.ax12.AX12;
-import esialrobotik.ia.api.ax12.AX12LinkSerial;
-import esialrobotik.ia.utils.ax12.cmds.AX12Cmd;
-import esialrobotik.ia.utils.ax12.cmds.AX12CmdException;
+import api.ax12.AX12;
+import api.ax12.AX12LinkSerial;
+import utils.ax12.cmds.AX12Cmd;
+import utils.ax12.cmds.AX12CmdException;
 
 import java.util.Scanner;
 
@@ -12,13 +12,13 @@ import java.util.Scanner;
  * @author gryttix
  *
  */
-public class Ax12MainConsole {
+public class AX12MainConsole {
 
     private AX12 ax12;
     private boolean continueMainLoop;
     private AX12LinkSerial sc;
 
-    public Ax12MainConsole(AX12LinkSerial ax12link) {
+    public AX12MainConsole(AX12LinkSerial ax12link) {
         sc = ax12link;
         ax12 = new AX12(1, sc);
     }

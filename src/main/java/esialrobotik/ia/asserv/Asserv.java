@@ -1,12 +1,12 @@
 package esialrobotik.ia.asserv;
 
-import esialrobotik.ia.api.communication.SerialDevice;
-import esialrobotik.ia.api.log.LoggerFactory;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.pi4j.io.serial.Baud;
 import com.pi4j.io.serial.Serial;
+import esialrobotik.ia.api.communication.SerialDevice;
+import esialrobotik.ia.api.log.LoggerFactory;
 import org.apache.logging.log4j.Logger;
 
 import java.io.BufferedReader;
@@ -188,24 +188,6 @@ public class Asserv implements AsservInterface {
      ******************************************************************************************************************/
 
     @Override
-    public void setOdometrieX(int x) {
-        logger.info("setOdometrieX : " + x);
-        serialDevice.write("Osx" + x);
-    }
-
-    @Override
-    public void setOdometrieY(int y) {
-        logger.info("setOdometrieY : " + y);
-        serialDevice.write("Osy" + y);
-    }
-
-    @Override
-    public void setOdometrieTheta(double theta) {
-        logger.info("setOdometrieTheta");
-        serialDevice.write("Osa" + theta);
-    }
-
-    @Override
     public void setOdometrie(int x, int y, double theta) {
         logger.info("setOdometrie");
         serialDevice.write("P" + x + "#" + y + "#" + theta);
@@ -378,6 +360,8 @@ public class Asserv implements AsservInterface {
     @Override
     public void goStart(boolean isColor0) throws Exception {
         JsonArray start = this.config.getAsJsonArray(isColor0 ? "start0" : "start3000");
+        enableLowSpeed(true);
+        Thread.sleep(150);
         for (JsonElement instruction : start) {
             JsonObject temp = instruction.getAsJsonObject();
             logger.debug(temp.toString());
@@ -388,13 +372,13 @@ public class Asserv implements AsservInterface {
                     this.logger.info("Go " + temp.get("dist").getAsInt());
                     break;
                 case "go_timed":
-                    setSpeed(25);
+                    this.logger.info("Go timed " + temp.get("dist").getAsInt());
                     go(temp.get("dist").getAsInt());
                     Thread.sleep(2000);
                     emergencyStop();
+                    Thread.sleep(150);
                     emergencyReset();
-                    setSpeed(100);
-                    this.logger.info("Go " + temp.get("dist").getAsInt());
+                    this.logger.info("Go timed end " + temp.get("dist").getAsInt());
                     break;
                 case "turn":
                     turn(temp.get("dist").getAsInt());
@@ -405,7 +389,7 @@ public class Asserv implements AsservInterface {
                     this.logger.info("Goto " + depart.toString());
                     goTo(depart);
                     break;
-                case "goto_reverse":
+                case "goto_back":
                     depart = new Position(temp.get("x").getAsInt(), temp.get("y").getAsInt());
                     this.logger.info("Goto " + depart.toString());
                     goToReverse(depart);
@@ -425,21 +409,23 @@ public class Asserv implements AsservInterface {
                     break;
                 case "set_x":
                     this.logger.info("Set odometrie X : " + temp.get("value").getAsInt());
-                    setOdometrieX(temp.get("value").getAsInt());
+                    setOdometrie(temp.get("value").getAsInt(), position.getY(), temp.get("theta").getAsDouble());
                     break;
                 case "set_y":
                     this.logger.info("Set odometrie Y : " + temp.get("value").getAsInt());
-                    setOdometrieY(temp.get("value").getAsInt());
+                    setOdometrie(position.getX(), temp.get("value").getAsInt(), temp.get("theta").getAsDouble());
                     break;
-                case "set_theta":
-                    this.logger.info("Set odometrie Theta : " + temp.get("value").getAsDouble());
-                    setOdometrieTheta(temp.get("value").getAsDouble());
+                case "speed":
+                    this.logger.info("Set speed " + temp.get("value").getAsInt());
+                    setSpeed(temp.get("value").getAsInt());
                     break;
                 default:
                     throw new Exception("Instruction inconnue " + temp);
             }
             waitForAsserv();
         }
+        enableLowSpeed(false);
+        Thread.sleep(150);
         this.logger.info("goStart finished");
     }
 }
