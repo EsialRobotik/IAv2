@@ -84,6 +84,15 @@ public class I2CDevice {
         }
     }
 
+    public int read() {
+        try {
+            return i2CDevice.read();
+        } catch (Exception e) {
+            logger.error(String.format("I2C 0x%02X read register fail : " + e.getMessage(), deviceAddress));
+            return 0;
+        }
+    }
+
     public void write(int register, byte value) {
         try {
             i2CDevice.writeRegister(register, value);

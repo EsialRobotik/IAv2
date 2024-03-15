@@ -14,7 +14,7 @@
         "lineLength": 16
     },
     "loggerSocket": {
-        "active": true,
+        "active": false,
         "host": "192.168.0.103",
         "port": 4269,
         "logPort": 1664,
