@@ -1,7 +1,7 @@
-package utils.strategy.task;
+package esialrobotik.ia.utils.strategy.task;
 
-import asserv.Position;
-import utils.strategy.Tache;
+import esialrobotik.ia.asserv.Position;
+import esialrobotik.ia.utils.strategy.Tache;
 
 public class DeleteIgnoraDetectionZone extends Tache {
 

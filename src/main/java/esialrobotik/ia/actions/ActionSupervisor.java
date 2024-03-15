@@ -1,5 +1,6 @@
 package esialrobotik.ia.actions;
 
+import esialrobotik.ia.actions.a2023.ActionFileBinder;
 import esialrobotik.ia.api.log.LoggerFactory;
 import esialrobotik.ia.manager.CommunicationManager;
 import org.apache.logging.log4j.Logger;

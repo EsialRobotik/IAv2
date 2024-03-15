@@ -1,19 +1,19 @@
-package utils.strategy.main.year2023;
+package esialrobotik.ia.utils.strategy.main.year2023;
 
-import actions.a2023.ActionFileBinder;
-import api.log.LoggerFactory;
-import asserv.Position;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import esialrobotik.ia.actions.a2023.ActionFileBinder;
+import esialrobotik.ia.api.log.LoggerFactory;
+import esialrobotik.ia.asserv.Position;
+import esialrobotik.ia.pathfinding.PathFinding;
+import esialrobotik.ia.pathfinding.table.Table;
+import esialrobotik.ia.pathfinding.table.astar.Astar;
+import esialrobotik.ia.utils.strategy.Objectif;
+import esialrobotik.ia.utils.strategy.Strategie;
+import esialrobotik.ia.utils.strategy.Tache;
+import esialrobotik.ia.utils.strategy.TaskList;
+import esialrobotik.ia.utils.strategy.task.*;
 import org.apache.logging.log4j.Level;
-import pathfinding.PathFinding;
-import pathfinding.table.Table;
-import pathfinding.table.astar.Astar;
-import utils.strategy.Objectif;
-import utils.strategy.Strategie;
-import utils.strategy.Tache;
-import utils.strategy.TaskList;
-import utils.strategy.task.*;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
