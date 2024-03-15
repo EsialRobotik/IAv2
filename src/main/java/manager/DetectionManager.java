@@ -1,5 +1,6 @@
 package manager;
 
+import asserv.Position;
 import detection.DetectionInterface;
 
 /**
@@ -52,5 +53,9 @@ public class DetectionManager {
 
     public boolean[] getEmergencyDetectionMap() {
         return this.ultraSoundManager.getDetectionResult();
+    }
+
+    public Position[] getEmergencyDetectionPositions() {
+        return this.ultraSoundManager.getDetectionPosition();
     }
 }

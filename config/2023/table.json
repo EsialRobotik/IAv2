@@ -6,200 +6,6 @@
   "marge": 190,
   "zonesInterdites": [
     {
-      "id": "start0_1",
-      "forme": "polygone",
-      "desc": "Depart Bleu 1",
-      "active": true,
-      "points": [
-        {
-          "x": 0,
-          "y": 0
-        },
-        {
-          "x": 420,
-          "y": 0
-        },
-        {
-          "x": 420,
-          "y": 420
-        },
-        {
-          "x": 0,
-          "y": 420
-        }
-      ]
-    },
-    {
-      "id": "start3000_3",
-      "forme": "polygone",
-      "desc": "Depart Vert 3",
-      "active": true,
-      "points": [
-        {
-          "x": 930,
-          "y": 0
-        },
-        {
-          "x": 1320,
-          "y": 0
-        },
-        {
-          "x": 1320,
-          "y": 420
-        },
-        {
-          "x": 930,
-          "y": 420
-        }
-      ]
-    },
-    {
-      "id": "start0_4",
-      "forme": "polygone",
-      "desc": "Depart Bleu 4",
-      "active": true,
-      "points": [
-        {
-          "x": 1680,
-          "y": 0
-        },
-        {
-          "x": 2070,
-          "y": 0
-        },
-        {
-          "x": 2070,
-          "y": 420
-        },
-        {
-          "x": 1680,
-          "y": 420
-        }
-      ]
-    },
-    {
-      "id": "start3000_5",
-      "forme": "polygone",
-      "desc": "Depart Vert 5",
-      "active": true,
-      "points": [
-        {
-          "x": 2580,
-          "y": 0
-        },
-        {
-          "x": 3000,
-          "y": 0
-        },
-        {
-          "x": 3000,
-          "y": 420
-        },
-        {
-          "x": 2580,
-          "y": 420
-        }
-      ]
-    },
-
-    {
-      "id": "start3000_1",
-      "forme": "polygone",
-      "desc": "Depart Vert 1",
-      "active": true,
-      "points": [
-        {
-          "x": 0,
-          "y": 2000
-        },
-        {
-          "x": 420,
-          "y": 2000
-        },
-        {
-          "x": 420,
-          "y": 1580
-        },
-        {
-          "x": 0,
-          "y": 1580
-        }
-      ]
-    },
-    {
-      "id": "start0_3",
-      "forme": "polygone",
-      "desc": "Depart Bleu 3",
-      "active": true,
-      "points": [
-        {
-          "x": 930,
-          "y": 2000
-        },
-        {
-          "x": 1320,
-          "y": 2000
-        },
-        {
-          "x": 1320,
-          "y": 1580
-        },
-        {
-          "x": 930,
-          "y": 1580
-        }
-      ]
-    },
-    {
-      "id": "start3000_4",
-      "forme": "polygone",
-      "desc": "Depart Vert 4",
-      "active": true,
-      "points": [
-        {
-          "x": 1680,
-          "y": 2000
-        },
-        {
-          "x": 2070,
-          "y": 2000
-        },
-        {
-          "x": 2070,
-          "y": 1580
-        },
-        {
-          "x": 1680,
-          "y": 1580
-        }
-      ]
-    },
-    {
-      "id": "start0_5",
-      "forme": "polygone",
-      "desc": "Depart Bleu 5",
-      "active": true,
-      "points": [
-        {
-          "x": 2580,
-          "y": 2000
-        },
-        {
-          "x": 3000,
-          "y": 2000
-        },
-        {
-          "x": 3000,
-          "y": 1580
-        },
-        {
-          "x": 2580,
-          "y": 1580
-        }
-      ]
-    },
-
-    {
       "id": "cherry_north",
       "forme": "polygone",
       "desc": "Cerise Nord",
@@ -231,19 +37,19 @@
       "points": [
         {
           "x": 3000,
-          "y": 985
+          "y": 700
         },
         {
           "x": 3000,
-          "y": 1015
+          "y": 1300
         },
         {
           "x": 2700,
-          "y": 1015
+          "y": 1300
         },
         {
           "x": 2700,
-          "y": 985
+          "y": 700
         }
       ]
     },
@@ -298,53 +104,54 @@
   ],
   "elementsJeu" : [
     {
-      "id": "start3000_2",
+      "id": "start3000_3",
       "forme": "polygone",
-      "desc": "Depart Vert 2",
-      "active": true,
+      "desc": "Depart Vert 3",
+      "active": false,
       "points": [
         {
-          "x": 0,
-          "y": 530
+          "x": 930,
+          "y": 0
         },
         {
-          "x": 420,
-          "y": 530
+          "x": 1320,
+          "y": 0
         },
         {
-          "x": 420,
-          "y": 920
+          "x": 1320,
+          "y": 420
         },
         {
-          "x": 0,
-          "y": 920
+          "x": 930,
+          "y": 420
         }
       ]
     },
     {
-      "id": "start0_2",
+      "id": "start0_3",
       "forme": "polygone",
-      "desc": "Depart Bleu 2",
-      "active": true,
+      "desc": "Depart Bleu 3",
+      "active": false,
       "points": [
         {
-          "x": 0,
-          "y": 1470
+          "x": 930,
+          "y": 2000
         },
         {
-          "x": 420,
-          "y": 1470
+          "x": 1320,
+          "y": 2000
         },
         {
-          "x": 420,
-          "y": 1080
+          "x": 1320,
+          "y": 1580
         },
         {
-          "x": 0,
-          "y": 1080
+          "x": 930,
+          "y": 1580
         }
       ]
     },
+
     {
       "id": "west_cake_purple_1",
       "forme" : "cercle",
@@ -492,5 +299,27 @@
     }
   ],
   "detectionIgnoreZone": [
+    {
+      "desc": "depart bleu",
+      "x1": 2550,
+      "y1": 1550,
+      "x2": 2550,
+      "y2": 2000,
+      "x3": 3000,
+      "y3": 2000,
+      "x4": 3000,
+      "y4": 1550
+    },
+    {
+      "desc": "depart vert",
+      "x1": 2550,
+      "y1": 0,
+      "x2": 2550,
+      "y2": 450,
+      "x3": 3000,
+      "y3": 450,
+      "x4": 3000,
+      "y4": 0
+    }
   ]
 }

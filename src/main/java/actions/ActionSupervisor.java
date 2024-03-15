@@ -1,5 +1,6 @@
 package actions;
 
+import actions.a2023.ActionFileBinder;
 import api.log.LoggerFactory;
 import manager.CommunicationManager;
 import org.apache.logging.log4j.Logger;
@@ -18,10 +19,13 @@ public class ActionSupervisor {
     private String actionFlag;
     protected Logger logger;
 
-    public ActionSupervisor(ActionInterface actionInterface, ArrayList<Integer> initActionsId) {
+    public ActionSupervisor(ActionInterface actionInterface, ArrayList<String> initActions) {
         logger = LoggerFactory.getLogger(ActionSupervisor.class);
         this.actionInterface = actionInterface;
-        this.initActionsId = initActionsId;
+        this.initActionsId = new ArrayList<>();
+        for (String action : initActions) {
+            this.initActionsId.add(ActionFileBinder.ActionFile.valueOf(action).ordinal());
+        }
     }
 
     public ActionExecutor getActionExecutor(int id) {

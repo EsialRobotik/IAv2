@@ -13,8 +13,6 @@ import org.apache.logging.log4j.Logger;
  */
 public class SRF08 implements UltraSoundInterface {
 
-    private static long TIMEOUT = 65; // If no change after 65ms, it's a timeout
-
     private I2C i2cDevice;
     private Logger logger;
     private SRF08Config currentConfig;

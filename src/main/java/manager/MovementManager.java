@@ -94,10 +94,12 @@ public class MovementManager {
                 }
             }
         }
-        Point lastPoint = trajectory.get(trajectory.size() - 1);
-        gotoQueue.add(lastPoint);
-        if (isMatchStarted) {
-            this.asservInterface.goTo(new Position(lastPoint.x, lastPoint.y));
+        if (trajectory.size() > 0) {
+            Point lastPoint = trajectory.get(trajectory.size() - 1);
+            gotoQueue.add(lastPoint);
+            if (isMatchStarted) {
+                this.asservInterface.goTo(new Position(lastPoint.x, lastPoint.y));
+            }
         }
         logger.info("executeMovement gotoQueue = " + gotoQueue);
     }
@@ -146,6 +148,10 @@ public class MovementManager {
 
     public AsservInterface.MovementDirection getMovementDirection() {
         return this.asservInterface.getMovementDirection();
+    }
+
+    public AsservInterface.AsservStatus getAsservStatus() {
+        return this.asservInterface.getAsservStatus();
     }
 
     public void goStart(boolean isColor0) {

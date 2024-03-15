@@ -30,6 +30,7 @@ public class ActionFileBinder implements ActionInterface {
 		ROB_PINCE_MOBILE_ATTRAPER("rob_pince_mobile_attraper.json", false, ActionFile.ACTION_AX12),
 		ROB_PINCE_MOBILE_RELACHER_SERRE("rob_pince_mobile_relacher_serre.json", false, ActionFile.ACTION_AX12),
 		ROB_PINCE_MOBILE_RELACHER_LARGE("rob_pince_mobile_relacher_large.json", false, ActionFile.ACTION_AX12),
+		ROB_PINCE_MOBILE_OUVRIR_XLARGE("rob_pince_mobile_ouvrir_xlarge.json", false, ActionFile.ACTION_AX12),
 		ROB_ASCENSEUR_INIT("rob_ascenseur_init.json", false, ActionFile.ACTION_ASCENSEUR),
 		ROB_ASCENSEUR_INIT_TOUT_EN_HAUT("rob_ascenseur_init_tout_en_haut.json", false, ActionFile.ACTION_ASCENSEUR),
 		ROB_ASCENSEUR_NIV1("rob_ascenseur_niv1.json", false, ActionFile.ACTION_ASCENSEUR),
@@ -55,7 +56,8 @@ public class ActionFileBinder implements ActionInterface {
 
 		PUKING_INIT("puking_init.json", false, ActionFile.ACTION_LIST),
 		PUKING_FUNNY_ACTION_RESET("puking_funny_action_reset.json", false, ActionFile.ACTION_AX12),
-		PUKING_FUNNY_ACTION_TRIGGER("puking_funny_action_trigger.json", false, ActionFile.ACTION_AX12),
+		PUKING_FUNNY_ACTION_AX("puking_funny_action_ax.json", false, ActionFile.ACTION_AX12),
+		PUKING_FUNNY_ACTION_TRIGGER("puking_funny_action_trigger.json", false, ActionFile.ACTION_LIST),
 		PUKING_TURBINE_POSITION_ASPIRATION_DROIT("puking_turbine_position_aspiration_droit.json", false, ActionFile.ACTION_AX12),
 		PUKING_TURBINE_POSITION_ASPIRATION_GAUCHE("puking_turbine_position_aspiration_gauche.json", false, ActionFile.ACTION_AX12),
 		PUKING_TURBINE_POSITION_CENTRE("puking_turbine_position_centre.json", false, ActionFile.ACTION_AX12),
@@ -189,7 +191,11 @@ public class ActionFileBinder implements ActionInterface {
 
 	@Override
 	public int funnyAction(FunnyActionDescription funnyActionDescription) {
-		return 0;
+		if (funnyActionDescription.actionId > -1) {
+			ActionExecutor actionExecutor = this.getActionExecutor(funnyActionDescription.actionId);
+			actionExecutor.execute();
+		}
+		return funnyActionDescription.score;
 	}
 
 	@Override

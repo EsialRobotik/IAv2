@@ -89,24 +89,6 @@ public interface AsservInterface {
      ************************************************************************/
 
     /**
-     * Définie l'angle théta du robot
-     * @param theta Angle theta en radian
-     */
-    void setOdometrieTheta(double theta);
-
-    /**
-     * Définie la position X du robot
-     * @param x X en mm
-     */
-    void setOdometrieX(int x);
-
-    /**
-     * Définie la position Y du robot
-     * @param y Y en mm
-     */
-    void setOdometrieY(int y);
-
-    /**
      * Définiela position complète du robot
      * @param x X en mm
      * @param y Y en mm
