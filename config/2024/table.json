@@ -1,10 +1,10 @@
 {
-  "tailleX": 3000,
-  "tailleY": 2000,
-  "couleur0": "Bleu",
-  "couleur3000": "Vert",
-  "marge": 190,
-  "zonesInterdites": [
+  "sizeX": 2000,
+  "sizeY": 3000,
+  "color0": "Bleu",
+  "color3000": "Jaune",
+  "marge": 180,
+  "forbiddenZones": [
     {
       "id": "start0_1",
       "forme": "polygone",
@@ -16,308 +16,16 @@
           "y": 0
         },
         {
-          "x": 420,
-          "y": 0
-        },
-        {
-          "x": 420,
-          "y": 420
-        },
-        {
           "x": 0,
-          "y": 420
-        }
-      ]
-    },
-    {
-      "id": "start3000_3",
-      "forme": "polygone",
-      "desc": "Depart Vert 3",
-      "active": true,
-      "points": [
+          "y": 450
+        },
         {
-          "x": 930,
+          "x": 450,
+          "y": 450
+        },
+        {
+          "x": 450,
           "y": 0
-        },
-        {
-          "x": 1320,
-          "y": 0
-        },
-        {
-          "x": 1320,
-          "y": 420
-        },
-        {
-          "x": 930,
-          "y": 420
-        }
-      ]
-    },
-    {
-      "id": "start0_4",
-      "forme": "polygone",
-      "desc": "Depart Bleu 4",
-      "active": true,
-      "points": [
-        {
-          "x": 1680,
-          "y": 0
-        },
-        {
-          "x": 2070,
-          "y": 0
-        },
-        {
-          "x": 2070,
-          "y": 420
-        },
-        {
-          "x": 1680,
-          "y": 420
-        }
-      ]
-    },
-    {
-      "id": "start3000_5",
-      "forme": "polygone",
-      "desc": "Depart Vert 5",
-      "active": true,
-      "points": [
-        {
-          "x": 2580,
-          "y": 0
-        },
-        {
-          "x": 3000,
-          "y": 0
-        },
-        {
-          "x": 3000,
-          "y": 420
-        },
-        {
-          "x": 2580,
-          "y": 420
-        }
-      ]
-    },
-
-    {
-      "id": "start3000_1",
-      "forme": "polygone",
-      "desc": "Depart Vert 1",
-      "active": true,
-      "points": [
-        {
-          "x": 0,
-          "y": 2000
-        },
-        {
-          "x": 420,
-          "y": 2000
-        },
-        {
-          "x": 420,
-          "y": 1580
-        },
-        {
-          "x": 0,
-          "y": 1580
-        }
-      ]
-    },
-    {
-      "id": "start0_3",
-      "forme": "polygone",
-      "desc": "Depart Bleu 3",
-      "active": true,
-      "points": [
-        {
-          "x": 930,
-          "y": 2000
-        },
-        {
-          "x": 1320,
-          "y": 2000
-        },
-        {
-          "x": 1320,
-          "y": 1580
-        },
-        {
-          "x": 930,
-          "y": 1580
-        }
-      ]
-    },
-    {
-      "id": "start3000_4",
-      "forme": "polygone",
-      "desc": "Depart Vert 4",
-      "active": true,
-      "points": [
-        {
-          "x": 1680,
-          "y": 2000
-        },
-        {
-          "x": 2070,
-          "y": 2000
-        },
-        {
-          "x": 2070,
-          "y": 1580
-        },
-        {
-          "x": 1680,
-          "y": 1580
-        }
-      ]
-    },
-    {
-      "id": "start0_5",
-      "forme": "polygone",
-      "desc": "Depart Bleu 5",
-      "active": true,
-      "points": [
-        {
-          "x": 2580,
-          "y": 2000
-        },
-        {
-          "x": 3000,
-          "y": 2000
-        },
-        {
-          "x": 3000,
-          "y": 1580
-        },
-        {
-          "x": 2580,
-          "y": 1580
-        }
-      ]
-    },
-
-    {
-      "id": "cherry_north",
-      "forme": "polygone",
-      "desc": "Cerise Nord",
-      "active": true,
-      "points": [
-        {
-          "x": 0,
-          "y": 985
-        },
-        {
-          "x": 0,
-          "y": 1015
-        },
-        {
-          "x": 300,
-          "y": 1015
-        },
-        {
-          "x": 300,
-          "y": 985
-        }
-      ]
-    },
-    {
-      "id": "cherry_south",
-      "forme": "polygone",
-      "desc": "Cerise Sud",
-      "active": true,
-      "points": [
-        {
-          "x": 3000,
-          "y": 985
-        },
-        {
-          "x": 3000,
-          "y": 1015
-        },
-        {
-          "x": 2700,
-          "y": 1015
-        },
-        {
-          "x": 2700,
-          "y": 985
-        }
-      ]
-    },
-    {
-      "id": "cherry_west",
-      "forme": "polygone",
-      "desc": "Cerise Ouest",
-      "active": true,
-      "points": [
-        {
-          "x": 1350,
-          "y": 0
-        },
-        {
-          "x": 1650,
-          "y": 0
-        },
-        {
-          "x": 1650,
-          "y": 30
-        },
-        {
-          "x": 1350,
-          "y": 30
-        }
-      ]
-    },
-    {
-      "id": "cherry_east",
-      "forme": "polygone",
-      "desc": "Cerise Est",
-      "active": true,
-      "points": [
-        {
-          "x": 1350,
-          "y": 2000
-        },
-        {
-          "x": 1650,
-          "y": 2000
-        },
-        {
-          "x": 1650,
-          "y": 1970
-        },
-        {
-          "x": 1350,
-          "y": 1970
-        }
-      ]
-    }
-  ],
-  "elementsJeu" : [
-    {
-      "id": "start3000_2",
-      "forme": "polygone",
-      "desc": "Depart Vert 2",
-      "active": true,
-      "points": [
-        {
-          "x": 0,
-          "y": 530
-        },
-        {
-          "x": 420,
-          "y": 530
-        },
-        {
-          "x": 420,
-          "y": 920
-        },
-        {
-          "x": 0,
-          "y": 920
         }
       ]
     },
@@ -328,169 +36,188 @@
       "active": true,
       "points": [
         {
-          "x": 0,
-          "y": 1470
+          "x": 1550,
+          "y": 0
         },
         {
-          "x": 420,
-          "y": 1470
+          "x": 1550,
+          "y": 450
         },
         {
-          "x": 420,
-          "y": 1080
+          "x": 2000,
+          "y": 450
         },
         {
-          "x": 0,
-          "y": 1080
+          "x": 2000,
+          "y": 0
         }
       ]
     },
     {
-      "id": "west_cake_purple_1",
-      "forme" : "cercle",
-      "desc": "Gateau violet ouest - 1",
+      "id": "start0_3",
+      "forme": "polygone",
+      "desc": "Depart Bleu 3",
       "active": true,
-      "centre" :
-      {
-        "x" : 575,
-        "y" : 225
-      },
-      "rayon": 60
-    },
-    {
-      "id": "west_cake_yellow_1",
-      "forme" : "cercle",
-      "desc": "Gateau jaune ouest - 1",
-      "active": true,
-      "centre" :
-      {
-        "x" : 775,
-        "y" : 225
-      },
-      "rayon": 60
-    },
-    {
-      "id": "west_cake_brown_1",
-      "forme" : "cercle",
-      "desc": "Gateau brun ouest - 1",
-      "active": true,
-      "centre" :
-      {
-        "x" : 1125,
-        "y" : 725
-      },
-      "rayon": 60
-    },
-    {
-      "id": "west_cake_purple_2",
-      "forme" : "cercle",
-      "desc": "Gateau violet ouest - 2",
-      "active": true,
-      "centre" :
-      {
-        "x" : 2425,
-        "y" : 225
-      },
-      "rayon": 60
-    },
-    {
-      "id": "west_cake_yellow_2",
-      "forme" : "cercle",
-      "desc": "Gateau jaune ouest - 2",
-      "active": true,
-      "centre" :
-      {
-        "x" : 2225,
-        "y" : 225
-      },
-      "rayon": 60
-    },
-    {
-      "id": "west_cake_brown_2",
-      "forme" : "cercle",
-      "desc": "Gateau brun ouest - 2",
-      "active": true,
-      "centre" :
-      {
-        "x" : 1875,
-        "y" : 725
-      },
-      "rayon": 60
+      "points": [
+        {
+          "x": 775,
+          "y": 2550
+        },
+        {
+          "x": 775,
+          "y": 3000
+        },
+        {
+          "x": 1225,
+          "y": 3000
+        },
+        {
+          "x": 1225,
+          "y": 2550
+        }
+      ]
     },
 
     {
-      "id": "east_cake_purple_1",
-      "forme" : "cercle",
-      "desc": "Gateau violet est - 1",
+      "id": "start30000_1",
+      "forme": "polygone",
+      "desc": "Depart Jaune 1",
       "active": true,
-      "centre" :
-      {
-        "x" : 575,
-        "y" : 1775
-      },
-      "rayon": 60
+      "points": [
+        {
+          "x": 0,
+          "y": 2550
+        },
+        {
+          "x": 0,
+          "y": 3000
+        },
+        {
+          "x": 450,
+          "y": 3000
+        },
+        {
+          "x": 450,
+          "y": 2550
+        }
+      ]
     },
     {
-      "id": "east_cake_yellow_1",
-      "forme" : "cercle",
-      "desc": "Gateau jaune est - 1",
+      "id": "start3000_2",
+      "forme": "polygone",
+      "desc": "Depart Jaune 2",
       "active": true,
-      "centre" :
-      {
-        "x" : 775,
-        "y" : 1775
-      },
-      "rayon": 60
+      "points": [
+        {
+          "x": 1550,
+          "y": 2550
+        },
+        {
+          "x": 1550,
+          "y": 3000
+        },
+        {
+          "x": 2000,
+          "y": 3000
+        },
+        {
+          "x": 1550,
+          "y": 2550
+        }
+      ]
     },
     {
-      "id": "east_cake_brown_1",
-      "forme" : "cercle",
-      "desc": "Gateau brun est - 1",
+      "id": "start0_3",
+      "forme": "polygone",
+      "desc": "Depart Bleu 3",
       "active": true,
-      "centre" :
-      {
-        "x" : 1125,
-        "y" : 1275
-      },
-      "rayon": 60
-    },
-    {
-      "id": "east_cake_purple_2",
-      "forme" : "cercle",
-      "desc": "Gateau violet est - 2",
-      "active": true,
-      "centre" :
-      {
-        "x" : 2425,
-        "y" : 1775
-      },
-      "rayon": 60
-    },
-    {
-      "id": "east_cake_yellow_2",
-      "forme" : "cercle",
-      "desc": "Gateau jaune est - 2",
-      "active": true,
-      "centre" :
-      {
-        "x" : 2225,
-        "y" : 1775
-      },
-      "rayon": 60
-    },
-    {
-      "id": "east_cake_brown_2",
-      "forme" : "cercle",
-      "desc": "Gateau brun est - 2",
-      "active": true,
-      "centre" :
-      {
-        "x" : 1875,
-        "y" : 1275
-      },
-      "rayon": 60
+      "points": [
+        {
+          "x": 775,
+          "y": 0
+        },
+        {
+          "x": 775,
+          "y": 450
+        },
+        {
+          "x": 1225,
+          "y": 450
+        },
+        {
+          "x": 1225,
+          "y": 0
+        }
+      ]
     }
   ],
-  "detectionIgnoreZone": [
-  ]
+  "dynamicZones": [
+    {
+      "id": "Plants_N",
+      "forme": "cercle",
+      "desc": "Plantes Nord",
+      "active": true,
+      "centre": {
+        "x": 500,
+        "y": 1500
+      },
+      "rayon": 125
+    },
+    {
+      "id": "Plants_NW",
+      "forme": "cercle",
+      "desc": "Plantes Nord Ouest",
+      "active": true,
+      "centre": {
+        "x": 700,
+        "y": 1000
+      },
+      "rayon": 125
+    },
+    {
+      "id": "Plants_NE",
+      "forme": "cercle",
+      "desc": "Plantes Nord Est",
+      "active": true,
+      "centre": {
+        "x": 700,
+        "y": 2000
+      },
+      "rayon": 125
+    },
+    {
+      "id": "Plants_S",
+      "forme": "cercle",
+      "desc": "Plantes Sud",
+      "active": true,
+      "centre": {
+        "x": 1500,
+        "y": 1500
+      },
+      "rayon": 125
+    },
+    {
+      "id": "Plants_SW",
+      "forme": "cercle",
+      "desc": "Plantes Sud Ouest",
+      "active": true,
+      "centre": {
+        "x": 1300,
+        "y": 1000
+      },
+      "rayon": 125
+    },
+    {
+      "id": "Plants_SE",
+      "forme": "cercle",
+      "desc": "Plantes Sud Est",
+      "active": true,
+      "centre": {
+        "x": 1300,
+        "y": 2000
+      },
+      "rayon": 125
+    }
+  ],
+  "detectionIgnoreZone": []
 }
