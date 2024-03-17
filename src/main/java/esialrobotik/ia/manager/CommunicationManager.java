@@ -46,7 +46,7 @@ public class CommunicationManager {
             this.hotspotSocket.send(data);
         } catch (Exception e) {
             this.logger.error("Socket error");
-            this.logger.error(e);
+            this.logger.error(e.getMessage());
         }
     }
 
