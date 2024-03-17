@@ -7,12 +7,30 @@
     "table3000Path": "table3000.tbl",
     "tableJsonPath": "table.json",
     "commandFile": "configCollection.json",
-    "loggerSocket": {
-        "active": false,
-        "host": "192.168.0.103",
-        "port": 4269,
-        "logPort": 1664,
-        "who": "princess"
+    "comSocket": {
+        "host": "192.168.0.203",
+        "port": 4269
+    },
+    "log": {
+        "stdout": {
+            "active": true,
+            "logFormat": "%d [%l][%T/%i][%n] %m",
+            "dateFormat": "yyyy-MM-dd HH:mm:ss"
+        },
+        "file": {
+            "active": true,
+            "logFormat": "%d [%L][%T/%i][%n] %m",
+            "dateFormat": "yyyy-MM-dd_HH-mm-ss",
+            "fileFormat": "./archives/log-%d/log.log"
+        },
+        "socket": {
+            "active": true,
+            "logFormat": "%d [%W][%L][%T/%i][%n] %m",
+            "dateFormat": "yyyy-MM-dd HH:mm:ss",
+            "host": "192.168.0.203",
+            "port": 1664,
+            "whoami": "princess"
+        }
     },
     "asserv": {
         "baud": 115200,

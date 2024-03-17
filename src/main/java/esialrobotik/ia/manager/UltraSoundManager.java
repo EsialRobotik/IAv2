@@ -6,8 +6,8 @@ import esialrobotik.ia.asserv.Position;
 import esialrobotik.ia.detection.DetectionInterface;
 import esialrobotik.ia.pathfinding.table.Point;
 import esialrobotik.ia.pathfinding.table.Table;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.event.Level;
+import org.slf4j.Logger;
 
 import java.util.HashMap;
 
@@ -38,8 +38,7 @@ public class UltraSoundManager {
     public UltraSoundManager(DetectionInterface detectionInterface, int windowSize, Table table, MovementManager movementManager) {
         this.windowSize = windowSize;
         this.detection = new boolean[detectionInterface.getUltraSoundSensorCount()][windowSize];
-        this.detectionPosition = new Position[detectionInterface.getUltraSoundSensorCount()];
-        LoggerFactory.init(Level.TRACE);
+        LoggerFactory.setDefaultLevel(Level.TRACE);
         this.logger = LoggerFactory.getLogger(UltraSoundManager.class);
 
         this.movementManager = movementManager;

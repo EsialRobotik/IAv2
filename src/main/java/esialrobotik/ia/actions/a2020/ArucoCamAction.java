@@ -9,8 +9,8 @@ import esialrobotik.ia.api.log.LoggerFactory;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import esialrobotik.ia.manager.CommunicationManager;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.event.Level;
+import org.slf4j.Logger;
 
 import java.io.IOException;
 
@@ -143,7 +143,7 @@ public class ArucoCamAction implements ActionExecutor {
     }
 
     public static void main(String args[]) throws IOException, InterruptedException {
-        LoggerFactory.init(Level.TRACE);
+        LoggerFactory.setDefaultLevel(Level.TRACE);
         Shell shell = new Shell("python /home/pi/2020Aruco/testPiCameraArucoShell.py --quiet");
         shell.start();
         ActionCollection actionCollection = new ActionCollection("configCollection.json");

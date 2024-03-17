@@ -29,8 +29,7 @@ import esialrobotik.ia.pathfinding.PathFinding;
 import esialrobotik.ia.pathfinding.table.Table;
 import esialrobotik.ia.pathfinding.table.astar.Astar;
 import gnu.io.SerialPort;
-import org.apache.logging.log4j.Logger;
-
+import org.slf4j.Logger;
 import java.io.IOException;
 import java.io.Reader;
 import java.lang.reflect.InvocationTargetException;
@@ -201,7 +200,7 @@ public class ConfigurationManager {
         }
 
         if(config == CONFIG_NOMINAL) {
-            JsonObject socketConfig = configRootNode.getAsJsonObject("loggerSocket");
+            JsonObject socketConfig = configRootNode.getAsJsonObject("comSocket");
             communicationManager = new CommunicationManager(pathfinding, actionSupervisor, socketConfig.get("host").getAsString(),socketConfig.get("port").getAsInt());
             actionSupervisor.setCommunicationManager(communicationManager);
         }

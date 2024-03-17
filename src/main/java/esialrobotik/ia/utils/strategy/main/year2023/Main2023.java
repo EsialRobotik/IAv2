@@ -13,7 +13,9 @@ import esialrobotik.ia.utils.strategy.Strategie;
 import esialrobotik.ia.utils.strategy.Tache;
 import esialrobotik.ia.utils.strategy.TaskList;
 import esialrobotik.ia.utils.strategy.task.*;
-import org.apache.logging.log4j.Level;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import org.slf4j.event.Level;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -344,7 +346,7 @@ public class Main2023 {
             e.printStackTrace();
         }
 
-        LoggerFactory.init(Level.OFF);
+        LoggerFactory.setDefaultLevel(Level.ERROR);
         System.out.println("Test de la strat 0");
         try {
             Table table = new Table("config/2023/table0.tbl");

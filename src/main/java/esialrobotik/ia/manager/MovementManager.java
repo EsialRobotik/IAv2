@@ -5,7 +5,7 @@ import esialrobotik.ia.api.log.LoggerFactory;
 import esialrobotik.ia.asserv.AsservInterface;
 import esialrobotik.ia.asserv.Position;
 import esialrobotik.ia.pathfinding.table.Point;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;

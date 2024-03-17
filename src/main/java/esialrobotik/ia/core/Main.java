@@ -33,11 +33,10 @@ import esialrobotik.ia.utils.ax12.Ax12MainConsole;
 import esialrobotik.ia.utils.web.AX12Http;
 import esialrobotik.ia.utils.web.ResourcesManager;
 import gnu.io.SerialPort;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.Logger;
 import sun.misc.Signal;
 import sun.misc.SignalHandler;
-
+import org.slf4j.Logger;
+import org.slf4j.event.Level;
 import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
@@ -50,7 +49,8 @@ import java.util.Random;
 import java.util.Scanner;
 
 /**
- * The goal of this class if to bootstrap the code, init the robot and launch the match
+ * The goal of this class if to bootstrap the code, init the robot and launch
+ * the match
  * Created by icule on 21/05/17.
  */
 public class Main {
@@ -59,8 +59,9 @@ public class Main {
 
     public static Logger logger = null;
 
-    public Main(boolean stepByStep) throws IOException, InterruptedException, AX12LinkException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-        //Load of the configuration first
+    public Main(boolean stepByStep) throws IOException, InterruptedException, AX12LinkException, ClassNotFoundException,
+            InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+        // Load of the configuration first
         ConfigurationManager configurationManager = new ConfigurationManager();
         configurationManager.loadConfiguration(configFilePath);
 
@@ -71,36 +72,37 @@ public class Main {
             actionCollection.setScanner(scanner);
         }
 
-        //Loading the esialrobotik.ia.core
+        // Loading the esialrobotik.ia.core
         MasterLoop masterLoop = new MasterLoop(
-            configurationManager.getMovementManager(),
-            configurationManager.getDetectionManager(),
-            configurationManager.getCommunicationManager(),
-            actionCollection,
-            configurationManager.getActionSupervisor(),
-            configurationManager.getPathfinding(),
-            configurationManager.getColorDetector(),
-            configurationManager.getChrono(),
-            configurationManager.getTirette(),
-            configurationManager.getLcdDisplay(),
-            configurationManager.getFunnyActionDescription()
-        );
+                configurationManager.getMovementManager(),
+                configurationManager.getDetectionManager(),
+                configurationManager.getCommunicationManager(),
+                actionCollection,
+                configurationManager.getActionSupervisor(),
+                configurationManager.getPathfinding(),
+                configurationManager.getColorDetector(),
+                configurationManager.getChrono(),
+                configurationManager.getTirette(),
+                configurationManager.getLcdDisplay(),
+                configurationManager.getFunnyActionDescription());
 
-        //Init
+        // Init
         masterLoop.init();
 
-        //Launch the main loop
+        // Launch the main loop
         boolean res = masterLoop.mainLoop();
-        if(!res) { //We run out of esialrobotik.ia.actions, and not of time, let's wait for the end of the match
-            while(true) {
+        if (!res) { // We run out of esialrobotik.ia.actions, and not of time, let's wait for the
+                    // end of the match
+            while (true) {
                 Thread.sleep(1000);
-                if(masterLoop.isMatchFinished()) {
+                if (masterLoop.isMatchFinished()) {
                     break;
                 }
             }
         }
 
-        //End of the game. Let's wait a few more seconds (for funny esialrobotik.ia.actions and to be sure) and let's return
+        // End of the game. Let's wait a few more seconds (for funny
+        // esialrobotik.ia.actions and to be sure) and let's return
         Thread.sleep(9000);
         LoggerFactory.shutdown();
     }
@@ -108,12 +110,12 @@ public class Main {
     public static void main(String[] args) throws Exception {
         if (args.length >= 2) {
 
-            if (args.length == 3 ) {
+            if (args.length == 3) {
                 configFilePath = args[2];
             }
 
             File tmpFile = new File(configFilePath);
-            if(!tmpFile.exists()){
+            if (!tmpFile.exists()) {
                 System.out.println("The configuration file does not exist : " + configFilePath);
                 return;
             }
@@ -137,20 +139,20 @@ public class Main {
                     printUsage();
                     return;
                 case "TRACE":
-                    LoggerFactory.init(Level.TRACE);
+                    LoggerFactory.setDefaultLevel(Level.TRACE);
                     break;
                 case "INFO":
-                    LoggerFactory.init(Level.INFO);
+                    LoggerFactory.setDefaultLevel(Level.INFO);
                     break;
                 case "DEBUG":
-                    LoggerFactory.init(Level.DEBUG);
+                    LoggerFactory.setDefaultLevel(Level.DEBUG);
                     break;
                 case "ERROR":
-                    LoggerFactory.init(Level.ERROR);
+                    LoggerFactory.setDefaultLevel(Level.ERROR);
                     break;
             }
             logger = LoggerFactory.getLogger(Main.class);
-            logger.info("init logger");
+            //logger.info("init logger");
 
             switch (args[1]) {
                 default:
@@ -176,6 +178,10 @@ public class Main {
                 case "lcd":
                     // Test du LCD
                     Main.testLcd();
+                    break;
+                case "log":
+                    // Test des logs
+                    Main.testLog();
                     break;
                 case "shell":
                     // Test shell
@@ -238,49 +244,57 @@ public class Main {
         System.out.println("\t- esialrobotik.ia.detection : Test de la esialrobotik.ia.detection");
         System.out.println("\t- interrupteur : Test interrupteurs");
         System.out.println("\t- lcd : Test de l'écran LCD");
+        System.out.println("\t- log : Test des logs [Migration Log4j -> Slf4j]");
         System.out.println("\t- shell : Test du shell (lance une capture de la caméra et une analyse Aruco)");
         System.out.println("\t- esialrobotik.ia.pathfinding : Test le calcul de esialrobotik.ia.pathfinding");
         System.out.println("\t- coupe-off : Danse de la coupe off");
         System.out.println("\t- ax12-cli : Lance l'utilitaire de config/test des AX12 en ligne de commande");
         System.out.println("\t- ax12-web : Lance l'utilitaire web de config/test des AX12");
-        System.out.println("\t- test-lift : Lance une console de test de l'ascenseur et de la sonde des carrés de fouille de la grosse Princesse 2022");
+        System.out.println(
+                "\t- test-lift : Lance une console de test de l'ascenseur et de la sonde des carrés de fouille de la grosse Princesse 2022");
         System.out.println("\t- test-qik : Lance une console de test de la qik");
         System.out.println("\t- hotspot : Test la communication socket via le hotspot");
         System.out.println("\t- esialrobotik.ia.actions : Test des esialrobotik.ia.actions");
-        System.out.println("\t- funny-action : Test de la funny action en utilisant l'interrupteur de couleur comme déclencheur\n");
+        System.out.println(
+                "\t- funny-action : Test de la funny action en utilisant l'interrupteur de couleur comme déclencheur\n");
 
         System.out.println("configFile : chemin du fichier de configuration à utiliser. Par defaut, './config.json'\n");
     }
 
-    private static void testDetection() throws IOException, InterruptedException, AX12LinkException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-        //Load of the configuration first
+    private static void testDetection()
+            throws IOException, InterruptedException, AX12LinkException, ClassNotFoundException,
+            InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+        // Load of the configuration first
         ConfigurationManager configurationManager = new ConfigurationManager();
         configurationManager.loadConfiguration(configFilePath, ConfigurationManager.CONFIG_TEST_DETECTION);
 
         DetectionManager detectionManager = configurationManager.getDetectionManager();
         detectionManager.initAPI();
         detectionManager.startDetectionDebug();
-        while (true){
+        while (true) {
             Thread.sleep(1000);
         }
     }
 
-    private static void testInterrupteurs() throws IOException, InterruptedException, AX12LinkException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-        //Load of the configuration first
+    private static void testInterrupteurs()
+            throws IOException, InterruptedException, AX12LinkException, ClassNotFoundException,
+            InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+        // Load of the configuration first
         ConfigurationManager configurationManager = new ConfigurationManager();
         configurationManager.loadConfiguration(configFilePath, ConfigurationManager.CONFIG_TEST_INTERRUPTEURS);
 
         ColorDetector colorDetector = configurationManager.getColorDetector();
         Tirette tirette = configurationManager.getTirette();
-        while (true){
+        while (true) {
             Thread.sleep(500);
             System.out.println("Couleur0 ? " + colorDetector.isColor0());
             System.out.println("Tirette présente ? " + tirette.getTiretteState());
         }
     }
 
-    private static void testLcd() throws IOException, InterruptedException, AX12LinkException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-        //Load of the configuration first
+    private static void testLcd() throws IOException, InterruptedException, AX12LinkException, ClassNotFoundException,
+            InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+        // Load of the configuration first
         ConfigurationManager configurationManager = new ConfigurationManager();
         configurationManager.loadConfiguration(configFilePath, ConfigurationManager.CONFIG_TEST_LCD);
         LCD lcd = configurationManager.getLcdDisplay();
@@ -291,12 +305,12 @@ public class Main {
             Thread.sleep(250);
         }
 
-        //SRF08Config config = new SRF08Config(0x74, 31, 135, "fuu", 0, 0, 0, 350);
-        //SRF08 srf = new SRF08(config);
-        //while (true) {
-        //    Thread.sleep(250);
-        //    System.out.println(srf.getMeasure());
-        //}
+        // SRF08Config config = new SRF08Config(0x74, 31, 135, "fuu", 0, 0, 0, 350);
+        // SRF08 srf = new SRF08(config);
+        // while (true) {
+        // Thread.sleep(250);
+        // System.out.println(srf.getMeasure());
+        // }
     }
 
     private static void testShell() throws IOException, InterruptedException {
@@ -312,9 +326,11 @@ public class Main {
         System.out.println("Resultat en " + (System.currentTimeMillis() - time) + "ms");
     }
 
-    private static void testPathfinding() throws InterruptedException, IOException, AX12LinkException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    private static void testPathfinding()
+            throws InterruptedException, IOException, AX12LinkException, ClassNotFoundException,
+            InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         System.out.println("testPathfinding");
-        //Load of the configuration first
+        // Load of the configuration first
         ConfigurationManager configurationManager = new ConfigurationManager();
         configurationManager.loadConfiguration(configFilePath, ConfigurationManager.CONFIG_PATHFINDING);
 
@@ -322,30 +338,28 @@ public class Main {
         PathFinding pathFinding = configurationManager.getPathfinding();
         pathFinding.computePath(
                 new Point(800, 200),
-                new Point(540, 700)
-        );
+                new Point(540, 700));
         while (!pathFinding.isComputationEnded()) {
             Thread.sleep(500);
         }
         System.out.println("Path");
         System.out.print("[");
         for (Point p : pathFinding.getLastComputedPath()) {
-            System.out.print("["+p.x+","+p.y+"],");
+            System.out.print("[" + p.x + "," + p.y + "],");
         }
         System.out.println("]");
 
         System.out.println("Path 2");
         pathFinding.computePath(
                 new Point(540, 700),
-                new Point(250, 450)
-        );
+                new Point(250, 450));
         while (!pathFinding.isComputationEnded()) {
             Thread.sleep(500);
         }
         System.out.println("Path");
         System.out.print("[");
         for (Point p : pathFinding.getLastComputedPath()) {
-            System.out.print("["+p.x+","+p.y+"],");
+            System.out.print("[" + p.x + "," + p.y + "],");
         }
         System.out.println("]");
 
@@ -355,34 +369,35 @@ public class Main {
         System.out.println("Path 3");
         pathFinding.computePath(
                 new Point(250, 450),
-                new Point(800, 500)
-        );
+                new Point(800, 500));
         while (!pathFinding.isComputationEnded()) {
             Thread.sleep(500);
         }
         System.out.println("Path");
         System.out.print("[");
         for (Point p : pathFinding.getLastComputedPath()) {
-            System.out.print("["+p.x+","+p.y+"],");
+            System.out.print("[" + p.x + "," + p.y + "],");
         }
         System.out.println("]");
     }
 
-    private static void testAsserv() throws IOException, ClassNotFoundException, InvocationTargetException, AX12LinkException, NoSuchMethodException, InstantiationException, IllegalAccessException, InterruptedException {
+    private static void testAsserv()
+            throws IOException, ClassNotFoundException, InvocationTargetException, AX12LinkException,
+            NoSuchMethodException, InstantiationException, IllegalAccessException, InterruptedException {
         AsservInterface asserv = new Asserv(
                 "/dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_066FFF383133524157185717-if02",
-                Baud._115200
-        );
+                Baud._115200);
         while (true) {
             System.out.println(asserv.getPosition());
             Thread.sleep(200);
         }
     }
 
-    private static void coupeOffDance() throws IOException, AX12LinkException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-        //Load of the configuration first
+    private static void coupeOffDance() throws IOException, AX12LinkException, ClassNotFoundException,
+            InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+        // Load of the configuration first
         ConfigurationManager configurationManager = new ConfigurationManager();
-        configurationManager.loadConfiguration(configFilePath , ConfigurationManager.CONFIG_COUPEOFF);
+        configurationManager.loadConfiguration(configFilePath, ConfigurationManager.CONFIG_COUPEOFF);
 
         // Loading the esialrobotik.ia.core
         AsservInterface asserv = configurationManager.getAsserv();
@@ -393,7 +408,7 @@ public class Main {
         tirette.waitForTirette(true);
         tirette.waitForTirette(false);
 
-        //On prépare du random
+        // On prépare du random
         Random random = new Random();
         ArrayList<String> randomDance = new ArrayList<>();
         randomDance.add("goto");
@@ -405,15 +420,14 @@ public class Main {
         randomDance.add("escalier1");
         randomDance.add("escalier2");
 
-
-        for (int i = 0; i < 100; i++){
+        for (int i = 0; i < 100; i++) {
             String action = randomDance.get(random.nextInt(randomDance.size()));
 
             switch (action) {
                 case "goto":
-                    int x = random.nextInt(5)*100;
-                    int y = random.nextInt(5)*100;
-                    asserv.goTo(new Position(x,y));
+                    int x = random.nextInt(5) * 100;
+                    int y = random.nextInt(5) * 100;
+                    asserv.goTo(new Position(x, y));
                     Main.waitForAsserv(asserv);
                     break;
                 case "turn":
@@ -425,7 +439,7 @@ public class Main {
                     Main.waitForAsserv(asserv);
                     break;
                 case "goAndBack":
-                    int go = random.nextInt(10)*10;
+                    int go = random.nextInt(10) * 10;
                     asserv.go(go);
                     Main.waitForAsserv(asserv);
                     asserv.go(-go);
@@ -477,7 +491,7 @@ public class Main {
             SerialPort sp = AX12LinkSerial.getSerialPort(configAx12.get("serie").getAsString());
 
             if (sp == null) {
-                throw new RuntimeException("Aucun port série "+configAx12.get("serie").getAsString()+" trouvé !");
+                throw new RuntimeException("Aucun port série " + configAx12.get("serie").getAsString() + " trouvé !");
             }
 
             boolean combineRxTx = configAx12.has("combineRxTx") && configObject.get("combineRxTx").getAsBoolean();
@@ -493,7 +507,7 @@ public class Main {
             } else {
                 (new Ax12MainConsole(ax12Link)).mainLoop();
             }
-        } catch (AX12LinkException |IOException e) {
+        } catch (AX12LinkException | IOException e) {
             e.printStackTrace();
         }
     }
@@ -506,7 +520,8 @@ public class Main {
             JsonObject configObject = configRootNode.get("actions").getAsJsonObject();
             JsonObject configSerial = configObject.get("serial").getAsJsonObject();
 
-            SerialDevice serialDevice = new SerialDevice(configSerial.get("serie").getAsString(), configSerial.get("baud").getAsInt());
+            SerialDevice serialDevice = new SerialDevice(configSerial.get("serie").getAsString(),
+                    configSerial.get("baud").getAsInt());
             LiftProbe2022 liftProbe2022 = new LiftProbe2022(serialDevice);
 
             JsonObject configAx12 = configObject.get("ax12").getAsJsonObject();
@@ -530,7 +545,7 @@ public class Main {
             System.out.println("  axoff: désactive le couple de l'ax12\n  ax<angle>: règle l'angle de l'ax en degrés");
             System.out.println("  p: Allume ou éteint la pompe");
             System.out.print(">");
-            while((cmd = in.nextLine()) != null) {
+            while ((cmd = in.nextLine()) != null) {
                 try {
                     if (cmd.startsWith("exit")) {
                         break;
@@ -539,7 +554,7 @@ public class Main {
                     } else if (cmd.equals("s")) {
                         System.out.println(liftProbe2022.probeExcavations().name());
                     } else if (cmd.equals("a")) {
-                        System.out.println(liftProbe2022.fetchLiftPosition()+"mm");
+                        System.out.println(liftProbe2022.fetchLiftPosition() + "mm");
                     } else if (cmd.startsWith("g") && cmd.length() > 1) {
                         liftProbe2022.setLiftPosition(Integer.parseInt(cmd.substring(1)));
                     } else if (cmd.equals("axoff")) {
@@ -573,9 +588,10 @@ public class Main {
             Scanner in = new Scanner(System.in);
             String cmd;
             System.out.println("Commandes :\n  exit: quitter\n  f: firmware version");
-            System.out.println("  m0<vitesse> : vitesse moteur 0 -127 à +128\n  m1<vitesse> : vitesse moteur 1 -127 à +128");
+            System.out.println(
+                    "  m0<vitesse> : vitesse moteur 0 -127 à +128\n  m1<vitesse> : vitesse moteur 1 -127 à +128");
             System.out.print(">");
-            while((cmd = in.nextLine()) != null) {
+            while ((cmd = in.nextLine()) != null) {
                 try {
                     if (cmd.startsWith("exit")) {
                         break;
@@ -598,10 +614,11 @@ public class Main {
         }
     }
 
-    private static void testActions() throws IOException, ClassNotFoundException, InvocationTargetException, AX12LinkException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    private static void testActions() throws IOException, ClassNotFoundException, InvocationTargetException,
+            AX12LinkException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         logger.info("Start esialrobotik.ia.actions test");
 
-        //Load of the configuration first
+        // Load of the configuration first
         ConfigurationManager configurationManager = new ConfigurationManager();
         configurationManager.loadConfiguration(configFilePath, ConfigurationManager.CONFIG_ACTIONNEUR);
 
@@ -610,7 +627,7 @@ public class Main {
             String actionId;
             System.out.println("Id de l'action à exécuter (voir ActionFileBinder)");
             System.out.print(">");
-            while((actionId = in.nextLine()) != null) {
+            while ((actionId = in.nextLine()) != null) {
                 actionId = actionId.trim();
                 int actionIdOrdinal = -1;
                 try {
@@ -645,12 +662,14 @@ public class Main {
         }
     }
 
-    public static void funnyAction() throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    public static void funnyAction() throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException,
+            InstantiationException, IllegalAccessException {
         ConfigurationManager configurationManager = new ConfigurationManager();
         try {
             configurationManager.loadConfiguration(configFilePath);
             ColorDetector colorDetector = configurationManager.getColorDetector();
-            ActionExecutor ae = configurationManager.getActionSupervisor().getActionExecutor(configurationManager.getFunnyActionDescription().actionId);
+            ActionExecutor ae = configurationManager.getActionSupervisor()
+                    .getActionExecutor(configurationManager.getFunnyActionDescription().actionId);
             boolean triggered = false;
             while (true) {
                 Thread.sleep(50);
@@ -679,8 +698,19 @@ public class Main {
         }
     }
 
+    private static void testLog() {
+        org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger("SLF4JTest");
+        logger.error("Test error on SLF4J provided logger.");
+        Main.logger.error("Test error");
+        Main.logger.warn("Test warn");
+        Main.logger.info("Test info");
+        Main.logger.debug("Test debug");
+        Main.logger.trace("Test trace");
+    }
+
     private static void waitForAsserv(AsservInterface asservInterface) {
-        while (asservInterface.getQueueSize() == 0 && asservInterface.getAsservStatus() == AsservInterface.AsservStatus.STATUS_IDLE) {
+        while (asservInterface.getQueueSize() == 0
+                && asservInterface.getAsservStatus() == AsservInterface.AsservStatus.STATUS_IDLE) {
             try {
                 Thread.sleep(20);
             } catch (InterruptedException e) {

@@ -5,7 +5,7 @@ import esialrobotik.ia.api.log.LoggerFactory;
 import esialrobotik.ia.asserv.Position;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import org.apache.logging.log4j.Level;
+import org.slf4j.event.Level;
 import esialrobotik.ia.pathfinding.PathFinding;
 import esialrobotik.ia.pathfinding.table.Table;
 import esialrobotik.ia.pathfinding.table.astar.Astar;
@@ -300,7 +300,7 @@ public class Main2021 {
 
         System.out.println("Test de la strat");
         try {
-            LoggerFactory.init(Level.OFF);
+            LoggerFactory.setDefaultLevel(Level.ERROR);
             Table table = new Table("config/2021/table0.tbl");
             table.loadJsonFromFile("config/2021/table.json");
             PathFinding pathFinding = new PathFinding(new Astar(table));

@@ -7,7 +7,7 @@ import com.pi4j.io.serial.Baud;
 import com.pi4j.io.serial.Serial;
 import esialrobotik.ia.api.communication.SerialDevice;
 import esialrobotik.ia.api.log.LoggerFactory;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

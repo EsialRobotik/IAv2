@@ -14,7 +14,7 @@ import esialrobotik.ia.manager.MovementManager;
 import esialrobotik.ia.pathfinding.PathFinding;
 import esialrobotik.ia.pathfinding.table.Point;
 import esialrobotik.ia.pathfinding.table.TableColor;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;

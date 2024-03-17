@@ -4,7 +4,7 @@ package esialrobotik.ia.actions;
 import esialrobotik.ia.api.communication.SerialRxTx;
 import esialrobotik.ia.api.log.LoggerFactory;
 import esialrobotik.ia.manager.CommunicationManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
 
 import java.io.IOException;
 import java.io.InputStream;

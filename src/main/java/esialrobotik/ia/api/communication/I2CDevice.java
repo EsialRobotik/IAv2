@@ -4,7 +4,7 @@ import com.pi4j.context.Context;
 import com.pi4j.io.i2c.I2C;
 import esialrobotik.ia.api.Pi4JContext;
 import esialrobotik.ia.api.log.LoggerFactory;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
 
 /**
  * Communication I2C

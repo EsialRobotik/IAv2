@@ -6,8 +6,8 @@ import esialrobotik.ia.pathfinding.table.Table;
 import esialrobotik.ia.pathfinding.table.astar.Astar;
 import esialrobotik.ia.pathfinding.table.astar.LineSimplificator;
 import esialrobotik.ia.pathfinding.table.shape.Shape;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.event.Level;
+import org.slf4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -129,7 +129,7 @@ public class PathFinding {
     }
 
     public static void main(String[] args) throws Exception {
-        LoggerFactory.init(Level.TRACE);
+        LoggerFactory.setDefaultLevel(Level.TRACE);
         Logger logger = LoggerFactory.getLogger(PathFinding.class);
         logger.info("init logger");
 

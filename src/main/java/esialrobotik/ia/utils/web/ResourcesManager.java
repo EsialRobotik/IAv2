@@ -2,7 +2,7 @@ package esialrobotik.ia.utils.web;
 
 import esialrobotik.ia.api.log.LoggerFactory;
 import esialrobotik.ia.core.Main;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
 
 import java.io.*;
 import java.net.MalformedURLException;

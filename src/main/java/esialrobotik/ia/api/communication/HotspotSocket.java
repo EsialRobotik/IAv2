@@ -1,8 +1,8 @@
 package esialrobotik.ia.api.communication;
 
 import esialrobotik.ia.api.log.LoggerFactory;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.event.Level;
+import org.slf4j.Logger;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.drafts.Draft;
 import org.java_websocket.handshake.ServerHandshake;
@@ -70,7 +70,7 @@ public class HotspotSocket extends WebSocketClient {
     }
 
     public static void main(String[] args) throws Exception {
-        LoggerFactory.init(Level.TRACE);
+        LoggerFactory.setDefaultLevel(Level.TRACE);
         Logger logger = LoggerFactory.getLogger(HotspotSocket.class);
         logger.info("init logger");
 

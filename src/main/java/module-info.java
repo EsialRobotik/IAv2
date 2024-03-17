@@ -31,7 +31,6 @@ module esialrobotik.ia {
 
     // SLF4J MODULES
     requires org.slf4j;
-    requires org.slf4j.simple;
 
     requires java.logging;
     requires jdk.unsupported;
@@ -43,9 +42,6 @@ module esialrobotik.ia {
     // GSon
     requires com.google.gson;
 
-    // Log4J
-    requires org.apache.logging.log4j;
-
     requires java.sql;
     uses java.sql.Timestamp;
     requires org.java_websocket;
@@ -56,5 +52,6 @@ module esialrobotik.ia {
     // allow access to classes in the following namespaces for Pi4J annotation processing
     opens esialrobotik.ia.api.gpio to com.pi4j;
     opens esialrobotik.ia.api.camera to com.pi4j;
+    opens esialrobotik.ia.api.log to com.pi4j;
     opens esialrobotik.ia.core to com.pi4j;
 }

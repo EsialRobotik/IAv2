@@ -4,8 +4,8 @@ import esialrobotik.ia.api.log.LoggerFactory;
 import esialrobotik.ia.asserv.Position;
 import esialrobotik.ia.detection.lidar.LidarInterface;
 import esialrobotik.ia.detection.lidar.LidarPoint;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.event.Level;
+import org.slf4j.Logger;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ public class LidarManager {
         this.lidar = lidar;
         this.movementManager = movementManager;
 
-        LoggerFactory.init(Level.TRACE);
+        LoggerFactory.setDefaultLevel(Level.TRACE);
         logger = LoggerFactory.getLogger(LidarManager.class);
     }
 

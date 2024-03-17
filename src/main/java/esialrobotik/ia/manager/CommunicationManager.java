@@ -5,7 +5,7 @@ import esialrobotik.ia.actions.ActionSupervisor;
 import esialrobotik.ia.api.communication.HotspotSocket;
 import esialrobotik.ia.api.log.LoggerFactory;
 import esialrobotik.ia.pathfinding.PathFinding;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
 
 import java.net.URISyntaxException;
 
@@ -46,7 +46,7 @@ public class CommunicationManager {
             this.hotspotSocket.send(data);
         } catch (Exception e) {
             this.logger.error("Socket error");
-            this.logger.error(e);
+            this.logger.error(e.getMessage());
         }
     }
 
