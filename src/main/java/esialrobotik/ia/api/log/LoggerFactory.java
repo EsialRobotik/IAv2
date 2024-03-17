@@ -167,6 +167,8 @@ public class LoggerFactory implements ILoggerFactory {
     }
 
     public static void shutdown() {
-        // NO-OP
+        for (LogOutput output : INSTANCE.outputs) {
+            output.close();
+        }
     }
 }
