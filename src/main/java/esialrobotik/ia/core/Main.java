@@ -699,7 +699,7 @@ public class Main {
     }
 
     private static void testLog() {
-        org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger("test");
+        org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger("SLF4JTest");
         logger.error("Test error on SLF4J provided logger.");
         Main.logger.error("Test error");
         Main.logger.warn("Test warn");

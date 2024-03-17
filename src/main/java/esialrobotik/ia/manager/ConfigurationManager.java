@@ -200,7 +200,7 @@ public class ConfigurationManager {
         }
 
         if(config == CONFIG_NOMINAL) {
-            JsonObject socketConfig = configRootNode.getAsJsonObject("loggerSocket");
+            JsonObject socketConfig = configRootNode.getAsJsonObject("comSocket");
             communicationManager = new CommunicationManager(pathfinding, actionSupervisor, socketConfig.get("host").getAsString(),socketConfig.get("port").getAsInt());
             actionSupervisor.setCommunicationManager(communicationManager);
         }

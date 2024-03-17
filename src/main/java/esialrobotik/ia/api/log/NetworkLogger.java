@@ -128,6 +128,13 @@ public class NetworkLogger extends AbstractLogger {
                             case 'l':
                                 buf.append(level.toString());
                                 break;
+                            case 'L':
+                                var lstring = level.toString();
+                                buf.append(lstring);
+                                if (lstring.length() < 5) {
+                                    buf.append(SP);
+                                }
+                                break;
                             case 'n':
                                 buf.append(name);
                                 break;

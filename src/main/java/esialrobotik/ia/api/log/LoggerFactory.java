@@ -62,20 +62,20 @@ public class LoggerFactory implements ILoggerFactory {
                 outputs.add(new StdoutOutput(logFormat, dateFormat));
             }
             if (logFile != null && logFile.get("active").getAsBoolean()) {
-                String logFormat = logStdout.get("logFormat") != null ?
-                    logStdout.get("logFormat").getAsString() : default_logFormat;
-                String dateFormat_str = logStdout.get("dateFormat") != null ?
-                    logStdout.get("dateFormat").getAsString() : default_dateFormat;
+                String logFormat = logFile.get("logFormat") != null ?
+                    logFile.get("logFormat").getAsString() : default_logFormat;
+                String dateFormat_str = logFile.get("dateFormat") != null ?
+                    logFile.get("dateFormat").getAsString() : default_dateFormat;
                 String fileFormat = logFile.get("fileFormat") != null ?
                     logFile.get("fileFormat").getAsString() : "logs/%d.log";
                 DateFormat dateFormat = new SimpleDateFormat(dateFormat_str);
                 outputs.add(new FileOutput(logFormat, dateFormat, fileFormat));
             }
             if (logSocket != null && logSocket.get("active").getAsBoolean()) {
-                String logFormat = logStdout.get("logFormat") != null ?
-                    logStdout.get("logFormat").getAsString() : default_logFormat;
-                String dateFormat_str = logStdout.get("dateFormat") != null ?
-                    logStdout.get("dateFormat").getAsString() : default_dateFormat;
+                String logFormat = logSocket.get("logFormat") != null ?
+                    logSocket.get("logFormat").getAsString() : default_logFormat;
+                String dateFormat_str = logSocket.get("dateFormat") != null ?
+                    logSocket.get("dateFormat").getAsString() : default_dateFormat;
                 String host = logSocket.get("host") != null ?
                     logSocket.get("host").getAsString() : "localhost";
                 int port = logSocket.get("port") != null ?

@@ -13,26 +13,29 @@
         "lineCount": 2,
         "lineLength": 16
     },
+    "comSocket": {
+        "host": "192.168.0.203",
+        "port": 4269
+    },
     "log": {
         "stdout": {
             "active": true,
-            "logFormat": "%d [%T/%i] [%l] [%M] %m",
-            "dateFormat": "yyyy-MM-dd_HH-mm-ss"
+            "logFormat": "%d [%l][%T/%i][%n] %m",
+            "dateFormat": "yyyy-MM-dd HH:mm:ss"
         },
         "file": {
             "active": true,
-            "logFormat": "%d [%T/%i] [%l] [%M] %m",
+            "logFormat": "%d [%L][%T/%i][%n] %m",
             "dateFormat": "yyyy-MM-dd_HH-mm-ss",
             "fileFormat": "./archives/log-%d/log.log"
         },
         "socket": {
-            "active": false,
-            "logFormat": "%d [%w] [%T/%i] [%l] [%M] %m",
-            "dateFormat": "yyyy-MM-dd_HH-mm-ss",
-            "host": "192.168.0.103",
-            "port": 4269,
-            "logPort": 1664,
-            "who": "princess"
+            "active": true,
+            "logFormat": "%d [%W][%L][%T/%i][%n] %m",
+            "dateFormat": "yyyy-MM-dd HH:mm:ss",
+            "host": "192.168.0.203",
+            "port": 1664,
+            "whoami": "princess"
         }
     },
     "asserv": {
