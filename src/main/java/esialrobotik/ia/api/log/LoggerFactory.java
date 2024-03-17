@@ -38,7 +38,6 @@ public class LoggerFactory implements ILoggerFactory {
 
         String default_dateFormat = "yyyy-MM-dd HH:mm:ss";
         String default_logFormat = "%d [%T/%i] [%l] [%M] %m";
-        String default_lvl = "DEBUG";
 
         Gson gson = new Gson();
         try (Reader reader = Files.newBufferedReader(Paths.get(Main.configFilePath))) {

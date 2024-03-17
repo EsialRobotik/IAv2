@@ -31,16 +31,12 @@ module esialrobotik.ia {
 
     // SLF4J MODULES
     requires org.slf4j;
-    //requires org.slf4j.simple;
 
     uses com.pi4j.extension.Extension;
     uses com.pi4j.provider.Provider;
 
     // GSon
     requires com.google.gson;
-
-    // Log4J
-    // requires org.apache.logging.log4j;
 
     requires java.sql;
     uses java.sql.Timestamp;
