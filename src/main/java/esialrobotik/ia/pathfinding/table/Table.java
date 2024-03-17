@@ -100,16 +100,16 @@ public class Table {
 
     private void loadConfig(JsonObject rootElement, List<String> zoneToSkip){
         shapeList = new ArrayList<Shape>();
-        xSize = rootElement.get("tailleX").getAsInt();
+        xSize = rootElement.get("sizeX").getAsInt();
         rectifiedXSize = xSize / 10;
-        ySize = rootElement.get("tailleY").getAsInt();
+        ySize = rootElement.get("sizeY").getAsInt();
         rectifiedYSize = ySize / 10;
-        color0 = rootElement.get("couleur0").getAsString();
-        color3000 = rootElement.get("couleur3000").getAsString();
+        color0 = rootElement.get("color0").getAsString();
+        color3000 = rootElement.get("color3000").getAsString();
         margin = rootElement.get("marge").getAsInt();
 
         if (zoneToSkip.size() > 0) {
-            for (JsonElement jsonElement : rootElement.getAsJsonArray("zonesInterdites")) {
+            for (JsonElement jsonElement : rootElement.getAsJsonArray("forbiddenZones")) {
                 Shape shape = ShapeFactory.getShape(jsonElement.getAsJsonObject());
                 if (zoneToSkip.contains(shape.getId()) || shape.getId().contains("_margin")) {
                     continue;
@@ -119,19 +119,9 @@ public class Table {
         }
 
         elementsList = new HashMap<>();
-        for (JsonElement jsonElement : rootElement.getAsJsonArray("elementsJeu")) {
+        for (JsonElement jsonElement : rootElement.getAsJsonArray("dynamicZones")) {
             Shape shape = ShapeFactory.getShape(jsonElement.getAsJsonObject());
-            List<Point> points = new ArrayList<>();
-            boolean[][] temp = shape.drawShapeEdges(rectifiedXSize, rectifiedYSize, false);
-            temp = computeForbiddenAreaForElement(temp);
-            for (int i = rectifiedXSize; i <= rectifiedXSize * 2; i++) {
-                for (int j = rectifiedYSize; j <= rectifiedYSize * 2; j++) {
-                    if (temp[i][j]) {
-                        points.add(new Point(i - rectifiedXSize, j - rectifiedYSize));
-                    }
-                }
-            }
-            elementsList.put(shape, points);
+            elementsList.put(shape, getPointsFromShape(shape));
         }
 
         detectionIgnoreQuadrilaterium = new ArrayList<>();
@@ -153,8 +143,12 @@ public class Table {
                 jsonElement.getAsJsonObject().get("x4").getAsInt(),
                 jsonElement.getAsJsonObject().get("y4").getAsInt()
             ));
-            detectionIgnoreQuadrilaterium.add(points);
+            addPointsToDetectionIgnoreQuadrilaterium(points);
         }
+    }
+
+    public void addPointsToDetectionIgnoreQuadrilaterium(List<Point> points) {
+        detectionIgnoreQuadrilaterium.add(points);
     }
 
     public int getxSize(){
@@ -415,7 +409,7 @@ public class Table {
     }
 
     public void printTable() {
-        for(int i = 0; i < forbiddenArea.length; ++i) {
+        for (int i = 0; i < forbiddenArea.length; ++i) {
             for(int j = 0; j < forbiddenArea[0].length; ++j){
                 System.out.print(forbiddenArea[i][j]?"x":"o");
             }
@@ -452,12 +446,9 @@ public class Table {
             bw = new BufferedWriter(fw);
             bw.write(this.getxSize() + " " + this.getySize() + "\n");
             bw.write(this.toString());
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
-
-        }
-        finally {
+        } finally {
             try {
                 if (bw != null) {
                     bw.close();
@@ -465,11 +456,9 @@ public class Table {
                 if (fw != null) {
                     fw.close();
                 }
-
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
-
         }
     }
 
@@ -507,18 +496,27 @@ public class Table {
         return false;
     }
 
+    public List<Point> getPointsFromShape(Shape shape) {
+        List<Point> points = new ArrayList<>();
+        boolean[][] temp = shape.drawShapeEdges(rectifiedXSize, rectifiedYSize, false);
+        temp = computeForbiddenAreaForElement(temp);
+        for (int i = rectifiedXSize; i <= rectifiedXSize * 2; i++) {
+            for (int j = rectifiedYSize; j <= rectifiedYSize * 2; j++) {
+                if (temp[i][j]) {
+                    points.add(new Point(i - rectifiedXSize, j - rectifiedYSize));
+                }
+            }
+        }
+        return points;
+    }
+
     public static void main(String[] args) throws IOException {
-        int year = 2023;
+        int year = 2024;
 
         try {
             // A lancer directement depuis l'IDE pour générer la table
             Table table = new Table();
             ArrayList<String> zoneToSkip = new ArrayList<>();
-            zoneToSkip.add("start0_1");
-            zoneToSkip.add("start0_2");
-            zoneToSkip.add("start0_3");
-            zoneToSkip.add("start0_4");
-            zoneToSkip.add("start0_5");
             table.loadJsonFromFile("config/" + year + "/table.json", zoneToSkip);
 
             table.drawTable();
@@ -530,11 +528,6 @@ public class Table {
 
             table = new Table();
             zoneToSkip = new ArrayList<>();
-            zoneToSkip.add("start3000_1");
-            zoneToSkip.add("start3000_2");
-            zoneToSkip.add("start3000_3");
-            zoneToSkip.add("start3000_4");
-            zoneToSkip.add("start3000_5");
             table.loadJsonFromFile("config/" + year + "/table.json", zoneToSkip);
 
             table.drawTable();

@@ -1,5 +1,6 @@
 package esialrobotik.ia.actions;
 
+import esialrobotik.ia.actions.a2023.ActionFileBinder;
 import esialrobotik.ia.api.log.LoggerFactory;
 import esialrobotik.ia.manager.CommunicationManager;
 import org.slf4j.Logger;
@@ -18,10 +19,13 @@ public class ActionSupervisor {
     private String actionFlag;
     protected Logger logger;
 
-    public ActionSupervisor(ActionInterface actionInterface, ArrayList<Integer> initActionsId) {
+    public ActionSupervisor(ActionInterface actionInterface, ArrayList<String> initActions) {
         logger = LoggerFactory.getLogger(ActionSupervisor.class);
         this.actionInterface = actionInterface;
-        this.initActionsId = initActionsId;
+        this.initActionsId = new ArrayList<>();
+        for (String action : initActions) {
+            this.initActionsId.add(ActionFileBinder.ActionFile.valueOf(action).ordinal());
+        }
     }
 
     public ActionExecutor getActionExecutor(int id) {

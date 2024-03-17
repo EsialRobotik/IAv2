@@ -32,10 +32,10 @@
             "host": "192.168.0.103",
             "port": 4269,
             "logPort": 1664,
-            "who": "princess"
+            "who": "picratepi"
         }
     },
-    "asserv": {
+    "asserv": {gradle.properties.dist
         "baud": 115200,
         "combineRxTx": false,
         "serie": "/dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_066AFF575755846687215414-if02",

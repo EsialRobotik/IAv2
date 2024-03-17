@@ -89,24 +89,6 @@ public interface AsservInterface {
      ************************************************************************/
 
     /**
-     * Définie l'angle théta du robot
-     * @param theta Angle theta en radian
-     */
-    void setOdometrieTheta(double theta);
-
-    /**
-     * Définie la position X du robot
-     * @param x X en mm
-     */
-    void setOdometrieX(int x);
-
-    /**
-     * Définie la position Y du robot
-     * @param y Y en mm
-     */
-    void setOdometrieY(int y);
-
-    /**
      * Définiela position complète du robot
      * @param x X en mm
      * @param y Y en mm
@@ -137,20 +119,10 @@ public interface AsservInterface {
     void enableRegulatorAngle(boolean enable);
 
     /**
-     * Reset le régulateur d'angle
-     */
-    void resetRegulatorAngle();
-
-    /**
      * Active ou désactive le régulateur de distance
      * @param enable true pour activer, false pour désactiver
      */
     void enableRegulatorDistance(boolean enable);
-
-    /**
-     * Reset le régulateur d'angle
-     */
-    void resetRegulatorDistance();
 
     /**
      * Active ou désactive les moteurs

@@ -4,8 +4,8 @@ import esialrobotik.ia.actions.Step;
 import esialrobotik.ia.api.log.LoggerFactory;
 import esialrobotik.ia.asserv.AsservInterface;
 import esialrobotik.ia.asserv.Position;
-import org.slf4j.Logger;
 import esialrobotik.ia.pathfinding.table.Point;
+import org.slf4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,10 +94,12 @@ public class MovementManager {
                 }
             }
         }
-        Point lastPoint = trajectory.get(trajectory.size() - 1);
-        gotoQueue.add(lastPoint);
-        if (isMatchStarted) {
-            this.asservInterface.goTo(new Position(lastPoint.x, lastPoint.y));
+        if (trajectory.size() > 0) {
+            Point lastPoint = trajectory.get(trajectory.size() - 1);
+            gotoQueue.add(lastPoint);
+            if (isMatchStarted) {
+                this.asservInterface.goTo(new Position(lastPoint.x, lastPoint.y));
+            }
         }
         logger.info("executeMovement gotoQueue = " + gotoQueue);
     }
@@ -146,6 +148,10 @@ public class MovementManager {
 
     public AsservInterface.MovementDirection getMovementDirection() {
         return this.asservInterface.getMovementDirection();
+    }
+
+    public AsservInterface.AsservStatus getAsservStatus() {
+        return this.asservInterface.getAsservStatus();
     }
 
     public void goStart(boolean isColor0) {

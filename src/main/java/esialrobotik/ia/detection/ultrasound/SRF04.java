@@ -14,7 +14,7 @@ import java.util.concurrent.locks.LockSupport;
  */
 public class SRF04 implements UltraSoundInterface {
 
-    private static long TIMEOUT = 300; // If no change after 36ms, it's a timeout
+    private static long TIMEOUT = 3; // If no change after 3ms, there is nothing below 1m
 
     private GpioInput gpioInput;
     private GpioOutput gpioOutput;

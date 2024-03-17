@@ -1,5 +1,6 @@
 package esialrobotik.ia.manager;
 
+import esialrobotik.ia.asserv.Position;
 import esialrobotik.ia.detection.DetectionInterface;
 
 /**
@@ -52,5 +53,9 @@ public class DetectionManager {
 
     public boolean[] getEmergencyDetectionMap() {
         return this.ultraSoundManager.getDetectionResult();
+    }
+
+    public Position[] getEmergencyDetectionPositions() {
+        return this.ultraSoundManager.getDetectionPosition();
     }
 }

@@ -1,13 +1,13 @@
 package esialrobotik.ia.pathfinding;
 
 import esialrobotik.ia.api.log.LoggerFactory;
-import org.slf4j.event.Level;
-import org.slf4j.Logger;
 import esialrobotik.ia.pathfinding.table.Point;
 import esialrobotik.ia.pathfinding.table.Table;
 import esialrobotik.ia.pathfinding.table.astar.Astar;
 import esialrobotik.ia.pathfinding.table.astar.LineSimplificator;
 import esialrobotik.ia.pathfinding.table.shape.Shape;
+import org.slf4j.event.Level;
+import org.slf4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,11 +24,13 @@ public class PathFinding {
     private boolean computationStart;
     private boolean computationEnded;
     private List<Point> computedPath;
+    private List<Point> detectedPoints;
 
     public PathFinding(Astar astar) {
         this.astar = astar;
         computationEnded = true;
         computationStart = false;
+        detectedPoints = new ArrayList<>();
 
         for (Shape shape : this.astar.getTable().getElementsList().keySet()) {
             if (shape.isActive()) {
@@ -56,6 +58,9 @@ public class PathFinding {
                 Collections.reverse(simplePath);
                 for(Point p : simplePath) {
                     computedPath.add(new Point(p.getX() * 10, p.getY() * 10));
+                }
+                if (computedPath.size() > 0) {
+                    computedPath.set(computedPath.size() - 1, end);
                 }
                 computationEnded = true;
                 computationStart = false;
@@ -93,6 +98,34 @@ public class PathFinding {
         for (Point p : astar.getTable().findElementById(elementId)) {
             astar.setTemporaryAccessible(p.x, p.y, false);
         }
+    }
+
+    public List<Point> getDetectedPoints() {
+        return detectedPoints;
+    }
+
+    public void setDetectedPoints(List<Point> detectedPoints) {
+        this.detectedPoints = detectedPoints;
+    }
+
+    public void liberateDetectedPoints() {
+        for (Point p : this.detectedPoints) {
+            astar.setTemporaryAccessible(p.x, p.y, true);
+        }
+    }
+
+    public void lockDetectedPoints() {
+        for (Point p : this.detectedPoints) {
+            astar.setTemporaryAccessible(p.x, p.y, false);
+        }
+    }
+
+    public List<Point> getPointsFromShape(Shape shape) {
+        return astar.getTable().getPointsFromShape(shape);
+    }
+
+    public void addPointsToDetectionIgnoreQuadrilaterium(List<Point> points) {
+        astar.getTable().addPointsToDetectionIgnoreQuadrilaterium(points);
     }
 
     public static void main(String[] args) throws Exception {

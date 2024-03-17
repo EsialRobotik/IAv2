@@ -1,5 +1,5 @@
 {
-    "desc": "Configuration du robot 2024 - ??",
+    "desc": "Configuration du robot 2024 - MamaPrincess",
     "gpioColorSelector": 24,
     "gpioTirette": 23,
     "matchDuration": 99,
@@ -40,16 +40,24 @@
         "serie": "/dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_066FFF383133524157185717-if02",
         "start0": [
             {
+                "type": "angle",
+                "enable": false
+            },
+            {
                 "type": "go_timed",
                 "dist": -200
             },
             {
-                "type": "set_x",
-                "value": 2855
+                "type": "angle",
+                "enable": true
+            },
+            {
+                "type": "set_y",
+                "value": 125
             },
             {
                 "type": "set_theta",
-                "value": 3.14159265359
+                "value": 1.570796327
             },
             {
                 "type": "go",
@@ -60,11 +68,19 @@
                 "dist": 90
             },
             {
+                "type": "angle",
+                "enable": false
+            },
+            {
                 "type": "go_timed",
                 "dist": -200
             },
             {
-                "type": "set_y",
+                "type": "angle",
+                "enable": true
+            },
+            {
+                "type": "set_x",
                 "value": 1855
             },
             {
@@ -73,27 +89,35 @@
             },
             {
                 "type": "goto",
-                "x": 2800,
-                "y": 1775
+                "x": 1750,
+                "y": 250
             },
             {
                 "type": "face",
-                "x": 0,
-                "y": 1775
+                "x": 1750,
+                "y": 3000
             }
         ],
         "start3000": [
+            {
+                "type": "angle",
+                "enable": false
+            },
             {
                 "type": "go_timed",
                 "dist": -200
             },
             {
-                "type": "set_x",
+                "type": "angle",
+                "enable": true
+            },
+            {
+                "type": "set_y",
                 "value": 2855
             },
             {
                 "type": "set_theta",
-                "value": 3.14159265359
+                "value": -1.570796327
             },
             {
                 "type": "go",
@@ -104,12 +128,20 @@
                 "dist": -90
             },
             {
+                "type": "angle",
+                "enable": false
+            },
+            {
                 "type": "go_timed",
                 "dist": -200
             },
             {
-                "type": "set_y",
-                "value": 145
+                "type": "angle",
+                "enable": true
+            },
+            {
+                "type": "set_x",
+                "value": 1855
             },
             {
                 "type": "go",
@@ -117,13 +149,13 @@
             },
             {
                 "type": "goto",
-                "x": 2800,
-                "y": 225
+                "x": 1750,
+                "y": 2750
             },
             {
                 "type": "face",
-                "x": 0,
-                "y": 225
+                "x": 1750,
+                "y": 0
             }
         ]
     },
@@ -139,10 +171,10 @@
             "baud": 115200
         },
         "dataDir": "/home/pi/IA/actions/",
-        "init": [3, 4],
+        "init": [],
         "funnyAction": {
-            "actionId": 12,
-            "score": 5
+            "actionId": -1,
+            "score": 0
         }
     },
     "detection": {
@@ -187,9 +219,6 @@
                     "threshold": 500
                 }
             ]
-        },
-        "lidar": {
-            "port": "/dev/serial/by-path/usb-FTDI_FT232R_USB_UART_A5XK3RJT-if00-port0"
         }
     }
 }

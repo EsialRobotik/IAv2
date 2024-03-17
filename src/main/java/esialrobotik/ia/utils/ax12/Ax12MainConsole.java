@@ -1,11 +1,11 @@
 package esialrobotik.ia.utils.ax12;
 
-import java.util.Scanner;
-
 import esialrobotik.ia.api.ax12.AX12;
 import esialrobotik.ia.api.ax12.AX12LinkSerial;
 import esialrobotik.ia.utils.ax12.cmds.AX12Cmd;
 import esialrobotik.ia.utils.ax12.cmds.AX12CmdException;
+
+import java.util.Scanner;
 
 /**
  * Pilotage des AX12 par la console

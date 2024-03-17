@@ -1,7 +1,7 @@
 package esialrobotik.ia.actions;
 
-import esialrobotik.ia.asserv.Position;
 import com.google.gson.JsonObject;
+import esialrobotik.ia.asserv.Position;
 
 /**
  * Created by Guillaume on 18/05/2017.
@@ -10,7 +10,8 @@ public class Step {
     public enum Type {
         DEPLACEMENT,
         MANIPULATION,
-        ELEMENT
+        ELEMENT,
+        IGNORE_DETECTION
     }
 
     public enum SubType {

@@ -1,5 +1,9 @@
 package esialrobotik.ia.manager;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import esialrobotik.ia.actions.ActionCollection;
 import esialrobotik.ia.actions.ActionSupervisor;
 import esialrobotik.ia.actions.FunnyActionDescription;
@@ -17,20 +21,15 @@ import esialrobotik.ia.api.log.LoggerFactory;
 import esialrobotik.ia.api.qik.Qik;
 import esialrobotik.ia.asserv.Asserv;
 import esialrobotik.ia.asserv.AsservInterface;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import esialrobotik.ia.detection.DetectionInterface;
 import esialrobotik.ia.detection.DetectionInterfaceImpl;
 import esialrobotik.ia.detection.lidar.LidarInterface;
 import esialrobotik.ia.detection.lidar.RpLidar;
-import gnu.io.SerialPort;
-import org.slf4j.Logger;
 import esialrobotik.ia.pathfinding.PathFinding;
 import esialrobotik.ia.pathfinding.table.Table;
 import esialrobotik.ia.pathfinding.table.astar.Astar;
-
+import gnu.io.SerialPort;
+import org.slf4j.Logger;
 import java.io.IOException;
 import java.io.Reader;
 import java.lang.reflect.InvocationTargetException;
@@ -153,18 +152,22 @@ public class ConfigurationManager {
                 }
                 String dataDir = configObject.get("dataDir").getAsString();
                 JsonArray initArray = configObject.getAsJsonArray("init");
-                ArrayList<Integer> initActionsIds = new ArrayList<>();
+                ArrayList<String> initActions = new ArrayList<>();
                 for (JsonElement actionId : initArray) {
-                    initActionsIds.add(actionId.getAsInt());
+                    initActions.add(actionId.getAsString());
                 }
                 actionFileBinder = new ActionFileBinder(ax12Link, dataDir, actionCollection, qikLink, serialLink);
 
-                actionSupervisor = new ActionSupervisor(actionFileBinder, initActionsIds);
-                JsonObject funnyAction = configObject.getAsJsonObject("funnyAction");
-                funnyActionDescription = new FunnyActionDescription(
-                    funnyAction.get("actionId").getAsInt(),
-                    funnyAction.get("score").getAsInt()
-                );
+                actionSupervisor = new ActionSupervisor(actionFileBinder, initActions);
+                if (configObject.has("funnyAction")) {
+                    JsonObject funnyAction = configObject.getAsJsonObject("funnyAction");
+                    funnyActionDescription = new FunnyActionDescription(
+                        ActionFileBinder.ActionFile.valueOf(funnyAction.get("action").getAsString()).ordinal(),
+                        funnyAction.get("score").getAsInt()
+                    );
+                } else {
+                    funnyActionDescription = new FunnyActionDescription(-1, 0);
+                }
             }
         }
 

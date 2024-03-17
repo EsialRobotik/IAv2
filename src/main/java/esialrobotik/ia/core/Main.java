@@ -2,10 +2,12 @@ package esialrobotik.ia.core;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.pi4j.exception.LifecycleException;
 import com.pi4j.io.serial.Baud;
 import esialrobotik.ia.actions.ActionCollection;
 import esialrobotik.ia.actions.ActionExecutor;
 import esialrobotik.ia.actions.a2023.ActionFileBinder;
+import esialrobotik.ia.api.Pi4JContext;
 import esialrobotik.ia.api.ax12.AX12;
 import esialrobotik.ia.api.ax12.AX12Exception;
 import esialrobotik.ia.api.ax12.AX12LinkException;
@@ -31,9 +33,10 @@ import esialrobotik.ia.utils.ax12.Ax12MainConsole;
 import esialrobotik.ia.utils.web.AX12Http;
 import esialrobotik.ia.utils.web.ResourcesManager;
 import gnu.io.SerialPort;
+import sun.misc.Signal;
+import sun.misc.SignalHandler;
 import org.slf4j.Logger;
 import org.slf4j.event.Level;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
@@ -116,6 +119,19 @@ public class Main {
                 System.out.println("The configuration file does not exist : " + configFilePath);
                 return;
             }
+
+            Signal.handle(new Signal("INT"), new SignalHandler() {
+                public void handle(Signal sig) {
+                    System.out.println("Performing ctl-C shutdown");
+                    try {
+                        Pi4JContext.getInstance().shutdown();
+                    } catch (LifecycleException e) {
+                        e.printStackTrace();
+                    }
+                    Thread.dumpStack();
+                    System.exit(2);
+                }
+            });
 
             switch (args[0]) {
                 default:
