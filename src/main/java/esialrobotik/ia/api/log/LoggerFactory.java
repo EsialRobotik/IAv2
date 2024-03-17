@@ -37,7 +37,7 @@ public class LoggerFactory implements ILoggerFactory {
         this.default_Level = Level.DEBUG;
 
         String default_dateFormat = "yyyy-MM-dd HH:mm:ss";
-        String default_logFormat = "%d [%t/%i] [%l] [%M] %m";
+        String default_logFormat = "%d [%T/%i] [%l] [%M] %m";
         String default_lvl = "DEBUG";
 
         Gson gson = new Gson();
@@ -49,72 +49,46 @@ public class LoggerFactory implements ILoggerFactory {
                 this.outputs = new LogOutput[] { new StdoutOutput("%d [%t/%i] [%l] [%M] %m", dateFormat, default_Level) };
                 return;
             }
-            JsonObject logStdout = logConfig.get("stdout").getAsJsonObject();
-            JsonObject logFile = logConfig.get("file").getAsJsonObject();
-            JsonObject logSocket = logConfig.get("socket").getAsJsonObject();
+            JsonObject logStdout = logConfig.getAsJsonObject("stdout");
+            JsonObject logFile = logConfig.getAsJsonObject("file");
+            JsonObject logSocket = logConfig.getAsJsonObject("socket");
             
             List<LogOutput> outputs = new ArrayList<>();
             if (logStdout != null && logStdout.get("active").getAsBoolean()) {
-                String logFormat = logStdout.get("logFormat").getAsString();
-                String dateFormat_str = logStdout.get("dateFormat").getAsString();
-                String level = logStdout.get("level").getAsString();
-                if (level == null) {
-                    level = default_lvl;
-                }
-                if (logFormat == null) {
-                    logFormat = default_logFormat;
-                }
-                if (dateFormat_str == null) {
-                    dateFormat_str = default_dateFormat;
-                }
+                String logFormat = logStdout.get("logFormat") != null ?
+                    logStdout.get("logFormat").getAsString() : default_logFormat;
+                String dateFormat_str = logStdout.get("dateFormat") != null ?
+                    logStdout.get("dateFormat").getAsString() : default_dateFormat;
+                String level = logStdout.get("level") != null ?
+                    logStdout.get("level").getAsString() : default_lvl;
                 DateFormat dateFormat = new SimpleDateFormat(dateFormat_str);
                 outputs.add(new StdoutOutput(logFormat, dateFormat, Level.valueOf(level)));
             }
             if (logFile != null && logFile.get("active").getAsBoolean()) {
-                String logFormat = logFile.get("logFormat").getAsString();
-                String fileFormat = logFile.get("fileFormat").getAsString();
-                String dateFormat_str = logFile.get("dateFormat").getAsString();
-                String level = logFile.get("level").getAsString();
-                if (level == null) {
-                    level = default_lvl;
-                }
-                if (logFormat == null) {
-                    logFormat = default_logFormat;
-                }
-                if (fileFormat == null) {
-                    fileFormat = "log.txt";
-                }
-                if (dateFormat_str == null) {
-                    dateFormat_str = default_dateFormat;
-                }
+                String logFormat = logStdout.get("logFormat") != null ?
+                    logStdout.get("logFormat").getAsString() : default_logFormat;
+                String dateFormat_str = logStdout.get("dateFormat") != null ?
+                    logStdout.get("dateFormat").getAsString() : default_dateFormat;
+                String level = logStdout.get("level") != null ?
+                    logStdout.get("level").getAsString() : default_lvl;
+                String fileFormat = logFile.get("fileFormat") != null ?
+                    logFile.get("fileFormat").getAsString() : "logs/%d.log";
                 DateFormat dateFormat = new SimpleDateFormat(dateFormat_str);
-                outputs.add(new FileOutput(logFormat, dateFormat, default_Level, fileFormat));
+                outputs.add(new FileOutput(logFormat, dateFormat, Level.valueOf(level), fileFormat));
             }
             if (logSocket != null && logSocket.get("active").getAsBoolean()) {
-                String logFormat = logSocket.get("logFormat").getAsString();
-                String dateFormat_str = logSocket.get("dateFormat").getAsString();
-                String level = logSocket.get("level").getAsString();
-                String whoami = logSocket.get("whoami").getAsString();
-                String host = logSocket.get("host").getAsString();
-                int port = logSocket.get("port").getAsInt();
-                if (level == null) {
-                    level = default_lvl;
-                }
-                if (logFormat == null) {
-                    logFormat = default_logFormat;
-                }
-                if (dateFormat_str == null) {
-                    dateFormat_str = default_dateFormat;
-                }
-                if (whoami == null) {
-                    whoami = "unknown";
-                }
-                if (host == null) {
-                    host = "localhost";
-                }
-                if (port == 0) {
-                    port = 4269;
-                }
+                String logFormat = logStdout.get("logFormat") != null ?
+                    logStdout.get("logFormat").getAsString() : default_logFormat;
+                String dateFormat_str = logStdout.get("dateFormat") != null ?
+                    logStdout.get("dateFormat").getAsString() : default_dateFormat;
+                String level = logStdout.get("level") != null ?
+                    logStdout.get("level").getAsString() : default_lvl;
+                String host = logSocket.get("host") != null ?
+                    logSocket.get("host").getAsString() : "localhost";
+                int port = logSocket.get("port") != null ?
+                    logSocket.get("port").getAsInt() : 12345;
+                String whoami = logSocket.get("whoami") != null ?
+                    logSocket.get("whoami").getAsString() : "unknown";
                 DateFormat dateFormat = new SimpleDateFormat(dateFormat_str);
                 Socket sock = new Socket(host, port);
                 outputs.add(new SocketOutput(logFormat, dateFormat, Level.valueOf(level), whoami, sock));
