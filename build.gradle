@@ -23,18 +23,18 @@ ssh.settings {
     knownHosts = allowAnyHosts
 }
 
-remotes {
-    bigPrincessPi {
-        host = bigPrincessPiSettingsHost
-        user = bigPrincessPiSettingsUser
-        identity = file("${System.properties['user.home']}/.ssh/id_rsa")
-    }
-    smallPrincessPi {
-        host = smallPrincessPiSettingsHost
-        user = smallPrincessPiSettingsUser
-        identity = file("${System.properties['user.home']}/.ssh/id_rsa")
-    }
-}
+// remotes {
+//     bigPrincessPi {
+//         host = bigPrincessPiSettingsHost
+//         user = bigPrincessPiSettingsUser
+//         identity = file("${System.properties['user.home']}/.ssh/id_rsa")
+//     }
+//     smallPrincessPi {
+//         host = smallPrincessPiSettingsHost
+//         user = smallPrincessPiSettingsUser
+//         identity = file("${System.properties['user.home']}/.ssh/id_rsa")
+//     }
+// }
 
 // Copy the Java modules, run script and JAR in the distribution directory
 // Copy the Java modules, run script and JAR in the distribution directory
@@ -123,7 +123,7 @@ dependencies {
 
     // Log à étudier
     implementation 'org.slf4j:slf4j-api:2.0.10'
-    implementation 'org.slf4j:slf4j-simple:2.0.10'
+    //implementation 'org.slf4j:slf4j-simple:2.0.10'
 
     // Pi4J : https://pi4j.com
     implementation 'com.pi4j:pi4j-core:2.4.0'

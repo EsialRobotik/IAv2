@@ -5,10 +5,14 @@ import java.io.PrintStream;
 import org.slf4j.Marker;
 import org.slf4j.event.Level;
 import org.slf4j.helpers.AbstractLogger;
+import org.slf4j.helpers.MessageFormatter;
 
 public class NetworkLogger extends AbstractLogger {
 
     protected Level level;
+
+    private final static String SP = " ";
+    private final static long START_TIME = System.currentTimeMillis();
 
     public NetworkLogger(String name, Level level) {
         this.name = name;
@@ -75,7 +79,10 @@ public class NetworkLogger extends AbstractLogger {
     }
 
     void write(StringBuilder buf, Throwable t) {
-        // TODO
+        System.err.println(buf.toString());
+        if (t != null) {
+            writeThrowable(t, System.err);
+        }
     }
 
     protected void writeThrowable(Throwable t, PrintStream targetStream) {
@@ -87,9 +94,38 @@ public class NetworkLogger extends AbstractLogger {
     @Override
     protected void handleNormalizedLoggingCall(Level level, Marker marker, String messagePattern, Object[] arguments,
             Throwable throwable) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'handleNormalizedLoggingCall'");
-    }
+        StringBuilder buf = new StringBuilder(32);
 
-    
+        // append date-time
+        buf.append(System.currentTimeMillis() - START_TIME);
+        buf.append(SP);
+
+        // append thread name
+        buf.append("[");
+        buf.append(Thread.currentThread().getName());
+        buf.append("/");
+        buf.append(Thread.currentThread().getId());
+        buf.append("]");
+        buf.append(SP);
+
+        // append log level
+        buf.append("[");
+        buf.append(level.name());
+        buf.append("]");
+        buf.append(SP);
+
+        // append marker
+        if (marker != null) {
+            buf.append("[");
+            buf.append(marker.getName());
+            buf.append("]");
+            buf.append(SP);
+        }
+
+        // append message
+        String formattedMessage = MessageFormatter.basicArrayFormat(messagePattern, arguments);
+        buf.append(formattedMessage);
+
+        write(buf, throwable);
+    }
 }
