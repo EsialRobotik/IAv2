@@ -7,16 +7,20 @@ import org.slf4j.event.Level;
 import org.slf4j.helpers.AbstractLogger;
 import org.slf4j.helpers.MessageFormatter;
 
+import esialrobotik.ia.api.log.output.LogOutput;
+
 public class NetworkLogger extends AbstractLogger {
 
     protected Level level;
+    protected LogOutput[] outputs;
 
     private final static String SP = " ";
     private final static long START_TIME = System.currentTimeMillis();
 
-    public NetworkLogger(String name, Level level) {
+    public NetworkLogger(String name, Level level, LogOutput[] outputs) {
         this.name = name;
         this.level = level;
+        this.outputs = outputs;
     }
 
     @Override
@@ -78,8 +82,8 @@ public class NetworkLogger extends AbstractLogger {
         this.level = level;
     }
 
-    void write(StringBuilder buf, Throwable t) {
-        System.err.println(buf.toString());
+    void write(StringBuilder buf, Throwable t, PrintStream targetStream) {
+        targetStream.println(buf.toString());
         if (t != null) {
             writeThrowable(t, System.err);
         }
@@ -94,38 +98,73 @@ public class NetworkLogger extends AbstractLogger {
     @Override
     protected void handleNormalizedLoggingCall(Level level, Marker marker, String messagePattern, Object[] arguments,
             Throwable throwable) {
-        StringBuilder buf = new StringBuilder(32);
-
-        // append date-time
-        buf.append(System.currentTimeMillis() - START_TIME);
-        buf.append(SP);
-
-        // append thread name
-        buf.append("[");
-        buf.append(Thread.currentThread().getName());
-        buf.append("/");
-        buf.append(Thread.currentThread().getId());
-        buf.append("]");
-        buf.append(SP);
-
-        // append log level
-        buf.append("[");
-        buf.append(level.name());
-        buf.append("]");
-        buf.append(SP);
-
-        // append marker
-        if (marker != null) {
-            buf.append("[");
-            buf.append(marker.getName());
-            buf.append("]");
-            buf.append(SP);
+        for (LogOutput output : outputs) {
+            if (level.toInt() >= output.getLevel().toInt()) {
+                StringBuilder buf = new StringBuilder(128);
+                // For each char in the log format
+                // if it is a '%', and our flag is true, we add % to the buffer, otherwise we set the flag to true
+                // otherwise if the flag is true, we add the corresponding value to the buffer
+                // otherwise we add the char to the buffer
+                String logFormat = output.getLogFormat();
+                boolean flag = false;
+                for (int i = 0; i < logFormat.length(); i++) {
+                    char c = logFormat.charAt(i);
+                    if (c == '%') {
+                        if (flag) {
+                            buf.append('%');
+                            flag = false;
+                        } else {
+                            flag = true;
+                        }
+                    } else {
+                        if (flag) {
+                            switch (c) {
+                            case 'd':
+                                buf.append(output.getDateFormat().format(System.currentTimeMillis()));
+                                break;
+                            case 't':
+                                buf.append(System.currentTimeMillis() - START_TIME);
+                                break;
+                            case 'l':
+                                buf.append(level.toString());
+                                break;
+                            case 'n':
+                                buf.append(name);
+                                break;
+                            case 'm':
+                                buf.append(MessageFormatter.arrayFormat(messagePattern, arguments).getMessage());
+                                break;
+                            case 'T':
+                                buf.append(Thread.currentThread().getName());
+                                break;
+                            case 'i':
+                                buf.append(Thread.currentThread().getId());
+                                break;
+                            case 'M':
+                                if (marker != null) {
+                                    buf.append(marker.getName());
+                                } else {
+                                    buf.append("none");
+                                }
+                                break;
+                            case 'W':
+                                if (output instanceof esialrobotik.ia.api.log.output.SocketOutput) {
+                                    buf.append(((esialrobotik.ia.api.log.output.SocketOutput) output).getWhoami());
+                                } else {
+                                    buf.append("unknown");
+                                }
+                                break;
+                            default:
+                                buf.append(c);
+                            }
+                            flag = false;
+                        } else {
+                            buf.append(c);
+                        }
+                    }
+                }
+                write(buf, throwable, output.getOutput());
+            }
         }
-
-        // append message
-        String formattedMessage = MessageFormatter.basicArrayFormat(messagePattern, arguments);
-        buf.append(formattedMessage);
-
-        write(buf, throwable);
     }
 }

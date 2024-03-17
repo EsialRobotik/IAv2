@@ -13,12 +13,30 @@
         "lineCount": 2,
         "lineLength": 16
     },
-    "loggerSocket": {
-        "active": true,
-        "host": "192.168.0.103",
-        "port": 4269,
-        "logPort": 1664,
-        "who": "princess"
+    "log": {
+        "stdout": {
+            "active": true,
+            "level": "DEBUG",
+            "logFormat": "%d [%T/%i] [%l] [%M] %m",
+            "dateFormat": "yyyy-MM-dd_HH-mm-ss"
+        },
+        "file": {
+            "active": true,
+            "level": "DEBUG",
+            "logFormat": "%d [%T/%i] [%l] [%M] %m",
+            "dateFormat": "yyyy-MM-dd_HH-mm-ss",
+            "fileFormat": "./archives/log-%d/log.log"
+        },
+        "socket": {
+            "active": false,
+            "level": "DEBUG",
+            "logFormat": "%d [%w] [%T/%i] [%l] [%M] %m",
+            "dateFormat": "yyyy-MM-dd_HH-mm-ss",
+            "host": "192.168.0.103",
+            "port": 4269,
+            "logPort": 1664,
+            "who": "princess"
+        }
     },
     "asserv": {
         "baud": 115200,
