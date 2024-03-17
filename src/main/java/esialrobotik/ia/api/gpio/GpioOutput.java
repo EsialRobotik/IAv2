@@ -1,10 +1,10 @@
 package esialrobotik.ia.api.gpio;
 
-import esialrobotik.ia.api.Pi4JContext;
 import com.pi4j.context.Context;
 import com.pi4j.io.gpio.digital.DigitalOutput;
 import com.pi4j.io.gpio.digital.DigitalOutputConfigBuilder;
 import com.pi4j.io.gpio.digital.DigitalState;
+import esialrobotik.ia.api.Pi4JContext;
 
 /**
  * Raspberry GPIO Output wrapper
@@ -25,7 +25,7 @@ public class GpioOutput extends Gpio {
                 .address(gpioPin)
                 .shutdown(initialLow ? DigitalState.LOW : DigitalState.HIGH)
                 .initial(initialLow ? DigitalState.LOW : DigitalState.HIGH)
-                .provider("pigpio-digital-input");
+                .provider("pigpio-digital-output");
         gpioPinDigital = pi4j.create(config);
     }
 
