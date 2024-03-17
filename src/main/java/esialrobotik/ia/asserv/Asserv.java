@@ -389,7 +389,8 @@ public class Asserv implements AsservInterface {
                     break;
                 case "angle":
                     this.logger.info("Enable regulator angle " + temp.get("enable").getAsBoolean());
-                    enableRegulatorAngle(temp.get("enable").getAsBoolean());
+                    //enableRegulatorAngle(temp.get("enable").getAsBoolean());
+                    // todo remettre quand ça fonctionnera côté asserv
                     break;
                 case "distance":
                     this.logger.info("Enable regulator distance " + temp.get("enable").getAsBoolean());
