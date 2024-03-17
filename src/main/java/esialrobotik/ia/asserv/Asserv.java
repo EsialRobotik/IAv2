@@ -212,25 +212,13 @@ public class Asserv implements AsservInterface {
     @Override
     public void enableRegulatorAngle(boolean enable) {
         logger.info("enableRegulatorAngle : " + enable);
-        serialDevice.write(enable ? "Rae" : "Rad");
-    }
-
-    @Override
-    public void resetRegulatorAngle() {
-        logger.info("resetRegulatorAngle");
-        serialDevice.write("Rar");
+        serialDevice.write(enable ? "A1" : "A0");
     }
 
     @Override
     public void enableRegulatorDistance(boolean enable) {
         logger.info("enableRegulatorDistance : " + enable);
-        serialDevice.write(enable ? "Rde" : "Rdd");
-    }
-
-    @Override
-    public void resetRegulatorDistance() {
-        logger.info("resetRegulatorDistance");
-        serialDevice.write("Rdr");
+        serialDevice.write(enable ? "D1" : "D0");
     }
 
     @Override

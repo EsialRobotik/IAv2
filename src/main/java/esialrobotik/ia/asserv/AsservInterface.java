@@ -119,20 +119,10 @@ public interface AsservInterface {
     void enableRegulatorAngle(boolean enable);
 
     /**
-     * Reset le régulateur d'angle
-     */
-    void resetRegulatorAngle();
-
-    /**
      * Active ou désactive le régulateur de distance
      * @param enable true pour activer, false pour désactiver
      */
     void enableRegulatorDistance(boolean enable);
-
-    /**
-     * Reset le régulateur d'angle
-     */
-    void resetRegulatorDistance();
 
     /**
      * Active ou désactive les moteurs

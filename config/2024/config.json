@@ -25,8 +25,16 @@
         "serie": "/dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_066FFF383133524157185717-if02",
         "start0": [
             {
+                "type": "angle",
+                "enable": false
+            },
+            {
                 "type": "go_timed",
                 "dist": -200
+            },
+            {
+                "type": "angle",
+                "enable": true
             },
             {
                 "type": "set_y",
@@ -45,8 +53,16 @@
                 "dist": 90
             },
             {
+                "type": "angle",
+                "enable": false
+            },
+            {
                 "type": "go_timed",
                 "dist": -200
+            },
+            {
+                "type": "angle",
+                "enable": true
             },
             {
                 "type": "set_x",
@@ -69,8 +85,16 @@
         ],
         "start3000": [
             {
+                "type": "angle",
+                "enable": false
+            },
+            {
                 "type": "go_timed",
                 "dist": -200
+            },
+            {
+                "type": "angle",
+                "enable": true
             },
             {
                 "type": "set_y",
@@ -89,8 +113,16 @@
                 "dist": -90
             },
             {
+                "type": "angle",
+                "enable": false
+            },
+            {
                 "type": "go_timed",
                 "dist": -200
+            },
+            {
+                "type": "angle",
+                "enable": true
             },
             {
                 "type": "set_x",
