@@ -105,7 +105,9 @@ public class MasterLoop {
         movementManager.setMatchStarted(true);
         movementManager.executeStepDeplacement(currentStep);
 
-        lcdDisplay.score(score);
+        if (lcdDisplay != null) {
+            lcdDisplay.score(score);
+        }
         while (!interrupted) {
             if (!somethingDetected) {
                 // 1/ we check if we detect something
@@ -158,7 +160,9 @@ public class MasterLoop {
                         } else { //Previous esialrobotik.ia.actions has ended, time to fetch a new one
                             logger.info("Action terminé, mise à jour du score");
                             score += currentAction.getPoints();
-                            lcdDisplay.score(score);
+                            if (lcdDisplay != null) {
+                                lcdDisplay.score(score);
+                            }
                             currentAction = actionCollection.getNextActionToPerform();
                             if (currentAction == null) {//Nothing more to do. #sadness
                                 logger.info("Plus rien à faire :'(");
@@ -358,16 +362,22 @@ public class MasterLoop {
         logger.info("Init mainLoop");
 
         // Calage bordure
-        lcdDisplay.println(colorDetector.isColor0() ? TableColor.COLOR_0.toString() : TableColor.COLOR_3000.toString() + " ou reset ?");
+        if (lcdDisplay != null) {
+            lcdDisplay.println(colorDetector.isColor0() ? TableColor.COLOR_0.toString() : TableColor.COLOR_3000.toString() + " ou reset ?");
+        }
         logger.info("Attente mise en place tirette pour init calage");
-        lcdDisplay.println("Attente tirette init");
+        if (lcdDisplay != null) {
+            lcdDisplay.println("Attente tirette init");
+        }
 
         tirette.waitForTirette(true);
         tirette.waitForTirette(false);
         logger.info("Initialisation des actionneurs");
         actionSupervisor.init();
 
-        lcdDisplay.println("Attente tirette GoStart");
+        if (lcdDisplay != null) {
+            lcdDisplay.println("Attente tirette GoStart");
+        }
         logger.info("Attente tirette mise en position de depart");
 
         tirette.waitForTirette(true);
@@ -376,15 +386,19 @@ public class MasterLoop {
         movementManager.goStart(colorDetector.isColor0());
 
         // Wait tirette remise
-        lcdDisplay.clear();
-        lcdDisplay.println("Attente tirette depart");
+        if (lcdDisplay != null) {
+            lcdDisplay.clear();
+            lcdDisplay.println("Attente tirette depart");
+        }
         logger.info("Init ended, wait for tirette");
         tirette.waitForTirette(true);
         logger.info("Tirette inserted. End of initialization.");
         logger.info("Pret au depart");
         detectionManager.initAPI();
         detectionManager.startDetection();
-        lcdDisplay.println("LET'S ROCK !");
+        if (lcdDisplay != null) {
+            lcdDisplay.println("LET'S ROCK !");
+        }
     }
 
     public void matchEnd() {
@@ -406,7 +420,9 @@ public class MasterLoop {
 
         logger.info("Funny action terminé, mise à jour du score");
         score += funnyScore;
-        lcdDisplay.score(score);
+        if (lcdDisplay != null) {
+            lcdDisplay.score(score);
+        }
     }
 
     //Start the computation of the path.

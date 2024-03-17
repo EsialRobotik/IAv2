@@ -8,6 +8,7 @@ import com.pi4j.io.serial.Serial;
 import esialrobotik.ia.api.communication.SerialDevice;
 import esialrobotik.ia.api.log.LoggerFactory;
 import org.slf4j.Logger;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
@@ -388,7 +389,8 @@ public class Asserv implements AsservInterface {
                     break;
                 case "angle":
                     this.logger.info("Enable regulator angle " + temp.get("enable").getAsBoolean());
-                    enableRegulatorAngle(temp.get("enable").getAsBoolean());
+                    //enableRegulatorAngle(temp.get("enable").getAsBoolean());
+                    // todo remettre quand ça fonctionnera côté asserv
                     break;
                 case "distance":
                     this.logger.info("Enable regulator distance " + temp.get("enable").getAsBoolean());
