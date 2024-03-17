@@ -99,26 +99,26 @@ public class NetworkLogger extends AbstractLogger {
     protected void handleNormalizedLoggingCall(Level level, Marker marker, String messagePattern, Object[] arguments,
             Throwable throwable) {
         for (LogOutput output : outputs) {
-            if (level.toInt() >= output.getLevel().toInt()) {
-                StringBuilder buf = new StringBuilder(128);
-                // For each char in the log format
-                // if it is a '%', and our flag is true, we add % to the buffer, otherwise we set the flag to true
-                // otherwise if the flag is true, we add the corresponding value to the buffer
-                // otherwise we add the char to the buffer
-                String logFormat = output.getLogFormat();
-                boolean flag = false;
-                for (int i = 0; i < logFormat.length(); i++) {
-                    char c = logFormat.charAt(i);
-                    if (c == '%') {
-                        if (flag) {
-                            buf.append('%');
-                            flag = false;
-                        } else {
-                            flag = true;
-                        }
+            StringBuilder buf = new StringBuilder(128);
+            // For each char in the log format
+            // if it is a '%', and our flag is true, we add % to the buffer, otherwise we
+            // set the flag to true
+            // otherwise if the flag is true, we add the corresponding value to the buffer
+            // otherwise we add the char to the buffer
+            String logFormat = output.getLogFormat();
+            boolean flag = false;
+            for (int i = 0; i < logFormat.length(); i++) {
+                char c = logFormat.charAt(i);
+                if (c == '%') {
+                    if (flag) {
+                        buf.append('%');
+                        flag = false;
                     } else {
-                        if (flag) {
-                            switch (c) {
+                        flag = true;
+                    }
+                } else {
+                    if (flag) {
+                        switch (c) {
                             case 'd':
                                 buf.append(output.getDateFormat().format(System.currentTimeMillis()));
                                 break;
@@ -156,15 +156,14 @@ public class NetworkLogger extends AbstractLogger {
                                 break;
                             default:
                                 buf.append(c);
-                            }
-                            flag = false;
-                        } else {
-                            buf.append(c);
                         }
+                        flag = false;
+                    } else {
+                        buf.append(c);
                     }
                 }
-                write(buf, throwable, output.getOutput());
             }
+            write(buf, throwable, output.getOutput());
         }
     }
 }

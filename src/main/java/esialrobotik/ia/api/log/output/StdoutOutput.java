@@ -3,18 +3,14 @@ package esialrobotik.ia.api.log.output;
 import java.io.PrintStream;
 import java.text.DateFormat;
 
-import org.slf4j.event.Level;
-
 public class StdoutOutput implements LogOutput {
     
-    private Level level;
     private String logFormat;
     private DateFormat dateFormat;
 
-    public StdoutOutput(String logFormat, DateFormat dateFormat, Level level) {
+    public StdoutOutput(String logFormat, DateFormat dateFormat) {
         this.logFormat = logFormat;
         this.dateFormat = dateFormat;
-        this.level = level;
     }
 
     @Override
@@ -25,11 +21,6 @@ public class StdoutOutput implements LogOutput {
     @Override
     public DateFormat getDateFormat() {
         return dateFormat;
-    }
-
-    @Override
-    public Level getLevel() {
-        return level;
     }
 
     @Override

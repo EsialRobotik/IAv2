@@ -7,19 +7,15 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.text.DateFormat;
 
-import org.slf4j.event.Level;
-
 public class FileOutput implements LogOutput {
     
     private FileOutputStream file;
-    private Level level;
     private String logFormat;
     private DateFormat dateFormat;
 
-    public FileOutput(String logFormat, DateFormat dateFormat, Level level, String fileFormat) throws FileNotFoundException {
+    public FileOutput(String logFormat, DateFormat dateFormat, String fileFormat) throws FileNotFoundException {
         this.logFormat = logFormat;
         this.dateFormat = dateFormat;
-        this.level = level;
 
         String now = dateFormat.format(System.currentTimeMillis());
         String filepath = fileFormat.replace("%d", now);
@@ -44,11 +40,6 @@ public class FileOutput implements LogOutput {
     @Override
     public DateFormat getDateFormat() {
         return dateFormat;
-    }
-
-    @Override
-    public Level getLevel() {
-        return level;
     }
 
     @Override

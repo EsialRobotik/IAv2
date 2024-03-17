@@ -46,7 +46,7 @@ public class LoggerFactory implements ILoggerFactory {
             JsonObject logConfig = configRootNode.getAsJsonObject("log");
             if (logConfig == null) {
                 DateFormat dateFormat = new SimpleDateFormat(default_dateFormat);
-                this.outputs = new LogOutput[] { new StdoutOutput("%d [%t/%i] [%l] [%M] %m", dateFormat, default_Level) };
+                this.outputs = new LogOutput[] { new StdoutOutput("%d [%t/%i] [%l] [%M] %m", dateFormat) };
                 return;
             }
             JsonObject logStdout = logConfig.getAsJsonObject("stdout");
@@ -59,30 +59,24 @@ public class LoggerFactory implements ILoggerFactory {
                     logStdout.get("logFormat").getAsString() : default_logFormat;
                 String dateFormat_str = logStdout.get("dateFormat") != null ?
                     logStdout.get("dateFormat").getAsString() : default_dateFormat;
-                String level = logStdout.get("level") != null ?
-                    logStdout.get("level").getAsString() : default_lvl;
                 DateFormat dateFormat = new SimpleDateFormat(dateFormat_str);
-                outputs.add(new StdoutOutput(logFormat, dateFormat, Level.valueOf(level)));
+                outputs.add(new StdoutOutput(logFormat, dateFormat));
             }
             if (logFile != null && logFile.get("active").getAsBoolean()) {
                 String logFormat = logStdout.get("logFormat") != null ?
                     logStdout.get("logFormat").getAsString() : default_logFormat;
                 String dateFormat_str = logStdout.get("dateFormat") != null ?
                     logStdout.get("dateFormat").getAsString() : default_dateFormat;
-                String level = logStdout.get("level") != null ?
-                    logStdout.get("level").getAsString() : default_lvl;
                 String fileFormat = logFile.get("fileFormat") != null ?
                     logFile.get("fileFormat").getAsString() : "logs/%d.log";
                 DateFormat dateFormat = new SimpleDateFormat(dateFormat_str);
-                outputs.add(new FileOutput(logFormat, dateFormat, Level.valueOf(level), fileFormat));
+                outputs.add(new FileOutput(logFormat, dateFormat, fileFormat));
             }
             if (logSocket != null && logSocket.get("active").getAsBoolean()) {
                 String logFormat = logStdout.get("logFormat") != null ?
                     logStdout.get("logFormat").getAsString() : default_logFormat;
                 String dateFormat_str = logStdout.get("dateFormat") != null ?
                     logStdout.get("dateFormat").getAsString() : default_dateFormat;
-                String level = logStdout.get("level") != null ?
-                    logStdout.get("level").getAsString() : default_lvl;
                 String host = logSocket.get("host") != null ?
                     logSocket.get("host").getAsString() : "localhost";
                 int port = logSocket.get("port") != null ?
@@ -91,13 +85,13 @@ public class LoggerFactory implements ILoggerFactory {
                     logSocket.get("whoami").getAsString() : "unknown";
                 DateFormat dateFormat = new SimpleDateFormat(dateFormat_str);
                 Socket sock = new Socket(host, port);
-                outputs.add(new SocketOutput(logFormat, dateFormat, Level.valueOf(level), whoami, sock));
+                outputs.add(new SocketOutput(logFormat, dateFormat, whoami, sock));
             }
             this.outputs = outputs.toArray(new LogOutput[0]);
         } catch (JsonSyntaxException | JsonIOException | IOException e) {
             e.printStackTrace();
             DateFormat dateFormat = new SimpleDateFormat(default_dateFormat);
-            this.outputs = new LogOutput[] { new StdoutOutput("%d [%t/%i] [%l] [%M] %m", dateFormat, default_Level) };
+            this.outputs = new LogOutput[] { new StdoutOutput("%d [%t/%i] [%l] [%M] %m", dateFormat) };
         }
     }
 

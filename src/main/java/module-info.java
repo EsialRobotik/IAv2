@@ -40,7 +40,7 @@ module esialrobotik.ia {
     requires com.google.gson;
 
     // Log4J
-    requires org.apache.logging.log4j;
+    // requires org.apache.logging.log4j;
 
     requires java.sql;
     uses java.sql.Timestamp;

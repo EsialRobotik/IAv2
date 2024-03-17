@@ -5,20 +5,16 @@ import java.io.PrintStream;
 import java.net.Socket;
 import java.text.DateFormat;
 
-import org.slf4j.event.Level;
-
 public class SocketOutput implements LogOutput {
     
     private Socket sock;
-    private Level level;
     private String logFormat;
     private DateFormat dateFormat;
     private String whoami;
 
-    public SocketOutput(String logFormat, DateFormat dateFormat, Level level, String whoami, Socket sock) {
+    public SocketOutput(String logFormat, DateFormat dateFormat, String whoami, Socket sock) {
         this.logFormat = logFormat;
         this.dateFormat = dateFormat;
-        this.level = level;
         this.sock = sock;
         this.whoami = whoami;
     }
@@ -37,11 +33,6 @@ public class SocketOutput implements LogOutput {
     @Override
     public DateFormat getDateFormat() {
         return dateFormat;
-    }
-
-    @Override
-    public Level getLevel() {
-        return level;
     }
 
     @Override
