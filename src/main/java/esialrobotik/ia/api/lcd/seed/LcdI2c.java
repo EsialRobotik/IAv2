@@ -3,7 +3,6 @@ package esialrobotik.ia.api.lcd.seed;
 import esialrobotik.ia.api.communication.I2CDevice;
 import esialrobotik.ia.api.lcd.LCD;
 import esialrobotik.ia.api.lcd.seed.constants.*;
-import esialrobotik.ia.api.log.LoggerFactory;
 import org.slf4j.Logger;
 
 /**
@@ -24,23 +23,24 @@ public class LcdI2c implements LCD {
     public static final int I2C_LCD_TRANS_ONCE_BYTE_MAX = 6;
     public static final int[] fontYsizeTab = {8, 12, 16, 16, 20, 24, 32};
 
-    public LcdI2c() {
+    public LcdI2c() throws Exception {
         this(I2C_LCD_ADDRESS);
     }
 
-    public LcdI2c(int i2cAddress) {
-        this.logger = LoggerFactory.getLogger(LcdI2c.class);
-        logger.info(String.format("Initializing 128x64px LCD on I2C address 0x%02X", i2cAddress));
-        this.i2cDevice = new I2CDevice(i2cAddress);
+    public LcdI2c(int i2cAddress) throws Exception {
+        throw new RuntimeException("Cette merde refuse de fonctionner..., bon courage pour trouver ce qui ne va pas...");
+        //this.logger = LoggerFactory.getLogger(LcdI2c.class);
+        //logger.info(String.format("Initializing 128x64px LCD on I2C address 0x%02X", i2cAddress));
+        //this.i2cDevice = new I2CDevice(i2cAddress);
 
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-        }
-        this.clear();
-        this.fontModeConf(LcdFontSort.Font_6x8.value, LcdFontMode.FM_ANL_AAA.value, LcdCharMode.BLACK_BAC.value);
-        this.contrastConf(LcdSettingMode.LOAD_TO_RAM.value, 35);
-        this.charGotoXY(0, 0);
+        //try {
+        //    Thread.sleep(1000);
+        //} catch (InterruptedException e) {
+        //}
+        //this.clear();
+        //this.fontModeConf(LcdFontSort.Font_6x8.value, LcdFontMode.FM_ANL_AAA.value, LcdCharMode.BLACK_BAC.value);
+        //this.contrastConf(LcdSettingMode.LOAD_TO_RAM.value, 35);
+        //this.charGotoXY(0, 0);
     }
 
     @Override

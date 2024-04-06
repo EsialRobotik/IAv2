@@ -30,6 +30,7 @@ import esialrobotik.ia.pathfinding.table.Table;
 import esialrobotik.ia.pathfinding.table.astar.Astar;
 import gnu.io.SerialPort;
 import org.slf4j.Logger;
+
 import java.io.IOException;
 import java.io.Reader;
 import java.lang.reflect.InvocationTargetException;
@@ -192,7 +193,12 @@ public class ConfigurationManager {
                     lcdDisplay = new LcdI2cSegment(configObject.get("i2cAddress").getAsInt(), configObject.get("lineCount").getAsInt(), configObject.get("lineLength").getAsInt());
                 } else if (configObject.get("type").getAsString().equals("full")) {
                     logger.info("Load LCD Full");
-                    lcdDisplay = new LcdI2c(configObject.get("i2cAddress").getAsInt());
+                    try {
+                        lcdDisplay = new LcdI2c(configObject.get("i2cAddress").getAsInt());
+                    } catch (Exception e) {
+                        logger.error("LCD I2C KO...");
+                        throw new RuntimeException(e);
+                    }
                 } else {
                     logger.error("Missing LCD type");
                 }
