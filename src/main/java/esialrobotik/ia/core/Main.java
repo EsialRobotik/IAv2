@@ -22,6 +22,7 @@ import esialrobotik.ia.api.gpio.Tirette;
 import esialrobotik.ia.api.lcd.LCD;
 import esialrobotik.ia.api.log.LoggerFactory;
 import esialrobotik.ia.api.qik.Qik;
+import esialrobotik.ia.api.screen.NextionNX32224T024;
 import esialrobotik.ia.asserv.Asserv;
 import esialrobotik.ia.asserv.AsservInterface;
 import esialrobotik.ia.asserv.Position;
@@ -33,10 +34,11 @@ import esialrobotik.ia.utils.ax12.Ax12MainConsole;
 import esialrobotik.ia.utils.web.AX12Http;
 import esialrobotik.ia.utils.web.ResourcesManager;
 import gnu.io.SerialPort;
-import sun.misc.Signal;
-import sun.misc.SignalHandler;
 import org.slf4j.Logger;
 import org.slf4j.event.Level;
+import sun.misc.Signal;
+import sun.misc.SignalHandler;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
@@ -84,6 +86,7 @@ public class Main {
                 configurationManager.getChrono(),
                 configurationManager.getTirette(),
                 configurationManager.getLcdDisplay(),
+                configurationManager.getNextionDisplay(),
                 configurationManager.getFunnyActionDescription());
 
         // Init
@@ -179,6 +182,9 @@ public class Main {
                     // Test du LCD
                     Main.testLcd();
                     break;
+                case "nextion":
+                    Main.testNextion();
+                    break;
                 case "log":
                     // Test des logs
                     Main.testLog();
@@ -244,6 +250,7 @@ public class Main {
         System.out.println("\t- esialrobotik.ia.detection : Test de la esialrobotik.ia.detection");
         System.out.println("\t- interrupteur : Test interrupteurs");
         System.out.println("\t- lcd : Test de l'écran LCD");
+        System.out.println("\t- nextion : Test de l'écran Nextion");
         System.out.println("\t- log : Test des logs [Migration Log4j -> Slf4j]");
         System.out.println("\t- shell : Test du shell (lance une capture de la caméra et une analyse Aruco)");
         System.out.println("\t- esialrobotik.ia.pathfinding : Test le calcul de esialrobotik.ia.pathfinding");
@@ -311,6 +318,34 @@ public class Main {
         // Thread.sleep(250);
         // System.out.println(srf.getMeasure());
         // }
+    }
+
+    private static void testNextion() throws InterruptedException, IOException, ClassNotFoundException, InvocationTargetException, AX12LinkException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+        ConfigurationManager configurationManager = new ConfigurationManager();
+        configurationManager.loadConfiguration(configFilePath, ConfigurationManager.CONFIG_TEST_LCD);
+        NextionNX32224T024 nextion = configurationManager.getNextionDisplay();
+
+        nextion.gotoPage("init");
+        for (int i = 0; i < 500; i++) {
+            Thread.sleep(20);
+        }
+        nextion.displayCalibrationStatus("Coucou");
+        Thread.sleep(500);
+        nextion.displayCalibrationStatus("La forme ?");
+        Thread.sleep(500);
+        nextion.displayCalibrationStatus("Bien ou bien ?");
+        Thread.sleep(500);
+        nextion.displayCalibrationStatus("Allez, qu'on en finisse");
+        Thread.sleep(2000);
+        nextion.gotoPage("ready");
+        Thread.sleep(2000);
+        nextion.gotoPage("score");
+        int score = 0;
+        for (int i = 0; i < 5; i++) {
+            Thread.sleep(500);
+            score += 3;
+            nextion.displayScore(score);
+        }
     }
 
     private static void testShell() throws IOException, InterruptedException {
@@ -521,7 +556,7 @@ public class Main {
             JsonObject configSerial = configObject.get("serial").getAsJsonObject();
 
             SerialDevice serialDevice = new SerialDevice(configSerial.get("serie").getAsString(),
-                    configSerial.get("baud").getAsInt());
+                    configSerial.get("baud").getAsInt(), "lift");
             LiftProbe2022 liftProbe2022 = new LiftProbe2022(serialDevice);
 
             JsonObject configAx12 = configObject.get("ax12").getAsJsonObject();

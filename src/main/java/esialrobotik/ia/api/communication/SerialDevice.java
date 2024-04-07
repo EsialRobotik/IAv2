@@ -1,9 +1,9 @@
 package esialrobotik.ia.api.communication;
 
-import esialrobotik.ia.api.Pi4JContext;
-import esialrobotik.ia.api.log.LoggerFactory;
 import com.pi4j.context.Context;
 import com.pi4j.io.serial.*;
+import esialrobotik.ia.api.Pi4JContext;
+import esialrobotik.ia.api.log.LoggerFactory;
 import org.slf4j.Logger;
 
 import java.io.InputStream;
@@ -37,7 +37,7 @@ public class SerialDevice {
      * @param serialPort Nom du port série (ex : /dev/ttyUSB0 ou /dev/ttyAMA0
      * @param baudRate Baud rate
      */
-    public SerialDevice(String serialPort, Baud baudRate) {
+    public SerialDevice(String serialPort, Baud baudRate, String id) {
         logger = LoggerFactory.getLogger(SerialDevice.class);
         logger.info("Serial " + serialPort + " init at baud " + baudRate.getValue());
         this.serialPort = serialPort;
@@ -49,7 +49,7 @@ public class SerialDevice {
                 .parity(Parity.NONE)
                 .stopBits(StopBits._1)
                 .flowControl(FlowControl.NONE)
-                .id(serialPort)
+                .id(id)
                 .device(serialPort)
                 .provider("pigpio-serial")
                 .build()
@@ -66,7 +66,7 @@ public class SerialDevice {
      * @param serialPort Nom du port série (ex : /dev/ttyUSB0 ou /dev/ttyAMA0
      * @param baudRate Baud rate
      */
-    public SerialDevice(String serialPort, int baudRate) {
+    public SerialDevice(String serialPort, int baudRate, String id) {
         logger = LoggerFactory.getLogger(SerialDevice.class);
 
         logger.info("Serial " + serialPort + " init at baud " + baudRate);
@@ -79,7 +79,7 @@ public class SerialDevice {
                 .parity(Parity.NONE)
                 .stopBits(StopBits._1)
                 .flowControl(FlowControl.NONE)
-                .id(serialPort)
+                .id(id)
                 .device(serialPort)
                 .provider("pigpio-serial")
                 .build()
@@ -96,10 +96,31 @@ public class SerialDevice {
      * @param string String à envoyer
      */
     public void write(String string) {
+        this.write(string, "\r\n");
+    }
+
+    /**
+     * Envoie une string sur la liaison série
+     * @param string String à envoyer
+     */
+    public void write(String string, String endOfLine) {
         try {
             logger.info("Serial " + serialPort + " write : " + string);
-            serial.write(string + "\r\n");
-            // writeln not exists anymire, \r\n could be wrong
+            serial.write(string + endOfLine);
+        } catch (Exception e) {
+            logger.error("Serial " + serialPort + " write fail : " + e.getMessage());
+        }
+    }
+
+    /**
+     * Envoie une string sur la liaison série
+     * @param string String à envoyer
+     */
+    public void write(String string, byte[]... endOfLine) {
+        try {
+            logger.info("Serial " + serialPort + " write : " + string);
+            serial.write(string);
+            serial.write(endOfLine);
         } catch (Exception e) {
             logger.error("Serial " + serialPort + " write fail : " + e.getMessage());
         }

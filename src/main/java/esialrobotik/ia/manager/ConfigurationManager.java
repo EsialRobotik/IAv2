@@ -19,6 +19,7 @@ import esialrobotik.ia.api.lcd.LcdI2cSegment;
 import esialrobotik.ia.api.lcd.seed.LcdI2c;
 import esialrobotik.ia.api.log.LoggerFactory;
 import esialrobotik.ia.api.qik.Qik;
+import esialrobotik.ia.api.screen.NextionNX32224T024;
 import esialrobotik.ia.asserv.Asserv;
 import esialrobotik.ia.asserv.AsservInterface;
 import esialrobotik.ia.detection.DetectionInterface;
@@ -64,12 +65,13 @@ public class ConfigurationManager {
     private Tirette tirette;
     private Chrono chrono;
     private LCD lcdDisplay;
+    private NextionNX32224T024 nextionDisplay;
     private AsservInterface asserv;
     private ActionFileBinder actionFileBinder;
     private FunnyActionDescription funnyActionDescription;
 
     public void loadConfiguration(String path) throws IOException, AX12LinkException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-        this.loadConfiguration(path,CONFIG_NOMINAL);
+        this.loadConfiguration(path, CONFIG_NOMINAL);
     }
 
     public void loadConfiguration(String path, int config) throws IOException, AX12LinkException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
@@ -203,6 +205,12 @@ public class ConfigurationManager {
                     logger.error("Missing LCD type");
                 }
             }
+            // Only if a Nextion is found in the configuration file
+            if (configRootNode.has("nextion")) {
+                logger.info("Load Nextion");
+                nextionDisplay = new NextionNX32224T024(configRootNode.get("nextion").getAsJsonObject());
+            }
+
         }
 
         if(config == CONFIG_NOMINAL) {
@@ -258,6 +266,10 @@ public class ConfigurationManager {
 
     public LCD getLcdDisplay() {
         return lcdDisplay;
+    }
+
+    public NextionNX32224T024 getNextionDisplay() {
+        return nextionDisplay;
     }
 
     public AsservInterface getAsserv() {

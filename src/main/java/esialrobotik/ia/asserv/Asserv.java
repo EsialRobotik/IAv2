@@ -18,7 +18,7 @@ import java.io.InputStreamReader;
 public class Asserv implements AsservInterface {
 
     /**
-     * Port série pour communiquer avec l'esialrobotik.ia.asserv
+     * Port série pour communiquer avec l'asserv
      */
     protected SerialDevice serialDevice;
 
@@ -63,8 +63,8 @@ public class Asserv implements AsservInterface {
     public Asserv(String serialPort, Baud baudRate) {
         logger = LoggerFactory.getLogger(Asserv.class);
 
-        logger.info("Initialisation de la liason série de l'esialrobotik.ia.asserv, port =  " + serialPort + ", baudRate = " + baudRate.getValue());
-        serialDevice = new SerialDevice(serialPort, baudRate);
+        logger.info("Initialisation de la liason série de l'asserv, port =  " + serialPort + ", baudRate = " + baudRate.getValue());
+        serialDevice = new SerialDevice(serialPort, baudRate, "asserv");
         startSerialReader();
         position = new Position(0, 0);
     }
@@ -76,8 +76,8 @@ public class Asserv implements AsservInterface {
         String serialPort = config.get("serie").getAsString();
         Baud baudRate = Baud.getInstance(config.get("baud").getAsInt());
 
-        this.logger.info("Initialisation de la liason série de l'esialrobotik.ia.asserv, port =  " + serialPort + ", baudRate = " + baudRate.getValue());
-        this.serialDevice = new SerialDevice(serialPort, baudRate);
+        this.logger.info("Initialisation de la liason série de l'asserv, port =  " + serialPort + ", baudRate = " + baudRate.getValue());
+        this.serialDevice = new SerialDevice(serialPort, baudRate, "asserv");
         startSerialReader();
         this.position = new Position(0, 0);
     }

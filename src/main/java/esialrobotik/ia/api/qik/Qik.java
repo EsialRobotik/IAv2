@@ -1,10 +1,10 @@
 package esialrobotik.ia.api.qik;
 
+import com.google.gson.JsonObject;
+import com.pi4j.io.serial.Baud;
 import esialrobotik.ia.api.communication.SerialDevice;
 import esialrobotik.ia.api.log.LoggerFactory;
 import esialrobotik.ia.asserv.Asserv;
-import com.google.gson.JsonObject;
-import com.pi4j.io.serial.Baud;
 import org.slf4j.Logger;
 
 import java.io.IOException;
@@ -140,7 +140,7 @@ public class Qik {
         Baud baudRate = Baud.getInstance(config.get("baud").getAsInt());
 
         this.logger.info("Initialisation de la liaison série Qik, port =  " + serialPort + ", baudRate = " + baudRate.getValue());
-        this.serialDevice = new SerialDevice(serialPort, baudRate);
+        this.serialDevice = new SerialDevice(serialPort, baudRate, "qik");
         this.serialDevice.write(0xAA); // permet à la Qik de détecter la vitesse de communication entre 1200 et 38400 bps
     }
 

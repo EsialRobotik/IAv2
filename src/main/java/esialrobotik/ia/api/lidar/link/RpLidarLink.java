@@ -1,11 +1,11 @@
 package esialrobotik.ia.api.lidar.link;
 
-import java.io.IOException;
-import java.io.InputStream;
-
+import com.pi4j.io.serial.Baud;
 import esialrobotik.ia.api.communication.SerialDevice;
 import esialrobotik.ia.api.lidar.utils.LidarHelper;
-import com.pi4j.io.serial.Baud;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Proxy pour accéder au port de communication du Lidar
@@ -19,7 +19,7 @@ public class RpLidarLink {
 	protected InputStream in;
 
 	public RpLidarLink(String sp) throws IOException {
-		this.serialDevice = new SerialDevice(sp, Baud._115200);
+		this.serialDevice = new SerialDevice(sp, Baud._115200, "lidar");
 		this.in = this.serialDevice.getInputStream();
 	}
 	
