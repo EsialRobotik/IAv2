@@ -2,8 +2,9 @@ package esialrobotik.ia.core;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.pi4j.context.Context;
 import com.pi4j.exception.LifecycleException;
-import com.pi4j.io.serial.Baud;
+import com.pi4j.io.serial.*;
 import esialrobotik.ia.actions.ActionCollection;
 import esialrobotik.ia.actions.ActionExecutor;
 import esialrobotik.ia.actions.a2023.ActionFileBinder;
@@ -22,7 +23,6 @@ import esialrobotik.ia.api.gpio.Tirette;
 import esialrobotik.ia.api.lcd.LCD;
 import esialrobotik.ia.api.log.LoggerFactory;
 import esialrobotik.ia.api.qik.Qik;
-import esialrobotik.ia.api.screen.NextionNX32224T024;
 import esialrobotik.ia.asserv.Asserv;
 import esialrobotik.ia.asserv.AsservInterface;
 import esialrobotik.ia.asserv.Position;
@@ -46,9 +46,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * The goal of this class if to bootstrap the code, init the robot and launch
@@ -321,7 +319,7 @@ public class Main {
     }
 
     private static void testNextion() throws InterruptedException, IOException, ClassNotFoundException, InvocationTargetException, AX12LinkException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-        ConfigurationManager configurationManager = new ConfigurationManager();
+        /*ConfigurationManager configurationManager = new ConfigurationManager();
         configurationManager.loadConfiguration(configFilePath, ConfigurationManager.CONFIG_TEST_LCD);
         NextionNX32224T024 nextion = configurationManager.getNextionDisplay();
 
@@ -345,7 +343,65 @@ public class Main {
             Thread.sleep(500);
             score += 3;
             nextion.displayScore(score);
-        }
+        }*/
+
+        System.out.println("CONtext");
+        Context pi4j = Pi4JContext.getInstance();
+        System.out.println(pi4j.registry().all().toString());
+
+        System.out.println("Create nextion");
+        Map<String, String> fuckYou = new HashMap<String, String>();
+        fuckYou.put("id", "serial_nextion");
+        fuckYou.put("name", "serial_nextion");
+        fuckYou.put("descritpion", "serial_nextion");
+        Serial nextion = pi4j.create(
+            Serial.newConfigBuilder(pi4j)
+                .dataBits_8()
+                .parity(Parity.NONE)
+                .stopBits(StopBits._1)
+                .flowControl(FlowControl.NONE)
+                .device("/dev/serial/by-path/platform-3f980000.usb-usb-0:1.3:1.0-port0")
+                .baud(Baud._115200)
+                .provider("pigpio-serial")
+                .load(fuckYou)
+                .build()
+        );
+        System.out.println("id() " + nextion.id());
+        System.out.println("getId() " + nextion.getId());
+        System.out.println("name() " + nextion.name());
+        System.out.println("getName() " + nextion.getName());
+
+        System.out.println("config id() " + nextion.config().id());
+        System.out.println("config getId() " + nextion.config().getId());
+        System.out.println("config name() " + nextion.config().name());
+        System.out.println("config getName() " + nextion.config().getName());
+
+        System.out.println(pi4j.registry().all().toString());
+        System.out.println("Open nextion");
+        nextion.open();
+        System.out.println(pi4j.registry().all().toString());
+        pi4j.registry().all().forEach((s, io) -> {
+            System.out.println(s);
+            System.out.println(io.id());
+        });
+        System.out.println("Create asserv");
+        Serial asserv = pi4j.create(
+                Serial.newConfigBuilder(pi4j)
+                        .dataBits_8()
+                        .parity(Parity.NONE)
+                        .stopBits(StopBits._1)
+                        .flowControl(FlowControl.NONE)
+                        .id("serial-2")
+                        .name("serial-2")
+                        .description("serial-2")
+                        .device("/dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_066FFF383133524157185717-if02")
+                        .baud(Baud._115200)
+                        .provider("pigpio-serial")
+                        .build()
+        );
+        System.out.println(pi4j.registry().all().toString());
+        System.out.println("Open asserv");
+        asserv.open();
     }
 
     private static void testShell() throws IOException, InterruptedException {
