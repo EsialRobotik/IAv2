@@ -20,7 +20,7 @@ public class SerialSignalAction extends Action {
 	
 	public SerialSignalAction(AX12Link ax12Link, SIGNAL signal, boolean enable) {
 		if (signal == null) {
-			throw new IllegalArgumentException("signal ne doit pas être null");
+			throw new IllegalArgumentException("signal ne doit pas Ãªtre null");
 		}
 		this.ax12Link = ax12Link;
 		this.enable = enable;
