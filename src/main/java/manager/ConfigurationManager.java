@@ -15,6 +15,7 @@ import api.lcd.LcdI2cSegment;
 import api.lcd.seed.LcdI2c;
 import api.log.LoggerFactory;
 import api.qik.Qik;
+import api.screen.NextionNX32224T024;
 import asserv.Asserv;
 import asserv.AsservInterface;
 import com.google.gson.Gson;
@@ -64,6 +65,7 @@ public class ConfigurationManager {
     private Tirette tirette;
     private Chrono chrono;
     private LCD lcdDisplay;
+    private NextionNX32224T024 nextionDisplay;
     private AsservInterface asserv;
     private ActionFileBinder actionFileBinder;
     private FunnyActionDescription funnyActionDescription;
@@ -82,7 +84,7 @@ public class ConfigurationManager {
         JsonObject configRootNode = gson.fromJson(reader, JsonObject.class);
 
         JsonObject configObject = configRootNode.get("asserv").getAsJsonObject();
-        if (config != CONFIG_PATHFINDING && config != CONFIG_ACTIONNEUR) {
+        if (config != CONFIG_PATHFINDING && config != CONFIG_ACTIONNEUR && config != CONFIG_TEST_LCD) {
             logger.info("AsservAPIConfiguration = " + configObject.toString());
             asserv = new Asserv(configObject);
             movementManager = new MovementManager(asserv);
@@ -198,6 +200,11 @@ public class ConfigurationManager {
                     logger.error("Missing LCD type");
                 }
             }
+            // Only if a Nextion is found in the configuration file
+            if (configRootNode.has("nextion")) {
+                logger.info("Load Nextion");
+                nextionDisplay = new NextionNX32224T024(configRootNode.get("nextion").getAsJsonObject());
+            }
         }
 
         if(config == CONFIG_NOMINAL) {
@@ -253,6 +260,10 @@ public class ConfigurationManager {
 
     public LCD getLcdDisplay() {
         return lcdDisplay;
+    }
+
+    public NextionNX32224T024 getNextionDisplay() {
+        return nextionDisplay;
     }
 
     public AsservInterface getAsserv() {

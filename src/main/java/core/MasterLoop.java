@@ -6,6 +6,7 @@ import api.gpio.ColorDetector;
 import api.gpio.Tirette;
 import api.lcd.LCD;
 import api.log.LoggerFactory;
+import api.screen.NextionNX32224T024;
 import asserv.AsservInterface;
 import asserv.Position;
 import manager.CommunicationManager;
@@ -32,6 +33,7 @@ public class MasterLoop {
     private Chrono chrono;
     private Tirette tirette;
     private LCD lcdDisplay;
+    private NextionNX32224T024 nextionDisplay;
     private FunnyActionDescription funnyActionDescription;
 
     private volatile boolean interrupted;
@@ -54,6 +56,7 @@ public class MasterLoop {
                       Chrono chrono,
                       Tirette tirette,
                       LCD lcdDisplay,
+                      NextionNX32224T024 nexttionDisplay,
                       FunnyActionDescription funnyActionDescription) {
         this.movementManager = movementManager;
         this.detectionManager = detectionManager;
@@ -64,6 +67,7 @@ public class MasterLoop {
         this.chrono = chrono;
         this.tirette = tirette;
         this.lcdDisplay = lcdDisplay;
+        this.nextionDisplay = nexttionDisplay;
         this.actionSupervisor = actionSupervisor;
         this.funnyActionDescription = funnyActionDescription;
 
@@ -102,10 +106,13 @@ public class MasterLoop {
         if(!actionCollection.isStepByStep()) {
             chrono.startMatch(this);
         }
+        if (nextionDisplay != null) {
+            nextionDisplay.gotoPage("score");
+        }
         movementManager.setMatchStarted(true);
         movementManager.executeStepDeplacement(currentStep);
 
-        lcdDisplay.score(score);
+        updateScore();
         while (!interrupted) {
             if (!somethingDetected) {
                 // 1/ we check if we detect something
@@ -158,7 +165,7 @@ public class MasterLoop {
                         } else { //Previous actions has ended, time to fetch a new one
                             logger.info("Action terminé, mise à jour du score");
                             score += currentAction.getPoints();
-                            lcdDisplay.score(score);
+                            updateScore();
                             currentAction = actionCollection.getNextActionToPerform();
                             if (currentAction == null) {//Nothing more to do. #sadness
                                 logger.info("Plus rien à faire :'(");
@@ -353,8 +360,16 @@ public class MasterLoop {
         return false;
     }
 
-    //Function to be call to set up the robot and lead him to starting point
     public void init() {
+        if (lcdDisplay != null) {
+            this.initLcd();
+        } else if (nextionDisplay != null) {
+            this.initNextion();
+        }
+    }
+
+    //Function to be call to set up the robot and lead him to starting point
+    public void initLcd() {
         logger.info("Init mainLoop");
 
         // Calage bordure
@@ -387,6 +402,28 @@ public class MasterLoop {
         lcdDisplay.println("LET'S ROCK !");
     }
 
+    public void initNextion() {
+        logger.info("Init mainLoop");
+        logger.info("Wait for calibration from nextion");
+
+        nextionDisplay.waitForCalibration();
+        logger.info("Initialisation des actionneurs");
+        nextionDisplay.displayCalibrationStatus("Initialisation des actionneurs");
+        actionSupervisor.init();
+        logger.info("Callage bordure");
+        nextionDisplay.displayCalibrationStatus("Callage bordure");
+        movementManager.goStart(nextionDisplay.isColor0());
+        logger.info("Init ended, wait for tirette");
+        nextionDisplay.displayCalibrationStatus("Attente tirette pour départ");
+        tirette.waitForTirette(true);
+        logger.info("Tirette inserted. End of initialization.");
+        logger.info("Pret au depart");
+        detectionManager.initAPI();
+        detectionManager.startDetection();
+        lcdDisplay.println("LET'S ROCK !");
+        nextionDisplay.gotoPage("ready");
+    }
+
     public void matchEnd() {
         logger.info("End of the match");
         //Stop the asserv here
@@ -406,7 +443,7 @@ public class MasterLoop {
 
         logger.info("Funny action terminé, mise à jour du score");
         score += funnyScore;
-        lcdDisplay.score(score);
+        updateScore();
     }
 
     //Start the computation of the path.
@@ -420,5 +457,13 @@ public class MasterLoop {
 
     private Point positionToPoint(Position p) {
         return new Point(p.getX(), p.getY());
+    }
+
+    private void updateScore() {
+        if (lcdDisplay != null) {
+            lcdDisplay.score(score);
+        } else if (nextionDisplay != null) {
+            nextionDisplay.displayScore(score);
+        }
     }
 }

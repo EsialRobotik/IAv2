@@ -18,6 +18,7 @@ import api.gpio.Tirette;
 import api.lcd.LCD;
 import api.log.LoggerFactory;
 import api.qik.Qik;
+import api.screen.NextionNX32224T024;
 import asserv.AsservInterface;
 import asserv.Position;
 import com.google.gson.Gson;
@@ -84,6 +85,7 @@ public class Main {
             configurationManager.getChrono(),
             configurationManager.getTirette(),
             configurationManager.getLcdDisplay(),
+            configurationManager.getNextionDisplay(),
             configurationManager.getFunnyActionDescription()
         );
 
@@ -165,6 +167,9 @@ public class Main {
                     // Test du LCD
                     Main.testLcd();
                     break;
+                case "nextion":
+                    Main.testNextion();
+                    break;
                 case "shell":
                     // Test shell
                     Main.testShell();
@@ -225,6 +230,7 @@ public class Main {
         System.out.println("\t- detection : Test de la detection");
         System.out.println("\t- interrupteur : Test interrupteurs");
         System.out.println("\t- lcd : Test de l'écran LCD");
+        System.out.println("\t- nextion : Test de l'écran Nextion");
         System.out.println("\t- shell : Test du shell (lance une capture de la caméra et une analyse Aruco)");
         System.out.println("\t- pathfinding : Test le calcul de pathfinding");
         System.out.println("\t- coupe-off : Danse de la coupe off");
@@ -278,6 +284,32 @@ public class Main {
             lcd.println("Coucou " + i);
             i++;
             Thread.sleep(250);
+        }
+    }
+
+    private static void testNextion() throws InterruptedException, IOException, ClassNotFoundException, InvocationTargetException, AX12LinkException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+        ConfigurationManager configurationManager = new ConfigurationManager();
+        configurationManager.loadConfiguration(configFilePath, ConfigurationManager.CONFIG_TEST_LCD);
+        NextionNX32224T024 nextion = configurationManager.getNextionDisplay();
+        nextion.gotoPage("init");
+        nextion.waitForCalibration();
+        logger.info("Nextion isColor0 : " + nextion.isColor0());
+        nextion.displayCalibrationStatus("Coucou");
+        Thread.sleep(500);
+        nextion.displayCalibrationStatus("La forme ?");
+        Thread.sleep(500);
+        nextion.displayCalibrationStatus("Bien ou bien ?");
+        Thread.sleep(500);
+        nextion.displayCalibrationStatus("Allez, qu'on en finisse");
+        Thread.sleep(2000);
+        nextion.gotoPage("ready");
+        Thread.sleep(2000);
+        nextion.gotoPage("score");
+        int score = 0;
+        for (int i = 0; i < 5; i++) {
+            Thread.sleep(500);
+            score += 3;
+            nextion.displayScore(score);
         }
     }
 
