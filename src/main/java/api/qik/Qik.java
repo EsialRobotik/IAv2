@@ -2,7 +2,6 @@ package api.qik;
 
 import api.communication.Serial;
 import api.log.LoggerFactory;
-import asserv.Asserv;
 import com.google.gson.JsonObject;
 import com.pi4j.io.serial.Baud;
 import org.apache.logging.log4j.Logger;
@@ -134,7 +133,7 @@ public class Qik {
     protected Logger logger = null;
 
     public Qik(JsonObject config) {
-        this.logger = LoggerFactory.getLogger(Asserv.class);
+        this.logger = LoggerFactory.getLogger(Qik.class);
 
         String serialPort = config.get("serie").getAsString();
         Baud baudRate = Baud.getInstance(config.get("baud").getAsInt());
