@@ -1,0 +1,212 @@
+{
+    "desc": "Configuration du robot 2024 - MamaPrincess",
+    "gpioColorSelector": 24,
+    "gpioTirette": 23,
+    "matchDuration": 99,
+    "table0Path": "table0.tbl",
+    "table3000Path": "table3000.tbl",
+    "tableJsonPath": "table.json",
+    "commandFile": "configCollection.json",
+    "comSocket": {
+        "host": "192.168.0.203",
+        "port": 4269
+    },
+    "nextion": {
+        "baud": 115200,
+        "serie": "/dev/serial/by-path/platform-3f980000.usb-usb-0:1.3:1.0-port0"
+    },
+    "log": {
+        "stdout": {
+            "active": true,
+            "logFormat": "%d [%l][%T/%i][%n] %m",
+            "dateFormat": "yyyy-MM-dd HH:mm:ss"
+        },
+        "file": {
+            "active": true,
+            "logFormat": "%d [%L][%T/%i][%n] %m",
+            "dateFormat": "yyyy-MM-dd_HH-mm-ss",
+            "fileFormat": "./archives/log-%d/log.log"
+        },
+        "socket": {
+            "active": true,
+            "logFormat": "%d [%W][%L][%T/%i][%n] %m",
+            "dateFormat": "yyyy-MM-dd HH:mm:ss",
+            "host": "192.168.0.203",
+            "port": 1664,
+            "whoami": "princess"
+        }
+    },
+    "asserv": {
+        "baud": 115200,
+        "serie": "/dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_066FFF383133524157185717-if02",
+        "start0": [
+            {
+                "type": "angle",
+                "enable": false
+            },
+            {
+                "type": "go_timed",
+                "dist": -200
+            },
+            {
+                "type": "angle",
+                "enable": true
+            },
+            {
+                "type": "set_y",
+                "value": 125,
+                "theta": 1.570796327
+            },
+            {
+                "type": "go",
+                "dist": 200
+            },
+            {
+                "type": "turn",
+                "dist": 90
+            },
+            {
+                "type": "angle",
+                "enable": false
+            },
+            {
+                "type": "go_timed",
+                "dist": -200
+            },
+            {
+                "type": "angle",
+                "enable": true
+            },
+            {
+                "type": "set_x",
+                "value": 1855,
+                "theta": 3.14159265359
+            },
+            {
+                "type": "go",
+                "dist": 200
+            },
+            {
+                "type": "goto",
+                "x": 1750,
+                "y": 250
+            },
+            {
+                "type": "face",
+                "x": 1750,
+                "y": 3000
+            }
+        ],
+        "start3000": [
+            {
+                "type": "angle",
+                "enable": false
+            },
+            {
+                "type": "go_timed",
+                "dist": -200
+            },
+            {
+                "type": "angle",
+                "enable": true
+            },
+            {
+                "type": "set_y",
+                "value": 2855,
+                "value": -1.570796327
+            },
+            {
+                "type": "go",
+                "dist": 200
+            },
+            {
+                "type": "turn",
+                "dist": -90
+            },
+            {
+                "type": "angle",
+                "enable": false
+            },
+            {
+                "type": "go_timed",
+                "dist": -200
+            },
+            {
+                "type": "angle",
+                "enable": true
+            },
+            {
+                "type": "set_x",
+                "value": 1855,
+                "theta": 3.14159265359
+            },
+            {
+                "type": "go",
+                "dist": 200
+            },
+            {
+                "type": "goto",
+                "x": 1750,
+                "y": 2750
+            },
+            {
+                "type": "face",
+                "x": 1750,
+                "y": 0
+            }
+        ]
+    },
+    "actions": {
+        "ax12": {
+            "comment": "FTDI",
+            "serie": "/dev/serial/by-path/platform-3f980000.usb-usb-0:1.3:1.0-port0",
+            "baud": 115200
+        },
+        "dataDir": "/home/pi/IA/actions/",
+        "init": []
+    },
+    "detection": {
+        "ultrasound": {
+            "type": "srf04",
+            "windowSize": 2,
+            "gpioList": [
+                {
+                    "desc": "Avant gauche",
+                    "in": 22,
+                    "out": 21,
+                    "x": 100,
+                    "y": 105,
+                    "angle": 30,
+                    "threshold": 500
+                },
+                {
+                    "desc": "Milieu",
+                    "in": 13,
+                    "out": 12,
+                    "x": 115,
+                    "y": 0,
+                    "angle": 0,
+                    "threshold": 500
+                },
+                {
+                    "desc": "Avant droit",
+                    "in": 2,
+                    "out": 0,
+                    "x": 100,
+                    "y": -105,
+                    "angle": -30,
+                    "threshold": 500
+                },
+                {
+                    "desc": "Arrière",
+                    "in": 25,
+                    "out": 24,
+                    "x": -110,
+                    "y": 0,
+                    "angle": 180,
+                    "threshold": 500
+                }
+            ]
+        }
+    }
+}
