@@ -5,3 +5,6 @@ bigPrincessPiSettingsIdentityFile=/path/to/ssh/key
 smallPrincessPiSettingsUser=pi
 smallPrincessPiSettingsHost=0.0.0.0
 smallPrincessPiSettingsIdentityFile=/path/to/ssh/key
+
+projectHome=/path/to/project
+year=2024
