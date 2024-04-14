@@ -47,15 +47,13 @@ task deployBigPrincess(dependsOn: ["shadowJar"]) {
     doLast {
         ssh.run {
             session(remotes.bigPrincessPi) {
-                put from: projectHome + '/build/distribution/', into: 'IA'
+                put from: projectHome + '/build/libs/esialrobotik.ia-2.0-all.jar', into: 'IA'
                 put from: projectHome + '/config/' + year + '/config.json', into: 'IA'
                 put from: projectHome + '/config/' + year + '/configCollection.json', into: 'IA'
                 put from: projectHome + '/config/' + year + '/table.json', into: 'IA'
                 put from: projectHome + '/config/' + year + '/table0.tbl', into: 'IA'
                 put from: projectHome + '/config/' + year + '/table3000.tbl', into: 'IA'
-                put from: projectHome + '/src/main/java/esialrobotik/ia/actions/a2023/actions/', into: 'IA'
-                execute 'sudo mv IA/distribution/* IA/'
-                execute 'sudo rm -rf IA/distribution'
+                put from: projectHome + '/src/main/java/actions/a2023/actions/', into: 'IA'
                 execute 'sudo rm -rf IA/webRootDir/*'
                 execute 'sudo sync'
             }
@@ -67,15 +65,13 @@ task deploySmallPrincess(dependsOn: ["shadowJar"]) {
     doLast {
         ssh.run {
             session(remotes.smallPrincessPi) {
-                put from: projectHome + '/build/distribution/', into: 'IA'
+                put from: projectHome + '/build/libs/esialrobotik.ia-2.0-all.jar', into: 'IA'
                 put from: projectHome + '/config/' + year + '/config_PMI.json', into: 'IA/config.json'
                 put from: projectHome + '/config/' + year + '/configCollectionPmi.json', into: 'IA'
                 put from: projectHome + '/config/' + year + '/table.json', into: 'IA'
                 put from: projectHome + '/config/' + year + '/table0.tbl', into: 'IA'
                 put from: projectHome + '/config/' + year + '/table3000.tbl', into: 'IA'
-                put from: projectHome + '/src/main/java/esialrobotik/ia/actions/a2023/actions/', into: 'IA'
-                execute 'sudo mv IA/distribution/* IA/'
-                execute 'sudo rm -rf IA/distribution'
+                put from: projectHome + '/src/main/java/actions/a2023/actions/', into: 'IA'
                 execute 'sudo rm -rf IA/webRootDir/*'
                 execute 'sudo sync'
             }
