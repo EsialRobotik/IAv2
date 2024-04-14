@@ -90,6 +90,21 @@ public class Serial {
     }
 
     /**
+     * Envoie une string sur la liaison série avec un tableau de byte de fin de ligne
+     * @param string String à envoyer
+     */
+    public void write(String string, byte[] endOfLine) {
+        try {
+            logger.info("Serial " + serialPort + " write : " + string);
+            serial.write(string);
+            serial.write(endOfLine);
+            serial.flush();
+        } catch (IOException e) {
+            logger.error("Serial " + serialPort + " write fail : " + e.getMessage());
+        }
+    }
+
+    /**
      * Envoie une string sur la liaison série
      * @param bytes bytes à envoyer
      */
