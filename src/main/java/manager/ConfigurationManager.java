@@ -101,12 +101,35 @@ public class ConfigurationManager {
             chrono = new Chrono(configRootNode.get("matchDuration").getAsInt());
         }
 
+        if( config == CONFIG_NOMINAL ||
+                config == CONFIG_COUPEOFF ||
+                config == CONFIG_TEST_LCD) {
+            //Only if LCD configuration is found in the configuration file
+            if (configRootNode.has("lcd")) {
+                configObject = configRootNode.get("lcd").getAsJsonObject();
+                if (configObject.get("type").getAsString().equals("segment")) {
+                    logger.info("Load LCD Segment");
+                    lcdDisplay = new LcdI2cSegment(configObject.get("i2cAddress").getAsInt(), configObject.get("lineCount").getAsInt(), configObject.get("lineLength").getAsInt());
+                } else if (configObject.get("type").getAsString().equals("full")) {
+                    logger.info("Load LCD Full");
+                    lcdDisplay = new LcdI2c(configObject.get("i2cAddress").getAsInt());
+                } else {
+                    logger.error("Missing LCD type");
+                }
+            }
+            // Only if a Nextion is found in the configuration file
+            if (configRootNode.has("nextion")) {
+                logger.info("Load Nextion");
+                nextionDisplay = new NextionNX32224T024(configRootNode.get("nextion").getAsJsonObject());
+            }
+        }
+
         if( config == CONFIG_TEST_DETECTION ||
                 config == CONFIG_NOMINAL ||
                 config == CONFIG_PATHFINDING ||
                 config == CONFIG_COUPEOFF) {
             logger.info("Load Table");
-            table = new Table(colorDetector.isColor0() ? configRootNode.get("table0Path").getAsString() : configRootNode.get("table3000Path").getAsString());
+            table = new Table(this.isColor0() ? configRootNode.get("table0Path").getAsString() : configRootNode.get("table3000Path").getAsString());
             table.loadJsonFromFile(configRootNode.get("tableJsonPath").getAsString());
         }
 
@@ -184,29 +207,6 @@ public class ConfigurationManager {
             }
         }
 
-        if( config == CONFIG_NOMINAL ||
-                config == CONFIG_COUPEOFF ||
-                config == CONFIG_TEST_LCD) {
-            //Only if LCD configuration is found in the configuration file
-            if (configRootNode.has("lcd")) {
-                configObject = configRootNode.get("lcd").getAsJsonObject();
-                if (configObject.get("type").getAsString().equals("segment")) {
-                    logger.info("Load LCD Segment");
-                    lcdDisplay = new LcdI2cSegment(configObject.get("i2cAddress").getAsInt(), configObject.get("lineCount").getAsInt(), configObject.get("lineLength").getAsInt());
-                } else if (configObject.get("type").getAsString().equals("full")) {
-                    logger.info("Load LCD Full");
-                    lcdDisplay = new LcdI2c(configObject.get("i2cAddress").getAsInt());
-                } else {
-                    logger.error("Missing LCD type");
-                }
-            }
-            // Only if a Nextion is found in the configuration file
-            if (configRootNode.has("nextion")) {
-                logger.info("Load Nextion");
-                nextionDisplay = new NextionNX32224T024(configRootNode.get("nextion").getAsJsonObject());
-            }
-        }
-
         if(config == CONFIG_NOMINAL) {
             JsonObject socketConfig = configRootNode.getAsJsonObject("loggerSocket");
             communicationManager = new CommunicationManager(pathfinding, actionSupervisor, socketConfig.get("host").getAsString(),socketConfig.get("port").getAsInt());
@@ -276,5 +276,12 @@ public class ConfigurationManager {
 
     public FunnyActionDescription getFunnyActionDescription() {
         return funnyActionDescription;
+    }
+
+    public boolean isColor0() {
+        if (this.nextionDisplay != null) {
+            return this.nextionDisplay.isColor0();
+        }
+        return this.colorDetector.isColor0();
     }
 }

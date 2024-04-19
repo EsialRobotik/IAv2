@@ -86,7 +86,14 @@ public class MasterLoop {
         boolean somethingDetected = false;
         boolean movingForward = false;
 
-        actionCollection.prepareActionList(colorDetector.isColor0());
+        boolean isColor0;
+        if (nextionDisplay != null) {
+            isColor0 = nextionDisplay.isColor0();
+        } else {
+            isColor0 = colorDetector.isColor0();
+        }
+
+        actionCollection.prepareActionList(isColor0);
         logger.info("ActionList size : " + actionCollection.getActionList().size());
 
         // FIRST COMPUTATION HERE

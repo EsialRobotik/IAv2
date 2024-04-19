@@ -671,18 +671,17 @@ public class Main {
         ConfigurationManager configurationManager = new ConfigurationManager();
         try {
             configurationManager.loadConfiguration(configFilePath);
-            ColorDetector colorDetector = configurationManager.getColorDetector();
             ActionExecutor ae = configurationManager.getActionSupervisor().getActionExecutor(configurationManager.getFunnyActionDescription().actionId);
             boolean triggered = false;
             while (true) {
                 Thread.sleep(50);
-                if (colorDetector.isColor0() && !triggered) {
+                if (configurationManager.isColor0() && !triggered) {
                     ae.resetActionState();
                     ae.execute();
                     System.out.println("Trigger");
                     triggered = true;
                 }
-                if (!colorDetector.isColor0()) {
+                if (!configurationManager.isColor0()) {
                     triggered = false;
                 }
             }
