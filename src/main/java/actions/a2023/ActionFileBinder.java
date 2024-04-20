@@ -75,6 +75,17 @@ public class ActionFileBinder implements ActionInterface {
 		PUKING_DESTOCKER_BOUBOULES("puking_destocker_bouboules.json", false, ActionFile.ACTION_LIST),
 		PUKING_DEMO_STOCKAGE("puking_demo_stockage.json", false, ActionFile.ACTION_LIST),
 
+		/*
+		 * 2024
+		 */
+		MAMA_INIT("mama_init", false, ActionFile.ACTION_LIST),
+		MAMA_DOIGT_SOLAIRE_OUT_DROIT("mama_doigt_solaire_out_droit.json", false, ActionFile.ACTION_AX12),
+		MAMA_DOIGT_SOLAIRE_OUT_GAUCHE("mama_doigt_solaire_out_gauche.json", false, ActionFile.ACTION_AX12),
+		MAMA_DOIGT_SOLAIRE_IN_DROIT("mama_doigt_solaire_in_droit.json", false, ActionFile.ACTION_AX12),
+		MAMA_DOIGT_SOLAIRE_IN_GAUCHE("mama_doigt_solaire_in_gauche.json", false, ActionFile.ACTION_AX12),
+		MAMA_RAMASSE_PLANTE("mama_ramasse_plante.json", false, ActionFile.ACTION_LIST),
+		MAMA_DEPOSE_PLANTE("mama_depose_plante.json", false, ActionFile.ACTION_LIST),
+
 		DELAY_250_MS("250", false, ActionFile.ACTION_DELAY),
 		DELAY_500_MS("500", false, ActionFile.ACTION_DELAY),
 		DELAY_1000_MS("1000", false, ActionFile.ACTION_DELAY),
