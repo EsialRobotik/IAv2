@@ -100,16 +100,16 @@ public class Table {
 
     private void loadConfig(JsonObject rootElement, List<String> zoneToSkip){
         shapeList = new ArrayList<Shape>();
-        xSize = rootElement.get("tailleX").getAsInt();
+        xSize = rootElement.get("sizeX").getAsInt();
         rectifiedXSize = xSize / 10;
-        ySize = rootElement.get("tailleY").getAsInt();
+        ySize = rootElement.get("sizeY").getAsInt();
         rectifiedYSize = ySize / 10;
-        color0 = rootElement.get("couleur0").getAsString();
-        color3000 = rootElement.get("couleur3000").getAsString();
+        color0 = rootElement.get("color0").getAsString();
+        color3000 = rootElement.get("color3000").getAsString();
         margin = rootElement.get("marge").getAsInt();
 
         if (zoneToSkip.size() > 0) {
-            for (JsonElement jsonElement : rootElement.getAsJsonArray("zonesInterdites")) {
+            for (JsonElement jsonElement : rootElement.getAsJsonArray("forbiddenZones")) {
                 Shape shape = ShapeFactory.getShape(jsonElement.getAsJsonObject());
                 if (zoneToSkip.contains(shape.getId()) || shape.getId().contains("_margin")) {
                     continue;
@@ -119,7 +119,7 @@ public class Table {
         }
 
         elementsList = new HashMap<>();
-        for (JsonElement jsonElement : rootElement.getAsJsonArray("elementsJeu")) {
+        for (JsonElement jsonElement : rootElement.getAsJsonArray("dynamicZones")) {
             Shape shape = ShapeFactory.getShape(jsonElement.getAsJsonObject());
             elementsList.put(shape, getPointsFromShape(shape));
         }
@@ -511,7 +511,7 @@ public class Table {
     }
 
     public static void main(String[] args) throws IOException {
-        int year = 2023;
+        int year = 2024;
 
         try {
             // A lancer directement depuis l'IDE pour générer la table
