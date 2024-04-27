@@ -66,29 +66,29 @@ public class Main2024 extends AbstractMain {
     public static void plante1() {
         TaskList taskList =  new TaskList(3000);
         taskList.add(
-            new GoToAstar("Position plante", 1300, 650)
+            new GoToAstar("Position plante", 700, 650)
         );
         taskList.add(
-            new Face("Alignement plante", 1300, 3000)
+            new Face("Alignement plante", 700, 3000)
         );
         taskList.add(
             new Manipulation("Ramasse plante", ActionFileBinder.ActionFile.MAMA_RAMASSE_PLANTE.ordinal())
         );
         taskList.add(
-            new GoToBack("Sortie plante", 1300, 650)
+            new GoToBack("Sortie plante", 700, 650)
         );
         taskList.add(
-            new GoTo("Position pot", 1375, 450)
+            new GoTo("Position pot", 612, 450)
         );
         taskList.add(
-            new Face("Position pot", 1375, 0)
+            new Face("Position pot", 612, 0)
         );
         taskList.add(
             new Manipulation("Depose plante", ActionFileBinder.ActionFile.MAMA_DEPOSE_PLANTE.ordinal())
         );
         score += 5;
         taskList.add(
-            new GoToBack("Position pot", 1375, 650)
+            new GoToBack("Position pot", 612, 650)
         );
         objectifsCouleur0.add(taskList.generateObjectif("Panneaux solaire", objectifsCouleur0.size()+1, score, 1));
         objectifsCouleur3000.add(taskList.generateMirrorObjectif("Panneaux solaire", objectifsCouleur3000.size()+1, score, 1));
