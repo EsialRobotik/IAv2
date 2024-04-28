@@ -410,6 +410,8 @@ public class MasterLoop {
 
     public void initNextion() {
         logger.info("Init mainLoop");
+        nextionDisplay.gotoPage("init");
+
         logger.info("Wait for calibration from nextion");
 
         nextionDisplay.waitForCalibration();
@@ -425,7 +427,6 @@ public class MasterLoop {
         logger.info("Tirette inserted. End of initialization.");
         logger.info("Pret au depart");
         detectionManager.startDetection();
-        lcdDisplay.println("LET'S ROCK !");
         nextionDisplay.gotoPage("ready");
     }
 
