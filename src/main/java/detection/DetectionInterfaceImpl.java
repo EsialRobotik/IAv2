@@ -4,7 +4,6 @@ import api.gpio.GPioPair;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import detection.lidar.LidarPoint;
 import detection.ultrasound.SRF04;
 import detection.ultrasound.SRF08;
 import detection.ultrasound.SRF08Config;
@@ -98,9 +97,5 @@ public class DetectionInterfaceImpl implements DetectionInterface {
             }
         }
         return res;
-    }
-
-    public List<LidarPoint> getLidarDetection() {
-        return null;
     }
 }

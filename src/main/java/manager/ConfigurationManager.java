@@ -24,8 +24,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import detection.DetectionInterface;
 import detection.DetectionInterfaceImpl;
-import detection.lidar.LidarInterface;
-import detection.lidar.RpLidar;
 import gnu.io.SerialPort;
 import org.apache.logging.log4j.Logger;
 import pathfinding.PathFinding;
@@ -54,7 +52,6 @@ public class ConfigurationManager {
     public static int CONFIG_PATHFINDING        = 6;
 
     private MovementManager movementManager;
-    private LidarManager lidarManager;
     private UltraSoundManager ultraSoundManager;
     private DetectionManager detectionManager;
     private CommunicationManager communicationManager;
@@ -139,16 +136,10 @@ public class ConfigurationManager {
             logger.info("LoadConfiguration : Detection HW");
             configObject = configRootNode.get("detection").getAsJsonObject();
 
-            if(configObject.has("lidar")) {
-                logger.info("LoadConfiguration : Lidar is present");
-                LidarInterface lidarInterface = new RpLidar(configObject.get("lidar").getAsJsonObject().get("port").getAsString());
-                lidarManager = new LidarManager(lidarInterface, movementManager);
-            }
-
             DetectionInterface detectionInterface = new DetectionInterfaceImpl(configObject.getAsJsonObject("ultrasound"));
             int windowSize = configObject.getAsJsonObject("ultrasound").get("windowSize").getAsInt();
             ultraSoundManager = new UltraSoundManager(detectionInterface, windowSize, table, movementManager);
-            detectionManager = new DetectionManager(detectionInterface, lidarManager, ultraSoundManager);
+            detectionManager = new DetectionManager(detectionInterface, ultraSoundManager);
         }
 
         if( config == CONFIG_NOMINAL ||
@@ -216,10 +207,6 @@ public class ConfigurationManager {
 
     public MovementManager getMovementManager() {
         return movementManager;
-    }
-
-    public LidarManager getLidarManager() {
-        return lidarManager;
     }
 
     public UltraSoundManager getUltraSoundManager() {

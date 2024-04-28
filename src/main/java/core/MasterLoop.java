@@ -404,7 +404,6 @@ public class MasterLoop {
         tirette.waitForTirette(true);
         logger.info("Tirette inserted. End of initialization.");
         logger.info("Pret au depart");
-        detectionManager.initAPI();
         detectionManager.startDetection();
         lcdDisplay.println("LET'S ROCK !");
     }
@@ -425,7 +424,6 @@ public class MasterLoop {
         tirette.waitForTirette(true);
         logger.info("Tirette inserted. End of initialization.");
         logger.info("Pret au depart");
-        detectionManager.initAPI();
         detectionManager.startDetection();
         lcdDisplay.println("LET'S ROCK !");
         nextionDisplay.gotoPage("ready");

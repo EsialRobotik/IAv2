@@ -23,6 +23,7 @@ import asserv.AsservInterface;
 import asserv.Position;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.pi4j.io.serial.SerialDataEventListener;
 import gnu.io.SerialPort;
 import manager.ConfigurationManager;
 import manager.DetectionManager;
@@ -202,6 +203,9 @@ public class Main {
                 case "actions":
                     Main.testActions();
                     break;
+                case "lidar":
+                    Main.testLidar();
+                    break;
                 case "funny-action":
                     Main.funnyAction();
                     break;
@@ -241,6 +245,7 @@ public class Main {
         System.out.println("\t- hotspot : Test la communication socket via le hotspot");
         System.out.println("\t- camera : Test la camera");
         System.out.println("\t- actions : Test des actions");
+        System.out.println("\t- lidar : Test du lidar");
         System.out.println("\t- funny-action : Test de la funny action en utilisant l'interrupteur de couleur comme déclencheur\n");
 
         System.out.println("configFile : chemin du fichier de configuration à utiliser. Par defaut, './config.json'\n");
@@ -252,7 +257,6 @@ public class Main {
         configurationManager.loadConfiguration(configFilePath, ConfigurationManager.CONFIG_TEST_DETECTION);
 
         DetectionManager detectionManager = configurationManager.getDetectionManager();
-        detectionManager.initAPI();
         detectionManager.startDetectionDebug();
         while (true){
             Thread.sleep(1000);
@@ -665,6 +669,27 @@ public class Main {
         Aruco.detectMarkers(inputImage, dictionary, corners, markerIds);
         logger.info("Detection complete");
         System.out.println(markerIds);
+    }
+
+    private static void testLidar() {
+        Serial lidar = new Serial("/dev/serial/by-id/usb-Silicon_Labs_CP2102_USB_to_UART_Bridge_Controller_0001-if00-port0", 115200);
+        lidar.addReaderListeners((SerialDataEventListener) serialDataEvent -> {
+            try {
+                String serialBuffer = serialDataEvent.getAsciiString();
+                System.out.println(serialBuffer);
+            } catch (IOException e) {
+                logger.error("Echec du parsing de la position : " + e.getMessage());
+            }
+        });
+        lidar.write("mc");
+        lidar.write("fc");
+        lidar.write("s");
+        try {
+            Thread.sleep(20000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        lidar.write("h");
     }
 
     public static void funnyAction() throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
