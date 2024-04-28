@@ -11,6 +11,13 @@
         "host": "192.168.0.203",
         "port": 4269
     },
+    "loggerSocket": {
+        "active": false,
+        "host": "192.168.0.103",
+        "port": 4269,
+        "logPort": 1664,
+        "who": "princess"
+    },
     "nextion": {
         "baud": 115200,
         "serie": "/dev/serial/by-id/usb-FTDI_FT232R_USB_UART_A5XK3RJT-if00-port0"
@@ -41,53 +48,47 @@
         "serie": "/dev/serial/by-id/usb-STMicroelectronics_STM32_STLink_066FFF383133524157185717-if02",
         "start0": [
             {
-                "type": "angle",
-                "enable": false
-            },
-            {
                 "type": "go_timed",
                 "dist": -200
             },
             {
-                "type": "angle",
-                "enable": true
-            },
-            {
                 "type": "set_y",
-                "value": 125,
+                "value": 78,
                 "theta": 1.570796327
             },
             {
                 "type": "go",
-                "dist": 200
+                "dist": 300
             },
             {
                 "type": "turn",
                 "dist": 90
             },
             {
-                "type": "angle",
-                "enable": false
-            },
-            {
                 "type": "go_timed",
                 "dist": -200
             },
             {
-                "type": "angle",
-                "enable": true
-            },
-            {
                 "type": "set_x",
-                "value": 1855,
+                "value": 1922,
                 "theta": 3.14159265359
             },
             {
                 "type": "go",
-                "dist": 200
+                "dist": 300
             },
             {
-                "type": "goto",
+                "type": "goto_back",
+                "x": 1800,
+                "y": 378
+            },
+            {
+                "type": "face",
+                "x": 1800,
+                "y": 3000
+            },
+            {
+                "type": "goto_back",
                 "x": 1800,
                 "y": 120
             },
@@ -99,53 +100,47 @@
         ],
         "start3000": [
             {
-                "type": "angle",
-                "enable": false
-            },
-            {
                 "type": "go_timed",
                 "dist": -200
             },
             {
-                "type": "angle",
-                "enable": true
-            },
-            {
                 "type": "set_y",
-                "value": 2855,
+                "value": 2922,
                 "theta": -1.570796327
             },
             {
                 "type": "go",
-                "dist": 200
+                "dist": 300
             },
             {
                 "type": "turn",
                 "dist": -90
             },
             {
-                "type": "angle",
-                "enable": false
-            },
-            {
                 "type": "go_timed",
                 "dist": -200
             },
             {
-                "type": "angle",
-                "enable": true
-            },
-            {
                 "type": "set_x",
-                "value": 1855,
+                "value": 1922,
                 "theta": 3.14159265359
             },
             {
                 "type": "go",
-                "dist": 200
+                "dist": 300
             },
             {
-                "type": "goto",
+                "type": "goto_back",
+                "x": 1800,
+                "y": 2622
+            },
+            {
+                "type": "face",
+                "x": 1800,
+                "y": 0
+            },
+            {
+                "type": "goto_back",
                 "x": 1800,
                 "y": 2880
             },
