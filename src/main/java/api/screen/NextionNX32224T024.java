@@ -101,7 +101,7 @@ public class NextionNX32224T024 {
             String page = line.split(" ")[1];
             gotoPage(page);
             if (page.equals("calibration")) {
-                displayCalibrationStatus("Début calibration");
+                displayCalibrationStatus("Debut calibration");
                 calibrationStarted = true;
             }
         } else if (line.startsWith("color")) {

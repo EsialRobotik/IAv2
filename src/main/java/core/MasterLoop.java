@@ -422,7 +422,7 @@ public class MasterLoop {
         nextionDisplay.displayCalibrationStatus("Callage bordure");
         movementManager.goStart(nextionDisplay.isColor0());
         logger.info("Init ended, wait for tirette");
-        nextionDisplay.displayCalibrationStatus("Attente tirette pour départ");
+        nextionDisplay.displayCalibrationStatus("Attente tirette pour depart");
         tirette.waitForTirette(true);
         logger.info("Tirette inserted. End of initialization.");
         logger.info("Pret au depart");
