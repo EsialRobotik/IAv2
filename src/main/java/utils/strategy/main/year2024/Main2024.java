@@ -34,8 +34,8 @@ public class Main2024 extends AbstractMain {
     public static void panneauSolaire() {
         TaskList taskList =  new TaskList(3000);
         taskList.add(
-            new Manipulation("Init doigt solaire", ActionFileBinder.ActionFile.MAMA_DOIGT_SOLAIRE_OUT_DROIT.ordinal(), Tache.Mirror.SPECIFIC),
-            new Manipulation("Init doigt solaire", ActionFileBinder.ActionFile.MAMA_DOIGT_SOLAIRE_OUT_GAUCHE.ordinal(), Tache.Mirror.SPECIFIC)
+            new Manipulation("Init doigt solaire", ActionFileBinder.ActionFile.MAMMA_DOIGT_SOLAIRE_OUT_DROIT.ordinal(), Tache.Mirror.SPECIFIC),
+            new Manipulation("Init doigt solaire", ActionFileBinder.ActionFile.MAMMA_DOIGT_SOLAIRE_OUT_GAUCHE.ordinal(), Tache.Mirror.SPECIFIC)
         );
         taskList.add(
             new GoTo("Panneau 1", 1800, 350)
@@ -56,8 +56,8 @@ public class Main2024 extends AbstractMain {
         );
         score += 5;
         taskList.add(
-            new Manipulation("Ranger doigt solaire", ActionFileBinder.ActionFile.MAMA_DOIGT_SOLAIRE_IN_DROIT.ordinal(), Tache.Mirror.SPECIFIC),
-            new Manipulation("Ranger doigt solaire", ActionFileBinder.ActionFile.MAMA_DOIGT_SOLAIRE_IN_GAUCHE.ordinal(), Tache.Mirror.SPECIFIC)
+            new Manipulation("Ranger doigt solaire droit", ActionFileBinder.ActionFile.MAMMA_DOIGT_SOLAIRE_IN_DROIT.ordinal(), Tache.Mirror.SPECIFIC),
+            new Manipulation("Ranger doigt solaire gauche", ActionFileBinder.ActionFile.MAMMA_DOIGT_SOLAIRE_IN_GAUCHE.ordinal(), Tache.Mirror.SPECIFIC)
         );
         objectifsCouleur0.add(taskList.generateObjectif("Panneaux solaire", objectifsCouleur0.size()+1, score, 1));
         objectifsCouleur3000.add(taskList.generateMirrorObjectif("Panneaux solaire", objectifsCouleur3000.size()+1, score, 1));
@@ -72,7 +72,7 @@ public class Main2024 extends AbstractMain {
             new Face("Alignement plante", 700, 3000)
         );
         taskList.add(
-            new Manipulation("Ramasse plante", ActionFileBinder.ActionFile.MAMA_RAMASSE_PLANTE.ordinal())
+            new Manipulation("Ramasse plante", ActionFileBinder.ActionFile.MAMMA_RAMASSE_PLANTE.ordinal())
         );
         taskList.add(
             new GoToBack("Sortie plante", 700, 650)
@@ -84,7 +84,7 @@ public class Main2024 extends AbstractMain {
             new Face("Position pot", 612, 0)
         );
         taskList.add(
-            new Manipulation("Depose plante", ActionFileBinder.ActionFile.MAMA_DEPOSE_PLANTE.ordinal())
+            new Manipulation("Depose plante", ActionFileBinder.ActionFile.MAMMA_DEPOSE_PLANTE.ordinal())
         );
         score += 5;
         taskList.add(

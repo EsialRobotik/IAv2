@@ -163,7 +163,7 @@
             "baud": 115200
         },
         "dataDir": "/home/pi/IA/actions/",
-        "init": ["MAMA_INIT"]
+        "init": ["MAMMA_INIT"]
     },
     "detection": {
         "ultrasound": {

@@ -78,13 +78,18 @@ public class ActionFileBinder implements ActionInterface {
 		/*
 		 * 2024
 		 */
-		MAMA_INIT("mama_init", false, ActionFile.ACTION_LIST),
-		MAMA_DOIGT_SOLAIRE_OUT_DROIT("mama_doigt_solaire_out_droit.json", false, ActionFile.ACTION_AX12),
-		MAMA_DOIGT_SOLAIRE_OUT_GAUCHE("mama_doigt_solaire_out_gauche.json", false, ActionFile.ACTION_AX12),
-		MAMA_DOIGT_SOLAIRE_IN_DROIT("mama_doigt_solaire_in_droit.json", false, ActionFile.ACTION_AX12),
-		MAMA_DOIGT_SOLAIRE_IN_GAUCHE("mama_doigt_solaire_in_gauche.json", false, ActionFile.ACTION_AX12),
-		MAMA_RAMASSE_PLANTE("mama_ramasse_plante.json", false, ActionFile.ACTION_LIST),
-		MAMA_DEPOSE_PLANTE("mama_depose_plante.json", false, ActionFile.ACTION_LIST),
+		MAMMA_INIT("mamma_init.json", false, ActionFile.ACTION_LIST),
+		MAMMA_DOIGT_SOLAIRE_OUT_DROIT("mamma_doigt_solaire_out_droit.json", false, ActionFile.ACTION_AX12),
+		MAMMA_DOIGT_SOLAIRE_OUT_GAUCHE("mamma_doigt_solaire_out_gauche.json", false, ActionFile.ACTION_AX12),
+		MAMMA_DOIGT_SOLAIRE_IN_DROIT("mamma_doigt_solaire_in_droit.json", false, ActionFile.ACTION_AX12),
+		MAMMA_DOIGT_SOLAIRE_IN_GAUCHE("mamma_doigt_solaire_in_gauche.json", false, ActionFile.ACTION_AX12),
+		MAMMA_RAMASSE_PLANTE("mamma_ramasse_plante.json", false, ActionFile.ACTION_LIST),
+		MAMMA_DEPOSE_PLANTE("mamma_depose_plante.json", false, ActionFile.ACTION_LIST),
+		MAMMA_CHARIOT_HOME("mamma_chariot_home.json", false, ActionFile.ACTION_ASCENSEUR),
+		MAMMA_CHARIOT_MIDDLE("mamma_chariot_middle.json", false, ActionFile.ACTION_ASCENSEUR),
+		MAMMA_PINCE_FERMER("mamma_pince_fermer.json", false, ActionFile.ACTION_AX12),
+		MAMMA_PINCE_PINCE_LEVER_HORIZONTAL("mamma_pince_lever_horizontal.json", false, ActionFile.ACTION_AX12),
+		MAMMA_PINCE_LEVER_VERTICAL("mamma_pince_lever_vertical.json", false, ActionFile.ACTION_AX12),
 
 		DELAY_250_MS("250", false, ActionFile.ACTION_DELAY),
 		DELAY_500_MS("500", false, ActionFile.ACTION_DELAY),
