@@ -23,7 +23,8 @@ import asserv.AsservInterface;
 import asserv.Position;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.pi4j.io.serial.SerialDataEventListener;
+import com.pi4j.io.serial.Baud;
+import detection.Lidar;
 import gnu.io.SerialPort;
 import manager.ConfigurationManager;
 import manager.DetectionManager;
@@ -672,24 +673,16 @@ public class Main {
     }
 
     private static void testLidar() {
-        Serial lidar = new Serial("/dev/serial/by-id/usb-Silicon_Labs_CP2102_USB_to_UART_Bridge_Controller_0001-if00-port0", 115200);
-        lidar.addReaderListeners((SerialDataEventListener) serialDataEvent -> {
-            try {
-                String serialBuffer = serialDataEvent.getAsciiString();
-                System.out.println(serialBuffer);
-            } catch (IOException e) {
-                logger.error("Echec du parsing de la position : " + e.getMessage());
-            }
-        });
-        lidar.write("mc");
-        lidar.write("fc");
-        lidar.write("s");
+        Lidar lidar = new Lidar(
+                "/dev/serial/by-id/usb-Silicon_Labs_CP2102_USB_to_UART_Bridge_Controller_0001-if00-port0",
+                Baud._115200
+        );
         try {
-            Thread.sleep(20000);
+            Thread.sleep(5000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        lidar.write("h");
+        lidar.reset();
     }
 
     public static void funnyAction() throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
