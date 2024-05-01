@@ -1,10 +1,11 @@
 package utils.strategy.main.year2024;
 
-import actions.a2023.ActionFileBinder;
-import utils.strategy.Tache;
 import utils.strategy.TaskList;
 import utils.strategy.main.AbstractMain;
-import utils.strategy.task.*;
+import utils.strategy.task.Face;
+import utils.strategy.task.GoTo;
+import utils.strategy.task.GoToAstar;
+import utils.strategy.task.GoToBack;
 
 public class Main2024 extends AbstractMain {
 
