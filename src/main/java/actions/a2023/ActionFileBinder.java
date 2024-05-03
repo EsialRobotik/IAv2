@@ -88,7 +88,7 @@ public class ActionFileBinder implements ActionInterface {
 		MAMMA_CHARIOT_HOME("mamma_chariot_home.json", false, ActionFile.ACTION_ASCENSEUR),
 		MAMMA_CHARIOT_MIDDLE("mamma_chariot_middle.json", false, ActionFile.ACTION_ASCENSEUR),
 		MAMMA_PINCE_FERMER("mamma_pince_fermer.json", false, ActionFile.ACTION_AX12),
-		MAMMA_PINCE_PINCE_LEVER_HORIZONTAL("mamma_pince_lever_horizontal.json", false, ActionFile.ACTION_AX12),
+		MAMMA_PINCE_LEVER_HORIZONTAL("mamma_pince_lever_horizontal.json", false, ActionFile.ACTION_AX12),
 		MAMMA_PINCE_LEVER_VERTICAL("mamma_pince_lever_vertical.json", false, ActionFile.ACTION_AX12),
 
 		DELAY_250_MS("250", false, ActionFile.ACTION_DELAY),
