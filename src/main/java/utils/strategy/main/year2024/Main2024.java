@@ -1,11 +1,10 @@
 package utils.strategy.main.year2024;
 
+import actions.a2023.ActionFileBinder;
+import utils.strategy.Tache;
 import utils.strategy.TaskList;
 import utils.strategy.main.AbstractMain;
-import utils.strategy.task.Face;
-import utils.strategy.task.GoTo;
-import utils.strategy.task.GoToAstar;
-import utils.strategy.task.GoToBack;
+import utils.strategy.task.*;
 
 public class Main2024 extends AbstractMain {
 
@@ -35,8 +34,8 @@ public class Main2024 extends AbstractMain {
     public static void panneauSolaire() {
         TaskList taskList =  new TaskList(3000);
         taskList.add(
-            new Manipulation("Init doigt solaire", ActionFileBinder.ActionFile.MAMMA_DOIGT_SOLAIRE_OUT_DROIT.ordinal(), Tache.Mirror.SPECIFIC),
-            new Manipulation("Init doigt solaire", ActionFileBinder.ActionFile.MAMMA_DOIGT_SOLAIRE_OUT_GAUCHE.ordinal(), Tache.Mirror.SPECIFIC)
+            new Manipulation("Sortie doigt solaire droit", ActionFileBinder.ActionFile.MAMMA_DOIGT_SOLAIRE_OUT_DROIT.ordinal(), Tache.Mirror.SPECIFIC),
+            new Manipulation("Sortie doigt solaire gauche", ActionFileBinder.ActionFile.MAMMA_DOIGT_SOLAIRE_OUT_GAUCHE.ordinal(), Tache.Mirror.SPECIFIC)
         );
         taskList.add(
             new GoTo("Panneau 1", 1800, 350)
@@ -72,9 +71,10 @@ public class Main2024 extends AbstractMain {
         taskList.add(
             new Face("Alignement plante", 700, 3000)
         );
-        taskList.add(
-            new Manipulation("Ramasse plante", ActionFileBinder.ActionFile.MAMMA_RAMASSE_PLANTE.ordinal())
-        );
+        ///taskList.add(
+        //    new Manipulation("Ramasse plante", ActionFileBinder.ActionFile.MAMMA_RAMASSE_PLANTE.ordinal())
+        //);
+        taskList.add(new Wait("attends", 2000));
         taskList.add(
             new GoToBack("Sortie plante", 700, 650)
         );
@@ -84,9 +84,10 @@ public class Main2024 extends AbstractMain {
         taskList.add(
             new Face("Position pot", 612, 0)
         );
-        taskList.add(
-            new Manipulation("Depose plante", ActionFileBinder.ActionFile.MAMMA_DEPOSE_PLANTE.ordinal())
-        );
+        //taskList.add(
+        //    new Manipulation("Depose plante", ActionFileBinder.ActionFile.MAMMA_DEPOSE_PLANTE.ordinal())
+        //);
+        taskList.add(new Wait("attends", 2000));
         score += 5;
         taskList.add(
             new GoToBack("Position pot", 612, 650)

@@ -8,12 +8,12 @@
     "tableJsonPath": "table.json",
     "commandFile": "configCollection.json",
     "comSocket": {
-        "host": "192.168.0.203",
+        "host": "192.168.42.103",
         "port": 4269
     },
     "loggerSocket": {
-        "active": false,
-        "host": "192.168.0.103",
+        "active": true,
+        "host": "192.168.42.103",
         "port": 4269,
         "logPort": 1664,
         "who": "princess"
@@ -38,7 +38,7 @@
             "active": true,
             "logFormat": "%d [%W][%L][%T/%i][%n] %m",
             "dateFormat": "yyyy-MM-dd HH:mm:ss",
-            "host": "192.168.0.203",
+            "host": "192.168.42.103",
             "port": 1664,
             "whoami": "princess"
         }
