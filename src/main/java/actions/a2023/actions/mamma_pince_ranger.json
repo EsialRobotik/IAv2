@@ -1,0 +1,7 @@
+{
+  "actions": [
+    "MAMMA_PINCE_FERMER",
+    "MAMMA_PINCE_LEVER_HORIZONTAL",
+    "MAMMA_PINCE_LEVER_VERTICAL"
+  ]
+}

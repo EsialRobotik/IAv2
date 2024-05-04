@@ -95,6 +95,7 @@ public class ActionFileBinder implements ActionInterface {
 		MAMMA_PINCE_LEVER_VERTICAL("mamma_pince_lever_vertical.json", false, ActionFile.ACTION_AX12),
 		MAMMA_PINCE_LEVER_RAMI("mamma_pince_lever_rami.json", false, ActionFile.ACTION_AX12),
 		MAMMA_PINCE_BAISSER("mamma_pince_baisser.json", false, ActionFile.ACTION_AX12),
+		MAMMA_PINCE_RANGER("mamma_pince_ranger.json", false, ActionFile.ACTION_LIST),
 		MAMMA_AIMANT_ACTIVER("mamma_aimant_activer.json", false, ActionFile.ACTION_AX12),
 		MAMMA_AIMANT_DESACTIVER("mamma_aimant_desactiver.json", false, ActionFile.ACTION_AX12),
 		MAMMA_PREPARER_ACCROCHE_POT("mamma_preparer_accroche_pot.json", false, ActionFile.ACTION_LIST),
