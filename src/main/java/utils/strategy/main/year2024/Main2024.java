@@ -71,10 +71,9 @@ public class Main2024 extends AbstractMain {
         taskList.add(
             new Face("Alignement plante", 700, 3000)
         );
-        ///taskList.add(
-        //    new Manipulation("Ramasse plante", ActionFileBinder.ActionFile.MAMMA_RAMASSE_PLANTE.ordinal())
-        //);
-        taskList.add(new Wait("attends", 2000));
+        taskList.add(
+            new Manipulation("Ramasse plante", ActionFileBinder.ActionFile.MAMMA_RAMASSER_PLANTE.ordinal())
+        );
         taskList.add(
             new GoToBack("Sortie plante", 700, 650)
         );
@@ -84,10 +83,10 @@ public class Main2024 extends AbstractMain {
         taskList.add(
             new Face("Position pot", 612, 0)
         );
-        //taskList.add(
-        //    new Manipulation("Depose plante", ActionFileBinder.ActionFile.MAMMA_DEPOSE_PLANTE.ordinal())
-        //);
-        taskList.add(new Wait("attends", 2000));
+        taskList.add(
+            new Manipulation("Depose plante", ActionFileBinder.ActionFile.MAMMA_DEPOSER_PLANTE.ordinal())
+        );
+        // todo  reculer, baisser pince, aimant, marquer, ranger pince, partir
         score += 5;
         taskList.add(
             new GoToBack("Position pot", 612, 650)
