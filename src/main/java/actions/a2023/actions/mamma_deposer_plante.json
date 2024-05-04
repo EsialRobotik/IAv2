@@ -1,0 +1,8 @@
+{
+  "actions": [
+    "MAMMA_PINCE_LEVER_HORIZONTAL",
+    "MAMMA_PINCE_OUVRIR",
+    "MAMMA_PINCE_LEVER_RAMI",
+    "MAMMA_PINCE_FERMER"
+  ]
+}

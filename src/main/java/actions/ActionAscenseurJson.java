@@ -60,7 +60,12 @@ public class ActionAscenseurJson implements ActionExecutor {
                             StringBuilder sb = new StringBuilder();
                             while (true) {
                                 if (is.available() > 0) {
-                                    sb.append((char) is.read());
+                                    char c = (char) is.read();
+                                    if (c == '\n' || c == '\r') {
+                                        sb.setLength(0);
+                                        continue;
+                                    }
+                                    sb.append(c);
                                     String result = sb.toString().trim();
                                     if (result.equals("ok") || result.equals("err")) {
                                         logger.info(ActionAscenseurJson.class.getName() + " command <"+cmd+"> of " + filename + " finished");

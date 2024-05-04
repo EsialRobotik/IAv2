@@ -4,8 +4,8 @@
       "actions": [
         {
           "actionId": "actionPosition",
-          "ax12Id": 13,
-          "angleDegrees": 70
+          "ax12Id": 12,
+          "angleDegrees": 95
         }
       ]
     }

@@ -1,0 +1,6 @@
+[
+  {
+    "command": "f",
+    "comment": "déplace le chariot devant la première plante trouvée"
+  }
+]

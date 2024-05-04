@@ -53,7 +53,7 @@ public class ActionList implements ActionExecutor {
                                 try {
                                     this.actions.add(ActionFileBinder.ActionFile.valueOf(enumTarget));
                                 } catch (IllegalArgumentException e) {
-                                    logger.warn("l'action n°"+index+" de "+filename+" ne désigne aucune action coonnue : "+enumTarget);
+                                    logger.warn("l'action n°"+index+" de "+filename+" ne désigne aucune action connue : "+enumTarget);
                                 }
                             } else {
                                 logger.warn("l'action n°"+index+" de "+filename+" n'est pas une string");
