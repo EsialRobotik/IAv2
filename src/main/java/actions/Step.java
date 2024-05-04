@@ -11,7 +11,6 @@ public class Step {
         DEPLACEMENT,
         MANIPULATION,
         ELEMENT,
-        IGNORE_DETECTION
     }
 
     public enum SubType {

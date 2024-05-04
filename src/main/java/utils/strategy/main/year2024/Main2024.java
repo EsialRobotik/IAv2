@@ -21,8 +21,6 @@ public class Main2024 extends AbstractMain {
         startY_3000 = 3000 - startY_0;
         startTheta_3000 = -startTheta_0;
 
-        fuuu();
-
         // 0 = Bleu, 3000 = Jaune
         // Départ en x=1800 y=120, theta=Pi/2
         panneauSolaire();
@@ -33,15 +31,6 @@ public class Main2024 extends AbstractMain {
         //testActions();
 
         generateStrategy();
-    }
-
-    public static void fuuu() {
-        TaskList taskList =  new TaskList(3000);
-        taskList.add(
-                new Go("FUUUUUU", 1)
-        );
-        objectifsCouleur0.add(taskList.generateObjectif("FUUUUUU", objectifsCouleur0.size()+1, 0, 1));
-        objectifsCouleur3000.add(taskList.generateMirrorObjectif("FUUUUUU", objectifsCouleur3000.size()+1, 0, 1));
     }
 
     public static void panneauSolaire() {
