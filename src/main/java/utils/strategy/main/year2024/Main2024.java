@@ -21,6 +21,8 @@ public class Main2024 extends AbstractMain {
         startY_3000 = 3000 - startY_0;
         startTheta_3000 = -startTheta_0;
 
+        fuuu();
+
         // 0 = Bleu, 3000 = Jaune
         // Départ en x=1800 y=120, theta=Pi/2
         panneauSolaire();
@@ -28,15 +30,28 @@ public class Main2024 extends AbstractMain {
         plante1();
         rechargeBatterie();
 
+        //testActions();
+
         generateStrategy();
     }
 
+    public static void fuuu() {
+        TaskList taskList =  new TaskList(3000);
+        taskList.add(
+                new Go("FUUUUUU", 1)
+        );
+        objectifsCouleur0.add(taskList.generateObjectif("FUUUUUU", objectifsCouleur0.size()+1, 0, 1));
+        objectifsCouleur3000.add(taskList.generateMirrorObjectif("FUUUUUU", objectifsCouleur3000.size()+1, 0, 1));
+    }
+
     public static void panneauSolaire() {
+        int score = 0;
         TaskList taskList =  new TaskList(3000);
         taskList.add(
             new Manipulation("Sortie doigt solaire droit", ActionFileBinder.ActionFile.MAMMA_DOIGT_SOLAIRE_OUT_DROIT.ordinal(), Tache.Mirror.SPECIFIC),
             new Manipulation("Sortie doigt solaire gauche", ActionFileBinder.ActionFile.MAMMA_DOIGT_SOLAIRE_OUT_GAUCHE.ordinal(), Tache.Mirror.SPECIFIC)
         );
+        taskList.add(new SetSpeed("Pas trop vite !!", 50));
         taskList.add(
             new GoTo("Panneau 1", 1800, 350)
         );
@@ -59,11 +74,13 @@ public class Main2024 extends AbstractMain {
             new Manipulation("Ranger doigt solaire droit", ActionFileBinder.ActionFile.MAMMA_DOIGT_SOLAIRE_IN_DROIT.ordinal(), Tache.Mirror.SPECIFIC),
             new Manipulation("Ranger doigt solaire gauche", ActionFileBinder.ActionFile.MAMMA_DOIGT_SOLAIRE_IN_GAUCHE.ordinal(), Tache.Mirror.SPECIFIC)
         );
+        taskList.add(new SetSpeed("A fond !!!", 100));
         objectifsCouleur0.add(taskList.generateObjectif("Panneaux solaire", objectifsCouleur0.size()+1, score, 1));
         objectifsCouleur3000.add(taskList.generateMirrorObjectif("Panneaux solaire", objectifsCouleur3000.size()+1, score, 1));
     }
 
     public static void plante1() {
+        int score = 0;
         TaskList taskList =  new TaskList(3000);
         taskList.add(
             new GoToAstar("Position plante", 700, 650)
@@ -74,11 +91,12 @@ public class Main2024 extends AbstractMain {
         taskList.add(
             new Manipulation("Ramasse plante", ActionFileBinder.ActionFile.MAMMA_RAMASSER_PLANTE.ordinal())
         );
+        taskList.add(new SetSpeed("Pas trop vite !!", 50));
         taskList.add(
             new GoToBack("Sortie plante", 700, 650)
         );
         taskList.add(
-            new GoTo("Position pot", 612, 450)
+            new GoTo("Position pot", 612, 385)
         );
         taskList.add(
             new Face("Position pot", 612, 0)
@@ -91,11 +109,33 @@ public class Main2024 extends AbstractMain {
         taskList.add(
             new GoToBack("Position pot", 612, 650)
         );
+        taskList.add(new SetSpeed("A fond !!!", 100));
         objectifsCouleur0.add(taskList.generateObjectif("Panneaux solaire", objectifsCouleur0.size()+1, score, 1));
         objectifsCouleur3000.add(taskList.generateMirrorObjectif("Panneaux solaire", objectifsCouleur3000.size()+1, score, 1));
     }
 
+    public static void testActions() {
+        int score = 0;
+        TaskList taskList = new TaskList(3000);
+        taskList.add(
+                new Manipulation("Sortie doigt solaire gauche", ActionFileBinder.ActionFile.MAMMA_DOIGT_SOLAIRE_OUT_GAUCHE.ordinal())
+        );
+        taskList.add(
+                new Manipulation("Ranger doigt solaire gauche", ActionFileBinder.ActionFile.MAMMA_DOIGT_SOLAIRE_IN_GAUCHE.ordinal())
+        );
+        taskList.add(new Wait("wait", 250));
+        taskList.add(
+                new Manipulation("Sortie doigt solaire droit", ActionFileBinder.ActionFile.MAMMA_DOIGT_SOLAIRE_OUT_DROIT.ordinal())
+        );
+        taskList.add(
+                new Manipulation("Ranger doigt solaire droit", ActionFileBinder.ActionFile.MAMMA_DOIGT_SOLAIRE_IN_DROIT.ordinal())
+        );
+        objectifsCouleur0.add(taskList.generateObjectif("Test", objectifsCouleur0.size()+1, score, 1));
+        objectifsCouleur3000.add(taskList.generateMirrorObjectif("Test", objectifsCouleur3000.size()+1, score, 1));
+    }
+
     public static void rechargeBatterie() {
+        int score = 0;
         TaskList taskList = new TaskList(3000);
         taskList.add(
             new GoToAstar("Position plante", 450, 650)

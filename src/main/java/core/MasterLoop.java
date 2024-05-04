@@ -117,6 +117,7 @@ public class MasterLoop {
             nextionDisplay.gotoPage("score");
         }
         movementManager.setMatchStarted(true);
+        // todo ce truc déconne fort !!!!
         movementManager.executeStepDeplacement(currentStep);
 
         updateScore();

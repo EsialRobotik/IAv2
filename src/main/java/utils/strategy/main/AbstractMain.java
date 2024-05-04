@@ -23,7 +23,6 @@ import java.util.List;
 public abstract class AbstractMain {
     public static List<Objectif> objectifsCouleur0 = new ArrayList<>();
     public static List<Objectif> objectifsCouleur3000 = new ArrayList<>();
-    public static int score = 0;
 
     public static int year;
     public static int startX_0;
