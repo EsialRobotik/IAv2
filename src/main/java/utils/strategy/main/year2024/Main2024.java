@@ -51,7 +51,7 @@ public class Main2024 extends AbstractMain {
             new Manipulation("Sortie doigt solaire droit", ActionFileBinder.ActionFile.MAMMA_DOIGT_SOLAIRE_OUT_DROIT.ordinal(), Tache.Mirror.SPECIFIC),
             new Manipulation("Sortie doigt solaire gauche", ActionFileBinder.ActionFile.MAMMA_DOIGT_SOLAIRE_OUT_GAUCHE.ordinal(), Tache.Mirror.SPECIFIC)
         );
-        taskList.add(new SetSpeed("Pas trop vite !!", 50));
+        taskList.add(new SetSpeed("Pas trop vite !!", 25));
         taskList.add(
             new GoTo("Panneau 1", 1800, 350)
         );
@@ -91,7 +91,7 @@ public class Main2024 extends AbstractMain {
         taskList.add(
             new Manipulation("Ramasse plante", ActionFileBinder.ActionFile.MAMMA_RAMASSER_PLANTE.ordinal())
         );
-        taskList.add(new SetSpeed("Pas trop vite !!", 50));
+        taskList.add(new SetSpeed("Pas trop vite !!", 25));
         taskList.add(
             new GoToBack("Sortie plante", 700, 650)
         );
@@ -104,7 +104,39 @@ public class Main2024 extends AbstractMain {
         taskList.add(
             new Manipulation("Depose plante", ActionFileBinder.ActionFile.MAMMA_DEPOSER_PLANTE.ordinal())
         );
-        // todo  reculer, baisser pince, aimant, marquer, ranger pince, partir
+        taskList.add(
+            new GoToBack("On recule un peu", 612, 465)
+        );
+        taskList.add(
+            new Manipulation("On baisse la pince pour ramasser le pot", ActionFileBinder.ActionFile.MAMMA_PREPARER_ACCROCHE_POT.ordinal())
+        );
+        taskList.add(
+            new GoTo("On va chercher le pot", 612, 395)
+        );
+        taskList.add(
+            new GoToBack("On se libère", 612, 500)
+        );
+        taskList.add(
+            new Manipulation("Hail Mars !!!", ActionFileBinder.ActionFile.MAMMA_PINCE_LEVER_RAMI.ordinal())
+        );
+        taskList.add(
+            new GoTo("On va a la jardiniere", 250, 785)
+        );
+        taskList.add(
+            new Face("On va a la jardiniere", 0, 785)
+        );
+        taskList.add(
+            new Manipulation("On baisse les bras", ActionFileBinder.ActionFile.MAMMA_PINCE_LEVER_HORIZONTAL.ordinal())
+        );
+        taskList.add(
+            new Manipulation("On lache tout", ActionFileBinder.ActionFile.MAMMA_AIMANT_DESACTIVER.ordinal())
+        );
+        taskList.add(
+            new Manipulation("On range le bras", ActionFileBinder.ActionFile.MAMMA_PINCE_LEVER_VERTICAL.ordinal())
+        );
+        taskList.add(
+            new GoToBack("On se libère", 350, 785)
+        );
         score += 5;
         taskList.add(
             new GoToBack("Position pot", 612, 650)
