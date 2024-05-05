@@ -37,7 +37,7 @@ abstract public class ActionReflexiveAbstract implements ActionExecutor {
         return null;
     }
 
-    protected void executeSubActions(int actionId) {
+    protected String executeSubActions(int actionId) {
         logger.info("Sub action " + actionId);
         ActionExecutor actionExecutor = actionFileBinder.getActionExecutor(actionId);
         actionExecutor.resetActionState();
@@ -46,6 +46,7 @@ abstract public class ActionReflexiveAbstract implements ActionExecutor {
         logger.info("Sub action " + actionId + " started");
         waitForAction(actionExecutor);
         logger.info("Sub action " + actionId + " ended");
+        return actionExecutor.getActionFlag();
     }
 
     protected void waitForAction(ActionExecutor actionExecutor) {

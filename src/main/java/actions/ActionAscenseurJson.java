@@ -1,6 +1,5 @@
 package actions;
 
-import api.communication.Serial;
 import api.communication.SerialRxTx;
 import api.log.LoggerFactory;
 import com.google.gson.JsonElement;
@@ -8,14 +7,15 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
-import com.pi4j.io.serial.SerialDataEventListener;
 import manager.CommunicationManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class ActionAscenseurJson implements ActionExecutor {
 
@@ -27,6 +27,7 @@ public class ActionAscenseurJson implements ActionExecutor {
     private final List<String> commands;
     protected boolean finished;
     protected Logger logger;
+    protected String actionFlag;
 
     public ActionAscenseurJson(SerialRxTx serial, File datadir, String filename) {
         logger = LoggerFactory.getLogger(ActionAscenseurJson.class);
@@ -67,8 +68,9 @@ public class ActionAscenseurJson implements ActionExecutor {
                                     }
                                     sb.append(c);
                                     String result = sb.toString().trim();
-                                    if (result.equals("ok") || result.equals("err")) {
+                                    if (result.equals("ok") || result.equals("err") || result.equals("ko")) {
                                         logger.info(ActionAscenseurJson.class.getName() + " command <"+cmd+"> of " + filename + " finished");
+                                        actionFlag = result.equals("ok") ? "ok" : "ko";
                                         break;
                                     }
                                 }
@@ -137,6 +139,6 @@ public class ActionAscenseurJson implements ActionExecutor {
 
     @Override
     public String getActionFlag() {
-        return null;
+        return this.actionFlag;
     }
 }
