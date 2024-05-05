@@ -3,6 +3,7 @@ package actions;
 import api.ax12.AX12LinkSerial;
 import api.communication.SerialRxTx;
 import api.qik.Qik;
+import asserv.AsservInterface;
 import manager.CommunicationManager;
 
 import java.io.File;
@@ -20,6 +21,7 @@ public class ActionFileBinder {
 	protected CommunicationManager communicationManager;
 	protected Qik qikLink;
 	protected SerialRxTx serialLink;
+	protected AsservInterface asservInterface;
 
 	public enum ActionFile {
 		/**
@@ -209,6 +211,7 @@ public class ActionFileBinder {
 		MAMMA_CHARIOT_HOME("mamma_chariot_home.json", false, ActionFile.ACTION_ASCENSEUR),
 		MAMMA_CHARIOT_MIDDLE("mamma_chariot_middle.json", false, ActionFile.ACTION_ASCENSEUR),
 		MAMMA_CHARIOT_ALIGNER_PLANTE("mamma_chariot_aligner_plante.json", false, ActionFile.ACTION_ASCENSEUR),
+		MAMMA_CHARIOT_CHERCHER_EMMERDE("mamma_chariot_chercher_emmerde.json", false, ActionFile.ACTION_ASCENSEUR),
 		MAMMA_PINCE_INIT("mamma_pince_init.json", false, ActionFile.ACTION_AX12),
 		MAMMA_PINCE_FERMER_PLANTE("mamma_pince_fermer_plante.json", false, ActionFile.ACTION_AX12),
 		MAMMA_PINCE_FERMER_POT("mamma_pince_fermer_pot.json", false, ActionFile.ACTION_AX12),
@@ -221,6 +224,9 @@ public class ActionFileBinder {
 		MAMMA_PINCE_BAISSER_POT_ATTRAPER("mamma_pince_baisser_pot_attraper.json", false, ActionFile.ACTION_AX12),
 		MAMMA_PINCE_BAISSER_POT_LACHER("mamma_pince_baisser_pot_lacher.json", false, ActionFile.ACTION_AX12),
 		MAMMA_PINCE_RANGER("mamma_pince_ranger.json", false, ActionFile.ACTION_LIST),
+		MAMMA_PLACEMENT_PLANTE_DYNAMIQUE("a2024.MammaPlacementPlanteDynamique", false, ActionFile.ACTION_REFLEXIVE),
+		MAMMA_PLACEMENT_POT_DYNAMIQUE("a2024.MammaPlacementPotDynamique", false, ActionFile.ACTION_REFLEXIVE),
+
 		DELAY_250_MS("250", false, ActionFile.ACTION_DELAY),
 		DELAY_500_MS("500", false, ActionFile.ACTION_DELAY),
 		DELAY_1000_MS("1000", false, ActionFile.ACTION_DELAY),
@@ -257,12 +263,13 @@ public class ActionFileBinder {
 		loadFiles();
 	}
 
-	public ActionFileBinder(AX12LinkSerial link, String dataDir, ActionCollection actionCollection, Qik qikLink, SerialRxTx serialLink) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+	public ActionFileBinder(AX12LinkSerial link, String dataDir, ActionCollection actionCollection, Qik qikLink, SerialRxTx serialLink, AsservInterface asservInterface) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
 		this.dataDir = new File(dataDir);
 		this.actionCollection = actionCollection;
 		this.ax12Link = link;
 		this.qikLink = qikLink;
 		this.serialLink = serialLink;
+		this.asservInterface = asservInterface;
 		loadFiles();
 	}
 	
@@ -353,5 +360,9 @@ public class ActionFileBinder {
 
 	public ActionCollection getActionCollection() {
 		return actionCollection;
+	}
+
+	public AsservInterface getAsservInterface() {
+		return asservInterface;
 	}
 }

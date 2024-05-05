@@ -73,6 +73,7 @@ public class ConfigurationManager {
 
     public void loadConfiguration(String path, int config) throws IOException, AX12LinkException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         Logger logger = LoggerFactory.getLogger(ConfigurationManager.class);
+        logger.debug("Config level = " + config);
 
         Gson gson = new Gson();
         Table table = null;
@@ -81,7 +82,7 @@ public class ConfigurationManager {
         JsonObject configRootNode = gson.fromJson(reader, JsonObject.class);
 
         JsonObject configObject = configRootNode.get("asserv").getAsJsonObject();
-        if (config != CONFIG_PATHFINDING && config != CONFIG_ACTIONNEUR && config != CONFIG_TEST_LCD) {
+        if (config != CONFIG_PATHFINDING && config != CONFIG_TEST_LCD) {
             logger.info("AsservAPIConfiguration = " + configObject.toString());
             asserv = new Asserv(configObject);
             movementManager = new MovementManager(asserv);
@@ -173,7 +174,7 @@ public class ConfigurationManager {
                 for (JsonElement actionId : initArray) {
                     initActions.add(actionId.getAsString());
                 }
-                actionFileBinder = new ActionFileBinder(ax12Link, dataDir, actionCollection, qikLink, serialLink);
+                actionFileBinder = new ActionFileBinder(ax12Link, dataDir, actionCollection, qikLink, serialLink, asserv);
 
                 actionSupervisor = new ActionSupervisor(actionFileBinder, initActions);
                 if (configObject.has("funnyAction")) {

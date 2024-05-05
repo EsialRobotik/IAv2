@@ -72,19 +72,19 @@ public class Main2024 extends AbstractMain {
         int score = 0;
         TaskList taskList =  new TaskList(3000);
         taskList.add(
-            (new GoToAstar("Position plante", 700, 630)).setSkipFlag("plant_n_ko")
-        );
-        taskList.add(
-            (new GoToAstar("Position plante", 700, 670)).setNeededFlag("plant_n_ko")
+            (new GoToAstar("Position plante", 700, 650))
         );
         taskList.add(
             new Face("Alignement plante", 700, 3000)
         );
         taskList.add(
-            (new Manipulation("Ramasse plante", ActionFileBinder.ActionFile.MAMMA_RAMASSER_PLANTE_NORD_LOIN.ordinal())).setSkipFlag("plant_n_ko")
+            (new Manipulation("Ajustement position plante", ActionFileBinder.ActionFile.MAMMA_PLACEMENT_PLANTE_DYNAMIQUE.ordinal()))
         );
         taskList.add(
-            (new Manipulation("Ramasse plante", ActionFileBinder.ActionFile.MAMMA_RAMASSER_PLANTE.ordinal())).setNeededFlag("plant_n_ko")
+                new Face("Alignement plante", 700, 3000)
+        );
+        taskList.add(
+            (new Manipulation("Ramasse plante", ActionFileBinder.ActionFile.MAMMA_RAMASSER_PLANTE_NORD_LOIN.ordinal()))
         );
         taskList.add(new SetSpeed("Pas trop vite !!", 25));
         taskList.add(
@@ -97,16 +97,22 @@ public class Main2024 extends AbstractMain {
             new Face("Position pot", 612, 0)
         );
         taskList.add(
+            (new Manipulation("Ajustement position pot", ActionFileBinder.ActionFile.MAMMA_PLACEMENT_POT_DYNAMIQUE.ordinal()))
+        );
+        taskList.add(
+            new Face("Position pot", 612, 0)
+        );
+        taskList.add(
+            new Manipulation("Depose plante", ActionFileBinder.ActionFile.MAMMA_CHARIOT_ALIGNER_PLANTE.ordinal())
+        );
+        taskList.add(
             new Manipulation("Depose plante", ActionFileBinder.ActionFile.MAMMA_DEPOSER_PLANTE.ordinal())
         );
         taskList.add(
-            new Manipulation("On baisse la pince pour ramasser le pot", ActionFileBinder.ActionFile.MAMMA_PREPARER_ACCROCHE_POT.ordinal())
+            new Manipulation("On baisse la pince pour ramasser le pot", ActionFileBinder.ActionFile.MAMMA_RAMASSER_POT.ordinal())
         );
         taskList.add(
             new GoToBack("On se libère", 612, 500)
-        );
-        taskList.add(
-            new Manipulation("Hail Mars !!!", ActionFileBinder.ActionFile.MAMMA_PINCE_LEVER_RAMI.ordinal())
         );
         taskList.add(
             new GoTo("On va a la jardiniere", 250, 785)
@@ -118,16 +124,16 @@ public class Main2024 extends AbstractMain {
             new Go("On se recalle bien", 100, 500)
         );
         taskList.add(
-            new Go("On se place pour larger le pot", -50)
+            new Manipulation("On lache tout", ActionFileBinder.ActionFile.MAMMA_DEPOSER_POT.ordinal())
         );
         taskList.add(
-            new Manipulation("On baisse les bras", ActionFileBinder.ActionFile.MAMMA_PINCE_LEVER_HORIZONTAL.ordinal())
+                new Manipulation("On lache tout", ActionFileBinder.ActionFile.MAMMA_PINCE_RANGER.ordinal())
         );
-//        taskList.add(
-//            new Manipulation("On lache tout", ActionFileBinder.ActionFile.MAMMA_AIMANT_DESACTIVER.ordinal())
-//        );
         taskList.add(
             new Manipulation("On range le bras", ActionFileBinder.ActionFile.MAMMA_PINCE_LEVER_VERTICAL.ordinal())
+        );
+        taskList.add(
+            new Go("On se libère", -50)
         );
         taskList.add(
             new GoToBack("On se libère", 350, 785)

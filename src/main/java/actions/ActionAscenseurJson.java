@@ -68,9 +68,9 @@ public class ActionAscenseurJson implements ActionExecutor {
                                     }
                                     sb.append(c);
                                     String result = sb.toString().trim();
-                                    if (result.equals("ok") || result.equals("err") || result.equals("ko")) {
+                                    if (result.contains("ok") || result.contains("err") || result.contains("ko")) {
                                         logger.info(ActionAscenseurJson.class.getName() + " command <"+cmd+"> of " + filename + " finished");
-                                        actionFlag = result.equals("ok") ? "ok" : "ko";
+                                        actionFlag = result.contains("ok") ? result : "ko";
                                         break;
                                     }
                                 }

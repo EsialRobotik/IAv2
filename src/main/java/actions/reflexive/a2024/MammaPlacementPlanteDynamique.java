@@ -2,12 +2,12 @@ package actions.reflexive.a2024;
 
 import actions.ActionFileBinder;
 import actions.ActionReflexiveAbstract;
+import asserv.AsservInterface;
 
-public class MammaRamasserPlanteNordLoin extends ActionReflexiveAbstract {
-
+public class MammaPlacementPlanteDynamique extends ActionReflexiveAbstract {
     String searchResult;
 
-    public MammaRamasserPlanteNordLoin(ActionFileBinder actionFileBinder) {
+    public MammaPlacementPlanteDynamique(ActionFileBinder actionFileBinder) {
         super(actionFileBinder);
     }
 
@@ -22,18 +22,24 @@ public class MammaRamasserPlanteNordLoin extends ActionReflexiveAbstract {
             @Override
             public void run() {
                 executeSubActions(ActionFileBinder.ActionFile.MAMMA_PINCE_LEVER_VERTICAL.ordinal());
-                String scanResult = executeSubActions(ActionFileBinder.ActionFile.MAMMA_CHARIOT_ALIGNER_PLANTE.ordinal());
-                System.out.println("Chariot result : " + scanResult);
+                String scanResult = executeSubActions(ActionFileBinder.ActionFile.MAMMA_CHARIOT_CHERCHER_EMMERDE.ordinal());
+                System.out.println("Chercher les emmerdes : " + scanResult);
                 if (scanResult.trim().contains("ko")) {
                     searchResult = "plant_n_ko";
                     finished = true;
                     return;
+                } else {
+                    String[] data = scanResult.trim().split(" ");
+                    int distance = Integer.parseInt(data[0]);
+                    AsservInterface asservInterface = actionFileBinder.getAsservInterface();
+                    if (distance > 300) {
+                        searchResult = "plant_n_ko";
+                        finished = true;
+                        return;
+                    }
+                    // on se repositionne
+                    asservInterface.go(distance - 160);
                 }
-                executeSubActions(ActionFileBinder.ActionFile.MAMMA_PINCE_LEVER_RAMI.ordinal());
-                executeSubActions(ActionFileBinder.ActionFile.MAMMA_PINCE_OUVRIR.ordinal());
-                executeSubActions(ActionFileBinder.ActionFile.MAMMA_PINCE_BAISSER_PLANTE.ordinal());
-                executeSubActions(ActionFileBinder.ActionFile.MAMMA_PINCE_FERMER_PLANTE.ordinal());
-                executeSubActions(ActionFileBinder.ActionFile.MAMMA_PINCE_LEVER_RAMI.ordinal());
                 finished = true;
             }
         }).start();
