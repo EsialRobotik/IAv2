@@ -1,6 +1,5 @@
 package actions;
 
-import actions.a2023.ActionFileBinder;
 import api.log.LoggerFactory;
 import manager.CommunicationManager;
 import org.apache.logging.log4j.Logger;
@@ -12,16 +11,16 @@ import java.util.ArrayList;
  * Created by icule on 21/05/17.
  */
 public class ActionSupervisor {
-    private ActionInterface actionInterface;
+    private ActionFileBinder actionFileBinder;
     private ActionExecutor currentActionExecutor;
     private ArrayList<Integer> initActionsId;
     private CommunicationManager communicationManager;
     private String actionFlag;
     protected Logger logger;
 
-    public ActionSupervisor(ActionInterface actionInterface, ArrayList<String> initActions) {
+    public ActionSupervisor(ActionFileBinder actionFileBinder, ArrayList<String> initActions) {
         logger = LoggerFactory.getLogger(ActionSupervisor.class);
-        this.actionInterface = actionInterface;
+        this.actionFileBinder = actionFileBinder;
         this.initActionsId = new ArrayList<>();
         for (String action : initActions) {
             this.initActionsId.add(ActionFileBinder.ActionFile.valueOf(action).ordinal());
@@ -29,7 +28,7 @@ public class ActionSupervisor {
     }
 
     public ActionExecutor getActionExecutor(int id) {
-        return actionInterface.getActionExecutor(id);
+        return actionFileBinder.getActionExecutor(id);
     }
 
     public String getActionFlag() {
@@ -39,7 +38,7 @@ public class ActionSupervisor {
     public void executeCommand(int id) {
         logger.info("Execute command " + id);
         actionFlag = null;
-        currentActionExecutor = actionInterface.getActionExecutor(id);
+        currentActionExecutor = actionFileBinder.getActionExecutor(id);
         currentActionExecutor.resetActionState();
         Thread t = new Thread(new Runnable() {
             @Override
@@ -51,7 +50,7 @@ public class ActionSupervisor {
     }
 
     public void stopActions() {
-        actionInterface.stopActions();
+        actionFileBinder.stopActions();
     }
 
     public void init() {
@@ -74,7 +73,7 @@ public class ActionSupervisor {
      * @return score
      */
     public int funnyAction(FunnyActionDescription funnyActionDescription) {
-        return actionInterface.funnyAction(funnyActionDescription);
+        return actionFileBinder.funnyAction(funnyActionDescription);
     }
 
     public boolean isLastExecutionFinished() {
@@ -87,6 +86,6 @@ public class ActionSupervisor {
 
     public void setCommunicationManager(CommunicationManager communicationManager) {
         this.communicationManager = communicationManager;
-        this.actionInterface.setCommunicationManager(communicationManager);
+        this.actionFileBinder.setCommunicationManager(communicationManager);
     }
 }

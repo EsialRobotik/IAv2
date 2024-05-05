@@ -1,6 +1,6 @@
 package utils.strategy.main.year2022;
 
-import actions.a2022.ActionFileBinder;
+import actions.ActionFileBinder;
 import api.log.LoggerFactory;
 import asserv.Position;
 import com.google.gson.Gson;
@@ -64,7 +64,7 @@ public class MainPmi2022 {
             new Face("Alignement récupération statuette", 1840, 3000, Tache.Mirror.SPECIFIC)
         );
         swapStatuette0.add(
-            new Manipulation("Récupération statuette", ActionFileBinder.ActionFile.PASSPASS_GET_STATUE.ordinal())
+            new Manipulation("Récupération statuette", ActionFileBinder.ActionFile.A2022_PASSPASS_GET_STATUE.ordinal())
         );
         swapStatuette0.add(
             new Go("Manoeuvre libération réplique", -300)
@@ -85,7 +85,7 @@ public class MainPmi2022 {
             new Go("Placement final libération réplique", 40, 200)
         );
         swapStatuette0.add(
-            new Manipulation("Libération réplique", ActionFileBinder.ActionFile.PASSPASS_PUT_FAKE_STATUE.ordinal())
+            new Manipulation("Libération réplique", ActionFileBinder.ActionFile.A2022_PASSPASS_PUT_FAKE_STATUE.ordinal())
         );
         swapStatuette0.add(
             new Go("Libération chantier", -200)
@@ -129,13 +129,13 @@ public class MainPmi2022 {
             new Face("Alignement exposition", 0, 2535, Tache.Mirror.SPECIFIC)
         );
         deposeStatuette0.add(
-                new Manipulation("Dépose statuette", ActionFileBinder.ActionFile.PASSPASS_AX_BRAS_POSE_OUT.ordinal())
+                new Manipulation("Dépose statuette", ActionFileBinder.ActionFile.A2022_PASSPASS_AX_BRAS_POSE_OUT.ordinal())
         );
         deposeStatuette0.add(
             new Go("Collage statuette", 10, 200)
         );
         deposeStatuette0.add(
-            new Manipulation("Dépose statuette", ActionFileBinder.ActionFile.PASSPASS_PUT_RELEASE.ordinal())
+            new Manipulation("Dépose statuette", ActionFileBinder.ActionFile.A2022_PASSPASS_PUT_RELEASE.ordinal())
         );
         deposeStatuette0.add(
             new Go("Sortie exposition", -190)
@@ -167,10 +167,10 @@ public class MainPmi2022 {
             new GoTo("Position echantillon bleu", 400, 2040, Tache.Mirror.SPECIFIC)
         );
         ramassageEchantillon0.add(
-                new Manipulation("Récupération bleu", ActionFileBinder.ActionFile.PASSPASS_TAKE.ordinal())
+                new Manipulation("Récupération bleu", ActionFileBinder.ActionFile.A2022_PASSPASS_TAKE.ordinal())
         );
         ramassageEchantillon0.add(
-                new Manipulation("Stockage bleu", ActionFileBinder.ActionFile.PASSPASS_STORE.ordinal())
+                new Manipulation("Stockage bleu", ActionFileBinder.ActionFile.A2022_PASSPASS_STORE.ordinal())
         );
         ramassageEchantillon0.add(
                 new DeleteZone("Suppression zone bleu", "SampleBlue")
@@ -184,10 +184,10 @@ public class MainPmi2022 {
                 new GoTo("Position echantillon vert", 520, 2110, Tache.Mirror.SPECIFIC)
         );
         ramassageEchantillon0.add(
-                new Manipulation("Récupération vert", ActionFileBinder.ActionFile.PASSPASS_TAKE.ordinal())
+                new Manipulation("Récupération vert", ActionFileBinder.ActionFile.A2022_PASSPASS_TAKE.ordinal())
         );
         ramassageEchantillon0.add(
-                new Manipulation("Switch vert", ActionFileBinder.ActionFile.PASSPASS_SWITCH.ordinal())
+                new Manipulation("Switch vert", ActionFileBinder.ActionFile.A2022_PASSPASS_SWITCH.ordinal())
         );
         ramassageEchantillon0.add(
                 new DeleteZone("Suppression zone vert", "SampleGreen")
@@ -201,7 +201,7 @@ public class MainPmi2022 {
                 new GoTo("Position echantillon rouge", 640, 2040, Tache.Mirror.SPECIFIC)
         );
         ramassageEchantillon0.add(
-                new Manipulation("Récupération rouge", ActionFileBinder.ActionFile.PASSPASS_TAKE.ordinal())
+                new Manipulation("Récupération rouge", ActionFileBinder.ActionFile.A2022_PASSPASS_TAKE.ordinal())
         );
         ramassageEchantillon0.add(
                 new DeleteZone("Suppression zone rouge", "SampleRed")
@@ -234,22 +234,22 @@ public class MainPmi2022 {
                 new Face("Position dépose vert", 0, 2290, Tache.Mirror.SPECIFIC)
         );
         deposeEchantillonVert0.add(
-                new Manipulation("Depose vert", ActionFileBinder.ActionFile.PASSPASS_AX_BRAS_POSE_OUT.ordinal())
+                new Manipulation("Depose vert", ActionFileBinder.ActionFile.A2022_PASSPASS_AX_BRAS_POSE_OUT.ordinal())
         );
         deposeEchantillonVert0.add(
             new Go("Mise en place dépose vert", 100, 1000)
         );
         deposeEchantillonVert0.add(
-                new Manipulation("Lacher vert", ActionFileBinder.ActionFile.PASSPASS_PUT_RELEASE.ordinal())
+                new Manipulation("Lacher vert", ActionFileBinder.ActionFile.A2022_PASSPASS_PUT_RELEASE.ordinal())
         );
         deposeEchantillonVert0.add(
                 new Go("Sortie dépose vert", -100)
         );
         deposeEchantillonVert0.add(
-                new Manipulation("Depose vert", ActionFileBinder.ActionFile.PASSPASS_AX_BRAS_POSE_IN.ordinal())
+                new Manipulation("Depose vert", ActionFileBinder.ActionFile.A2022_PASSPASS_AX_BRAS_POSE_IN.ordinal())
         );
         deposeEchantillonVert0.add(
-                new Manipulation("Switch pour rouge", ActionFileBinder.ActionFile.PASSPASS_SWITCH.ordinal())
+                new Manipulation("Switch pour rouge", ActionFileBinder.ActionFile.A2022_PASSPASS_SWITCH.ordinal())
         );
         Objectif objectifDeposeEchantillonVert0 = new Objectif("Dépose échantillon vert", objectifsCouleur0.size() + 1, score, 1, deposeEchantillonVert0);
         Objectif objectifDeposeEchantillonVert3000 = new Objectif("Dépose échantillon vert", objectifsCouleur3000.size() + 1, score, 1, null);
@@ -279,25 +279,25 @@ public class MainPmi2022 {
                 new Face("Position dépose Rouge", 0, 2050, Tache.Mirror.SPECIFIC)
         );
         deposeEchantillonRouge0.add(
-                new Manipulation("Depose Rouge", ActionFileBinder.ActionFile.PASSPASS_AX_BRAS_POSE_OUT.ordinal())
+                new Manipulation("Depose Rouge", ActionFileBinder.ActionFile.A2022_PASSPASS_AX_BRAS_POSE_OUT.ordinal())
         );
         deposeEchantillonRouge0.add(
                 new Go("Mise en place dépose Rouge", 100, 1000)
         );
         deposeEchantillonRouge0.add(
-                new Manipulation("Lacher Rouge", ActionFileBinder.ActionFile.PASSPASS_PUT_RELEASE.ordinal())
+                new Manipulation("Lacher Rouge", ActionFileBinder.ActionFile.A2022_PASSPASS_PUT_RELEASE.ordinal())
         );
         deposeEchantillonRouge0.add(
                 new Go("Sortie dépose Rouge", -100)
         );
         deposeEchantillonRouge0.add(
-                new Manipulation("Depose Rouge", ActionFileBinder.ActionFile.PASSPASS_AX_BRAS_POSE_IN.ordinal())
+                new Manipulation("Depose Rouge", ActionFileBinder.ActionFile.A2022_PASSPASS_AX_BRAS_POSE_IN.ordinal())
         );
         deposeEchantillonRouge0.add(
-                new Manipulation("Switch pour bleu", ActionFileBinder.ActionFile.PASSPASS_UNSTORE.ordinal())
+                new Manipulation("Switch pour bleu", ActionFileBinder.ActionFile.A2022_PASSPASS_UNSTORE.ordinal())
         );
         deposeEchantillonRouge0.add(
-                new Manipulation("Switch pour bleu", ActionFileBinder.ActionFile.PASSPASS_SWITCH.ordinal())
+                new Manipulation("Switch pour bleu", ActionFileBinder.ActionFile.A2022_PASSPASS_SWITCH.ordinal())
         );
         Objectif objectifDeposeEchantillonRouge0 = new Objectif("Dépose échantillon Rouge", objectifsCouleur0.size() + 1, score, 1, deposeEchantillonRouge0);
         Objectif objectifDeposeEchantillonRouge3000 = new Objectif("Dépose échantillon Rouge", objectifsCouleur3000.size() + 1, score, 1, null);
@@ -328,19 +328,19 @@ public class MainPmi2022 {
                 new Face("Position dépose Bleu", 0, 2530, Tache.Mirror.SPECIFIC)
         );
         deposeEchantillonBleu0.add(
-                new Manipulation("Depose Bleu", ActionFileBinder.ActionFile.PASSPASS_AX_BRAS_STORE_OUT.ordinal())
+                new Manipulation("Depose Bleu", ActionFileBinder.ActionFile.A2022_PASSPASS_AX_BRAS_STORE_OUT.ordinal())
         );
         deposeEchantillonBleu0.add(
                 new Go("Mise en place dépose Bleu", 100, 1000)
         );
         deposeEchantillonBleu0.add(
-                new Manipulation("Lacher Bleu", ActionFileBinder.ActionFile.PASSPASS_PUT_RELEASE.ordinal())
+                new Manipulation("Lacher Bleu", ActionFileBinder.ActionFile.A2022_PASSPASS_PUT_RELEASE.ordinal())
         );
         deposeEchantillonBleu0.add(
                 new Go("Sortie dépose Bleu", -100)
         );
         deposeEchantillonBleu0.add(
-                new Manipulation("Depose Bleu", ActionFileBinder.ActionFile.PASSPASS_AX_BRAS_STORE_IN.ordinal())
+                new Manipulation("Depose Bleu", ActionFileBinder.ActionFile.A2022_PASSPASS_AX_BRAS_STORE_IN.ordinal())
         );
         Objectif objectifDeposeEchantillonBleu0 = new Objectif("Dépose échantillon Bleu", objectifsCouleur0.size() + 1, score, 1, deposeEchantillonBleu0);
         Objectif objectifDeposeEchantillonBleu3000 = new Objectif("Dépose échantillon Bleu", objectifsCouleur3000.size() + 1, score, 1, null);

@@ -1,8 +1,7 @@
-package actions.reflexive;
+package actions.reflexive.a2022;
 
+import actions.ActionFileBinder;
 import actions.ActionReflexiveAbstract;
-import actions.a2022.ActionFileBinder;
-import api.communication.Serial;
 import api.communication.SerialRxTx;
 
 import java.io.IOException;
@@ -26,7 +25,7 @@ public class FenwickFouilleDroite1 extends ActionReflexiveAbstract {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                executeSubActions(ActionFileBinder.ActionFile.FENWICK_SONDE_DROITE_OUT.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.A2022_FENWICK_SONDE_DROITE_OUT.ordinal());
                 SerialRxTx serial = actionFileBinder.getSerialLink();
                 Scanner scanner = null;
                 try {
@@ -40,10 +39,10 @@ public class FenwickFouilleDroite1 extends ActionReflexiveAbstract {
                 } else {
                     probeResult = "fouille1OK";
                 }
-                executeSubActions(ActionFileBinder.ActionFile.FENWICK_SONDE_DROITE_IN.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.A2022_FENWICK_SONDE_DROITE_IN.ordinal());
                 if (probeResult.equals("fouille1OK")) {
-                    executeSubActions(ActionFileBinder.ActionFile.FENWICK_BRAS_DROIT_OUT.ordinal());
-                    executeSubActions(ActionFileBinder.ActionFile.FENWICK_BRAS_DROIT_IN.ordinal());
+                    executeSubActions(ActionFileBinder.ActionFile.A2022_FENWICK_BRAS_DROIT_OUT.ordinal());
+                    executeSubActions(ActionFileBinder.ActionFile.A2022_FENWICK_BRAS_DROIT_IN.ordinal());
                 }
                 finished = true;
             }

@@ -1,14 +1,14 @@
-package actions.reflexive;
+package actions.reflexive.a2022;
 
+import actions.ActionFileBinder;
 import actions.ActionReflexiveAbstract;
-import actions.a2022.ActionFileBinder;
 import api.qik.Qik;
 
 import java.io.IOException;
 
-public class PasspassUnstore extends ActionReflexiveAbstract {
+public class PasspassPutRelease extends ActionReflexiveAbstract {
 
-    public PasspassUnstore(ActionFileBinder actionFileBinder) {
+    public PasspassPutRelease(ActionFileBinder actionFileBinder) {
         super(actionFileBinder);
     }
 
@@ -25,19 +25,20 @@ public class PasspassUnstore extends ActionReflexiveAbstract {
             public void run() {
                 Qik qik = actionFileBinder.getQikLink();
                 try {
-                    qik.setM1Speed(127);
+                    qik.setM0Speed(-127);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                executeSubActions(ActionFileBinder.ActionFile.PASSPASS_AX_BRAS_PRISE_STORE.ordinal());
-                executeSubActions(ActionFileBinder.ActionFile.PASSPASS_AX_BRAS_STORE_OUT.ordinal());
                 try {
-                    Thread.sleep(150);
+                    Thread.sleep(100);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                executeSubActions(ActionFileBinder.ActionFile.PASSPASS_AX_BRAS_STORE_POMPE_OFF.ordinal());
-                executeSubActions(ActionFileBinder.ActionFile.PASSPASS_AX_BRAS_STORE_IN.ordinal());
+                try {
+                    qik.setM0Speed(0);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 finished = true;
             }
         }).start();

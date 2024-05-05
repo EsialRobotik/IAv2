@@ -1,14 +1,14 @@
-package actions.reflexive;
+package actions.reflexive.a2022;
 
+import actions.ActionFileBinder;
 import actions.ActionReflexiveAbstract;
-import actions.a2022.ActionFileBinder;
 import api.qik.Qik;
 
 import java.io.IOException;
 
-public class PasspassPutFakeStatue extends ActionReflexiveAbstract {
+public class PasspassStore extends ActionReflexiveAbstract {
 
-    public PasspassPutFakeStatue(ActionFileBinder actionFileBinder) {
+    public PasspassStore(ActionFileBinder actionFileBinder) {
         super(actionFileBinder);
     }
 
@@ -23,6 +23,14 @@ public class PasspassPutFakeStatue extends ActionReflexiveAbstract {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                executeSubActions(ActionFileBinder.ActionFile.A2022_PASSPASS_AX_BRAS_PRISE_STORE.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.A2022_PASSPASS_AX_BRAS_STORE_POMPE_ON.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.A2022_PASSPASS_AX_BRAS_STORE_OUT.ordinal());
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 Qik qik = actionFileBinder.getQikLink();
                 try {
                     qik.setM1Speed(-127);
@@ -39,6 +47,8 @@ public class PasspassPutFakeStatue extends ActionReflexiveAbstract {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                executeSubActions(ActionFileBinder.ActionFile.A2022_PASSPASS_AX_BRAS_STORE_IN.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.A2022_PASSPASS_AX_BRAS_PRISE_TAKE_UP.ordinal());
                 finished = true;
             }
         }).start();

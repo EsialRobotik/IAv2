@@ -6,11 +6,11 @@ import org.apache.logging.log4j.Logger;
 
 abstract public class ActionReflexiveAbstract implements ActionExecutor {
 
-    protected ActionInterface actionFileBinder;
+    protected ActionFileBinder actionFileBinder;
     protected boolean finished;
     protected Logger logger;
 
-    public ActionReflexiveAbstract(ActionInterface actionFileBinder) {
+    public ActionReflexiveAbstract(ActionFileBinder actionFileBinder) {
         logger = LoggerFactory.getLogger(this.getClass());
         this.actionFileBinder = actionFileBinder;
         this.finished = true;

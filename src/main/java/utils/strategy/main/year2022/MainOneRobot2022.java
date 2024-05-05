@@ -1,6 +1,6 @@
 package utils.strategy.main.year2022;
 
-import actions.a2022.ActionFileBinder;
+import actions.ActionFileBinder;
 import api.log.LoggerFactory;
 import asserv.Position;
 import com.google.gson.Gson;
@@ -61,7 +61,7 @@ public class MainOneRobot2022 {
             new Face("Alignement récupération statuette", 1750, 2660, Tache.Mirror.SPECIFIC)
         );
         recuperationStatuette0.add(
-            new Manipulation("Prise statuette", ActionFileBinder.ActionFile.FENWICK_SOLO_GET_STATUETTE.ordinal())
+            new Manipulation("Prise statuette", ActionFileBinder.ActionFile.A2022_FENWICK_SOLO_GET_STATUETTE.ordinal())
         );
         recuperationStatuette0.add(
             new Go("Sortie chantier", -100)
@@ -82,7 +82,7 @@ public class MainOneRobot2022 {
             new GoToAstar("Déplacement exposition", 400, 2780, Tache.Mirror.SPECIFIC)
         );
         deposeStatuette0.add(
-            new Manipulation("On remonte le bras", ActionFileBinder.ActionFile.FENWICK_SOLO_ASCENSCEUR_GET_STATUETTE_TOP.ordinal())
+            new Manipulation("On remonte le bras", ActionFileBinder.ActionFile.A2022_FENWICK_SOLO_ASCENSCEUR_GET_STATUETTE_TOP.ordinal())
         );
         deposeStatuette0.add(
             new GoTo("Déplacement exposition", 200, 260, Tache.Mirror.SPECIFIC),
@@ -93,7 +93,7 @@ public class MainOneRobot2022 {
             new Face("Déplacement exposition", 0, 2780, Tache.Mirror.SPECIFIC)
         );
         deposeStatuette0.add(
-            new Manipulation("On place le bras", ActionFileBinder.ActionFile.FENWICK_SOLO_ASCENSCEUR_AX_DROP_STATUETTE.ordinal())
+            new Manipulation("On place le bras", ActionFileBinder.ActionFile.A2022_FENWICK_SOLO_ASCENSCEUR_AX_DROP_STATUETTE.ordinal())
         );
         deposeStatuette0.add(
             new SetSpeed("On ralentit", 20)
@@ -103,7 +103,7 @@ public class MainOneRobot2022 {
             new GoTo("Déplacement final exposition", 155, 2780, Tache.Mirror.SPECIFIC)
         );
         deposeStatuette0.add(
-            new Manipulation("Pose statuette", ActionFileBinder.ActionFile.FENWICK_SOLO_PUT_STATUETTE.ordinal())
+            new Manipulation("Pose statuette", ActionFileBinder.ActionFile.A2022_FENWICK_SOLO_PUT_STATUETTE.ordinal())
         );
         deposeStatuette0.add(
                 new SetSpeed("On remet bien", 100)
@@ -112,10 +112,10 @@ public class MainOneRobot2022 {
             new Go("Sortie exposition", -200)
         );
         deposeStatuette0.add(
-            new Manipulation("On range le bras", ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_HAUTEUR_TOP.ordinal())
+            new Manipulation("On range le bras", ActionFileBinder.ActionFile.A2022_FENWICK_ASCENSEUR_HAUTEUR_TOP.ordinal())
         );
         deposeStatuette0.add(
-                new Manipulation("On range le bras", ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_IN.ordinal())
+                new Manipulation("On range le bras", ActionFileBinder.ActionFile.A2022_FENWICK_ASCENSEUR_IN.ordinal())
         );
         objectifsCouleur0.add(deposeStatuette0.generateObjectif("Dépose statuette", objectifsCouleur0.size()+1, score, 1));
         objectifsCouleur3000.add(deposeStatuette0.generateMirrorObjectif("Dépose statuette", objectifsCouleur3000.size()+1, score, 1));
@@ -140,7 +140,7 @@ public class MainOneRobot2022 {
                 new Face("Alignement dépose fake", 1770, 2680, Tache.Mirror.SPECIFIC)
         );
         deposeFake0.add(
-            new Manipulation("Dépose fake", ActionFileBinder.ActionFile.FENWICK_SOLO_PUT_FAKE.ordinal())
+            new Manipulation("Dépose fake", ActionFileBinder.ActionFile.A2022_FENWICK_SOLO_PUT_FAKE.ordinal())
         );
         deposeFake0.add(
             new Go("Sortie chantier", -100)
@@ -181,12 +181,12 @@ public class MainOneRobot2022 {
             new Face("Alignement Carré 2", 1800, 3000)
         );
         carresFouille2_0.add(
-            new Manipulation("Carré 2", ActionFileBinder.ActionFile.FENWICK_BRAS_DROIT_OUT.ordinal(), Tache.Mirror.SPECIFIC),
-            new Manipulation("Carré 2", ActionFileBinder.ActionFile.FENWICK_BRAS_GAUCHE_OUT.ordinal(), Tache.Mirror.SPECIFIC)
+            new Manipulation("Carré 2", ActionFileBinder.ActionFile.A2022_FENWICK_BRAS_DROIT_OUT.ordinal(), Tache.Mirror.SPECIFIC),
+            new Manipulation("Carré 2", ActionFileBinder.ActionFile.A2022_FENWICK_BRAS_GAUCHE_OUT.ordinal(), Tache.Mirror.SPECIFIC)
         );
         carresFouille2_0.add(
-            new Manipulation("Carré 2", ActionFileBinder.ActionFile.FENWICK_BRAS_DROIT_IN.ordinal(), Tache.Mirror.SPECIFIC),
-            new Manipulation("Carré 2", ActionFileBinder.ActionFile.FENWICK_BRAS_GAUCHE_IN.ordinal(), Tache.Mirror.SPECIFIC)
+            new Manipulation("Carré 2", ActionFileBinder.ActionFile.A2022_FENWICK_BRAS_DROIT_IN.ordinal(), Tache.Mirror.SPECIFIC),
+            new Manipulation("Carré 2", ActionFileBinder.ActionFile.A2022_FENWICK_BRAS_GAUCHE_IN.ordinal(), Tache.Mirror.SPECIFIC)
         );
         carresFouille2_0.add(
                 new GoTo("Sortie Carré 2", 1760, 1000)

@@ -1,6 +1,6 @@
 package utils.strategy.main.year2021;
 
-import actions.a2020.ActionFileBinder;
+import actions.ActionFileBinder;
 import api.log.LoggerFactory;
 import asserv.Position;
 import com.google.gson.Gson;
@@ -39,12 +39,12 @@ public class Main2021 {
         TaskList recuperationRecifSud =  new TaskList();
         recuperationRecifSud.add(new Go("Step de départ bizarre", 1));
         recuperationRecifSud.add(new GoTo("Sortie départ", 750, 670));
-        recuperationRecifSud.add(new Manipulation("Preparer ramassage recif sud", ActionFileBinder.ActionFile.PREPARER_RAMASSAGE.ordinal()));
+        recuperationRecifSud.add(new Manipulation("Preparer ramassage recif sud", ActionFileBinder.ActionFile.A2020_PREPARER_RAMASSAGE.ordinal()));
         recuperationRecifSud.add(new GoToAstar("Placement recif sud", 1600, 230));
         recuperationRecifSud.add(new GoTo("Alignement recif sud", 1600, 130));
         recuperationRecifSud.add(new Go("Plaquage rammassage recif sud", 130, 500));
-        recuperationRecifSud.add(new Manipulation("Ramassage recif sud", ActionFileBinder.ActionFile.TOUT_RAMASSER.ordinal()));
-        recuperationRecifSud.add(new Manipulation("Libération ramassage recif sud", ActionFileBinder.ActionFile.LEVER_GOBELETS.ordinal()));
+        recuperationRecifSud.add(new Manipulation("Ramassage recif sud", ActionFileBinder.ActionFile.A2020_TOUT_RAMASSER.ordinal()));
+        recuperationRecifSud.add(new Manipulation("Libération ramassage recif sud", ActionFileBinder.ActionFile.A2020_LEVER_GOBELETS.ordinal()));
         recuperationRecifSud.add(new Go("Sortie recif sud", -210));
         Objectif objectifRecuperationRecifSud0 = new Objectif("Recif Sud", objectifsCouleur0.size()+1, 0, 1, recuperationRecifSud);
         Objectif objectifRecuperationRecifSud3000 = new Objectif("Recif Sud", objectifsCouleur3000.size()+1, 0, 1, null);
@@ -68,15 +68,15 @@ public class Main2021 {
         manches.add(new Face("Alignement manche à air", 1800, 3000));
         manches.add(new Go("Callage manche à air", -120, 500));
         int sortieBras = manches.size()+1;
-        manches.add(new Manipulation("Sortie bras droit", ActionFileBinder.ActionFile.BAISSER_BRAS_DROIT.ordinal(), Tache.Mirror.SPECIFIC));
-        manches3000.add(new Manipulation("Sortie bras gauche", ActionFileBinder.ActionFile.BAISSER_BRAS_GAUCHE.ordinal(), Tache.Mirror.SPECIFIC), sortieBras);
+        manches.add(new Manipulation("Sortie bras droit", ActionFileBinder.ActionFile.A2020_BAISSER_BRAS_DROIT.ordinal(), Tache.Mirror.SPECIFIC));
+        manches3000.add(new Manipulation("Sortie bras gauche", ActionFileBinder.ActionFile.A2020_BAISSER_BRAS_GAUCHE.ordinal(), Tache.Mirror.SPECIFIC), sortieBras);
         manches.add(new SetSpeed("Réduction de la vitesse", 50));
         manches.add(new GoTo("Taper la manche 1", 1800, 290));
         manches.add(new GoTo("Taper la manche 2", 1800, 700));
         manches.add(new SetSpeed("Vitesse normale", 100));
         int rentrerBras = manches.size()+1;
-        manches.add(new Manipulation("Rentrer bras droit", ActionFileBinder.ActionFile.LEVER_BRAS_DROIT.ordinal(), Tache.Mirror.SPECIFIC));
-        manches3000.add(new Manipulation("Rentrer bras gauche", ActionFileBinder.ActionFile.LEVER_BRAS_GAUCHE.ordinal(), Tache.Mirror.SPECIFIC), rentrerBras);
+        manches.add(new Manipulation("Rentrer bras droit", ActionFileBinder.ActionFile.A2020_LEVER_BRAS_DROIT.ordinal(), Tache.Mirror.SPECIFIC));
+        manches3000.add(new Manipulation("Rentrer bras gauche", ActionFileBinder.ActionFile.A2020_LEVER_BRAS_GAUCHE.ordinal(), Tache.Mirror.SPECIFIC), rentrerBras);
         manches.add(new Go("On quitte la zone", -70));
         Objectif objectifManches0 = new Objectif("Manches à air", objectifsCouleur0.size()+1, score, 1, manches);
         Objectif objectifManches3000 = new Objectif("Manches à air", objectifsCouleur3000.size()+1, score, 1, null);
@@ -95,7 +95,7 @@ public class Main2021 {
         score = 0;
         TaskList photo =  new TaskList();
         photo.add(new Face("Alignement boussole", 0, 1500));
-        photo.add(new Manipulation("Photo", ActionFileBinder.ActionFile.ARUCO_CAM.ordinal()));
+        photo.add(new Manipulation("Photo", ActionFileBinder.ActionFile.A2020_ARUCO_CAM.ordinal()));
         Objectif objectifPhoto0 = new Objectif("Photo", objectifsCouleur0.size()+1, score, 1, photo);
         Objectif objectifPhoto3000 = new Objectif("Photo", objectifsCouleur3000.size()+1, score, 1, null);
         try {
@@ -146,8 +146,8 @@ public class Main2021 {
         largageSud.add(new GoToAstar("Déplacement largage sud", 1420, 260));
         largageSud.add(new Face("Alignement largage sud", 0, 260));
         largageSud.add(new Go("Placement largage sud", 155));
-        largageSud.add(new Manipulation("Préparer largage recif sud", ActionFileBinder.ActionFile.PREPARER_LARGAGE.ordinal()));
-        largageSud.add(new Manipulation("Largage impaire recif sud", ActionFileBinder.ActionFile.LARGUER_DOIGTS_IMPAIRE.ordinal()));
+        largageSud.add(new Manipulation("Préparer largage recif sud", ActionFileBinder.ActionFile.A2020_PREPARER_LARGAGE.ordinal()));
+        largageSud.add(new Manipulation("Largage impaire recif sud", ActionFileBinder.ActionFile.A2020_LARGUER_DOIGTS_IMPAIRE.ordinal()));
         largageSud.add(new Go("Sortie largage sud", -255));
         largageSud.add(new GoTo("Esquive chenal", 1520, 700));
         Objectif objectifLargageSud0 = new Objectif("Largage sud", objectifsCouleur0.size()+1, score, 1, largageSud);
@@ -203,9 +203,9 @@ public class Main2021 {
         largageNord.add(new GoToAstar("Placement largage nord", 280, 260));
         largageNord.add(new Face("Alignement largage nord", 2000, 260));
         largageNord.add(new GoTo("Placement largage nord", 320, 260));
-        largageNord.add(new Manipulation("Largage impaire nord", ActionFileBinder.ActionFile.LARGUER_DOIGTS_PAIRE.ordinal()));
+        largageNord.add(new Manipulation("Largage impaire nord", ActionFileBinder.ActionFile.A2020_LARGUER_DOIGTS_PAIRE.ordinal()));
         largageNord.add(new GoToBack("Sortie largage nord", 230, 260));
-        largageNord.add(new Manipulation("On remet tout en place", ActionFileBinder.ActionFile.INIT.ordinal()));
+        largageNord.add(new Manipulation("On remet tout en place", ActionFileBinder.ActionFile.A2020_INIT.ordinal()));
         Objectif objectifRecifLargageN0 = new Objectif("Largage nord", objectifsCouleur0.size()+1, score, 1, largageNord);
         Objectif objectifRecifLargageN3000 = new Objectif("Largage nord", objectifsCouleur3000.size()+1, score, 1, null);
         try {
@@ -221,13 +221,13 @@ public class Main2021 {
          * Score = 0
          */
         TaskList recuperationRecifNord =  new TaskList();
-        recuperationRecifNord.add(new Manipulation("Preparer ramassage recif nord", ActionFileBinder.ActionFile.PREPARER_RAMASSAGE.ordinal()));
+        recuperationRecifNord.add(new Manipulation("Preparer ramassage recif nord", ActionFileBinder.ActionFile.A2020_PREPARER_RAMASSAGE.ordinal()));
         recuperationRecifNord.add(new GoToAstar("Placement recif nord", 230, 850));
         recuperationRecifNord.add(new Face("Alignement recif nord", 0, 850));
         recuperationRecifNord.add(new GoTo("Mise en position rammassage recif nord", 130, 850));
         recuperationRecifNord.add(new Go("Plaquage rammassage recif nord", 130, 500));
-        recuperationRecifNord.add(new Manipulation("Ramassage recif nord", ActionFileBinder.ActionFile.TOUT_RAMASSER.ordinal()));
-        recuperationRecifNord.add(new Manipulation("Libération ramassage recif nord", ActionFileBinder.ActionFile.LEVER_GOBELETS.ordinal()));
+        recuperationRecifNord.add(new Manipulation("Ramassage recif nord", ActionFileBinder.ActionFile.A2020_TOUT_RAMASSER.ordinal()));
+        recuperationRecifNord.add(new Manipulation("Libération ramassage recif nord", ActionFileBinder.ActionFile.A2020_LEVER_GOBELETS.ordinal()));
         recuperationRecifNord.add(new GoToBack("Sortie recif nord", 230, 850));
         Objectif objectifRecuperationRecifNord0 = new Objectif("Recif nord", objectifsCouleur0.size()+1, 0, 1, recuperationRecifNord);
         Objectif objectifRecuperationRecifNord3000 = new Objectif("Recif nord", objectifsCouleur3000.size()+1, 0, 1, null);
@@ -250,9 +250,9 @@ public class Main2021 {
         TaskList largageRecifNord_3000 = new TaskList();
         largageRecifNord.add(new GoToAstar("Placement dans le grand port", 800, 450));
         largageRecifNord.add(new Face("Alignement dans le grand port", 800, 0));
-        largageRecifNord.add(new Manipulation("Préparer largage grand port", ActionFileBinder.ActionFile.PREPARER_LARGAGE.ordinal()));
+        largageRecifNord.add(new Manipulation("Préparer largage grand port", ActionFileBinder.ActionFile.A2020_PREPARER_LARGAGE.ordinal()));
 //        mirrorId = largageRecifNord.size() + 1;
-        largageRecifNord.add(new Manipulation("Largage grand port", ActionFileBinder.ActionFile.OUVRIR_DOIGTS_1A5.ordinal()));
+        largageRecifNord.add(new Manipulation("Largage grand port", ActionFileBinder.ActionFile.A2020_OUVRIR_DOIGTS_1A5.ordinal()));
 //        largageRecifNord_3000.add(new Manipulation("Largage grand port", ActionFileBinder.ActionFile.OUVRIR_DOIGTS_2A5.ordinal()), mirrorId);
         largageRecifNord.add(new GoToBack("Sortie grand port", 800, 800));
         Objectif objectifLargageRecifNord0 = new Objectif("Largage recif nord", objectifsCouleur0.size()+1, score, 1, largageRecifNord);

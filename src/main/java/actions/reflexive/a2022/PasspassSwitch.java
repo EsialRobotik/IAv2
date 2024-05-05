@@ -1,7 +1,7 @@
-package actions.reflexive;
+package actions.reflexive.a2022;
 
+import actions.ActionFileBinder;
 import actions.ActionReflexiveAbstract;
-import actions.a2022.ActionFileBinder;
 import api.qik.Qik;
 
 import java.io.IOException;
@@ -23,14 +23,14 @@ public class PasspassSwitch extends ActionReflexiveAbstract {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                executeSubActions(ActionFileBinder.ActionFile.PASSPASS_AX_SWITCH_FACE.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.A2022_PASSPASS_AX_SWITCH_FACE.ordinal());
                 Qik qik = actionFileBinder.getQikLink();
                 try {
                     qik.setM0Speed(127);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                executeSubActions(ActionFileBinder.ActionFile.PASSPASS_AX_SWITCH_KISS.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.A2022_PASSPASS_AX_SWITCH_KISS.ordinal());
                 try {
                     qik.setM1Speed(-127);
                 } catch (IOException e) {
@@ -46,9 +46,9 @@ public class PasspassSwitch extends ActionReflexiveAbstract {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                executeSubActions(ActionFileBinder.ActionFile.PASSPASS_AX_SWITCH_FACE.ordinal());
-                executeSubActions(ActionFileBinder.ActionFile.PASSPASS_AX_BRAS_POSE_IN.ordinal());
-                executeSubActions(ActionFileBinder.ActionFile.PASSPASS_AX_BRAS_PRISE_TAKE_UP.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.A2022_PASSPASS_AX_SWITCH_FACE.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.A2022_PASSPASS_AX_BRAS_POSE_IN.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.A2022_PASSPASS_AX_BRAS_PRISE_TAKE_UP.ordinal());
                 finished = true;
             }
         }).start();

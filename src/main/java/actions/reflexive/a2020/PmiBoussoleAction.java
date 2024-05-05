@@ -1,15 +1,16 @@
-package actions.a2020;
+package actions.reflexive.a2020;
 
 import actions.ActionCollection;
 import actions.ActionDescriptor;
-import actions.ActionExecutor;
+import actions.ActionFileBinder;
+import actions.ActionReflexiveAbstract;
 import api.log.LoggerFactory;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import manager.CommunicationManager;
 import org.apache.logging.log4j.Logger;
 
-public class PmiBoussoleAction implements ActionExecutor {
+public class PmiBoussoleAction extends ActionReflexiveAbstract {
 
     protected boolean finished = false;
     private Logger logger;
@@ -19,8 +20,9 @@ public class PmiBoussoleAction implements ActionExecutor {
 
     private String commData;
 
-    public PmiBoussoleAction(ActionCollection actionCollection) {
-        this.actionCollection = actionCollection;
+    public PmiBoussoleAction(ActionFileBinder actionFileBinder) {
+        super(actionFileBinder);
+        this.actionCollection = this.actionFileBinder.getActionCollection();
 
         this.logger = LoggerFactory.getLogger(PmiBoussoleAction.class);
 

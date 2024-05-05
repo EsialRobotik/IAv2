@@ -1,7 +1,7 @@
 package actions.reflexive.a2024;
 
+import actions.ActionFileBinder;
 import actions.ActionReflexiveAbstract;
-import actions.a2023.ActionFileBinder;
 import api.communication.SerialRxTx;
 
 import java.io.IOException;
@@ -34,7 +34,8 @@ public class MammaRamasserPlanteNordLoin extends ActionReflexiveAbstract {
                     throw new RuntimeException(e);
                 }
                 String scanResult = scanner.nextLine().trim();
-                if (scanResult.trim().equals("ko")) {
+                System.out.println("Chariot result : " + scanResult); //todo je vois que dalle
+                if (scanResult.trim().contains("ko")) {
                     searchResult = "plant_n_ko";
                 }
                 finished = true;

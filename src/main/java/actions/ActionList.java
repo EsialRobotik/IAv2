@@ -1,6 +1,5 @@
 package actions;
 
-import actions.a2023.ActionFileBinder;
 import api.log.LoggerFactory;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -20,15 +19,15 @@ public class ActionList implements ActionExecutor {
     protected File dataDir;
     protected String filename;
     protected Logger logger;
-    protected ActionInterface actionInterface;
+    protected ActionFileBinder actionFileBinder;
 
     protected List<ActionFileBinder.ActionFile> actions;
 
     protected boolean finished;
 
-    public ActionList(ActionInterface actionInterface, File dataDir, String filename) {
+    public ActionList(ActionFileBinder actionFileBinder, File dataDir, String filename) {
         this.logger = LoggerFactory.getLogger(ActionList.class);
-        this.actionInterface = actionInterface;
+        this.actionFileBinder = actionFileBinder;
         this.dataDir = dataDir;
         this.filename = filename;
         this.actions = new ArrayList<>();
@@ -77,7 +76,7 @@ public class ActionList implements ActionExecutor {
             public void run() {
 
                 for (ActionFileBinder.ActionFile action: actions) {
-                    ActionExecutor ae = actionInterface.getActionExecutor(action.ordinal());
+                    ActionExecutor ae = actionFileBinder.getActionExecutor(action.ordinal());
                     ae.resetActionState();
                     ae.execute();
                     while (!ae.finished()) {

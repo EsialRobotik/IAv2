@@ -75,9 +75,12 @@ public class ActionDescriptor {
         ++stepIndex;
         Step step = this.stepList.get(stepIndex);
 
+        System.out.println("Check next step flags - skip = " + step.getSkipFlag() + " - need = " + step.getNeededFlag());
+        System.out.println("Actions flags : " + actionCollection.getActionFlags().toString());
+
         while (
-            (this.skipFlag != null && this.actionCollection.getActionFlags().contains(this.skipFlag))
-            || (this.neededFlag != null && !this.actionCollection.getActionFlags().contains(this.neededFlag))
+            (step.getSkipFlag() != null && this.actionCollection.getActionFlags().contains(step.getSkipFlag()))
+            || (step.getNeededFlag() != null && !this.actionCollection.getActionFlags().contains(step.getNeededFlag()))
         ) {
             ++stepIndex;
             if (!this.hasNextStep()) {

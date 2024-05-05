@@ -39,6 +39,7 @@ public class ActionCollection {
         this.isColor0 = isColor0;
         for (JsonElement element : jsonElement.getAsJsonObject().getAsJsonArray(isColor0 ? "couleur0" : "couleur3000")) {
             ActionDescriptor action = new ActionDescriptor(element.getAsJsonObject(), this.stepByStep);
+            action.setActionCollection(this);
             if (this.stepByStep) {
                 action.setScanner(this.scanner);
             }

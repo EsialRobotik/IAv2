@@ -1,6 +1,6 @@
 package utils.strategy.main.year2024;
 
-import actions.a2023.ActionFileBinder;
+import actions.ActionFileBinder;
 import utils.strategy.Tache;
 import utils.strategy.TaskList;
 import utils.strategy.main.AbstractMain;
@@ -72,7 +72,7 @@ public class Main2024 extends AbstractMain {
         int score = 0;
         TaskList taskList =  new TaskList(3000);
         taskList.add(
-            (new GoToAstar("Position plante", 700, 650)).setSkipFlag("plant_n_ko")
+            (new GoToAstar("Position plante", 700, 630)).setSkipFlag("plant_n_ko")
         );
         taskList.add(
             (new GoToAstar("Position plante", 700, 670)).setNeededFlag("plant_n_ko")

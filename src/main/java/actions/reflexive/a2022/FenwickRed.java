@@ -1,7 +1,7 @@
-package actions.reflexive;
+package actions.reflexive.a2022;
 
+import actions.ActionFileBinder;
 import actions.ActionReflexiveAbstract;
-import actions.a2022.ActionFileBinder;
 
 public class FenwickRed extends ActionReflexiveAbstract {
 
@@ -20,32 +20,32 @@ public class FenwickRed extends ActionReflexiveAbstract {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                executeSubActions(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_IN.ordinal());
-                executeSubActions(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_POMPE_SUCK.ordinal());
-                executeSubActions(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_HAUTEUR_PILE_3.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.A2022_FENWICK_ASCENSEUR_IN.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.A2022_FENWICK_ASCENSEUR_POMPE_SUCK.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.A2022_FENWICK_ASCENSEUR_HAUTEUR_PILE_3.ordinal());
                 // wait to suck
                 try {
                     Thread.sleep(250);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                executeSubActions(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_HAUTEUR_TOP.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.A2022_FENWICK_ASCENSEUR_HAUTEUR_TOP.ordinal());
                 try {
                     Thread.sleep(50);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                executeSubActions(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_OUT.ordinal());
-                executeSubActions(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_HAUTEUR_LACHER.ordinal());
-                executeSubActions(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_POMPE_RELEASE.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.A2022_FENWICK_ASCENSEUR_OUT.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.A2022_FENWICK_ASCENSEUR_HAUTEUR_LACHER.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.A2022_FENWICK_ASCENSEUR_POMPE_RELEASE.ordinal());
                 // wait to release
                 try {
                     Thread.sleep(350);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                executeSubActions(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_HAUTEUR_TOP.ordinal());
-                executeSubActions(ActionFileBinder.ActionFile.FENWICK_ASCENSEUR_IN.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.A2022_FENWICK_ASCENSEUR_HAUTEUR_TOP.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.A2022_FENWICK_ASCENSEUR_IN.ordinal());
                 finished = true;
             }
         }).start();

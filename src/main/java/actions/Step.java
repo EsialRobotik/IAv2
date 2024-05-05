@@ -7,6 +7,7 @@ import com.google.gson.JsonObject;
  * Created by Guillaume on 18/05/2017.
  */
 public class Step {
+
     public enum Type {
         DEPLACEMENT,
         MANIPULATION,
@@ -41,6 +42,7 @@ public class Step {
     private int timeout;
     private String itemId;
     private String skipFlag;
+    private String neededFlag;
 
     private boolean yPositiveExclusive = false;
     private boolean yNegativeExclusive = false;
@@ -111,6 +113,9 @@ public class Step {
         if (configNode.has("skipFlag")) {
             this.skipFlag = configNode.get("skipFlag").getAsString();
         }
+        if (configNode.has("neededFlag")) {
+            this.neededFlag = configNode.get("neededFlag").getAsString();
+        }
     }
 
     public String getDesc() {
@@ -155,6 +160,10 @@ public class Step {
 
     public String getSkipFlag() {
         return skipFlag;
+    }
+
+    public String getNeededFlag() {
+        return neededFlag;
     }
 
     @Override

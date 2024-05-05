@@ -1,14 +1,14 @@
-package actions.reflexive;
+package actions.reflexive.a2022;
 
+import actions.ActionFileBinder;
 import actions.ActionReflexiveAbstract;
-import actions.a2022.ActionFileBinder;
 import api.qik.Qik;
 
 import java.io.IOException;
 
-public class PasspassGetStatue extends ActionReflexiveAbstract {
+public class PasspassUnstore extends ActionReflexiveAbstract {
 
-    public PasspassGetStatue(ActionFileBinder actionFileBinder) {
+    public PasspassUnstore(ActionFileBinder actionFileBinder) {
         super(actionFileBinder);
     }
 
@@ -25,17 +25,19 @@ public class PasspassGetStatue extends ActionReflexiveAbstract {
             public void run() {
                 Qik qik = actionFileBinder.getQikLink();
                 try {
-                    qik.setM0Speed(127);
+                    qik.setM1Speed(127);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                executeSubActions(ActionFileBinder.ActionFile.PASSPASS_AX_BRAS_POSE_OUT.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.A2022_PASSPASS_AX_BRAS_PRISE_STORE.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.A2022_PASSPASS_AX_BRAS_STORE_OUT.ordinal());
                 try {
-                    Thread.sleep(250);
+                    Thread.sleep(150);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                executeSubActions(ActionFileBinder.ActionFile.PASSPASS_AX_BRAS_POSE_IN.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.A2022_PASSPASS_AX_BRAS_STORE_POMPE_OFF.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.A2022_PASSPASS_AX_BRAS_STORE_IN.ordinal());
                 finished = true;
             }
         }).start();

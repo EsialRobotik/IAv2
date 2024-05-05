@@ -1,20 +1,19 @@
-package actions.a2020;
+package actions.reflexive.a2020;
 
 import actions.ActionCollection;
 import actions.ActionDescriptor;
-import actions.ActionExecutor;
-import actions.Step;
+import actions.ActionFileBinder;
+import actions.ActionReflexiveAbstract;
 import api.communication.Shell;
 import api.log.LoggerFactory;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import manager.CommunicationManager;
-import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
-public class ArucoCamAction implements ActionExecutor {
+public class ArucoCamAction extends ActionReflexiveAbstract {
 
     protected boolean finished = false;
     protected Shell shell;
@@ -24,9 +23,12 @@ public class ArucoCamAction implements ActionExecutor {
     protected CommunicationManager communicationManager;
     protected ActionDescriptor nord0, sud0, nord3000, sud3000;
 
-    public ArucoCamAction(Shell shell, ActionCollection actionCollection) {
-        this.shell = shell;
-        this.actionCollection = actionCollection;
+    public ArucoCamAction(ActionFileBinder actionFileBinder) throws IOException, InterruptedException {
+        super(actionFileBinder);
+
+        this.shell = new Shell("python /home/pi/2020Aruco/testPiCameraArucoShell.py --quiet");
+        this.shell.start();
+        this.actionCollection = this.actionFileBinder.getActionCollection();
 
         this.logger = LoggerFactory.getLogger(ArucoCamAction.class);
 
@@ -135,27 +137,5 @@ public class ArucoCamAction implements ActionExecutor {
     @Override
     public void setData(String data) {
         // nothing
-    }
-
-    @Override
-    public String getActionFlag() {
-        return null;
-    }
-
-    public static void main(String args[]) throws IOException, InterruptedException {
-        LoggerFactory.init(Level.TRACE);
-        Shell shell = new Shell("python /home/pi/2020Aruco/testPiCameraArucoShell.py --quiet");
-        shell.start();
-        ActionCollection actionCollection = new ActionCollection("configCollection.json");
-        actionCollection.prepareActionList(false);
-        ArucoCamAction action = new ArucoCamAction(shell, actionCollection);
-        action.execute();
-        Thread.sleep(1000);
-        ActionDescriptor actionDescriptor = actionCollection.getActionList().get(actionCollection.getActionList().size()-1);
-        System.out.println(actionDescriptor);
-        while (actionDescriptor.hasNextStep()) {
-            Step step = actionDescriptor.getNextStep();
-            System.out.println(step);
-        }
     }
 }

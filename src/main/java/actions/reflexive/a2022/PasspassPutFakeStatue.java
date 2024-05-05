@@ -1,14 +1,14 @@
-package actions.reflexive;
+package actions.reflexive.a2022;
 
+import actions.ActionFileBinder;
 import actions.ActionReflexiveAbstract;
-import actions.a2022.ActionFileBinder;
 import api.qik.Qik;
 
 import java.io.IOException;
 
-public class PasspassPutRelease extends ActionReflexiveAbstract {
+public class PasspassPutFakeStatue extends ActionReflexiveAbstract {
 
-    public PasspassPutRelease(ActionFileBinder actionFileBinder) {
+    public PasspassPutFakeStatue(ActionFileBinder actionFileBinder) {
         super(actionFileBinder);
     }
 
@@ -25,7 +25,7 @@ public class PasspassPutRelease extends ActionReflexiveAbstract {
             public void run() {
                 Qik qik = actionFileBinder.getQikLink();
                 try {
-                    qik.setM0Speed(-127);
+                    qik.setM1Speed(-127);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -35,7 +35,7 @@ public class PasspassPutRelease extends ActionReflexiveAbstract {
                     e.printStackTrace();
                 }
                 try {
-                    qik.setM0Speed(0);
+                    qik.setM1Speed(0);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

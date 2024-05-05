@@ -1,6 +1,6 @@
 package utils.strategy.main.year2023;
 
-import actions.a2023.ActionFileBinder;
+import actions.ActionFileBinder;
 import api.log.LoggerFactory;
 import asserv.Position;
 import com.google.gson.Gson;

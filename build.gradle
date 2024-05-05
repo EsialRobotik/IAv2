@@ -53,7 +53,7 @@ task deployBigPrincess(dependsOn: ["shadowJar"]) {
                 put from: projectHome + '/config/' + year + '/table.json', into: 'IA'
                 put from: projectHome + '/config/' + year + '/table0.tbl', into: 'IA'
                 put from: projectHome + '/config/' + year + '/table3000.tbl', into: 'IA'
-                put from: projectHome + '/src/main/java/actions/a2023/actions/', into: 'IA'
+                put from: projectHome + '/src/main/java/actions/a' + year + '/actions/', into: 'IA'
                 execute 'sudo rm -rf IA/webRootDir/*'
                 execute 'sudo sync'
             }
