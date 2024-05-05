@@ -276,12 +276,16 @@ public class ActionOrchestratorHelper {
 	public static BehaviourAction behaviourActionFromJson(JsonObject o, AX12Link ax12Link) {
 		try {
 			int ax12Id = o.get(JSON_KEYS.ax12Id.name()).getAsInt();
+			AX12Compliance compliance = null;
+			if (o.has(JSON_KEYS.compliance.name())) {
+				compliance = AX12Compliance.fromFriendlyValue(o.get(JSON_KEYS.compliance.name()).getAsInt());
+			}
 			
 			return new BehaviourAction(
 					new AX12(ax12Id, ax12Link),
 					o.get(JSON_KEYS.speed.name()).getAsInt(),
 					o.get(JSON_KEYS.acceleration.name()).getAsInt(),
-					AX12Compliance.fromFriendlyValue(o.get(JSON_KEYS.compliance.name()).getAsInt())
+					compliance
 			);
 		} catch (ClassCastException | IllegalStateException | IllegalArgumentException e) {
 			e.printStackTrace();

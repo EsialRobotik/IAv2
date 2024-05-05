@@ -6,8 +6,7 @@
           "actionId": "actionBehaviour",
           "ax12Id": 7,
           "speed": 180,
-          "acceleration": 70,
-          "compliance": 1
+          "acceleration": 70
         }
       ]
     }
