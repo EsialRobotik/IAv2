@@ -50,8 +50,10 @@ public class BehaviourAction extends Action {
 		}
 		
 		try {
-			this.ax12.setCcwComplianceMargin(compliance);
-			this.ax12.setCwComplianceMargin(compliance);
+			if (compliance != null) {
+				this.ax12.setCcwComplianceMargin(compliance);
+				this.ax12.setCwComplianceMargin(compliance);
+			}
 		} catch (AX12LinkException | AX12Exception | IllegalArgumentException e) {
 			throw new ActionException("Error applying compliance value", e);
 		}
