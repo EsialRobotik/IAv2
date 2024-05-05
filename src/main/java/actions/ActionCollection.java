@@ -109,12 +109,16 @@ public class ActionCollection {
     }
 
     public void addAction(ActionDescriptor action) {
-        actionList.add(action);
+        actionList.add(action.setActionCollection(this));
         actionFinished.put(action.getObjectiveId(), false);
     }
 
     public void addActionFlag(String flag) {
         actionFlags.add(flag);
+    }
+
+    public List<String> getActionFlags() {
+        return actionFlags;
     }
 
     public static void main(String args[]) throws FileNotFoundException {

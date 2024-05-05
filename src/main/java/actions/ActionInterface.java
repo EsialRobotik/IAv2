@@ -1,5 +1,7 @@
 package actions;
 
+import api.communication.SerialRxTx;
+import api.qik.Qik;
 import manager.CommunicationManager;
 
 /**
@@ -14,4 +16,8 @@ public interface ActionInterface {
     int funnyAction(FunnyActionDescription funnyActionDescription);
 
     void setCommunicationManager(CommunicationManager communicationManager);
+
+    Qik getQikLink();
+
+    SerialRxTx getSerialLink();
 }

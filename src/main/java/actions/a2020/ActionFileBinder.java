@@ -2,7 +2,9 @@ package actions.a2020;
 
 import actions.*;
 import api.ax12.AX12LinkSerial;
+import api.communication.SerialRxTx;
 import api.communication.Shell;
+import api.qik.Qik;
 import manager.CommunicationManager;
 
 import java.io.File;
@@ -155,5 +157,15 @@ public class ActionFileBinder implements ActionInterface {
 	public void setCommunicationManager(CommunicationManager communicationManager) {
 		this.communicationManager = communicationManager;
 		actionsList[ActionFile.ARUCO_CAM.ordinal()].setCommunicationManager(communicationManager);
+	}
+
+	@Override
+	public Qik getQikLink() {
+		return null;
+	}
+
+	@Override
+	public SerialRxTx getSerialLink() {
+		return null;
 	}
 }

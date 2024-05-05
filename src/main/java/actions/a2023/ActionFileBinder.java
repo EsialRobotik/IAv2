@@ -84,6 +84,7 @@ public class ActionFileBinder implements ActionInterface {
 		MAMMA_DOIGT_SOLAIRE_IN_DROIT("mamma_doigt_solaire_in_droit.json", false, ActionFile.ACTION_AX12),
 		MAMMA_DOIGT_SOLAIRE_IN_GAUCHE("mamma_doigt_solaire_in_gauche.json", false, ActionFile.ACTION_AX12),
 		MAMMA_RAMASSER_PLANTE("mamma_ramasser_plante.json", false, ActionFile.ACTION_LIST),
+		MAMMA_RAMASSER_PLANTE_NORD_LOIN("a2024.MammaRamasserPlanteNordLoin", false, ActionFile.ACTION_REFLEXIVE),
 		MAMMA_DEPOSER_PLANTE("mamma_deposer_plante.json", false, ActionFile.ACTION_LIST),
 		MAMMA_CHARIOT_HOME("mamma_chariot_home.json", false, ActionFile.ACTION_ASCENSEUR),
 		MAMMA_CHARIOT_MIDDLE("mamma_chariot_middle.json", false, ActionFile.ACTION_ASCENSEUR),
@@ -238,5 +239,9 @@ public class ActionFileBinder implements ActionInterface {
 
 	public Qik getQikLink() {
 		return qikLink;
+	}
+
+	public SerialRxTx getSerialLink() {
+		return serialLink;
 	}
 }

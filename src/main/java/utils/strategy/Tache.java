@@ -96,6 +96,8 @@ public class Tache implements Cloneable {
     public int actionId;
     public Mirror mirror;
     public int timeout = -1;
+    public String skipFlag;
+    public String neededFlag;
 
     public PathFinding pathFinding;
     public Position endPoint;
@@ -258,6 +260,24 @@ public class Tache implements Cloneable {
         return this.endPoint;
     }
 
+    public String getSkipFlag() {
+        return skipFlag;
+    }
+
+    public Tache setSkipFlag(String skipFlag) {
+        this.skipFlag = skipFlag;
+        return this;
+    }
+
+    public String getNeededFlag() {
+        return neededFlag;
+    }
+
+    public Tache setNeededFlag(String neededFlag) {
+        this.neededFlag = neededFlag;
+        return this;
+    }
+
     public double calculateTheta(Position currentPosition, int finalX, int finalY) {
         if (finalY == currentPosition.getY()) {
             return finalX > currentPosition.getX() ? 0 : Math.PI;
@@ -287,6 +307,8 @@ public class Tache implements Cloneable {
                 ", type=" + type +
                 ", subtype=" + subtype +
                 ", actionId=" + actionId +
+                ", skipFlag=" + skipFlag +
+                ", neededFlag=" + neededFlag +
                 '}';
     }
 

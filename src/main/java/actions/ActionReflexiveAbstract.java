@@ -1,17 +1,16 @@
 package actions;
 
-import actions.a2022.ActionFileBinder;
 import api.log.LoggerFactory;
 import manager.CommunicationManager;
 import org.apache.logging.log4j.Logger;
 
 abstract public class ActionReflexiveAbstract implements ActionExecutor {
 
-    protected ActionFileBinder actionFileBinder;
+    protected ActionInterface actionFileBinder;
     protected boolean finished;
     protected Logger logger;
 
-    public ActionReflexiveAbstract(ActionFileBinder actionFileBinder) {
+    public ActionReflexiveAbstract(ActionInterface actionFileBinder) {
         logger = LoggerFactory.getLogger(this.getClass());
         this.actionFileBinder = actionFileBinder;
         this.finished = true;

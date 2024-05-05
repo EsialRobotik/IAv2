@@ -40,6 +40,7 @@ public class Step {
     private int distance;
     private int timeout;
     private String itemId;
+    private String skipFlag;
 
     private boolean yPositiveExclusive = false;
     private boolean yNegativeExclusive = false;
@@ -106,6 +107,10 @@ public class Step {
         } else {
             subType = SubType.NONE;
         }
+
+        if (configNode.has("skipFlag")) {
+            this.skipFlag = configNode.get("skipFlag").getAsString();
+        }
     }
 
     public String getDesc() {
@@ -146,6 +151,10 @@ public class Step {
 
     public String getItemId() {
         return itemId;
+    }
+
+    public String getSkipFlag() {
+        return skipFlag;
     }
 
     @Override

@@ -13,11 +13,14 @@ import java.util.Scanner;
  */
 public class ActionDescriptor {
 
+    private ActionCollection actionCollection;
+
     private String desc;
     private int objectiveId;
     private int points;
     private int priority;
     private String skipFlag;
+    private String neededFlag;
 
     private List<Step> stepList;
     private int stepIndex;
@@ -40,6 +43,9 @@ public class ActionDescriptor {
         if (object.has("skipFlag")) {
             skipFlag = object.get("skipFlag").getAsString();
         }
+        if (object.has("neededFlag")) {
+            neededFlag = object.get("neededFlag").getAsString();
+        }
     }
 
     public String toString() {
@@ -48,6 +54,7 @@ public class ActionDescriptor {
         res += "\npoints: " + points;
         res += "\npriority : " + priority;
         res += "\nskipFlag : " + skipFlag;
+        res += "\nneededFlag : " + neededFlag;
         return res;
     }
 
@@ -66,7 +73,20 @@ public class ActionDescriptor {
         }
 
         ++stepIndex;
-        return this.stepList.get(stepIndex);
+        Step step = this.stepList.get(stepIndex);
+
+        while (
+            (this.skipFlag != null && this.actionCollection.getActionFlags().contains(this.skipFlag))
+            || (this.neededFlag != null && !this.actionCollection.getActionFlags().contains(this.neededFlag))
+        ) {
+            ++stepIndex;
+            if (!this.hasNextStep()) {
+                return null;
+            }
+            step = this.stepList.get(stepIndex);
+        }
+
+        return step;
     }
 
     public Step getNextStepReal() {
@@ -103,6 +123,11 @@ public class ActionDescriptor {
 
     public String getSkipFlag() {
         return skipFlag;
+    }
+
+    public ActionDescriptor setActionCollection(ActionCollection actionCollection) {
+        this.actionCollection = actionCollection;
+        return this;
     }
 
     public static void main(String[] args) throws FileNotFoundException {

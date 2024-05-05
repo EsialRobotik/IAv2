@@ -72,13 +72,19 @@ public class Main2024 extends AbstractMain {
         int score = 0;
         TaskList taskList =  new TaskList(3000);
         taskList.add(
-            new GoToAstar("Position plante", 700, 650)
+            (new GoToAstar("Position plante", 700, 650)).setSkipFlag("plant_n_ko")
+        );
+        taskList.add(
+            (new GoToAstar("Position plante", 700, 670)).setNeededFlag("plant_n_ko")
         );
         taskList.add(
             new Face("Alignement plante", 700, 3000)
         );
         taskList.add(
-            new Manipulation("Ramasse plante", ActionFileBinder.ActionFile.MAMMA_RAMASSER_PLANTE.ordinal())
+            (new Manipulation("Ramasse plante", ActionFileBinder.ActionFile.MAMMA_RAMASSER_PLANTE_NORD_LOIN.ordinal())).setSkipFlag("plant_n_ko")
+        );
+        taskList.add(
+            (new Manipulation("Ramasse plante", ActionFileBinder.ActionFile.MAMMA_RAMASSER_PLANTE.ordinal())).setNeededFlag("plant_n_ko")
         );
         taskList.add(new SetSpeed("Pas trop vite !!", 25));
         taskList.add(

@@ -5,6 +5,8 @@ import actions.ActionExecutor;
 import actions.ActionInterface;
 import actions.FunnyActionDescription;
 import api.ax12.AX12LinkSerial;
+import api.communication.SerialRxTx;
+import api.qik.Qik;
 import manager.CommunicationManager;
 
 import java.io.File;
@@ -91,5 +93,15 @@ public class ActionFileBinder implements ActionInterface {
 	@Override
 	public void setCommunicationManager(CommunicationManager communicationManager) {
 		// nothing
+	}
+
+	@Override
+	public Qik getQikLink() {
+		return null;
+	}
+
+	@Override
+	public SerialRxTx getSerialLink() {
+		return null;
 	}
 }
