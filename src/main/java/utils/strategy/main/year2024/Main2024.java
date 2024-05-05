@@ -100,13 +100,7 @@ public class Main2024 extends AbstractMain {
             new Manipulation("Depose plante", ActionFileBinder.ActionFile.MAMMA_DEPOSER_PLANTE.ordinal())
         );
         taskList.add(
-            new GoToBack("On recule un peu", 612, 465)
-        );
-//        taskList.add(
-//            new Manipulation("On baisse la pince pour ramasser le pot", ActionFileBinder.ActionFile.MAMMA_PREPARER_ATTRAPER_POT.ordinal())
-//        );
-        taskList.add(
-            new GoTo("On va chercher le pot", 612, 395)
+            new Manipulation("On baisse la pince pour ramasser le pot", ActionFileBinder.ActionFile.MAMMA_PREPARER_ACCROCHE_POT.ordinal())
         );
         taskList.add(
             new GoToBack("On se libère", 612, 500)
@@ -119,6 +113,12 @@ public class Main2024 extends AbstractMain {
         );
         taskList.add(
             new Face("On va a la jardiniere", 0, 785)
+        );
+        taskList.add(
+            new Go("On se recalle bien", 100, 500)
+        );
+        taskList.add(
+            new Go("On se place pour larger le pot", -50)
         );
         taskList.add(
             new Manipulation("On baisse les bras", ActionFileBinder.ActionFile.MAMMA_PINCE_LEVER_HORIZONTAL.ordinal())
