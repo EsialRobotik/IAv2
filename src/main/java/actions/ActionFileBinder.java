@@ -213,6 +213,7 @@ public class ActionFileBinder {
 		MAMMA_PINCE_FERMER_PLANTE("mamma_pince_fermer_plante.json", false, ActionFile.ACTION_AX12),
 		MAMMA_PINCE_FERMER_POT("mamma_pince_fermer_pot.json", false, ActionFile.ACTION_AX12),
 		MAMMA_PINCE_OUVRIR("mamma_pince_ouvrir.json", false, ActionFile.ACTION_AX12),
+		MAMMA_PINCE_OUVRIR_RAMASSER_POT("mamma_pince_ouvrir_ramasser_pot.json", false, ActionFile.ACTION_AX12),
 		MAMMA_PINCE_LEVER_HORIZONTAL("mamma_pince_lever_horizontal.json", false, ActionFile.ACTION_AX12),
 		MAMMA_PINCE_LEVER_VERTICAL("mamma_pince_lever_vertical.json", false, ActionFile.ACTION_AX12),
 		MAMMA_PINCE_LEVER_RAMI("mamma_pince_lever_rami.json", false, ActionFile.ACTION_AX12),
