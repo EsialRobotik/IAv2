@@ -23,7 +23,7 @@ public class Main2024 extends AbstractMain {
 
         // 0 = Bleu, 3000 = Jaune
         // Départ en x=1800 y=120, theta=Pi/2
-        panneauSolaire();
+        panneauSolaire(true);
         plante1();
         plante1();
         rechargeBatterie();
@@ -33,7 +33,7 @@ public class Main2024 extends AbstractMain {
         generateStrategy();
     }
 
-    public static void panneauSolaire() {
+    public static void panneauSolaire(boolean withMiddle) {
         int score = 0;
         TaskList taskList =  new TaskList(3000);
         taskList.add(
@@ -56,9 +56,40 @@ public class Main2024 extends AbstractMain {
                 new Face("Panneau 2", 1795, 3000)
         );
         taskList.add(
-            new GoTo("Panneau 2", 1795, 750)
+            new GoTo("Panneau 3", 1795, 750)
         );
         score += 5;
+
+        if (withMiddle) {
+            taskList.add(
+                new Face("Panneau 4", 1795, 3000)
+            );
+            taskList.add(
+                new GoTo("Panneau 4", 1795, 1150)
+            );
+            taskList.add(
+                new Face("Panneau 4", 1795, 3000)
+            );
+            taskList.add(
+                new GoTo("Panneau 4", 1795, 1300)
+            );
+            score += 5;
+            taskList.add(
+                new Face("Panneau 5", 1795, 3000)
+            );
+            taskList.add(
+                new GoTo("Panneau 5", 1795, 1550)
+            );
+            score += 5;
+            taskList.add(
+                new Face("Panneau 6", 1795, 3000)
+            );
+            taskList.add(
+                new GoTo("Panneau 6", 1795, 1750)
+            );
+            score += 5;
+        }
+
         taskList.add(
             new Manipulation("Ranger doigt solaire droit", ActionFileBinder.ActionFile.MAMMA_DOIGT_SOLAIRE_IN_DROIT.ordinal(), Tache.Mirror.SPECIFIC),
             new Manipulation("Ranger doigt solaire gauche", ActionFileBinder.ActionFile.MAMMA_DOIGT_SOLAIRE_IN_GAUCHE.ordinal(), Tache.Mirror.SPECIFIC)
