@@ -169,4 +169,6 @@ public interface AsservInterface {
     MovementDirection getMovementDirection();
 
     void goStart(boolean isColor0) throws Exception;
+
+    void waitForAsserv();
 }

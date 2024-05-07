@@ -4,11 +4,11 @@ import actions.ActionFileBinder;
 import actions.ActionReflexiveAbstract;
 import asserv.AsservInterface;
 
-public class MammaPlacementPotDynamique extends ActionReflexiveAbstract {
+public class MammaPlacementPotBisDynamique extends ActionReflexiveAbstract {
     String searchResult;
     private int optimalDistance = 130;
 
-    public MammaPlacementPotDynamique(ActionFileBinder actionFileBinder) {
+    public MammaPlacementPotBisDynamique(ActionFileBinder actionFileBinder) {
         super(actionFileBinder);
     }
 
@@ -22,8 +22,11 @@ public class MammaPlacementPotDynamique extends ActionReflexiveAbstract {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                String scanResult = executeSubActions(ActionFileBinder.ActionFile.MAMMA_CHARIOT_CHERCHER_EMMERDE.ordinal());
-                logger.info("Chercher emmerde : " + scanResult);
+                AsservInterface asservInterface = actionFileBinder.getAsservInterface();
+                asservInterface.go(-50);
+                asservInterface.waitForAsserv();
+                String scanResult = executeSubActions(ActionFileBinder.ActionFile.MAMMA_CHARIOT_CHERCHER_GROSSE_EMMERDE.ordinal());
+                logger.info("Chercher grosse emmerde : " + scanResult);
                 if (scanResult.trim().contains("ko")) {
                     searchResult = "plant_n_ko";
                     finished = true;
@@ -31,12 +34,15 @@ public class MammaPlacementPotDynamique extends ActionReflexiveAbstract {
                 } else {
                     String[] data = scanResult.trim().split(" ");
                     int distance = Integer.parseInt(data[0]);
-                    AsservInterface asservInterface = actionFileBinder.getAsservInterface();
                     if (distance > 350) {
                         searchResult = "plant_n_ko";
                         finished = true;
                         return;
                     }
+                    // on se prépare à ramasser
+                    executeSubActions(ActionFileBinder.ActionFile.MAMMA_PINCE_OUVRIR.ordinal());
+                    executeSubActions(ActionFileBinder.ActionFile.MAMMA_PINCE_BAISSER_POT_ATTRAPER.ordinal());
+
                     // on se repositionne
                     asservInterface.go(distance - optimalDistance);
                     asservInterface.waitForAsserv();

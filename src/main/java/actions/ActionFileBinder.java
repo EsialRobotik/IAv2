@@ -212,6 +212,7 @@ public class ActionFileBinder {
 		MAMMA_CHARIOT_MIDDLE("mamma_chariot_middle.json", false, ActionFile.ACTION_ASCENSEUR),
 		MAMMA_CHARIOT_ALIGNER_PLANTE("mamma_chariot_aligner_plante.json", false, ActionFile.ACTION_ASCENSEUR),
 		MAMMA_CHARIOT_CHERCHER_EMMERDE("mamma_chariot_chercher_emmerde.json", false, ActionFile.ACTION_ASCENSEUR),
+		MAMMA_CHARIOT_CHERCHER_GROSSE_EMMERDE("mamma_chariot_chercher_grosse_emmerde.json", false, ActionFile.ACTION_ASCENSEUR),
 		MAMMA_PINCE_INIT("mamma_pince_init.json", false, ActionFile.ACTION_AX12),
 		MAMMA_PINCE_FERMER_PLANTE("mamma_pince_fermer_plante.json", false, ActionFile.ACTION_AX12),
 		MAMMA_PINCE_FERMER_POT("mamma_pince_fermer_pot.json", false, ActionFile.ACTION_AX12),
@@ -226,6 +227,8 @@ public class ActionFileBinder {
 		MAMMA_PINCE_RANGER("mamma_pince_ranger.json", false, ActionFile.ACTION_LIST),
 		MAMMA_PLACEMENT_PLANTE_DYNAMIQUE("a2024.MammaPlacementPlanteDynamique", false, ActionFile.ACTION_REFLEXIVE),
 		MAMMA_PLACEMENT_POT_DYNAMIQUE("a2024.MammaPlacementPotDynamique", false, ActionFile.ACTION_REFLEXIVE),
+		MAMMA_PLACEMENT_POT_BIS_DYNAMIQUE("a2024.MammaPlacementPotBisDynamique", false, ActionFile.ACTION_REFLEXIVE),
+		MAMMA_CHARIOT_TEST("mamma_chariot_test.json", false, ActionFile.ACTION_LIST),
 
 		DELAY_250_MS("250", false, ActionFile.ACTION_DELAY),
 		DELAY_500_MS("500", false, ActionFile.ACTION_DELAY),

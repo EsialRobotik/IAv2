@@ -321,6 +321,7 @@ public class Asserv implements AsservInterface {
         return queueSize;
     }
 
+    @Override
     public void waitForAsserv() {
         while (!(this.getQueueSize() == 0 && this.getAsservStatus() == AsservInterface.AsservStatus.STATUS_IDLE)) {
             try {

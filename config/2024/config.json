@@ -168,7 +168,7 @@
     "detection": {
         "ultrasound": {
             "type": "srf04",
-            "windowSize": 3,
+            "windowSize": 6,
             "gpioList": [
                 {
                     "desc": "Avant gauche",
@@ -207,12 +207,6 @@
                     "threshold": 500
                 }
             ]
-        },
-        "lidar": {
-            "baud": 115200,
-            "serie": "/dev/serial/by-id/usb-Silicon_Labs_CP2102_USB_to_UART_Bridge_Controller_0001-if00-port0",
-            "quality": 30,
-            "distance": 1000
         }
     }
 }
