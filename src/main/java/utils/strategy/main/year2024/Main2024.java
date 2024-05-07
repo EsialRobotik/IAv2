@@ -109,7 +109,10 @@ public class Main2024 extends AbstractMain {
             new Manipulation("Depose plante", ActionFileBinder.ActionFile.MAMMA_DEPOSER_PLANTE.ordinal())
         );
         taskList.add(
-            new Manipulation("On baisse la pince pour ramasser le pot", ActionFileBinder.ActionFile.MAMMA_RAMASSER_POT.ordinal())
+            new Manipulation("On baisse la pince pour ramasser le pot", ActionFileBinder.ActionFile.MAMMA_PLACEMENT_POT_BIS_DYNAMIQUE.ordinal())
+        );
+        taskList.add(
+                new Manipulation("On ramasse le pot", ActionFileBinder.ActionFile.MAMMA_RAMASSER_POT.ordinal())
         );
         taskList.add(
             new GoToBack("On se libère", 612, 500)

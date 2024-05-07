@@ -40,7 +40,7 @@ public class MammaPlacementPotBisDynamique extends ActionReflexiveAbstract {
                         return;
                     }
                     // on se prépare à ramasser
-                    executeSubActions(ActionFileBinder.ActionFile.MAMMA_PINCE_OUVRIR.ordinal());
+                    executeSubActions(ActionFileBinder.ActionFile.MAMMA_PINCE_OUVRIR_RAMASSER_POT.ordinal());
                     executeSubActions(ActionFileBinder.ActionFile.MAMMA_PINCE_BAISSER_POT_ATTRAPER.ordinal());
 
                     // on se repositionne
