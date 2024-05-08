@@ -23,7 +23,7 @@ public class Main2024 extends AbstractMain {
 
         // 0 = Bleu, 3000 = Jaune
         // Départ en x=1800 y=120, theta=Pi/2
-        panneauSolaire(true);
+        panneauSolaire(false);
         plante1();
         plante1();
         rechargeBatterie();
@@ -109,15 +109,21 @@ public class Main2024 extends AbstractMain {
             new Face("Alignement plante", 700, 3000)
         );
         taskList.add(
-            (new Manipulation("Ajustement position plante", ActionFileBinder.ActionFile.MAMMA_PLACEMENT_PLANTE_DYNAMIQUE.ordinal()))
-        );
-        taskList.add(
-                new Face("Alignement plante", 700, 3000)
-        );
-        taskList.add(
             (new Manipulation("Ramasse plante", ActionFileBinder.ActionFile.MAMMA_RAMASSER_PLANTE_NORD_LOIN.ordinal()))
         );
         taskList.add(new SetSpeed("Pas trop vite !!", 25));
+        taskList.add(
+            (new Manipulation("Ajustement position plante", ActionFileBinder.ActionFile.MAMMA_PLACEMENT_PLANTE_DYNAMIQUE.ordinal()))
+        );
+        taskList.add(
+            new Face("Alignement plante", 700, 3000)
+        );
+        taskList.add(
+            (new Manipulation("Ajustement position plante", ActionFileBinder.ActionFile.MAMMA_PINCE_FERMER_PLANTE.ordinal()))
+        );
+        taskList.add(
+            (new Manipulation("Ajustement position plante", ActionFileBinder.ActionFile.MAMMA_PINCE_LEVER_RAMI.ordinal()))
+        );
         taskList.add(
             new GoToBack("Sortie plante", 700, 650)
         );

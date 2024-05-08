@@ -30,10 +30,8 @@ public class MammaRamasserPlanteNordLoin extends ActionReflexiveAbstract {
                     return;
                 }
                 executeSubActions(ActionFileBinder.ActionFile.MAMMA_PINCE_LEVER_RAMI.ordinal());
-                executeSubActions(ActionFileBinder.ActionFile.MAMMA_PINCE_OUVRIR.ordinal());
+                executeSubActions(ActionFileBinder.ActionFile.MAMMA_PINCE_OUVRIR_RAMASSER_POT.ordinal());
                 executeSubActions(ActionFileBinder.ActionFile.MAMMA_PINCE_BAISSER_PLANTE.ordinal());
-                executeSubActions(ActionFileBinder.ActionFile.MAMMA_PINCE_FERMER_PLANTE.ordinal());
-                executeSubActions(ActionFileBinder.ActionFile.MAMMA_PINCE_LEVER_RAMI.ordinal());
                 finished = true;
             }
         }).start();
