@@ -22,10 +22,11 @@ public class Main2024 extends AbstractMain {
         startTheta_3000 = -startTheta_0;
 
         // 0 = Bleu, 3000 = Jaune
-        // Départ en x=1800 y=120, theta=Pi/2
+        // Départ en x=1750 y=120, theta=Pi/2
         panneauSolaire(false);
         plante1();
         plante1();
+        //plante2();
         rechargeBatterie();
 
         //testActions();
@@ -42,50 +43,50 @@ public class Main2024 extends AbstractMain {
         );
         taskList.add(new SetSpeed("Pas trop vite !!", 25));
         taskList.add(
-            new GoTo("Panneau 1", 1795, 350)
+            new GoTo("Panneau 1", 1800, 350)
         );
         score += 5;
         taskList.add(
-                new Face("Panneau 1", 1795, 3000)
+                new Face("Panneau 1", 1800, 3000)
         );
         taskList.add(
-            new GoTo("Panneau 2", 1795, 600)
+            new GoTo("Panneau 2", 1800, 600)
         );
         score += 5;
         taskList.add(
-                new Face("Panneau 2", 1795, 3000)
+                new Face("Panneau 2", 1800, 3000)
         );
         taskList.add(
-            new GoTo("Panneau 3", 1795, 750)
+            new GoTo("Panneau 3", 1800, 750)
         );
         score += 5;
 
         if (withMiddle) {
             taskList.add(
-                new Face("Panneau 4", 1795, 3000)
+                new Face("Panneau 4", 1800, 3000)
             );
             taskList.add(
-                new GoTo("Panneau 4", 1795, 1150)
+                new GoTo("Panneau 4", 1800, 1150)
             );
             taskList.add(
-                new Face("Panneau 4", 1795, 3000)
+                new Face("Panneau 4", 1800, 3000)
             );
             taskList.add(
-                new GoTo("Panneau 4", 1795, 1300)
-            );
-            score += 5;
-            taskList.add(
-                new Face("Panneau 5", 1795, 3000)
-            );
-            taskList.add(
-                new GoTo("Panneau 5", 1795, 1550)
+                new GoTo("Panneau 4", 1800, 1300)
             );
             score += 5;
             taskList.add(
-                new Face("Panneau 6", 1795, 3000)
+                new Face("Panneau 5", 1800, 3000)
             );
             taskList.add(
-                new GoTo("Panneau 6", 1795, 1750)
+                new GoTo("Panneau 5", 1800, 1550)
+            );
+            score += 5;
+            taskList.add(
+                new Face("Panneau 6", 1800, 3000)
+            );
+            taskList.add(
+                new GoTo("Panneau 6", 1800, 1750)
             );
             score += 5;
         }
@@ -103,7 +104,7 @@ public class Main2024 extends AbstractMain {
         int score = 0;
         TaskList taskList =  new TaskList(3000);
         taskList.add(
-            (new GoToAstar("Position plante", 700, 650))
+            (new GoToAstar("Position plante", 700, 600))
         );
         taskList.add(
             new Face("Alignement plante", 700, 3000)
@@ -149,7 +150,7 @@ public class Main2024 extends AbstractMain {
             new Manipulation("On baisse la pince pour ramasser le pot", ActionFileBinder.ActionFile.MAMMA_PLACEMENT_POT_BIS_DYNAMIQUE.ordinal())
         );
         taskList.add(
-                new Manipulation("On ramasse le pot", ActionFileBinder.ActionFile.MAMMA_RAMASSER_POT.ordinal())
+            new Manipulation("On ramasse le pot", ActionFileBinder.ActionFile.MAMMA_RAMASSER_POT.ordinal())
         );
         taskList.add(
             new GoToBack("On se libère", 612, 500)
@@ -161,13 +162,16 @@ public class Main2024 extends AbstractMain {
             new Face("On va a la jardiniere", 0, 785)
         );
         taskList.add(
-            new Go("On se recalle bien", 100, 500)
+            new GoTo("On va a la jardiniere", 215, 785)
+        );
+        taskList.add(
+            new Face("On va a la jardiniere", 0, 785)
         );
         taskList.add(
             new Manipulation("On lache tout", ActionFileBinder.ActionFile.MAMMA_DEPOSER_POT.ordinal())
         );
         taskList.add(
-                new Manipulation("On lache tout", ActionFileBinder.ActionFile.MAMMA_PINCE_RANGER.ordinal())
+            new Manipulation("On lache tout", ActionFileBinder.ActionFile.MAMMA_PINCE_RANGER.ordinal())
         );
         taskList.add(
             new Manipulation("On range le bras", ActionFileBinder.ActionFile.MAMMA_PINCE_LEVER_VERTICAL.ordinal())
@@ -175,16 +179,89 @@ public class Main2024 extends AbstractMain {
         taskList.add(
             new Go("On se libère", -50)
         );
-        taskList.add(
-            new GoToBack("On se libère", 350, 785)
-        );
         score += 5;
-        taskList.add(
-            new GoToBack("Position pot", 612, 650)
-        );
         taskList.add(new SetSpeed("A fond !!!", 100));
-        objectifsCouleur0.add(taskList.generateObjectif("Panneaux solaire", objectifsCouleur0.size()+1, score, 1));
-        objectifsCouleur3000.add(taskList.generateMirrorObjectif("Panneaux solaire", objectifsCouleur3000.size()+1, score, 1));
+        objectifsCouleur0.add(taskList.generateObjectif("Plante jardinière", objectifsCouleur0.size()+1, score, 1));
+        objectifsCouleur3000.add(taskList.generateMirrorObjectif("Plante jardinière", objectifsCouleur3000.size()+1, score, 1));
+    }
+
+    public static void plante2() {
+        int score = 0;
+        TaskList taskList =  new TaskList(3000);
+        taskList.add(
+            (new GoToAstar("Position plante", 1300, 600))
+        );
+        taskList.add(
+            new Face("Alignement plante", 1300, 3000)
+        );
+        taskList.add(
+            (new Manipulation("Ramasse plante", ActionFileBinder.ActionFile.MAMMA_RAMASSER_PLANTE_NORD_LOIN.ordinal()))
+        );
+        taskList.add(new SetSpeed("Pas trop vite !!", 25));
+        taskList.add(
+            (new Manipulation("Ajustement position plante", ActionFileBinder.ActionFile.MAMMA_PLACEMENT_PLANTE_DYNAMIQUE.ordinal()))
+        );
+        taskList.add(
+            new Face("Alignement plante", 1300, 3000)
+        );
+        taskList.add(
+            (new Manipulation("Ajustement position plante", ActionFileBinder.ActionFile.MAMMA_PINCE_FERMER_PLANTE.ordinal()))
+        );
+        taskList.add(
+            (new Manipulation("Ajustement position plante", ActionFileBinder.ActionFile.MAMMA_PINCE_LEVER_RAMI.ordinal()))
+        );
+        taskList.add(
+            new GoToBack("Sortie plante", 1300, 650)
+        );
+        taskList.add(
+            new GoTo("Position pot", 1600, 1000)
+        );
+        taskList.add(
+            new Face("Position pot", 2000, 1000)
+        );
+        taskList.add(
+            (new Manipulation("Ajustement position pot", ActionFileBinder.ActionFile.MAMMA_PLACEMENT_POT_DYNAMIQUE.ordinal()))
+        );
+        taskList.add(
+            new Face("Position pot", 2000, 1000)
+        );
+        taskList.add(
+            new Manipulation("Depose plante", ActionFileBinder.ActionFile.MAMMA_CHARIOT_ALIGNER_PLANTE.ordinal())
+        );
+        taskList.add(
+            new Manipulation("Depose plante", ActionFileBinder.ActionFile.MAMMA_DEPOSER_PLANTE.ordinal())
+        );
+        taskList.add(
+            new Manipulation("On baisse la pince pour ramasser le pot", ActionFileBinder.ActionFile.MAMMA_PLACEMENT_POT_BIS_DYNAMIQUE.ordinal())
+        );
+        taskList.add(
+            new Manipulation("On ramasse le pot", ActionFileBinder.ActionFile.MAMMA_RAMASSER_POT.ordinal())
+        );
+        taskList.add(
+            new GoToBack("On se libère", 1600, 1000)
+        );
+        taskList.add(
+            new GoTo("On va au départ", 1550, 450)
+        );
+        taskList.add(
+            new Face("On s'aline", 2000, 0)
+        );
+        taskList.add(
+            new Manipulation("On lache tout", ActionFileBinder.ActionFile.MAMMA_DEPOSER_POT.ordinal())
+        );
+        taskList.add(
+            new Manipulation("On lache tout", ActionFileBinder.ActionFile.MAMMA_PINCE_RANGER.ordinal())
+        );
+        taskList.add(
+            new Manipulation("On range le bras", ActionFileBinder.ActionFile.MAMMA_PINCE_LEVER_VERTICAL.ordinal())
+        );
+        taskList.add(
+            new GoToBack("On se libère", 1400, 600)
+        );
+        score += 4;
+        taskList.add(new SetSpeed("A fond !!!", 100));
+        objectifsCouleur0.add(taskList.generateObjectif("Plante départ", objectifsCouleur0.size()+1, score, 1));
+        objectifsCouleur3000.add(taskList.generateMirrorObjectif("Plante départ", objectifsCouleur3000.size()+1, score, 1));
     }
 
     public static void testActions() {

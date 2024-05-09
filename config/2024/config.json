@@ -2,7 +2,7 @@
     "desc": "Configuration du robot 2024 - MamaPrincess",
     "gpioColorSelector": 5,
     "gpioTirette": 4,
-    "matchDuration": 99,
+    "matchDuration": 89,
     "table0Path": "table0.tbl",
     "table3000Path": "table3000.tbl",
     "tableJsonPath": "table.json",
@@ -79,22 +79,22 @@
             },
             {
                 "type": "goto_back",
-                "x": 1795,
+                "x": 1800,
                 "y": 378
             },
             {
                 "type": "face",
-                "x": 1795,
+                "x": 1800,
                 "y": 3000
             },
             {
                 "type": "goto_back",
-                "x": 1795,
+                "x": 1800,
                 "y": 120
             },
             {
                 "type": "face",
-                "x": 1795,
+                "x": 1800,
                 "y": 3000
             }
         ],
@@ -131,22 +131,22 @@
             },
             {
                 "type": "goto_back",
-                "x": 1795,
+                "x": 1800,
                 "y": 2622
             },
             {
                 "type": "face",
-                "x": 1795,
+                "x": 1800,
                 "y": 0
             },
             {
                 "type": "goto_back",
-                "x": 1795,
+                "x": 1800,
                 "y": 2880
             },
             {
                 "type": "face",
-                "x": 1795,
+                "x": 1800,
                 "y": 0
             }
         ]

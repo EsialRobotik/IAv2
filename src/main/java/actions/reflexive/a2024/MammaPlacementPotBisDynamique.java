@@ -23,7 +23,7 @@ public class MammaPlacementPotBisDynamique extends ActionReflexiveAbstract {
             @Override
             public void run() {
                 AsservInterface asservInterface = actionFileBinder.getAsservInterface();
-                asservInterface.go(-50);
+                asservInterface.go(-80);
                 asservInterface.waitForAsserv();
                 String scanResult = executeSubActions(ActionFileBinder.ActionFile.MAMMA_CHARIOT_CHERCHER_GROSSE_EMMERDE.ordinal());
                 logger.info("Chercher grosse emmerde : " + scanResult);

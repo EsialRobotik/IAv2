@@ -22,7 +22,6 @@ public class MammaPlacementPlanteDynamique extends ActionReflexiveAbstract {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                executeSubActions(ActionFileBinder.ActionFile.MAMMA_PINCE_LEVER_VERTICAL.ordinal());
                 String scanResult = executeSubActions(ActionFileBinder.ActionFile.MAMMA_CHARIOT_CHERCHER_EMMERDE.ordinal());
                 logger.info("Chercher emmerde : " + scanResult);
                 if (scanResult.trim().contains("ko")) {
