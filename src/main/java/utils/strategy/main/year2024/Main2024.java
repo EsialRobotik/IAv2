@@ -43,23 +43,35 @@ public class Main2024 extends AbstractMain {
         );
         taskList.add(new SetSpeed("Pas trop vite !!", 25));
         taskList.add(
-            new GoTo("Panneau 1", 1800, 350)
+            new GoTo("Panneau 1", 1800, 250)
         );
         score += 5;
         taskList.add(
-                new Face("Panneau 1", 1800, 3000)
+            new Face("Panneau 1", 1800, 3000)
         );
         taskList.add(
-            new GoTo("Panneau 2", 1800, 600)
+            new GoTo("Panneau 1", 1795, 350)
+        );
+        taskList.add(
+            new GoTo("Panneau 2", 1800, 475)
         );
         score += 5;
         taskList.add(
                 new Face("Panneau 2", 1800, 3000)
         );
         taskList.add(
-            new GoTo("Panneau 3", 1800, 750)
+            new GoTo("Panneau 2", 1795, 575)
+        );
+        taskList.add(
+            new GoTo("Panneau 3", 1800, 700)
         );
         score += 5;
+        taskList.add(
+                new Face("Panneau 3", 1800, 3000)
+        );
+        taskList.add(
+            new GoTo("Panneau 3", 1795, 800)
+        );
 
         if (withMiddle) {
             taskList.add(
