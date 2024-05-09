@@ -104,7 +104,7 @@ public class Main2024 extends AbstractMain {
         int score = 0;
         TaskList taskList =  new TaskList(3000);
         taskList.add(
-            (new GoToAstar("Position plante", 700, 600))
+            (new GoToAstar("Position plante", 700, 590))
         );
         taskList.add(
             new Face("Alignement plante", 700, 3000)
@@ -129,7 +129,7 @@ public class Main2024 extends AbstractMain {
             new GoToBack("Sortie plante", 700, 650)
         );
         taskList.add(
-            new GoTo("Position pot", 612, 385)
+            new GoTo("Position pot", 612, 390)
         );
         taskList.add(
             new Face("Position pot", 612, 0)
@@ -169,9 +169,6 @@ public class Main2024 extends AbstractMain {
         );
         taskList.add(
             new Manipulation("On lache tout", ActionFileBinder.ActionFile.MAMMA_DEPOSER_POT.ordinal())
-        );
-        taskList.add(
-            new Manipulation("On lache tout", ActionFileBinder.ActionFile.MAMMA_PINCE_RANGER.ordinal())
         );
         taskList.add(
             new Manipulation("On range le bras", ActionFileBinder.ActionFile.MAMMA_PINCE_LEVER_VERTICAL.ordinal())
