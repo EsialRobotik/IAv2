@@ -6,7 +6,7 @@ import asserv.AsservInterface;
 
 public class MammaPlacementPotDynamique extends ActionReflexiveAbstract {
     String searchResult;
-    private int optimalDistance = 130;
+    private int optimalDistance = 160;
 
     public MammaPlacementPotDynamique(ActionFileBinder actionFileBinder) {
         super(actionFileBinder);

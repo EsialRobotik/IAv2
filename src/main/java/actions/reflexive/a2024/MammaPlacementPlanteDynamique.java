@@ -6,7 +6,7 @@ import asserv.AsservInterface;
 
 public class MammaPlacementPlanteDynamique extends ActionReflexiveAbstract {
     String searchResult;
-    private int optimalDistance = 140;
+    private int optimalDistance = 110;
 
     public MammaPlacementPlanteDynamique(ActionFileBinder actionFileBinder) {
         super(actionFileBinder);
@@ -22,7 +22,7 @@ public class MammaPlacementPlanteDynamique extends ActionReflexiveAbstract {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                String scanResult = executeSubActions(ActionFileBinder.ActionFile.MAMMA_CHARIOT_CHERCHER_EMMERDE.ordinal());
+                String scanResult = executeSubActions(ActionFileBinder.ActionFile.MAMMA_CHARIOT_CHERCHER_GROSSE_EMMERDE.ordinal());
                 logger.info("Chercher emmerde : " + scanResult);
                 if (scanResult.trim().contains("ko")) {
                     searchResult = "plant_n_ko";

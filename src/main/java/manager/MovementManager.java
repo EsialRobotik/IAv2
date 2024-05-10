@@ -113,11 +113,7 @@ public class MovementManager {
             this.asservInterface.go(step.getDistance());
             if (step.getTimeout() > 0) {
                 this.asservInterface.enableLowSpeed(true);
-                try {
-                    Thread.sleep(step.getTimeout());
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                this.asservInterface.waitForHaltedOrBlocked(step.getTimeout());
                 this.asservInterface.emergencyStop();
                 this.asservInterface.emergencyReset();
                 this.asservInterface.enableLowSpeed(false);

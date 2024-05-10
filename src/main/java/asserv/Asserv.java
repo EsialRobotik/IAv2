@@ -227,6 +227,12 @@ public class Asserv implements AsservInterface {
     }
 
     @Override
+    public void setSpeedCallage(int pct) {
+        logger.info("setSpeed " + pct + "%");
+        serial.write("S" + pct);
+    }
+
+    @Override
     public void enableRegulatorAngle(boolean enable) {
         logger.info("enableRegulatorAngle : " + enable);
         serial.write(enable ? "Rae" : "Rad");
@@ -333,9 +339,22 @@ public class Asserv implements AsservInterface {
     }
 
     @Override
+    public void waitForHaltedOrBlocked(long timeoutMs) {
+        long startTime = System.currentTimeMillis();
+        while (asservStatus == AsservStatus.STATUS_RUNNING
+            && (System.currentTimeMillis() - startTime) < timeoutMs) {
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    @Override
     public void goStart(boolean isColor0) throws Exception {
         JsonArray start = this.config.getAsJsonArray(isColor0 ? "start0" : "start3000");
-        enableLowSpeed(true);
+        setSpeedCallage(25);
         Thread.sleep(150);
         for (JsonElement instruction : start) {
             JsonObject temp = instruction.getAsJsonObject();
@@ -349,7 +368,7 @@ public class Asserv implements AsservInterface {
                 case "go_timed":
                     this.logger.info("Go timed " + temp.get("dist").getAsInt());
                     go(temp.get("dist").getAsInt());
-                    Thread.sleep(500);
+                    waitForHaltedOrBlocked(500);
                     emergencyStop();
                     Thread.sleep(150);
                     emergencyReset();
@@ -399,7 +418,7 @@ public class Asserv implements AsservInterface {
             }
             waitForAsserv();
         }
-        enableLowSpeed(false);
+        setSpeedCallage(100);
         Thread.sleep(150);
         this.logger.info("goStart finished");
     }

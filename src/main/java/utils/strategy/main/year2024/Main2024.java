@@ -104,7 +104,7 @@ public class Main2024 extends AbstractMain {
         int score = 0;
         TaskList taskList =  new TaskList(3000);
         taskList.add(
-            (new GoToAstar("Position plante", 700, 590))
+            (new GoToAstar("Position plante", 700, 580))
         );
         taskList.add(
             new Face("Alignement plante", 700, 3000)

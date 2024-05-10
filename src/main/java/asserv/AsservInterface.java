@@ -113,6 +113,12 @@ public interface AsservInterface {
     void setSpeed(int pct);
 
     /**
+     * Définie la vitesse maximum en %
+     * @param pct pourcentage de la vitesse max
+     */
+    void setSpeedCallage(int pct);
+
+    /**
      * Active ou désactive le régulateur d'angle
      * @param enable true pour activer, false pour désactiver
      */
@@ -171,4 +177,6 @@ public interface AsservInterface {
     void goStart(boolean isColor0) throws Exception;
 
     void waitForAsserv();
+
+    void waitForHaltedOrBlocked(long timeoutMs);
 }
