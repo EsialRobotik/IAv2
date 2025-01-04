@@ -98,8 +98,9 @@ public class Lidar {
     private void parseLidarMeasures(String serialBuffer) {
         // todo
         // -7231.14;-1829.55
+        System.out.println("FUUUUU pre trim " + serialBuffer);
         serialBuffer.trim();
-        System.out.println("FUUUUU " + serialBuffer);
+        System.out.println("FUUUUU trim " + serialBuffer);
     }
 
     /******************************

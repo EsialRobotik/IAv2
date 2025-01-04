@@ -210,6 +210,9 @@ public class Main {
                 case "funny-action":
                     Main.funnyAction();
                     break;
+                case "demo":
+                    Main.demo();
+                    break;
             }
 
         } else {
@@ -248,6 +251,7 @@ public class Main {
         System.out.println("\t- actions : Test des actions");
         System.out.println("\t- lidar : Test du lidar");
         System.out.println("\t- funny-action : Test de la funny action en utilisant l'interrupteur de couleur comme déclencheur\n");
+        System.out.println("\t- demo : Demo fun du robot");
 
         System.out.println("configFile : chemin du fichier de configuration à utiliser. Par defaut, './config.json'\n");
     }
@@ -674,8 +678,8 @@ public class Main {
 
     private static void testLidar() {
         Lidar lidar = new Lidar(
-                "/dev/serial/by-id/usb-Silicon_Labs_CP2102_USB_to_UART_Bridge_Controller_0001-if00-port0",
-                Baud._115200
+            "/dev/serial/by-id/usb-Silicon_Labs_CP2102_USB_to_UART_Bridge_Controller_0001-if00-port0",
+            Baud._115200
         );
         try {
             Thread.sleep(5000);
@@ -716,6 +720,43 @@ public class Main {
             Thread.sleep(500);
             i++;
         }
+    }
+
+    private static void demo() throws IOException, InterruptedException, AX12LinkException, ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+        //Load of the configuration first
+        ConfigurationManager configurationManager = new ConfigurationManager();
+        configurationManager.loadConfiguration(configFilePath);
+
+        ArrayList<Integer> actions = new ArrayList<>();
+        actions.add(ActionFileBinder.ActionFile.MAMMA_INIT.ordinal());
+        actions.add(ActionFileBinder.ActionFile.MAMMA_RAMASSER_PLANTE_NORD_LOIN.ordinal());
+        actions.add(ActionFileBinder.ActionFile.MAMMA_PLACEMENT_PLANTE_DYNAMIQUE.ordinal());
+        actions.add(ActionFileBinder.ActionFile.MAMMA_PINCE_FERMER_PLANTE.ordinal());
+        actions.add(ActionFileBinder.ActionFile.MAMMA_PINCE_LEVER_RAMI.ordinal());
+        actions.add(ActionFileBinder.ActionFile.MAMMA_PLACEMENT_POT_DYNAMIQUE.ordinal());
+        actions.add(ActionFileBinder.ActionFile.MAMMA_CHARIOT_ALIGNER_PLANTE.ordinal());
+        actions.add(ActionFileBinder.ActionFile.MAMMA_DEPOSER_PLANTE.ordinal());
+        actions.add(ActionFileBinder.ActionFile.MAMMA_PLACEMENT_POT_BIS_DYNAMIQUE.ordinal());
+        actions.add(ActionFileBinder.ActionFile.MAMMA_RAMASSER_POT.ordinal());
+        actions.add(ActionFileBinder.ActionFile.MAMMA_DEPOSER_POT.ordinal());
+        actions.add(ActionFileBinder.ActionFile.MAMMA_PINCE_LEVER_VERTICAL.ordinal());
+
+        for (Integer actionIdOrdinal : actions) {
+            configurationManager.getActionSupervisor().executeCommand(actionIdOrdinal);
+            while (!configurationManager.getActionSupervisor().isLastExecutionFinished()) {
+                try {
+                    Thread.sleep(10);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            try {
+                Thread.sleep(200);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
     private static void waitForAsserv(AsservInterface asservInterface) {
