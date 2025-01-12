@@ -122,14 +122,13 @@ public class MasterLoop {
         updateScore();
         while (!interrupted) {
             if (!somethingDetected) {
-                // 1/ we check if we detect something
-                boolean[] detected = this.detectionManager.getEmergencyDetectionMap();
-                if (detected[0] || detected[1] || detected[2] || detected[3]) {
+                // 1/ we check if we detect something with emergency close detection
+                if (this.detectionManager.isEmergencyDetection()) {
                     //We detect something, we get the movement direction and we check if we detect it in the right side
                     AsservInterface.MovementDirection direction = this.movementManager.getMovementDirection();
 
                     if (direction != null && direction.equals(AsservInterface.MovementDirection.FORWARD)
-                            && (detected[0] || detected[1] || detected[2])) {
+                            && this.detectionManager.isEmergencyDetectionFront()) {
                         logger.info("C'est devant, faut s'arrêter");
                         //We detect something. That's horrible
                         movementManager.haltAsserv(true);
@@ -137,7 +136,7 @@ public class MasterLoop {
                         somethingDetected = true;
                         continue;
                     } else if (direction != null && direction.equals(AsservInterface.MovementDirection.BACKWARD)
-                            && detected[3]) {
+                            && this.detectionManager.isEmergencyDetectionBack()) {
                         logger.info("C'est derrière, faut s'arrêter");
                         // something is sneaking on us, grab the rocket launcher
                         movementManager.haltAsserv(true);
@@ -194,12 +193,11 @@ public class MasterLoop {
                 }
             } else { //We detect something last loop. let's check if we still see it, either let's resume the move
                 //If we want to put smart code, it's here
-                boolean[] detected = this.detectionManager.getEmergencyDetectionMap();
-                if (movingForward && !detected[0] && !detected[1] && !detected[2]) {
+                if (movingForward && !this.detectionManager.isEmergencyDetectionFront()) {
                     logger.info("OK devant");
                     movementManager.resumeAsserv();
                     somethingDetected = false;
-                } else if (!movingForward && !detected[3]) {
+                } else if (!movingForward && !this.detectionManager.isEmergencyDetectionBack()) {
                     logger.info("OK derrière");
                     movementManager.resumeAsserv();
                     somethingDetected = false;
