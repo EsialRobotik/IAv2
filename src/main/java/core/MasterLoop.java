@@ -123,7 +123,7 @@ public class MasterLoop {
         while (!interrupted) {
             if (!somethingDetected) {
                 // 1/ we check if we detect something with emergency close detection
-                if (this.detectionManager.isEmergencyDetection()) {
+                if (this.detectionManager.emergencyDetection()) {
                     //We detect something, we get the movement direction and we check if we detect it in the right side
                     AsservInterface.MovementDirection direction = this.movementManager.getMovementDirection();
 

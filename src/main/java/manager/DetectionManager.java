@@ -39,12 +39,6 @@ public class DetectionManager {
         return this.ultraSoundManager.getDetectionPosition();
     }
 
-    public boolean isEmergencyDetection()
-    {
-        boolean[] detected = this.getEmergencyDetectionMap();
-        return detected[0] || detected[1] || detected[2] || detected[3];
-    }
-
     public boolean isEmergencyDetectionFront()
     {
         boolean[] detected = this.getEmergencyDetectionMap();
