@@ -162,4 +162,52 @@ public class MovementManager {
         isMatchStarted = matchStarted;
     }
 
+    public boolean isTrajectoryBlocked(List<Point> detectedPoints) {
+        if (gotoQueue.isEmpty()) {
+            return false;
+        }
+
+        Position currentPosition = this.asservInterface.getPosition();
+        List<Point> trajectory = new ArrayList<>(gotoQueue);
+        if (!trajectory.isEmpty()) {
+            trajectory.add(0, new Point(currentPosition.getX(), currentPosition.getY()));
+        }
+
+        for (int i = 0; i < trajectory.size() - 1; i++) {
+            Point start = trajectory.get(i);
+            Point end = trajectory.get(i + 1);
+            for (Point center : detectedPoints) {
+                if (isSegmentIntersectingCircle(start, end, center, 150)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean isSegmentIntersectingCircle(Point start, Point end, Point center, int radius) {
+        double dx = end.x - start.x;
+        double dy = end.y - start.y;
+        double fx = start.x - center.x;
+        double fy = start.y - center.y;
+
+        double a = dx * dx + dy * dy;
+        double b = 2 * (fx * dx + fy * dy);
+        double c = (fx * fx + fy * fy) - radius * radius;
+
+        double discriminant = b * b - 4 * a * c;
+        if (discriminant < 0) {
+            return false;
+        }
+
+        discriminant = Math.sqrt(discriminant);
+        double t1 = (-b - discriminant) / (2 * a);
+        double t2 = (-b + discriminant) / (2 * a);
+
+        if (t1 >= 0 && t1 <= 1 || t2 >= 0 && t2 <= 1) {
+            return true;
+        }
+
+        return false;
+    }
 }

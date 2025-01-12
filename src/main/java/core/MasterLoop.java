@@ -189,6 +189,8 @@ public class MasterLoop {
                         // todo gérer blocage via asservstatus et les infps des moteurs pour avoir une parade au blocage
                         //  idée en vrac : si 2 moteurs positif, faut reculer, si négatif, avancer, si différent,
                         //  tourner un peu dans l'autre sens et se dégager
+                    } else if (this.movementManager.isTrajectoryBlocked(this.detectionManager.getLongRangeDetection())) {
+                        // todo faut faire des trucs là !!! genre update les zones interdites et relancer AStar
                     }
                 }
             } else { //We detect something last loop. let's check if we still see it, either let's resume the move

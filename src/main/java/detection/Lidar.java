@@ -3,6 +3,7 @@ package detection;
 import api.communication.Serial;
 import api.log.LoggerFactory;
 import asserv.Asserv;
+import asserv.AsservInterface;
 import com.google.gson.JsonObject;
 import com.pi4j.io.serial.Baud;
 import com.pi4j.io.serial.SerialDataEventListener;
@@ -20,6 +21,7 @@ import java.util.List;
 public class Lidar {
     private Serial lidarSerial;
     private List<Point> detectedPoints;
+    private AsservInterface asserv;
 
     /**
      * Logger
@@ -45,7 +47,7 @@ public class Lidar {
      * @param serialPort Port série
      * @param baudRate Baud rate
      */
-    public Lidar(String serialPort, Baud baudRate) {
+    public Lidar(String serialPort, Baud baudRate, AsservInterface asserv) {
         logger = LoggerFactory.getLogger(Asserv.class);
 
         logger.info("Initialisation de la liason série du lidar, port =  " + serialPort + ", baudRate = " + baudRate.getValue());
@@ -61,9 +63,10 @@ public class Lidar {
             }
         });
         this.detectedPoints = new ArrayList<>();
+        this.asserv = asserv;
     }
 
-    public Lidar(JsonObject config) {
+    public Lidar(JsonObject config, AsservInterface asserv) {
         this.logger = LoggerFactory.getLogger(Asserv.class);
 
         String serialPort = config.get("serie").getAsString();
@@ -82,6 +85,7 @@ public class Lidar {
             }
         });
         this.detectedPoints = new ArrayList<>();
+        this.asserv = asserv;
     }
 
     /**
@@ -120,10 +124,22 @@ public class Lidar {
             // Vérifier que nous avons bien deux coordonnées
             if (coordinates.length == 2) {
                 try {
+                    double x = Double.parseDouble(coordinates[0]);
+                    double y = Double.parseDouble(coordinates[1]);
+
+                    // Effectuer le changement de repère avec rotation
+                    double relativeX = x - asserv.getPosition().getX();
+                    double relativeY = y - asserv.getPosition().getY();
+
+                    // Appliquer la rotation inverse
+                    double angle = asserv.getPosition().getTheta();
+                    double rotatedX = relativeX * Math.cos(angle) + relativeY * Math.sin(angle);
+                    double rotatedY = -relativeX * Math.sin(angle) + relativeY * Math.cos(angle);
+
                     // Ajouter le point à la liste des points détectés
                     detectedPoints.add(new Point(
-                        (int) Math.round(Double.parseDouble(coordinates[0])),
-                        (int) Math.round(Double.parseDouble(coordinates[1]))
+                        (int) Math.round(rotatedX),
+                        (int) Math.round(rotatedY)
                     ));
                 } catch (NumberFormatException e) {
                     logger.error("Erreur de format de nombre pour les coordonnées : " + point);
@@ -250,6 +266,13 @@ public class Lidar {
         } else if (coordinateMode.equals(Coordinate.POLAR_RADIANS)) {
             lidarSerial.write("fr");
         }
+    }
+
+    /**
+     * Get detected points from Lidar
+     */
+    public List<Point> getDetectedPoints() {
+        return detectedPoints;
     }
 
     public static void main(String[] args) {

@@ -22,6 +22,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import detection.Lidar;
 import detection.SrfDetectionNetwork;
 import detection.SrfDetectionNetworkInterface;
 import gnu.io.SerialPort;
@@ -140,7 +141,8 @@ public class ConfigurationManager {
             SrfDetectionNetworkInterface detectionInterface = new SrfDetectionNetwork(configObject.getAsJsonObject("ultrasound"));
             int windowSize = configObject.getAsJsonObject("ultrasound").get("windowSize").getAsInt();
             ultraSoundManager = new UltraSoundManager(detectionInterface, windowSize, table, movementManager);
-            detectionManager = new DetectionManager(detectionInterface, ultraSoundManager);
+            Lidar lidar = new Lidar(configObject.getAsJsonObject("lidar"), asserv);
+            detectionManager = new DetectionManager(detectionInterface, ultraSoundManager, lidar);
         }
 
         if( config == CONFIG_NOMINAL ||

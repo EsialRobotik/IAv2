@@ -1,7 +1,11 @@
 package manager;
 
 import asserv.Position;
+import detection.Lidar;
 import detection.SrfDetectionNetworkInterface;
+import pathfinding.table.Point;
+
+import java.util.List;
 
 /**
  * Created by icule on 12/05/17.
@@ -9,10 +13,16 @@ import detection.SrfDetectionNetworkInterface;
 public class DetectionManager {
     private UltraSoundManager ultraSoundManager;
     private SrfDetectionNetworkInterface detectionInterface;
+    private Lidar lidar;
     
-    public DetectionManager(SrfDetectionNetworkInterface detectionInterface, UltraSoundManager ultraSoundManager) {
+    public DetectionManager(
+        SrfDetectionNetworkInterface detectionInterface,
+        UltraSoundManager ultraSoundManager,
+        Lidar lidar
+    ) {
         this.ultraSoundManager = ultraSoundManager;
         this.detectionInterface = detectionInterface;
+        this.lidar = lidar;
     }
 
     public void startDetection() {
@@ -49,5 +59,10 @@ public class DetectionManager {
     {
         boolean[] detected = this.getEmergencyDetectionMap();
         return detected[3];
+    }
+
+    public List<Point> getLongRangeDetection()
+    {
+        return this.lidar.getDetectedPoints();
     }
 }
