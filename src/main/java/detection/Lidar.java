@@ -112,6 +112,7 @@ public class Lidar {
 
         // Nettoyer la chaîne de caractères
         serialBuffer = serialBuffer.trim();
+        logger.debug("Lidar buffer : " + serialBuffer);
 
         // Séparer les coordonnées par le caractère #
         String[] points = serialBuffer.split("#");

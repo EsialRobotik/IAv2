@@ -23,8 +23,6 @@ import asserv.AsservInterface;
 import asserv.Position;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.pi4j.io.serial.Baud;
-import detection.Lidar;
 import gnu.io.SerialPort;
 import manager.ConfigurationManager;
 import manager.DetectionManager;
@@ -676,17 +674,23 @@ public class Main {
         System.out.println(markerIds);
     }
 
-    private static void testLidar() {
-        Lidar lidar = new Lidar(
-            "/dev/serial/by-id/usb-Silicon_Labs_CP2102_USB_to_UART_Bridge_Controller_0001-if00-port0",
-            Baud._115200
-        );
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+    private static void testLidar() throws IOException, ClassNotFoundException, InvocationTargetException, AX12LinkException, NoSuchMethodException, InstantiationException, IllegalAccessException, InterruptedException {
+        logger.info("Start Lidar test");
+
+        //Load of the configuration first
+        ConfigurationManager configurationManager = new ConfigurationManager();
+        configurationManager.loadConfiguration(configFilePath, ConfigurationManager.CONFIG_TEST_DETECTION);
+        DetectionManager detectionManager = configurationManager.getDetectionManager();
+
+        //Position position = configurationManager.getAsserv().getPosition();
+        //position.setX(1000);
+        //position.setY(500);
+        //position.setTheta(Math.PI/2);
+
+        while (true) {
+            Thread.sleep(500);
+            logger.info("Lidar data : " + detectionManager.getLongRangeDetection());
         }
-        lidar.reset();
     }
 
     public static void funnyAction() throws ClassNotFoundException, InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
