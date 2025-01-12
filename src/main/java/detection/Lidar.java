@@ -7,8 +7,11 @@ import com.google.gson.JsonObject;
 import com.pi4j.io.serial.Baud;
 import com.pi4j.io.serial.SerialDataEventListener;
 import org.apache.logging.log4j.Logger;
+import pathfinding.table.Point;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Interface with RPLidar A2 through ESP32
@@ -16,6 +19,7 @@ import java.io.IOException;
  */
 public class Lidar {
     private Serial lidarSerial;
+    private List<Point> detectedPoints;
 
     /**
      * Logger
@@ -24,7 +28,8 @@ public class Lidar {
 
     public enum Mode {
         STANDARD,
-        CLUSTERING
+        CLUSTERING,
+        CLUSTERING_ONE_LINE
     }
 
     public enum Coordinate {
@@ -55,6 +60,7 @@ public class Lidar {
                 logger.error("Echec du parsing de la position : " + e.getMessage());
             }
         });
+        this.detectedPoints = new ArrayList<>();
     }
 
     public Lidar(JsonObject config) {
@@ -75,6 +81,7 @@ public class Lidar {
                 this.logger.error("Echec du parsing de la position : " + e.getMessage());
             }
         });
+        this.detectedPoints = new ArrayList<>();
     }
 
     /**
@@ -85,9 +92,9 @@ public class Lidar {
     private void init(int quality, int distance) {
         this.reset();
         this.setCoordinateMode(Coordinate.CARTESIAN);
-        this.setMode(Mode.CLUSTERING);
-        //this.setQuality(quality);
-        //this.setDistance(distance);
+        this.setMode(Mode.CLUSTERING_ONE_LINE);
+        this.setQuality(quality);
+        this.setDistance(distance);
         this.startScan();
     }
 
@@ -96,11 +103,36 @@ public class Lidar {
      * @param serialBuffer Lidar buffer from serial
      */
     private void parseLidarMeasures(String serialBuffer) {
-        // todo
-        // -7231.14;-1829.55
-        System.out.println("FUUUUU pre trim " + serialBuffer);
-        serialBuffer.trim();
-        System.out.println("FUUUUU trim " + serialBuffer);
+        // Nettoyer la liste des points détectés
+        detectedPoints.clear();
+
+        // Nettoyer la chaîne de caractères
+        serialBuffer = serialBuffer.trim();
+
+        // Séparer les coordonnées par le caractère #
+        String[] points = serialBuffer.split("#");
+
+        // Parcourir chaque point
+        for (String point : points) {
+            // Séparer les coordonnées x et y par le caractère ;
+            String[] coordinates = point.split(";");
+
+            // Vérifier que nous avons bien deux coordonnées
+            if (coordinates.length == 2) {
+                try {
+                    // Ajouter le point à la liste des points détectés
+                    detectedPoints.add(new Point(
+                        (int) Math.round(Double.parseDouble(coordinates[0])),
+                        (int) Math.round(Double.parseDouble(coordinates[1]))
+                    ));
+                } catch (NumberFormatException e) {
+                    logger.error("Erreur de format de nombre pour les coordonnées : " + point);
+                }
+            } else {
+                logger.error("Erreur de format pour le point : " + point);
+            }
+        }
+
     }
 
     /******************************
@@ -130,6 +162,8 @@ public class Lidar {
             lidarSerial.write("mf");
         } else if (mode.equals(Mode.CLUSTERING)) {
             lidarSerial.write("mc");
+        } else if (mode.equals(Mode.CLUSTERING_ONE_LINE)) {
+            lidarSerial.write("mo");
         }
     }
 
@@ -216,5 +250,10 @@ public class Lidar {
         } else if (coordinateMode.equals(Coordinate.POLAR_RADIANS)) {
             lidarSerial.write("fr");
         }
+    }
+
+    public static void main(String[] args) {
+        System.out.println((int) Math.round(Double.parseDouble("3.48")));
+        System.out.println((int) Math.round(Double.parseDouble("3.58")));
     }
 }
