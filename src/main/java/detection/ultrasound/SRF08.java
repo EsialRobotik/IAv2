@@ -11,7 +11,7 @@ import org.apache.logging.log4j.Logger;
  * Télémètre ultrason SRF08 analogique
  * @see <a href="https://www.mil.ufl.edu/projects/koolio/Koolio/Datasheets/SRF08%20Ultra%20sonic%20range%20finder.htm">Documentation</a>
  */
-public class SRF08 implements UltraSoundInterface {
+public class SRF08 implements SRFInterface {
 
     private I2C i2cDevice;
     private Logger logger;

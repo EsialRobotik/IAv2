@@ -1,16 +1,16 @@
 package manager;
 
 import asserv.Position;
-import detection.DetectionInterface;
+import detection.SrfDetectionNetworkInterface;
 
 /**
  * Created by icule on 12/05/17.
  */
 public class DetectionManager {
     private UltraSoundManager ultraSoundManager;
-    private DetectionInterface detectionInterface;
+    private SrfDetectionNetworkInterface detectionInterface;
     
-    public DetectionManager(DetectionInterface detectionInterface, UltraSoundManager ultraSoundManager) {
+    public DetectionManager(SrfDetectionNetworkInterface detectionInterface, UltraSoundManager ultraSoundManager) {
         this.ultraSoundManager = ultraSoundManager;
         this.detectionInterface = detectionInterface;
     }

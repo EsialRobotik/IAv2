@@ -12,7 +12,7 @@ import java.util.concurrent.locks.LockSupport;
  * Télémètre ultrason SRF04 analogique
  * @see <a href="https://www.robot-electronics.co.uk/htm/srf04tech.htm">Documentation</a>
  */
-public class SRF04 implements UltraSoundInterface {
+public class SRF04 implements SRFInterface {
 
     private static long TIMEOUT = 3; // If no change after 3ms, there is nothing below 1m
 

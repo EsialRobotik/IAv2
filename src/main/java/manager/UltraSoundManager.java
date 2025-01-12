@@ -3,7 +3,7 @@ package manager;
 
 import api.log.LoggerFactory;
 import asserv.Position;
-import detection.DetectionInterface;
+import detection.SrfDetectionNetworkInterface;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Logger;
 import pathfinding.table.Point;
@@ -15,7 +15,7 @@ import java.util.HashMap;
  * Created by icule on 12/05/17.
  */
 public class UltraSoundManager {
-    private DetectionInterface detectionInterface;
+    private SrfDetectionNetworkInterface detectionInterface;
     private Logger logger;
     private int windowSize;
 
@@ -35,7 +35,7 @@ public class UltraSoundManager {
 
     private HashMap<String, Integer> thresholdMap;
 
-    public UltraSoundManager(DetectionInterface detectionInterface, int windowSize, Table table, MovementManager movementManager) {
+    public UltraSoundManager(SrfDetectionNetworkInterface detectionInterface, int windowSize, Table table, MovementManager movementManager) {
         this.windowSize = windowSize;
         this.detection = new boolean[detectionInterface.getUltraSoundSensorCount()][windowSize];
         this.detectionPosition = new Position[detectionInterface.getUltraSoundSensorCount()];

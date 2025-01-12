@@ -22,8 +22,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import detection.DetectionInterface;
-import detection.DetectionInterfaceImpl;
+import detection.SrfDetectionNetwork;
+import detection.SrfDetectionNetworkInterface;
 import gnu.io.SerialPort;
 import org.apache.logging.log4j.Logger;
 import pathfinding.PathFinding;
@@ -137,7 +137,7 @@ public class ConfigurationManager {
             logger.info("LoadConfiguration : Detection HW");
             configObject = configRootNode.get("detection").getAsJsonObject();
 
-            DetectionInterface detectionInterface = new DetectionInterfaceImpl(configObject.getAsJsonObject("ultrasound"));
+            SrfDetectionNetworkInterface detectionInterface = new SrfDetectionNetwork(configObject.getAsJsonObject("ultrasound"));
             int windowSize = configObject.getAsJsonObject("ultrasound").get("windowSize").getAsInt();
             ultraSoundManager = new UltraSoundManager(detectionInterface, windowSize, table, movementManager);
             detectionManager = new DetectionManager(detectionInterface, ultraSoundManager);

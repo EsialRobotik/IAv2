@@ -7,7 +7,7 @@ import com.google.gson.JsonObject;
 import detection.ultrasound.SRF04;
 import detection.ultrasound.SRF08;
 import detection.ultrasound.SRF08Config;
-import detection.ultrasound.UltraSoundInterface;
+import detection.ultrasound.SRFInterface;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,11 +15,11 @@ import java.util.List;
 /**
  * Created by icule on 12/05/17.
  */
-public class DetectionInterfaceImpl implements DetectionInterface {
+public class SrfDetectionNetwork implements SrfDetectionNetworkInterface {
 
-    private List<UltraSoundInterface> srfList;
+    private List<SRFInterface> srfList;
 
-    public DetectionInterfaceImpl(JsonObject ultrasoundObject) {
+    public SrfDetectionNetwork(JsonObject ultrasoundObject) {
         srfList = new ArrayList<>();
         if (ultrasoundObject.get("type").getAsString().equals("srf04")) {
             JsonArray gpioPairArray = ultrasoundObject.getAsJsonArray("gpioList");
@@ -55,22 +55,22 @@ public class DetectionInterfaceImpl implements DetectionInterface {
     }
 
     @Override
-    public UltraSoundInterface getUltrasoundFrontLeft() {
+    public SRFInterface getUltrasoundFrontLeft() {
         return this.srfList.get(0);
     }
 
     @Override
-    public UltraSoundInterface getUltrasoundFront() {
+    public SRFInterface getUltrasoundFront() {
         return this.srfList.get(1);
     }
 
     @Override
-    public UltraSoundInterface getUltrasoundFrontRight() {
+    public SRFInterface getUltrasoundFrontRight() {
         return this.srfList.get(srfList.size() == 4 ? 2 : 1);
     }
 
     @Override
-    public UltraSoundInterface getUltrasoundBack() {
+    public SRFInterface getUltrasoundBack() {
         return this.srfList.get(srfList.size() == 4 ? 3 : 2);
     }
 
