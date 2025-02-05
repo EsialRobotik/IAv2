@@ -52,11 +52,10 @@ public class Lidar {
 
         logger.info("Initialisation de la liason série du lidar, port =  " + serialPort + ", baudRate = " + baudRate.getValue());
         lidarSerial = new Serial(serialPort, baudRate);
-        this.init(30, 1000);
+        this.init(0, 1000, 200);
         lidarSerial.addReaderListeners((SerialDataEventListener) serialDataEvent -> {
             try {
                 String serialBuffer = serialDataEvent.getAsciiString();
-                logger.trace("Lidar result : " + serialBuffer);
                 parseLidarMeasures(serialBuffer);
             } catch (IOException e) {
                 logger.error("Echec du parsing de la position : " + e.getMessage());
@@ -74,11 +73,10 @@ public class Lidar {
 
         this.logger.info("Initialisation de la liason série du lidar, port =  " + serialPort + ", baudRate = " + baudRate.getValue());
         this.lidarSerial = new Serial(serialPort, baudRate);
-        this.init(config.get("quality").getAsInt(), config.get("distance").getAsInt());
+        this.init(config.get("quality").getAsInt(), config.get("distance").getAsInt(), config.get("period").getAsInt());
         this.lidarSerial.addReaderListeners((SerialDataEventListener) serialDataEvent -> {
             try {
                 String serialBuffer = serialDataEvent.getAsciiString();
-                logger.trace("Lidar result : " + serialBuffer);
                 parseLidarMeasures(serialBuffer);
             } catch (IOException e) {
                 this.logger.error("Echec du parsing de la position : " + e.getMessage());
@@ -93,12 +91,13 @@ public class Lidar {
      * @param quality Minimal quality level
      * @param distance Maximal distance
      */
-    private void init(int quality, int distance) {
+    private void init(int quality, int distance, int period) {
         this.reset();
         this.setCoordinateMode(Coordinate.CARTESIAN);
         this.setMode(Mode.CLUSTERING_ONE_LINE);
         this.setQuality(quality);
         this.setDistance(distance);
+        this.setPeriod(period);
         this.startScan();
     }
 
@@ -136,6 +135,8 @@ public class Lidar {
                     double angle = asserv.getPosition().getTheta();
                     double rotatedX = relativeX * Math.cos(angle) + relativeY * Math.sin(angle);
                     double rotatedY = -relativeX * Math.sin(angle) + relativeY * Math.cos(angle);
+
+                    logger.debug("Position : " + asserv.getPosition());
 
                     // Ajouter le point à la liste des points détectés
                     detectedPoints.add(new Point(
@@ -182,6 +183,13 @@ public class Lidar {
         } else if (mode.equals(Mode.CLUSTERING_ONE_LINE)) {
             lidarSerial.write("mo");
         }
+    }
+
+    /**
+     * Set scanning period
+     */
+    public void setPeriod(int period) {
+        lidarSerial.write("p" + period);
     }
 
     /**

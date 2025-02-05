@@ -682,13 +682,13 @@ public class Main {
         configurationManager.loadConfiguration(configFilePath, ConfigurationManager.CONFIG_TEST_DETECTION);
         DetectionManager detectionManager = configurationManager.getDetectionManager();
 
-        //Position position = configurationManager.getAsserv().getPosition();
+        Position position = configurationManager.getAsserv().getPosition();
         //position.setX(1000);
         //position.setY(500);
-        //position.setTheta(Math.PI/2);
+        position.setTheta(Math.PI/2);
 
         while (true) {
-            Thread.sleep(500);
+            Thread.sleep(200);
             logger.info("Lidar data : " + detectionManager.getLongRangeDetection());
         }
     }
